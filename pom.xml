@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.strongsalt.strongdoc.sdk</groupId>
   <artifactId>strongDocSdk</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -34,6 +32,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <connection>scm:git:git://github.com/overnest/strongdoc-java-sdk.git</connection>
     <developerConnection>scm:git:ssh://github.com:overnest/strongdoc-java-sdk.git</developerConnection>
     <url>http://github.com/overnest/strongdoc-java-sdk/tree/master</url>
+    <tag>RC</tag>
   </scm>
 
   <!-- We are deploying to Sonatype, so enter Sonatype Distribution Stuff Here -->
@@ -134,7 +133,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </goals>
             <configuration>
               <rules>
-                <requireUpperBoundDeps/>
+                <requireUpperBoundDeps />
               </rules>
             </configuration>
           </execution>
@@ -177,18 +176,30 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </goals>
           </execution>
         </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>1.6.8</version>
-          <extensions>true</extensions>
-          <configuration>
-            <serverId>ossrh</serverId>
-            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-          </configuration>
-        </plugin>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>3.0.0-M1</version>
+        <configuration>
+          <tag>RC</tag>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <checkModificationExcludes>
+            <checkModificationExclude>pom.xml</checkModificationExclude>
+          </checkModificationExcludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
