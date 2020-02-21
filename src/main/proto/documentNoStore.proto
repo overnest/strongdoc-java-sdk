@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+//option java_multiple_files = true;
+//option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.proto";
+option java_outer_classname = "DocumentsNoStore";
+option java_generic_services = true;
+
+package proto;
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+
+message EncryptDocStreamReq {
+    oneof NameOrData {
+        // The name of the document to encrypt.
+        string docName = 1;
+        // The data of the document to encrypt.
+        bytes plaintext = 2;
+    }
+}
+
+message EncryptDocStreamResp {
+    // The ID of the encrypted document.
+    string docID = 1;
+    // The encrypted data of the document.
+    bytes ciphertext = 2;
+}
+
+message DecryptDocStreamReq {
+    oneof IdOrData {
+        // The ID of the document to decrypt.
+        string docID = 1;
+        // The data of the document to decrypt.
+        bytes ciphertext = 2;
+    }
+}
+
+message DecryptDocStreamResp {
+    // The ID of the decrypted document.
+    string docID = 1;
+    // The decrypted data of the document.
+    bytes plaintext = 2;
+}
+
+message EncryptDocReq {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "EncryptDocReq"
+        }
+        example: { 
+            value: '{"docName": "bribeamount.pdf", "plaintext": "I paid 1M to Volodymyr"}'
+        }
+    };
+
+    // The name of the document to encrypt.
+    string docName = 1;
+    // The data of the document to encrypt.
+    string plaintext = 2;
+}
+
+message EncryptDocResp {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "EncryptDocResp"
+        }
+        example: { 
+            value: '{"docID": "bribeamount_ID.pdf", "ciphertext": "very encrypted stuff"}'
+        }
+    };
+
+    // The ID of the encrypted document.
+    string docID = 1;
+    // The encrypted data of the document.
+    string ciphertext = 2;
+}
+
+message DecryptDocReq {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DecryptDocReq"
+        }
+        example: { 
+            value: '{"docID": "bribeamount_ID.pdf", "ciphertext": "very encrypted stuff"}'
+        }
+    };
+
+    // The ID of the document to decrypt.
+    string docID = 1;
+    // The data of the document to decrypt.
+    string ciphertext = 2;
+}
+
+message DecryptDocResp {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DecryptDocResp"
+        }
+        example: { 
+            value: '{"docID": "bribeamount_ID.pdf", "plaintext": "I paid 1M to Volodymyr"}'
+        }
+    };
+
+    // The ID of the decrypted document.
+    string docID = 1;
+    // The decrypted data of the document.
+    string plaintext = 2;
+}

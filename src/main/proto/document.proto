@@ -1,0 +1,242 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+//option java_multiple_files = true;
+//option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.proto";
+option java_outer_classname = "Documents";
+option java_generic_services = true;
+
+package proto;
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+
+message UploadDocStreamReq {
+  oneof NameOrData {
+    // The name of the document to upload.
+    string docName = 1;
+    // The data of the document to upload.
+    bytes plaintext = 2;
+  }
+}
+
+message UploadDocStreamResp {
+  // The ID of the newly uploaded document.
+  string docID = 1;
+  // The number of bytes uploaded and stored.
+  int64 bytes = 2;
+}
+
+message DownloadDocStreamReq {
+  // The ID of the document to download.
+  string docID = 1;
+}
+
+message DownloadDocStreamResp {
+  // The ID of the document downloaded.
+  string docID = 1;
+  // The decrypted data of the document.
+  bytes plaintext = 2;
+}
+
+message UploadDocReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "UploadDocReq"
+    }
+    example: { 
+        value: '{"docName": "bribeamount", "plaintext": "I paid 1M to Volodymyr"}'
+    }
+  };
+
+  // The name of the document to upload.
+  string docName = 1;
+  // The data of the document to upload.
+  string plaintext = 2;
+}
+
+message UploadDocResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "UploadDocResp"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID"}'
+    }
+  };
+
+  // The ID of the document uploaded.
+  string docID = 1;
+}
+
+message DownloadDocReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "DownloadDocReq"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID"}'
+    }
+  };
+
+  // The ID of the document to download.
+  string docID = 1;
+}
+
+message DownloadDocResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "DownloadDocReq"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID", "plaintext": "I paid 1M to Volodymyr"}'
+    }
+  };
+
+  // The ID of the document downloaded.
+  string docID = 1;
+  // The decrypted data of the downloaded document.
+  string plaintext = 2;
+}
+
+message ShareDocumentRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "ShareDocumentRequest"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID", "userID": "FBI"}'
+    }
+  };
+
+  // The ID of the document to share.
+  string docID = 1;
+  // The user ID to share it to.
+  string userID = 2;
+}
+  
+message ShareDocumentResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "ShareDocumentResponse"
+    }
+    example: { 
+        value: '{"success": true}'
+    }
+  };
+
+  // Whether the share was successful.
+  bool success = 1;
+}
+  
+message UnshareDocumentRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "UnshareDocumentRequest"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID", "userID": "Fox News"}'
+    }
+  };
+
+  // The ID of the document to unshare.
+  string docID = 1;
+  // The user ID to share it unshare.
+  string userID = 2;
+}
+  
+message UnshareDocumentResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "UnshareDocumentResponse"
+    }
+    example: { 
+        value: '{"count": 1}'
+    }
+  };
+  
+  // The unshared document count.
+  int64 count = 1;
+}
+  
+message GetDocumentsSizeRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "GetDocumentsSizeRequest"
+    }
+  };
+}
+  
+message GetDocumentsSizeResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "GetDocumentsSizeResponse"
+    }
+    example: { 
+        value: '{"size": 1}'
+    }
+  };
+
+  // The size of the documents stored.
+  uint64 size = 1;
+}
+
+message ListDocumentsRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "ListDocumentsRequest"
+    }
+  };
+}
+
+message ListDocumentsResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "ListDocumentsResponse"
+    }
+    example: { 
+        value: '{"documents": [{"docID": "bribeamount_ID", "docName": "bribeamount.pdf", "size": 561}]}'
+    }
+  };
+
+  message Document {
+    // The document ID.
+    string docID = 1;
+    // The document name.
+    string docName = 2;
+    // The document size.
+    uint64 size = 3;
+  }
+
+  // The list of documents.
+  repeated Document documents = 1;
+}
+
+message RemoveDocumentRequest{
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "RemoveDocumentRequest"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID"}'
+    }
+  };
+
+  // The ID of the document to remove.  
+  string docID = 1;
+}
+  
+message RemoveDocumentResponse{
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "RemoveDocumentResponse"
+    }
+    example: { 
+        value: '{"status": true}'
+    }
+  };
+
+  // Whether the document removal was successful.
+  bool status = 1;
+}

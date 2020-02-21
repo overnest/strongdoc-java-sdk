@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+//option java_multiple_files = true;
+//option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.proto";
+option java_outer_classname = "Search";
+option java_generic_services = true;
+
+package proto;
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+message SearchRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "SearchRequest"
+        }
+        example: { 
+            value: '{"query": "ukraine documents"}'
+        }
+    };
+
+    // The search query.
+    string query = 1;
+}
+
+message SearchResponse {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "SearchResponse"
+        }
+        example: { 
+            value: '{"hits": [{"docID": "biden_investigation", "score": 100}]}'
+        }
+    };
+
+    // The search hits.
+    repeated DocumentResult hits = 1;
+}
+
+message DocumentResult {
+    // The document ID that contains the query terms.
+    string docID = 1;
+    // The score of the search result.
+    double score = 2;
+}
+
+message GetIndexSizeRequest{
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetIndexSizeRequest"
+        }
+    };
+}
+
+message GetIndexSizeResponse{
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetIndexSizeResponse"
+        }
+        example: { 
+            value: '{"size": 100000}'
+        }
+    };
+
+    // The size of the index.
+    int64 size = 1;
+}

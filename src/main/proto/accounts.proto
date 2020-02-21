@@ -1,0 +1,379 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+//option java_multiple_files = true;
+//option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.proto";
+option java_outer_classname = "Account";
+option java_generic_services = true;
+
+package proto;
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+message RegisterOrganizationRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RegisterOrganizationRequest"
+    }
+    example: { 
+      value: '{"orgName": "WhiteHouse", "orgAddr": "1600 Pennsylvania Ave NW, Washington, DC 20500", "userName": "Donald Trump", "password": "ukrainismyfriend", "email": "donald.trump@whitehouse.gov", "sharableOrgs": ["cnn", "fbi", "democrats"], "multiLevelShare": true, "source": "", "sourceData": "{\\"registrationToken\\": \\"abcd1234\\"}"}'
+    }
+  };
+
+  // The name of the organization. This value has to be unique.
+  string orgName = 1;
+  // The address of the organization. This is optional.
+  string orgAddr = 2;
+  // The administrator username. If the administrator does not exist, 
+  // it will be created.
+  string userName = 3;
+  // The administrator password.
+  string password = 4;
+  // The administrator email. This serves as the unique ID of 
+  // the administrator user.
+  string email = 5;
+  // The list of sharable organization IDs. The users in this 
+  // organization can only share documents to other users in
+  // the organizations in the sharableOrgs list.
+  repeated string sharableOrgs = 6;
+  // Enables the ability to "reshare" a document that was shared
+  // to him/her to another user.
+  bool multiLevelShare = 7;
+  // How was the organization registered (e.g. from "AWS Marketplace")
+  string source = 8;
+  // Any data related to registration from the source (in JSON)
+  string sourceData = 9;
+}
+
+message RegisterOrganizationResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RegisterOrganizationResponse"
+    }
+    example: { 
+      value: '{"orgID": "WhiteHouse", "userID": "donald.trump@whitehouse.gov"}'
+    }
+  };
+
+  // The ID of the created organization. This is the unique ID to 
+  // use on future operation with the organization.
+  string orgID = 1;
+  // The newly created unique administrator user ID.
+  string userID = 2;
+}
+
+message RegisterUserRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RegisterUserRequest"
+    }
+    example: { 
+      value: '{"userName": "Mike Pence", "password": "donaldismyfriend", "email": "mike.pence@whitehouse.gov", "admin": "false"}'
+    }
+  };
+
+  // The new username. If the user does not exist, it will be created.
+  string userName = 1;
+  // The user password.
+  string password = 2;
+  // The user email. This serves as the unique ID of the user.
+  string email = 3;
+  // Whether this new user is an administrator of the organization.
+  bool admin = 4;
+}
+
+message RegisterUserResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RegisterUserResponse"
+    }
+    example: { 
+      value: '{"userID": "mike.pence@whitehouse.gov"}'
+    }
+  };
+
+  // The newly added unique user ID. 
+  string userID = 1;
+}
+
+message RemoveUserRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemoveUserRequest"
+    }
+    example: { 
+      value: '{"userID": "donal.trump@whitehouse.gov"}'
+    }
+  };
+
+  // The ID of the user to remove.
+  string userID = 1;
+}
+
+message RemoveUserResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemoveUserResponse"
+    }
+    example: { 
+      value: '{"count": 1}'
+    }
+  };
+
+  // The count of the number of users removed
+  int64 count = 1;
+}
+
+message PromoteUserRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PromoteUserRequest"
+    }
+    example: { 
+      value: '{"userID": "donald.duck@whitehouse.gov"}'
+    }
+  };
+
+  // The ID of the user to promote.
+  string userID = 1;
+}
+
+message PromoteUserResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PromoteUserRequest"
+    }
+    example: { 
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the promotion was successful.
+  bool success = 1;
+}
+
+message DemoteUserRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "DemoteUserRequest"
+    }
+    example: { 
+      value: '{"userID": "donald.trump@whitehouse.gov"}'
+    }
+  };
+
+  // The ID of the user to demote.
+  string userID = 1;
+}
+
+message DemoteUserResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "DemoteUserResponse"
+    }
+    example: { 
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the demotion was successful.
+  bool success = 1;
+}
+
+message LoginRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "LoginRequest"
+    }
+    example: { 
+      value: '{"userID": "donald.trump@whitehouse.gov", "password": "makeamericagreatagain", "orgID": "WhiteHouse"}'
+    }
+  };
+
+  // The ID of the user to login as.
+  string userID = 1;
+  // The password of the user.
+  string password = 2;
+  // The ID of the organization.
+  string orgID = 3;
+}
+
+message LoginResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "LoginResponse"
+    }
+    example: { 
+      value: '{"token": "blahblahblah"}'
+    }
+  };
+
+  // The JWT token to be used for all APIs that require authentication.
+  string token = 1;
+}
+
+message LogoutRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "LogoutRequest"
+    }
+  };
+}
+
+message LogoutResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "LogoutResponse"
+    }
+    example: { 
+      value: '{"status": "you OUT"}'
+    }
+  };
+
+  // The logout status.
+  string status = 1;
+}
+
+message ListUsersRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListUsersRequest"
+    }
+  };
+}
+
+message ListUsersResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListUsersResponse"
+    }
+    example: { 
+      value: '{"orgUsers":[{"userName": "Donald Trump", "userID": "donald.trump@whitehouse.gov", "isAdmin": true}]}'
+    }
+  };
+
+  message OrgUser {
+    // The name of the user.
+    string userName = 1;
+    // The ID of the user.
+    string userID = 2;
+    // Whether the user is an administrator.
+    bool isAdmin = 3;
+  }
+
+  // The list of users in the organization.
+  repeated OrgUser orgUsers = 1;
+}
+
+message RemoveOrganizationRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemoveOrganizationRequest"
+    }
+    example: { 
+      value: '{"force": true}'
+    }
+  };
+
+  // Whether to force removal of organization or not.
+  bool force = 1;
+}
+
+message RemoveOrganizationResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemoveOrganizationResponse"
+    }
+    example: { 
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the removal was successful
+  bool success = 1;
+}
+
+message AddSharableOrgRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "AddSharableOrgRequest"
+    }
+    example: { 
+      value: '{"newOrgID": "string"}'
+    }
+  };
+
+  // The ID of the new sharable org.
+  string newOrgID = 1;
+}
+
+message AddSharableOrgResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "AddSharableOrgResponse"
+    }
+    example: { 
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the add was successful
+  bool success = 1;
+}
+
+message RemoveSharableOrgRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemoveSharableOrgRequest"
+    }
+    example: { 
+      value: '{"removeOrgID": "string"}'
+    }
+  };
+
+  // The ID of the sharable org to remove.
+  string removeOrgID = 1;
+}
+
+message RemoveSharableOrgResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemoveSharableOrgResponse"
+    }
+    example: { 
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the removal was successful
+  bool success = 1;
+}
+
+message SetMultiLevelSharingRequest {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetMultiLevelSharingRequest"
+    }
+    example: { 
+      value: '{"enable": true}'
+    }
+  };
+
+  // Whether or not to enable multi-level sharing
+  bool enable = 1;
+}
+
+message  SetMultiLevelSharingResponse {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetMultiLevelSharingResponse"
+    }
+    example: { 
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the update was successful
+  bool success = 1;
+}

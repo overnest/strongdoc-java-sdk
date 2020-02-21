@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+// option java_multiple_files = true;
+// option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.proto";
+option java_outer_classname = "Billing";
+option java_generic_services = true;
+
+package proto;
+
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+message GetBillingDetailsReq {}
+
+message GetBillingDetailsResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetBillingDetailsResp"
+    }
+    example: { 
+      value: '{"periodStart": "2020-02-10T12:30:15.123Z", "periodEnd": "2020-02-29T23:59:59.999Z", "totalCost": 800548.00, "documents": {"cost": 200.50, "size": 1000.4657}, "search": {"cost": 5.00, "size": 20.0}, "traffic": {"cost": 100.50, "incoming": 500.456, "outgoing": 200.564}, "billingFrequency": {"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}}'
+    }
+  };
+  // Start of the requested billing period
+  google.protobuf.Timestamp periodStart = 1;
+  // End of the requested billing period
+  google.protobuf.Timestamp periodEnd = 2;
+  // Total cost incurred during the requested billing period
+  double totalCost = 3;
+  // Usage and cost breakdown for stored documents
+  DocumentCosts documents = 4;
+  // Usage and cost breakdown for stored search indices
+  SearchCosts search = 5;
+  // Usage and cost breakdown for used traffic
+  TrafficCosts traffic = 6;
+  // Billing frequency used during the requested billing period
+  BillingFrequency billingFrequency = 7;
+}
+
+message GetBillingFrequencyListReq {}
+
+message GetBillingFrequencyListResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetBillingFrequencyListResp"
+    }
+    example: { 
+      value: '{"billingFrequencyList": [{"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}]}'
+    }
+  };
+  // List of billing frequencies
+  repeated BillingFrequency billingFrequencyList = 1;
+}
+
+message SetNextBillingFrequencyReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetNextBillingFrequencyReq"
+    }
+    example: { 
+      value: '{"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}'
+    }
+  };
+  // Billing frequency
+  TimeInterval frequency = 1;
+  // When this billing frequency becomes valid
+  google.protobuf.Timestamp validFrom = 2;
+}
+
+message SetNextBillingFrequencyResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetNextBillingFrequencyResp"
+    }
+    example: { 
+      value: '{"nextBillingFrequency": {"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}}'
+    }
+  };
+  // Next billing frequency
+  BillingFrequency nextBillingFrequency = 1;
+}
+
+enum TimeInterval {
+  UNDEFINED = 0; // this is the default value
+  MONTHLY = 1;
+  YEARLY = 2;
+}
+
+message BillingFrequency {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "BillingFrequency"
+    }
+    example: { 
+      value: '{"frequency": "MONTHLY", "validFrom": "2020-03-01T00:00:15.123Z", "validTo": "2020-06-30T23:59:59.999Z"}'
+    }
+  };
+  // Billing frequency
+  TimeInterval frequency = 1;
+  // Start fo billing frequency validity
+  google.protobuf.Timestamp validFrom = 2;
+  // End of billing frequency validity
+  google.protobuf.Timestamp validTo = 3;
+}
+
+message DocumentCosts {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "DocumentsCosts"
+    }
+    example: { 
+      value: '{"cost": 200.50, "size": 1000.4657}'
+    }
+  };
+  // Cost of document storage incurred during a billing period
+  double cost = 1;
+  // Size of documents stored during a billing period (in gigabytehours)
+  double size = 2;
+}
+
+message SearchCosts {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SearchCosts"
+    }
+    example: { 
+      value: '{"cost": 5.00, "size": 20.0}'
+    }
+  };
+  // Cost of search index storage incurred during a billing period
+  double cost = 1;
+  // Size of search indices stored during a billing period (in gigabytehours)
+  double size = 2;
+}
+
+message TrafficCosts {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "TrafficCosts"
+    }
+    example: { 
+      value: '{"cost": 100.50, "incoming": 500.456, "outgoing": 200.564}'
+    }
+  };
+  // Cost of traffic incurred during a billing period
+  double cost = 1;
+  // Size of incomming requests during a billing period (in gigabytes)
+  double incoming = 2;
+  // Size of incomming requests during a billing period (in gigabytes)
+  double outgoing = 3;
+}
