@@ -28,13 +28,28 @@
   </developers>
 
   <!-- Source Control Information, Github Stuff -->
+  <!--
   <scm>
+	<connection>scm:git:git@github.com:tobrien/git-demo.git</connection>
+	<url>scm:git:git@github.com:tobrien/git-demo.git</url>
+	<developerConnection>scm:git:git@github.com:tobrien/git-demo.git</developerConnection>
+  </scm>
+  -->
+  <scm>
+    <!--
+    <url>https://github.com/overnest/strongdoc-java-sdk/tree/master</url>
     <connection>scm:git://github.com/overnest/strongdoc-java-sdk.git</connection>
-    <!-- 
     <developerConnection>scm:git:ssh://github.com:overnest/strongdoc-java-sdk.git</developerConnection>
-    -->
     <developerConnection>scm:git:git@github.com:{organization}/{project}.git</developerConnection>
-    <url>http://github.com/overnest/strongdoc-java-sdk/tree/master</url>
+    -->
+    <!--
+    <url>https://github.com/overnest/strongdoc-java-sdk/tree/master</url>
+		<connection>scm:git:git://github.com/lamplus/trongdoc-java-sdk.git</connection>
+		<developerConnection>scm:git:git@github.com:lamplus/trongdoc-java-sdk.git</developerConnection>
+    -->
+    <connection>scm:git:https://github.com:overnest/strongdoc-java-sdk.git</connection>
+    <developerConnection>scm:git:https://github.com:overnest/strongdoc-java-sdk.git</developerConnection>
+    <url>https://github.com/overnest/strongdoc-java-sdk/tree/master</url>
     <tag>RC</tag>
   </scm>
 
