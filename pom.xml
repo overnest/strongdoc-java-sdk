@@ -29,7 +29,7 @@
 
   <!-- Source Control Information, Github Stuff -->
   <scm>
-    <connection>scm:git:git://github.com/overnest/strongdoc-java-sdk.git</connection>
+    <connection>scm:git://github.com/overnest/strongdoc-java-sdk.git</connection>
     <!-- 
     <developerConnection>scm:git:ssh://github.com:overnest/strongdoc-java-sdk.git</developerConnection>
     -->
