@@ -48,7 +48,7 @@
 		<developerConnection>scm:git:git@github.com:lamplus/trongdoc-java-sdk.git</developerConnection>
     -->
     <connection>scm:git:https://github.com/overnest/strongdoc-java-sdk.git</connection>
-    <developerConnection>scm:git:https://github.com:overnest/strongdoc-java-sdk.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/overnest/strongdoc-java-sdk.git</developerConnection>
     <url>https://github.com/overnest/strongdoc-java-sdk/tree/master</url>
     <tag>RC</tag>
   </scm>
