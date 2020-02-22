@@ -213,6 +213,8 @@
         <configuration>
           <tag>RC</tag>
           <autoVersionSubmodules>true</autoVersionSubmodules>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+          <releaseProfiles>release</releaseProfiles>
           <checkModificationExcludes>
             <checkModificationExclude>pom.xml</checkModificationExclude>
           </checkModificationExcludes>
