@@ -3,7 +3,7 @@ syntax = "proto3";
 // This section is specific for Java language
 // option java_multiple_files = true;
 // option objc_class_prefix = "SD";
-option java_package = "com.strongsalt.strongdoc.proto";
+option java_package = "com.strongsalt.strongdoc.sdk.proto";
 option java_outer_classname = "Billing";
 option java_generic_services = true;
 
