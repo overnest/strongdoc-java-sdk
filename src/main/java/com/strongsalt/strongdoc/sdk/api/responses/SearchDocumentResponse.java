@@ -17,6 +17,7 @@ public class SearchDocumentResponse {
 
     /**
      * Constructs a SearchDocumentResponse
+     *
      * @param hitsList The hit list of the search query
      */
     public SearchDocumentResponse(final List hitsList) {
@@ -25,6 +26,7 @@ public class SearchDocumentResponse {
 
     /**
      * Returns the search results
+     *
      * @return The hit list of the search query
      */
     public List getHitsList() {

@@ -4,25 +4,32 @@
 
 package com.strongsalt.strongdoc.sdk.api;
 
+import com.google.common.io.ByteStreams;
 import com.google.protobuf.ByteString;
+import com.strongsalt.strongdoc.sdk.api.responses.DocumentInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
 import com.strongsalt.strongdoc.sdk.client.JwtCallCredential;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.proto.Documents;
 import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore;
-
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
+
 
 /**
  * This class can be used to perform actions that are related to documents.
  */
 public class StrongDocDocument {
+    /**
+     * The chunk size
+     */
+    private static final int BLOCK_SIZE = 1024 * 1024; // 1 MB
     /**
      * The document ID for the streamed document
      */
@@ -34,6 +41,7 @@ public class StrongDocDocument {
 
     /**
      * Set the document ID for the streamed document
+     *
      * @param docID The document ID of the streamed document
      */
     protected void setStreamedDocumentId(final String docID) {
@@ -42,6 +50,7 @@ public class StrongDocDocument {
 
     /**
      * Get the document ID for the streamed document
+     *
      * @return The document ID of the streamed document
      */
     protected String getStreamedDocumentId() {
@@ -50,6 +59,7 @@ public class StrongDocDocument {
 
     /**
      * Set the total number of bytes streamed
+     *
      * @param size The total number of bytes streamed
      */
     protected void setUploadedDocumentSize(final int size) {
@@ -65,48 +75,23 @@ public class StrongDocDocument {
         return uploadedDocumentSize;
     }
 
-    /**
-     * Removes a document from the service.
-     * @param client The StrongDoc client used to call this API.
-     * @param token  The user JWT token.
-     * @param docID  The ID of the document.
-     * @return Whether the removal was a success
-     * @throws StatusRuntimeException on gRPC errors
-     * @see StatusRuntimeException io.grpc
-     */
-    public Boolean removeDocument(final StrongDocServiceClient client,
-                                  final String token,
-                                  final String docID)
-            throws StatusRuntimeException {
-
-        final Documents.RemoveDocumentRequest req = Documents.RemoveDocumentRequest.newBuilder()
-                .setDocID(docID)
-                .build();
-
-        final Documents.RemoveDocumentResponse res = client.getBlockingStub()
-                .withCallCredentials(JwtCallCredential.getCallCredential(token)).removeDocument(req);
-        return res.getStatus();
-    }
+    // ---------------------------------- UploadDocumentStream ----------------------------------
 
     /**
-     * Uploads a document to the service for storage.
-     * @param client       The StrongDoc client used to call this API.
-     * @param token        The user JWT token.
-     * @param documentPath The local full file path and name of the document.
+     * Uploads a document to Strongdoc provided storage.
+     *
+     * @param client     The StrongDoc client used to call this API.
+     * @param token      The user JWT token.
+     * @param docName    The name of the document.
+     * @param dataStream The stream where the uploaded document will be read from.
      * @return The upload response.
      * @throws InterruptedException on the thread is interrupted
-     * @throws FileNotFoundException when the specified document doesn't exist
      */
-    public UploadDocumentResponse uploadDocument(final StrongDocServiceClient client,
-                                                 final String token,
-                                                 final String documentPath)
-            throws InterruptedException, FileNotFoundException {
-
-        InputStream inputStream = new FileInputStream(documentPath);
-        if (inputStream == null) {
-            final String errorMsg = String.format("File %s does not exist", documentPath);
-            throw new FileNotFoundException(errorMsg);
-        }
+    public UploadDocumentResponse uploadDocumentStream(final StrongDocServiceClient client,
+                                                       final String token,
+                                                       final String docName,
+                                                       final InputStream dataStream)
+            throws InterruptedException {
 
         final CountDownLatch finishLatch = new CountDownLatch(1);
         final StreamObserver<Documents.UploadDocStreamResp> responseObserver =
@@ -140,21 +125,22 @@ public class StrongDocDocument {
 
         try {
             Documents.UploadDocStreamReq req = Documents.UploadDocStreamReq.newBuilder()
-                    .setDocName(new File(documentPath).getName()).build();
+                    .setDocName(docName).build();
             requestObserver.onNext(req);
 
-            final int bufferSize = 10000;
+            final int bufferSize = BLOCK_SIZE;
             final byte[] buffer = new byte[bufferSize];
             int read = 0;
             int size = 0;
-            while ((read = inputStream.read(buffer)) > 0) {
+            while ((read = dataStream.read(buffer)) > 0) {
                 size += read;
+//              System.out.printf("Uploaded %d bytes, total %d bytes uploaded.\n", read, size);
                 final ByteString byteString = ByteString.copyFrom(buffer, 0, read);
                 req = Documents.UploadDocStreamReq.newBuilder().setPlaintext(byteString).build();
                 requestObserver.onNext(req);
             }
             setUploadedDocumentSize(size);
-            inputStream.close();
+            dataStream.close();
         } catch (final FileNotFoundException e) {
             e.printStackTrace();
         } catch (final IOException e) {
@@ -173,20 +159,23 @@ public class StrongDocDocument {
         return new UploadDocumentResponse(getStreamedDocumentId(), getUploadedDocumentSize());
     }
 
+    // ---------------------------------- DownloadDocumentStream ----------------------------------
+
     /**
-     * Downloads a document from the service.
+     * Downloads any document previously stored on Strongdoc provided storage.
+     *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param docID  The ID of the document.
-     * @return The downloaded document.
+     * @param output The stream to where the downloaded document will be written to.
      * @throws InterruptedException on the thread is interrupted
      */
-    public byte[] downloadDocument(final StrongDocServiceClient client,
-                                   final String token,
-                                   final String docID)
+    public void downloadDocumentStream(final StrongDocServiceClient client,
+                                       final String token,
+                                       final String docID,
+                                       final ByteArrayOutputStream output)
             throws InterruptedException {
 
-        final ByteArrayOutputStream os = new ByteArrayOutputStream();
         final CountDownLatch finishLatch = new CountDownLatch(1);
 
         final StreamObserver<Documents.DownloadDocStreamResp> responseObserver =
@@ -195,9 +184,10 @@ public class StrongDocDocument {
                     @Override
                     public void onNext(final Documents.DownloadDocStreamResp value) {
                         final ByteString downloadedBytes = value.getPlaintext();
+//                      System.out.printf("Downloaded %d bytes\n", downloadedBytes.size());
                         if (!downloadedBytes.isEmpty()) {
                             try {
-                                downloadedBytes.writeTo(os);
+                                downloadedBytes.writeTo(output);
                             } catch (final IOException e) {
                                 e.printStackTrace();
                             }
@@ -214,7 +204,10 @@ public class StrongDocDocument {
                     public void onCompleted() {
                         finishLatch.countDown();
                         try {
-                            os.close();
+                            // Close is not needed since it has no effect.
+                            // The methods in this class can be called after the stream has been closed.
+                            // But, close it anyway.
+                            output.close();
                         } catch (final IOException e) {
                             e.printStackTrace();
                         }
@@ -235,23 +228,181 @@ public class StrongDocDocument {
         // Use await(10, TimeUnit.MINUTES)
         finishLatch.await();
 
+        // The downloaded document has been written to the passed-in stream already
+    }
+
+    // ---------------------------------- UploadDocument ----------------------------------
+
+    /**
+     * Uploads a document to Strongdoc provided storage.
+     *
+     * @param client    The StrongDoc client used to call this API.
+     * @param token     The user JWT token.
+     * @param docName   The name of the document to upload.
+     * @param plaintext The data of the document to upload.
+     * @return The ID of the document uploaded.
+     * @throws InterruptedException
+     */
+    public String uploadDocument(final StrongDocServiceClient client,
+                                 final String token,
+                                 final String docName,
+                                 final byte[] plaintext)
+            throws InterruptedException {
+
+        InputStream inputStream = new ByteArrayInputStream(plaintext);
+        UploadDocumentResponse response = uploadDocumentStream(client, token, docName, inputStream);
+        return response.getDocID();
+    }
+
+    // ---------------------------------- DownloadDocument ----------------------------------
+
+    /**
+     * Downloads a document stored in Strongdoc provided storage.
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param docID  The ID of the document to download.
+     * @return The decrypted data of the downloaded document.
+     * @throws InterruptedException
+     */
+    public byte[] downloadDocument(final StrongDocServiceClient client,
+                                   final String token,
+                                   final String docID)
+            throws InterruptedException {
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        downloadDocumentStream(client, token, docID, os);
         return os.toByteArray();
     }
 
+    // ---------------------------------- ShareDocument ----------------------------------
+
+    /**
+     * Shares a document to another user.
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param docID  The ID of the document to share.
+     * @param userID The user ID to share it to.
+     * @return Whether the operation was successful.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public Boolean shareDocument(final StrongDocServiceClient client,
+                                 final String token,
+                                 final String docID,
+                                 final String userID)
+            throws StatusRuntimeException {
+
+        final Documents.ShareDocumentReq req = Documents.ShareDocumentReq.newBuilder()
+                .setDocID(docID)
+                .setUserID(userID)
+                .build();
+
+        final Documents.ShareDocumentResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).shareDocument(req);
+        return res.getSuccess();
+    }
+
+    // ---------------------------------- UnshareDocument ----------------------------------
+
+    /**
+     * Unshares a document that had previously been shared to a user.
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param docID  The ID of the document to unshare.
+     * @param userID The user ID to unshare it to.
+     * @return The unshared document count.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public long unshareDocument(final StrongDocServiceClient client,
+                                final String token,
+                                final String docID,
+                                final String userID)
+            throws StatusRuntimeException {
+
+        final Documents.UnshareDocumentReq req = Documents.UnshareDocumentReq.newBuilder()
+                .setDocID(docID)
+                .setUserID(userID)
+                .build();
+
+        final Documents.UnshareDocumentResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).unshareDocument(req);
+        return res.getCount();
+    }
+
+    // ---------------------------------- ListDocuments ----------------------------------
+
+    /**
+     * Lists the documents the user can access.
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @return The list of document info.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public ArrayList<DocumentInfo> listDocuments(final StrongDocServiceClient client,
+                                                 final String token)
+            throws StatusRuntimeException {
+
+        final Documents.ListDocumentsReq req = Documents.ListDocumentsReq.newBuilder().build();
+
+        final Documents.ListDocumentsResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).listDocuments(req);
+        final ArrayList<DocumentInfo> docInfoList = new ArrayList<DocumentInfo>();
+        for (Documents.ListDocumentsResp.Document document : res.getDocumentsList()) {
+            docInfoList.add(new DocumentInfo(document.getDocID(), document.getDocName(), document.getSize()));
+        }
+
+        return docInfoList;
+    }
+
+    // ---------------------------------- RemoveDocument ----------------------------------
+
+    /**
+     * Removes a document from the service.
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param docID  The ID of the document.
+     * @return Whether the removal was a success
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public Boolean removeDocument(final StrongDocServiceClient client,
+                                  final String token,
+                                  final String docID)
+            throws StatusRuntimeException {
+
+        final Documents.RemoveDocumentReq req = Documents.RemoveDocumentReq.newBuilder()
+                .setDocID(docID)
+                .build();
+
+        final Documents.RemoveDocumentResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).removeDocument(req);
+        return res.getStatus();
+    }
+
+    // ---------------------------------- EncryptDocumentStream ----------------------------------
+
     /**
      * Encrypts a document using the service, but do not store it.
-     * Instead return the encrypted ciphertext.
-     * @param client    The StrongDoc client used to call this API.
-     * @param token     The user JWT token.
-     * @param docName   The name of the document.
-     * @param plaintext The text of the document.
+     * The encrypted ciphertext will be returned.
+     *
+     * @param client     The StrongDoc client used to call this API.
+     * @param token      The user JWT token.
+     * @param docName    The name of the document.
+     * @param dataStream The stream where the text of the document will be read from.
      * @return The encrypt document response.
      * @throws InterruptedException on the thread is interrupted
      */
-    public EncryptDocumentResponse encryptDocument(final StrongDocServiceClient client,
-                                                   final String token,
-                                                   final String docName,
-                                                   final byte[] plaintext)
+    public EncryptDocumentResponse encryptDocumentStream(final StrongDocServiceClient client,
+                                                         final String token,
+                                                         final String docName,
+                                                         final InputStream dataStream)
             throws InterruptedException {
 
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -304,12 +455,15 @@ public class StrongDocDocument {
                     .setDocName(docName).build();
             requestObserver.onNext(req);
 
+            byte[] plaintext = ByteStreams.toByteArray(dataStream);
             final ByteString byteString = ByteString.copyFrom(plaintext);
             req = DocumentsNoStore.EncryptDocStreamReq.newBuilder().setPlaintext(byteString).build();
             requestObserver.onNext(req);
         } catch (final RuntimeException e) {
             requestObserver.onError(e);
             throw e;
+        } catch (final IOException e) {
+            e.printStackTrace();
         }
 
         requestObserver.onCompleted();
@@ -321,20 +475,23 @@ public class StrongDocDocument {
         return new EncryptDocumentResponse(getStreamedDocumentId(), os.toByteArray());
     }
 
+    // ---------------------------------- DecryptDocumentStream ----------------------------------
+
     /**
      * Decrypts a document using the service.
      * The user must provide the ciphertext returned during the encryptDocument API call.
+     *
      * @param client     The StrongDoc client used to call this API.
      * @param token      The user JWT token.
      * @param docID      The ID of the document.
-     * @param ciphertext The document ciphertext to be decrypted.
+     * @param dataStream The stream where the document ciphertext to be decrypted will be read from.
      * @return The decrypted plaintext content of the document.
      * @throws InterruptedException on the thread is interrupted
      */
-    public byte[] decryptDocument(final StrongDocServiceClient client,
-                                  final String token,
-                                  final String docID,
-                                  final byte[] ciphertext) 
+    public byte[] decryptDocumentStream(final StrongDocServiceClient client,
+                                        final String token,
+                                        final String docID,
+                                        final InputStream dataStream)
             throws InterruptedException {
 
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -380,8 +537,9 @@ public class StrongDocDocument {
                     .setDocID(docID).build();
             requestObserver.onNext(req);
 
+            byte[] ciphertext = ByteStreams.toByteArray(dataStream);
             // Chunk up the ciphertext into smaller blocks
-            int blockSize = 10000;
+            int blockSize = BLOCK_SIZE;
             for (int i = 0; i < ciphertext.length; i += blockSize) {
                 byte[] block;
                 if (i + blockSize < ciphertext.length) {
@@ -396,6 +554,8 @@ public class StrongDocDocument {
         } catch (final RuntimeException e) {
             requestObserver.onError(e);
             throw e;
+        } catch (final IOException e) {
+            e.printStackTrace();
         }
 
         requestObserver.onCompleted();
@@ -405,5 +565,49 @@ public class StrongDocDocument {
         finishLatch.await();
 
         return os.toByteArray();
+    }
+
+    // ---------------------------------- EncryptDocument ----------------------------------
+
+    /**
+     * Encrypts the document.
+     *
+     * @param client    The StrongDoc client used to call this API.
+     * @param token     The user JWT token.
+     * @param docName   The name of the document to encrypt.
+     * @param plaintext The data of the document to encrypt.
+     * @return The encrypt document response. The ciphertext isn't being stored.
+     * @throws InterruptedException
+     */
+    public EncryptDocumentResponse encryptDocument(final StrongDocServiceClient client,
+                                                   final String token,
+                                                   final String docName,
+                                                   final byte[] plaintext)
+            throws InterruptedException {
+
+        InputStream in = new ByteArrayInputStream(plaintext);
+        return encryptDocumentStream(client, token, docName, in);
+    }
+
+    // ---------------------------------- DecryptDocument ----------------------------------
+
+    /**
+     * Decrypts the passed in ciphertext.
+     *
+     * @param client     The StrongDoc client used to call this API.
+     * @param token      The user JWT token.
+     * @param docID      The ID of the document to decrypt.
+     * @param ciphertext The data of the document to decrypt.
+     * @return The decrypted plain text in bytes back to the user without storing it.
+     * @throws InterruptedException
+     */
+    public byte[] decryptDocument(final StrongDocServiceClient client,
+                                  final String token,
+                                  final String docID,
+                                  final byte[] ciphertext)
+            throws InterruptedException {
+
+        InputStream in = new ByteArrayInputStream(ciphertext);
+        return decryptDocumentStream(client, token, docID, in);
     }
 }

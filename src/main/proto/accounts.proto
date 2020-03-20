@@ -11,12 +11,12 @@ package proto;
 
 import "protoc-gen-swagger/options/annotations.proto";
 
-message RegisterOrganizationRequest {
+message RegisterOrganizationReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RegisterOrganizationRequest"
+      title: "RegisterOrganizationReq"
     }
-    example: { 
+    example: {
       value: '{"orgName": "WhiteHouse", "orgAddr": "1600 Pennsylvania Ave NW, Washington, DC 20500", "userName": "Donald Trump", "password": "ukrainismyfriend", "email": "donald.trump@whitehouse.gov", "sharableOrgs": ["cnn", "fbi", "democrats"], "multiLevelShare": true, "source": "", "sourceData": "{\\"registrationToken\\": \\"abcd1234\\"}"}'
     }
   };
@@ -25,15 +25,15 @@ message RegisterOrganizationRequest {
   string orgName = 1;
   // The address of the organization. This is optional.
   string orgAddr = 2;
-  // The administrator username. If the administrator does not exist, 
+  // The administrator username. If the administrator does not exist,
   // it will be created.
   string userName = 3;
   // The administrator password.
   string password = 4;
-  // The administrator email. This serves as the unique ID of 
+  // The administrator email. This serves as the unique ID of
   // the administrator user.
   string email = 5;
-  // The list of sharable organization IDs. The users in this 
+  // The list of sharable organization IDs. The users in this
   // organization can only share documents to other users in
   // the organizations in the sharableOrgs list.
   repeated string sharableOrgs = 6;
@@ -46,29 +46,31 @@ message RegisterOrganizationRequest {
   string sourceData = 9;
 }
 
-message RegisterOrganizationResponse {
+message RegisterOrganizationResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RegisterOrganizationResponse"
+      title: "RegisterOrganizationResp"
     }
-    example: { 
+    example: {
       value: '{"orgID": "WhiteHouse", "userID": "donald.trump@whitehouse.gov"}'
     }
   };
 
-  // The ID of the created organization. This is the unique ID to 
+  // The ID of the created organization. This is the unique ID to
   // use on future operation with the organization.
   string orgID = 1;
   // The newly created unique administrator user ID.
   string userID = 2;
+  // Token used for Stripe integration
+  string clientSecret = 3;
 }
 
-message RegisterUserRequest {
+message RegisterUserReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RegisterUserRequest"
+      title: "RegisterUserReq"
     }
-    example: { 
+    example: {
       value: '{"userName": "Mike Pence", "password": "donaldismyfriend", "email": "mike.pence@whitehouse.gov", "admin": "false"}'
     }
   };
@@ -83,26 +85,26 @@ message RegisterUserRequest {
   bool admin = 4;
 }
 
-message RegisterUserResponse {
+message RegisterUserResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RegisterUserResponse"
+      title: "RegisterUserResp"
     }
-    example: { 
+    example: {
       value: '{"userID": "mike.pence@whitehouse.gov"}'
     }
   };
 
-  // The newly added unique user ID. 
+  // The newly added unique user ID.
   string userID = 1;
 }
 
-message RemoveUserRequest {
+message RemoveUserReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RemoveUserRequest"
+      title: "RemoveUserReq"
     }
-    example: { 
+    example: {
       value: '{"userID": "donal.trump@whitehouse.gov"}'
     }
   };
@@ -111,12 +113,12 @@ message RemoveUserRequest {
   string userID = 1;
 }
 
-message RemoveUserResponse {
+message RemoveUserResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RemoveUserResponse"
+      title: "RemoveUserResp"
     }
-    example: { 
+    example: {
       value: '{"count": 1}'
     }
   };
@@ -125,12 +127,12 @@ message RemoveUserResponse {
   int64 count = 1;
 }
 
-message PromoteUserRequest {
+message PromoteUserReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "PromoteUserRequest"
+      title: "PromoteUserReq"
     }
-    example: { 
+    example: {
       value: '{"userID": "donald.duck@whitehouse.gov"}'
     }
   };
@@ -139,12 +141,12 @@ message PromoteUserRequest {
   string userID = 1;
 }
 
-message PromoteUserResponse {
+message PromoteUserResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "PromoteUserRequest"
+      title: "PromoteUserResp"
     }
-    example: { 
+    example: {
       value: '{"success": true}'
     }
   };
@@ -153,12 +155,12 @@ message PromoteUserResponse {
   bool success = 1;
 }
 
-message DemoteUserRequest {
+message DemoteUserReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "DemoteUserRequest"
+      title: "DemoteUserReq"
     }
-    example: { 
+    example: {
       value: '{"userID": "donald.trump@whitehouse.gov"}'
     }
   };
@@ -167,12 +169,12 @@ message DemoteUserRequest {
   string userID = 1;
 }
 
-message DemoteUserResponse {
+message DemoteUserResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "DemoteUserResponse"
+      title: "DemoteUserResp"
     }
-    example: { 
+    example: {
       value: '{"success": true}'
     }
   };
@@ -181,12 +183,12 @@ message DemoteUserResponse {
   bool success = 1;
 }
 
-message LoginRequest {
+message LoginReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "LoginRequest"
+      title: "LoginReq"
     }
-    example: { 
+    example: {
       value: '{"userID": "donald.trump@whitehouse.gov", "password": "makeamericagreatagain", "orgID": "WhiteHouse"}'
     }
   };
@@ -199,12 +201,12 @@ message LoginRequest {
   string orgID = 3;
 }
 
-message LoginResponse {
+message LoginResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "LoginResponse"
+      title: "LoginResp"
     }
-    example: { 
+    example: {
       value: '{"token": "blahblahblah"}'
     }
   };
@@ -213,20 +215,20 @@ message LoginResponse {
   string token = 1;
 }
 
-message LogoutRequest {
+message LogoutReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "LogoutRequest"
+      title: "LogoutReq"
     }
   };
 }
 
-message LogoutResponse {
+message LogoutResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "LogoutResponse"
+      title: "LogoutResp"
     }
-    example: { 
+    example: {
       value: '{"status": "you OUT"}'
     }
   };
@@ -235,20 +237,20 @@ message LogoutResponse {
   string status = 1;
 }
 
-message ListUsersRequest {
+message ListUsersReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "ListUsersRequest"
+      title: "ListUsersReq"
     }
   };
 }
 
-message ListUsersResponse {
+message ListUsersResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "ListUsersResponse"
+      title: "ListUsersResp"
     }
-    example: { 
+    example: {
       value: '{"orgUsers":[{"userName": "Donald Trump", "userID": "donald.trump@whitehouse.gov", "isAdmin": true}]}'
     }
   };
@@ -266,12 +268,12 @@ message ListUsersResponse {
   repeated OrgUser orgUsers = 1;
 }
 
-message RemoveOrganizationRequest {
+message RemoveOrganizationReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RemoveOrganizationRequest"
+      title: "RemoveOrganizationReq"
     }
-    example: { 
+    example: {
       value: '{"force": true}'
     }
   };
@@ -280,12 +282,12 @@ message RemoveOrganizationRequest {
   bool force = 1;
 }
 
-message RemoveOrganizationResponse {
+message RemoveOrganizationResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RemoveOrganizationResponse"
+      title: "RemoveOrganizationResp"
     }
-    example: { 
+    example: {
       value: '{"success": true}'
     }
   };
@@ -294,12 +296,12 @@ message RemoveOrganizationResponse {
   bool success = 1;
 }
 
-message AddSharableOrgRequest {
+message AddSharableOrgReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "AddSharableOrgRequest"
+      title: "AddSharableOrgReq"
     }
-    example: { 
+    example: {
       value: '{"newOrgID": "string"}'
     }
   };
@@ -308,12 +310,12 @@ message AddSharableOrgRequest {
   string newOrgID = 1;
 }
 
-message AddSharableOrgResponse {
+message AddSharableOrgResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "AddSharableOrgResponse"
+      title: "AddSharableOrgResp"
     }
-    example: { 
+    example: {
       value: '{"success": true}'
     }
   };
@@ -322,12 +324,12 @@ message AddSharableOrgResponse {
   bool success = 1;
 }
 
-message RemoveSharableOrgRequest {
+message RemoveSharableOrgReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RemoveSharableOrgRequest"
+      title: "RemoveSharableOrgReq"
     }
-    example: { 
+    example: {
       value: '{"removeOrgID": "string"}'
     }
   };
@@ -336,12 +338,12 @@ message RemoveSharableOrgRequest {
   string removeOrgID = 1;
 }
 
-message RemoveSharableOrgResponse {
+message RemoveSharableOrgResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "RemoveSharableOrgResponse"
+      title: "RemoveSharableOrgResp"
     }
-    example: { 
+    example: {
       value: '{"success": true}'
     }
   };
@@ -350,12 +352,12 @@ message RemoveSharableOrgResponse {
   bool success = 1;
 }
 
-message SetMultiLevelSharingRequest {
+message SetMultiLevelSharingReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "SetMultiLevelSharingRequest"
+      title: "SetMultiLevelSharingReq"
     }
-    example: { 
+    example: {
       value: '{"enable": true}'
     }
   };
@@ -364,16 +366,51 @@ message SetMultiLevelSharingRequest {
   bool enable = 1;
 }
 
-message  SetMultiLevelSharingResponse {
+message  SetMultiLevelSharingResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "SetMultiLevelSharingResponse"
+      title: "SetMultiLevelSharingResp"
     }
-    example: { 
+    example: {
       value: '{"success": true}'
     }
   };
 
   // Whether the update was successful
   bool success = 1;
+}
+
+message Subscription {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Subscription"
+    }
+    example: {
+      value: '{"type":"Credit Card","status":"Subscribed"}'
+    }
+  };
+
+  // TODO: Either return integer codes instead (must be documented) or use enum
+
+  // Subscription type (AWS Marketplace, Credit Card, etc.)
+  string type = 1;
+  // State of the subscription (Created, Subscribed, Unsubscribed, etc.)
+  string status = 2;
+}
+
+message GetAccountInfoReq {
+}
+
+message GetAccountInfoResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetAccountInfoResp"
+    }
+    example: {
+      value: '{"subscription":{"type":"Credit Card","status":"Subscribed"}}'
+    }
+  };
+
+  // Account's subscription info
+  Subscription subscription = 1;
 }

@@ -20,6 +20,7 @@ public class RegisterOrganizationResponse {
 
     /**
      * Constructs a RegisterOrganizationResponse
+     *
      * @param orgID  The organization ID
      * @param userID The user ID
      */
@@ -30,6 +31,7 @@ public class RegisterOrganizationResponse {
 
     /**
      * Returns the organization ID
+     *
      * @return The organization ID
      */
     public String getOrgID() {
@@ -38,6 +40,7 @@ public class RegisterOrganizationResponse {
 
     /**
      * Returns the user ID
+     *
      * @return The user ID
      */
     public String getUserID() {

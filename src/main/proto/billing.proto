@@ -9,10 +9,14 @@ option java_generic_services = true;
 
 package proto;
 
+import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
-message GetBillingDetailsReq {}
+message GetBillingDetailsReq {
+  // Timestamp of the requested billing details
+  google.protobuf.Timestamp at = 1;
+}
 
 message GetBillingDetailsResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
@@ -20,7 +24,7 @@ message GetBillingDetailsResp {
       title: "GetBillingDetailsResp"
     }
     example: { 
-      value: '{"periodStart": "2020-02-10T12:30:15.123Z", "periodEnd": "2020-02-29T23:59:59.999Z", "totalCost": 800548.00, "documents": {"cost": 200.50, "size": 1000.4657}, "search": {"cost": 5.00, "size": 20.0}, "traffic": {"cost": 100.50, "incoming": 500.456, "outgoing": 200.564}, "billingFrequency": {"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}}'
+      value: '{"periodStart": "2020-02-10T12:30:15.123Z", "periodEnd": "2020-03-01T00:00:00Z", "totalCost": 800548.00, "documents": {"cost": 16.08, "size": 148193280, "tier": "Document Storage Mid"}, "search": {"cost": 2.00, "size": 58982400, "tier": "Search Index Storage Low"}, "traffic": {"cost": 0, "incoming": 500.456, "outgoing": 200.564, "tier": "Network Traffic Free"}, "billingFrequency": {"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}}'
     }
   };
   // Start of the requested billing period
@@ -94,7 +98,7 @@ message BillingFrequency {
       title: "BillingFrequency"
     }
     example: { 
-      value: '{"frequency": "MONTHLY", "validFrom": "2020-03-01T00:00:15.123Z", "validTo": "2020-06-30T23:59:59.999Z"}'
+      value: '{"frequency": "MONTHLY", "validFrom": "2020-03-01T00:00:15.123Z", "validTo": "2020-06-01T00:00:00Z"}'
     }
   };
   // Billing frequency
@@ -111,13 +115,15 @@ message DocumentCosts {
       title: "DocumentsCosts"
     }
     example: { 
-      value: '{"cost": 200.50, "size": 1000.4657}'
+      value: '{"cost": 16.08, "size": 148193280, "tier": "Document Storage Mid"}'
     }
   };
   // Cost of document storage incurred during a billing period
   double cost = 1;
-  // Size of documents stored during a billing period (in gigabytehours)
+  // Size of documents stored during a billing period (in MBhours)
   double size = 2;
+  // Cost tier reached for document storage during a billing period
+  string tier = 3;
 }
 
 message SearchCosts {
@@ -126,13 +132,15 @@ message SearchCosts {
       title: "SearchCosts"
     }
     example: { 
-      value: '{"cost": 5.00, "size": 20.0}'
+      value: '{"cost": 2.00, "size": 58982400, "tier": "Search Index Storage Low"}'
     }
   };
   // Cost of search index storage incurred during a billing period
   double cost = 1;
-  // Size of search indices stored during a billing period (in gigabytehours)
+  // Size of search indices stored during a billing period (in MBhours)
   double size = 2;
+  // Cost tier reached for search index storage during a billing period
+  string tier = 3;
 }
 
 message TrafficCosts {
@@ -141,13 +149,51 @@ message TrafficCosts {
       title: "TrafficCosts"
     }
     example: { 
-      value: '{"cost": 100.50, "incoming": 500.456, "outgoing": 200.564}'
+      value: '{"cost": 0, "incoming": 500.456, "outgoing": 200.564, "tier": "Network Traffic Free"}'
     }
   };
-  // Cost of traffic incurred during a billing period
+  // Cost of network traffic incurred during a billing period
   double cost = 1;
-  // Size of incomming requests during a billing period (in gigabytes)
+  // Size of incoming requests during a billing period (in MB)
   double incoming = 2;
-  // Size of incomming requests during a billing period (in gigabytes)
+  // Size of outgoing requests during a billing period (in MB)
   double outgoing = 3;
+  // Cost tier reached for network traffic during a billing period
+  string tier = 4;
+}
+
+message ProcessSubscriptionEventReq {
+  // https://stripe.com/docs/api/events/object
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ProcessSubscriptionEventReq"
+    }
+  };
+
+  message EventData {
+    google.protobuf.Struct object = 1;
+  }
+  message EventReq {
+    string id = 1;
+    string idempotencyKey = 2 [json_name = "idempotency_key"];
+  }
+
+	string id = 1;
+  string account = 2;
+  int32 created = 3;
+  EventData data = 4;
+	bool livemode = 5;
+	int32 pendingWebhooks = 6 [json_name = "pending_webhooks"];
+  EventReq request = 7;
+  string type = 8;
+  string apiVersion = 9 [json_name = "api_version"];
+  string object = 10;
+}
+
+message ProcessSubscriptionEventResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ProcessSubscriptionEventResp"
+    }
+  };
 }

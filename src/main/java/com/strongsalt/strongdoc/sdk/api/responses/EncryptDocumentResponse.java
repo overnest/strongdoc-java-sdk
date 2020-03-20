@@ -21,6 +21,7 @@ public class EncryptDocumentResponse {
 
     /**
      * Constructs a EncryptDocumentResponse
+     *
      * @param docID      The document ID for the encrypted document
      * @param ciphertext The encrypted ciphertext of the document
      */
@@ -31,6 +32,7 @@ public class EncryptDocumentResponse {
 
     /**
      * Returns the encrypted document ID
+     *
      * @return The encrypted document ID
      */
     public String getDocID() {
@@ -39,6 +41,7 @@ public class EncryptDocumentResponse {
 
     /**
      * Returns the encrypted ciphertext of the document
+     *
      * @return The encrypted ciphertext of the document
      */
     public byte[] getCiphertext() {
