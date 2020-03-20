@@ -50,9 +50,9 @@ service StrongDocService {
   // Registers a new organization
   //
   // The user who created the organization is automatically an administrator
-  // 
+  //
   // Does not require Login
-  rpc RegisterOrganization(RegisterOrganizationRequest) returns (RegisterOrganizationResponse) {
+  rpc RegisterOrganization(RegisterOrganizationReq) returns (RegisterOrganizationResp) {
     option (google.api.http) = {
       post: "/v1/account/registerOrganization"
       body: "*"
@@ -64,7 +64,7 @@ service StrongDocService {
   // Requires Administrator privilege. Only an administrator can remove the whole organization
   //
   // Requires Login
-  rpc RemoveOrganization(RemoveOrganizationRequest) returns (RemoveOrganizationResponse) {
+  rpc RemoveOrganization(RemoveOrganizationReq) returns (RemoveOrganizationResp) {
     option (google.api.http) = {
       delete: "/v1/account/removeOrganization/{force}"
     };
@@ -79,12 +79,12 @@ service StrongDocService {
   }
 
   // Register new user
-  // 
+  //
   // Creates new user if it doesn't already exist. If the user already exist, and
   // error is thrown
   //
   // Requires administrator privilege
-  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {
+  rpc RegisterUser(RegisterUserReq) returns (RegisterUserResp) {
     option (google.api.http) = {
       post: "/v1/account/registerUser"
       body: "*"
@@ -99,7 +99,7 @@ service StrongDocService {
     };
   }
 
-  // rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {
+  // rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp) {
   //   option (google.api.http) = {
   //     post: "/v1/account/getuserinfo"
   //     body: "*"
@@ -117,7 +117,7 @@ service StrongDocService {
   // List the users of the organization
   //
   // Requires Login
-  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+  rpc ListUsers(ListUsersReq) returns (ListUsersResp) {
     option (google.api.http) = {
       get: "/v1/account/listUsers"
     };
@@ -133,11 +133,11 @@ service StrongDocService {
 
   // Remove user from organization
   //
-  // Removes the user from the organization. The users documents still exists, 
+  // Removes the user from the organization. The users documents still exists,
   // but belong to the organization, only accessible by organization admin.
   //
   // Requires administrator privilege.
-  rpc RemoveUser(RemoveUserRequest) returns (RemoveUserResponse) {
+  rpc RemoveUser(RemoveUserReq) returns (RemoveUserResp) {
     option (google.api.http) = {
       post: "/v1/account/removeUser"
       body: "*"
@@ -155,7 +155,7 @@ service StrongDocService {
   // Promote a regular user to administrator at the organization
   //
   // Requires administrator privilege.
-  rpc PromoteUser(PromoteUserRequest) returns (PromoteUserResponse) {
+  rpc PromoteUser(PromoteUserReq) returns (PromoteUserResp) {
     option (google.api.http) = {
       post: "/v1/account/promoteUser"
       body: "*"
@@ -169,12 +169,12 @@ service StrongDocService {
       };
     };
   }
-  
+
   // Demote administrator to regular user at the organization. Attempting to
   // demote the last administrator of an organization will fail
   //
   // Requires administrator privilege.
-  rpc DemoteUser(DemoteUserRequest) returns (DemoteUserResponse) {
+  rpc DemoteUser(DemoteUserReq) returns (DemoteUserResp) {
     option (google.api.http) = {
       post: "/v1/account/demoteUser"
       body: "*"
@@ -195,7 +195,7 @@ service StrongDocService {
   // Administrators can see all documents belonging to the organization
   //
   // Requires Login
-  rpc ListDocuments(ListDocumentsRequest) returns (ListDocumentsResponse) {
+  rpc ListDocuments(ListDocumentsReq) returns (ListDocumentsResp) {
     option (google.api.http) = {
       get: "/v1/doc/listDocs"
     };
@@ -215,7 +215,7 @@ service StrongDocService {
   // Regular user only can remove document for him/herself
   //
   // Requires Login
-  rpc RemoveDocument(RemoveDocumentRequest) returns (RemoveDocumentResponse) {
+  rpc RemoveDocument(RemoveDocumentReq) returns (RemoveDocumentResp) {
     option (google.api.http) = {
       delete: "/v1/doc/remove/{docID}"
     };
@@ -232,18 +232,18 @@ service StrongDocService {
   // Upload document
   //
   // User can upload document to the organization for storage
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc UploadDocumentStream(stream UploadDocStreamReq) returns (UploadDocStreamResp) {
-    // This is not available through gRPC REST gateway, 
+    // This is not available through gRPC REST gateway,
     // since REST api does not support streaming protocol
   }
 
   // Upload document
   //
   // User can upload document to the organization for storage
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc UploadDocument(UploadDocReq) returns (UploadDocResp) {
     option (google.api.http) = {
       post: "/v1/doc/upload"
@@ -262,18 +262,18 @@ service StrongDocService {
   // Download document stream
   //
   // User can download the documents
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc DownloadDocumentStream(DownloadDocStreamReq) returns (stream DownloadDocStreamResp) {
-    // This is not available through gRPC REST gateway, 
+    // This is not available through gRPC REST gateway,
     // since REST api does not support streaming protocol
   }
 
   // Download document
   //
   // User can download the documents
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc DownloadDocument(DownloadDocReq) returns (DownloadDocResp) {
     option (google.api.http) = {
       get: "/v1/doc/download/{docID}"
@@ -290,17 +290,17 @@ service StrongDocService {
 
   // Encrypt document stream encrypts the document and returns the ciphertext
   // back to the user without storing it.
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc EncryptDocumentStream(stream EncryptDocStreamReq) returns (stream EncryptDocStreamResp) {
-    // This is not available through gRPC REST gateway, 
+    // This is not available through gRPC REST gateway,
     // since REST api does not support streaming protocol
   }
 
   // Encrypt document encrypts the document and returns the ciphertext
   // back to the user without storing it.
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc EncryptDocument(EncryptDocReq) returns ( EncryptDocResp) {
     option (google.api.http) = {
       post: "/v1/doc/encrypt"
@@ -316,16 +316,16 @@ service StrongDocService {
     };
   }
 
-  // Decrypt document stream decrypts the ciphertext passed in and returns 
+  // Decrypt document stream decrypts the ciphertext passed in and returns
   // decrypted plain text back to the user without storing it
-  // 
-  // Requires Login 
+  //
+  // Requires Login
   rpc DecryptDocumentStream(stream DecryptDocStreamReq) returns (stream DecryptDocStreamResp) {
-    // This is not available through gRPC REST gateway, 
+    // This is not available through gRPC REST gateway,
     // since REST api does not support streaming protocol
   }
 
-  // Decrypt document decrypts the ciphertext passed in and returns 
+  // Decrypt document decrypts the ciphertext passed in and returns
   // decrypted plain text back to the user without storing it
   rpc DecryptDocument(DecryptDocReq) returns (DecryptDocResp) {
     option (google.api.http) = {
@@ -344,7 +344,7 @@ service StrongDocService {
   // Share a document to another user
   //
   // Requires Login
-  rpc ShareDocument(ShareDocumentRequest) returns (ShareDocumentResponse) {
+  rpc ShareDocument(ShareDocumentReq) returns (ShareDocumentResp) {
     option (google.api.http) = {
       post: "/v1/doc/shareDoc"
       body: "*"
@@ -362,7 +362,7 @@ service StrongDocService {
   // Unshare a document that had previously been shared to a user
   //
   // Requires Login
-  rpc UnshareDocument(UnshareDocumentRequest) returns (UnshareDocumentResponse) {
+  rpc UnshareDocument(UnshareDocumentReq) returns (UnshareDocumentResp) {
     option (google.api.http) = {
       post: "/v1/doc/unshareDoc"
       body: "*"
@@ -377,31 +377,12 @@ service StrongDocService {
     };
   }
 
-  // Obtain the size of the user's stored documents
-  //
-  // Admin user can see the size of the documents which belong to the company
-  // 
-  // Requires Login
-  rpc GetDocumentsSize(GetDocumentsSizeRequest) returns (GetDocumentsSizeResponse) {
-    option (google.api.http) = {
-      get: "/v1/doc/getSize"
-    };
-    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
-      security: {
-        security_requirement: {
-          key: "ApiKeyAuth";
-          value: {};
-        }
-      };
-    };
-  }
-
   // Obtain an authentication token to be used with other APIs
   //
   // An authentication token will be returned after user has been validated
-  // The returned token will be used as a Bearer Token and need to be set in 
+  // The returned token will be used as a Bearer Token and need to be set in
   // the request header
-  rpc Login(LoginRequest) returns (LoginResponse) {
+  rpc Login(LoginReq) returns (LoginResp) {
     option (google.api.http) = {
       post: "/v1/auth/login"
       body: "*"
@@ -411,7 +392,7 @@ service StrongDocService {
   // Logout current user
   //
   // Requires Login
-  rpc Logout(LogoutRequest) returns (LogoutResponse) {
+  rpc Logout(LogoutReq) returns (LogoutResp) {
     option (google.api.http) = {
       post: "/v1/logout"
     };
@@ -428,28 +409,11 @@ service StrongDocService {
   // Search within a list of user's accessible documents
   //
   // The response will include a list document id and its score when matches are found
-  // 
-  // Requires Login
-  rpc Search(SearchRequest) returns (SearchResponse) {
-    option (google.api.http) = {
-      get: "/v1/doc/search/{query}"
-    };
-    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
-      security: {
-        security_requirement: {
-          key: "ApiKeyAuth";
-          value: {};
-        }
-      };
-    };
-  }
-
-  // Obtain size of the organization's indexes
   //
   // Requires Login
-  rpc GetIndexSize(GetIndexSizeRequest) returns (GetIndexSizeResponse) {
+  rpc Search(SearchReq) returns (SearchResp) {
     option (google.api.http) = {
-      get: "/v1/doc/getIndexSize"
+      get: "/v1/doc/search/{query}"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
       security: {
@@ -465,7 +429,7 @@ service StrongDocService {
   //
   //Requires Administrator privilege.
   //Requires Login
-  rpc AddSharableOrg(AddSharableOrgRequest) returns (AddSharableOrgResponse) {
+  rpc AddSharableOrg(AddSharableOrgReq) returns (AddSharableOrgResp) {
     option (google.api.http) = {
       patch: "/v1/account/addSharableOrg"
       body: "*"
@@ -484,7 +448,7 @@ service StrongDocService {
   //
   //Requires Administrator privilege.
   //Requires Login
-  rpc RemoveSharableOrg(RemoveSharableOrgRequest) returns (RemoveSharableOrgResponse) {
+  rpc RemoveSharableOrg(RemoveSharableOrgReq) returns (RemoveSharableOrgResp) {
     option (google.api.http) = {
       patch: "/v1/account/removeSharableOrg"
       body: "*"
@@ -503,7 +467,7 @@ service StrongDocService {
   //
   //Requires Administrator privilege.
   //Requires Login
-  rpc SetMultiLevelSharing(SetMultiLevelSharingRequest) returns (SetMultiLevelSharingResponse) {
+  rpc SetMultiLevelSharing(SetMultiLevelSharingReq) returns (SetMultiLevelSharingResp) {
     option (google.api.http) = {
       put: "/v1/account/setMultiLevelSharing"
       body: "*"
@@ -553,7 +517,7 @@ service StrongDocService {
       };
     };
   }
-  
+
   //Change the next billing frequency
   //
   //Requires Administrator privilege
@@ -573,13 +537,12 @@ service StrongDocService {
     };
   }
 
-  //Show current server configuration
+  //Obtain information about the account
   //
-  //Requires Administrator privilege. Only an administrator can see server configuration
   //Requires Login
-  rpc GetConfiguration(GetConfigurationReq) returns (GetConfigurationResp) {
+  rpc GetAccountInfo(GetAccountInfoReq) returns (GetAccountInfoResp) {
     option (google.api.http) = {
-      get: "/v1/configuration"
+      get: "/v1/account"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
       security: {
@@ -588,6 +551,34 @@ service StrongDocService {
           value: {};
         }
       };
+    };
+  }
+
+  // //Show current server configuration
+  // //
+  // //Requires Administrator privilege. Only an administrator can see server configuration
+  // //Requires Login
+  // rpc GetConfiguration(GetConfigurationReq) returns (GetConfigurationResp) {
+  //   option (google.api.http) = {
+  //     get: "/v1/configuration"
+  //   };
+  //   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+  //     security: {
+  //       security_requirement: {
+  //         key: "ApiKeyAuth";
+  //         value: {};
+  //       }
+  //     };
+  //   };
+  // }
+
+  // Process subscription-related event
+  //
+  // Designed to be called only by third-party services (like online payments provider)
+  rpc ProcessSubscriptionEvent(ProcessSubscriptionEventReq) returns (ProcessSubscriptionEventResp) {
+    option (google.api.http) = {
+      post: "/v1/subscriptionWebhook"
+      body: "*"
     };
   }
 }

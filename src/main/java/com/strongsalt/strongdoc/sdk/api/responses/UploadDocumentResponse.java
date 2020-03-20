@@ -20,6 +20,7 @@ public class UploadDocumentResponse {
 
     /**
      * Constructs a UploadDocumentResponse
+     *
      * @param docID    The uploaded document ID
      * @param numBytes The total uploaded bytes
      */
@@ -30,6 +31,7 @@ public class UploadDocumentResponse {
 
     /**
      * Returns the uploaded document ID
+     *
      * @return The uploaded document ID
      */
     public String getDocID() {
@@ -38,6 +40,7 @@ public class UploadDocumentResponse {
 
     /**
      * Returns the total uploaded bytes
+     *
      * @return The total uploaded bytes
      */
     public int getNumBytes() {

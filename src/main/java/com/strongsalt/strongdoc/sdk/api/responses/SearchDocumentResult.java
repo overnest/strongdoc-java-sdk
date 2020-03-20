@@ -20,6 +20,7 @@ public class SearchDocumentResult {
 
     /**
      * Constructs a document that matches the search result
+     *
      * @param docID The matching document ID
      * @param score The score of the matching document
      */
@@ -30,6 +31,7 @@ public class SearchDocumentResult {
 
     /**
      * Returns the matching document ID
+     *
      * @return The matching document ID
      */
     public String getDocID() {
@@ -38,6 +40,7 @@ public class SearchDocumentResult {
 
     /**
      * Returns the score of the search document result
+     *
      * @return The score of the matching document
      */
     public Double getScore() {

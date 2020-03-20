@@ -100,10 +100,10 @@ message DownloadDocResp {
   string plaintext = 2;
 }
 
-message ShareDocumentRequest {
+message ShareDocumentReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ShareDocumentRequest"
+        title: "ShareDocumentReq"
     }
     example: { 
         value: '{"docID": "bribeamount_ID", "userID": "FBI"}'
@@ -116,10 +116,10 @@ message ShareDocumentRequest {
   string userID = 2;
 }
   
-message ShareDocumentResponse {
+message ShareDocumentResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ShareDocumentResponse"
+        title: "ShareDocumentResp"
     }
     example: { 
         value: '{"success": true}'
@@ -130,10 +130,10 @@ message ShareDocumentResponse {
   bool success = 1;
 }
   
-message UnshareDocumentRequest {
+message UnshareDocumentReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "UnshareDocumentRequest"
+        title: "UnshareDocumentReq"
     }
     example: { 
         value: '{"docID": "bribeamount_ID", "userID": "Fox News"}'
@@ -146,10 +146,10 @@ message UnshareDocumentRequest {
   string userID = 2;
 }
   
-message UnshareDocumentResponse {
+message UnshareDocumentResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "UnshareDocumentResponse"
+        title: "UnshareDocumentResp"
     }
     example: { 
         value: '{"count": 1}'
@@ -159,41 +159,19 @@ message UnshareDocumentResponse {
   // The unshared document count.
   int64 count = 1;
 }
-  
-message GetDocumentsSizeRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
-    json_schema: {
-        title: "GetDocumentsSizeRequest"
-    }
-  };
-}
-  
-message GetDocumentsSizeResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
-    json_schema: {
-        title: "GetDocumentsSizeResponse"
-    }
-    example: { 
-        value: '{"size": 1}'
-    }
-  };
 
-  // The size of the documents stored.
-  uint64 size = 1;
-}
-
-message ListDocumentsRequest {
+message ListDocumentsReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ListDocumentsRequest"
+        title: "ListDocumentsReq"
     }
   };
 }
 
-message ListDocumentsResponse {
+message ListDocumentsResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ListDocumentsResponse"
+        title: "ListDocumentsResp"
     }
     example: { 
         value: '{"documents": [{"docID": "bribeamount_ID", "docName": "bribeamount.pdf", "size": 561}]}'
@@ -213,10 +191,10 @@ message ListDocumentsResponse {
   repeated Document documents = 1;
 }
 
-message RemoveDocumentRequest{
+message RemoveDocumentReq{
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "RemoveDocumentRequest"
+        title: "RemoveDocumentReq"
     }
     example: { 
         value: '{"docID": "bribeamount_ID"}'
@@ -227,10 +205,10 @@ message RemoveDocumentRequest{
   string docID = 1;
 }
   
-message RemoveDocumentResponse{
+message RemoveDocumentResp{
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "RemoveDocumentResponse"
+        title: "RemoveDocumentResp"
     }
     example: { 
         value: '{"status": true}'

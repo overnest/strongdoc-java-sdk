@@ -9,9 +9,8 @@ import com.strongsalt.strongdoc.sdk.api.responses.SearchDocumentResult;
 import com.strongsalt.strongdoc.sdk.client.JwtCallCredential;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.proto.Search.DocumentResult;
-import com.strongsalt.strongdoc.sdk.proto.Search.SearchRequest;
-import com.strongsalt.strongdoc.sdk.proto.Search.SearchResponse;
-
+import com.strongsalt.strongdoc.sdk.proto.Search.SearchReq;
+import com.strongsalt.strongdoc.sdk.proto.Search.SearchResp;
 import io.grpc.StatusRuntimeException;
 
 import java.util.ArrayList;
@@ -36,11 +35,11 @@ public class StrongDocSearch {
                                             final String query)
             throws StatusRuntimeException {
 
-        final SearchRequest req = SearchRequest.newBuilder()
+        final SearchReq req = SearchReq.newBuilder()
                 .setQuery(query)
                 .build();
 
-        final SearchResponse res = client.getBlockingStub()
+        final SearchResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).search(req);
 
         ArrayList<SearchDocumentResult> hitsList = new ArrayList<SearchDocumentResult>();

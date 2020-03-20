@@ -28,6 +28,7 @@ public class StrongDocServiceClient {
 
     /**
      * Creates an SSL context for gRPC
+     *
      * @param trustCertCollectionFilePath The file path for the trusted certificates for verifying
      *                                    the remote endpoint's certificate
      * @param clientCertChainFilePath     The file path for the certificate chain
@@ -52,6 +53,7 @@ public class StrongDocServiceClient {
 
     /**
      * Constructs a StrongDoc service client with TLS enabled
+     *
      * @param sslContext The SSL context
      * @param host       The StrongDoc service url
      * @param port       The StrongDoc service port
@@ -70,6 +72,7 @@ public class StrongDocServiceClient {
 
     /**
      * Constructs a StrongDoc service client with a given channel
+     *
      * @param channel The channel
      */
     public StrongDocServiceClient(final ManagedChannel channel) {
@@ -81,6 +84,7 @@ public class StrongDocServiceClient {
 
     /**
      * Shutdown the channel
+     *
      * @throws InterruptedException on the thread is interrupted
      */
     public void shutdown() throws InterruptedException {
@@ -89,6 +93,7 @@ public class StrongDocServiceClient {
 
     /**
      * Returns a stub that will make non-blocking calls to the server
+     *
      * @return A stub that will make non-blocking calls to the server
      */
     public StrongDocServiceGrpc.StrongDocServiceStub getAsyncStub() {
@@ -97,6 +102,7 @@ public class StrongDocServiceClient {
 
     /**
      * Returns a stub that will make blocking calls to the server
+     *
      * @return A stub that will make blocking calls to the server
      */
     public StrongDocServiceGrpc.StrongDocServiceBlockingStub getBlockingStub() {
@@ -105,6 +111,7 @@ public class StrongDocServiceClient {
 
     /**
      * Returns a StrongDoc document for streaming documents
+     *
      * @return A StrongDoc document for streaming documents
      */
     public StrongDocDocument getStreamDocument() {
