@@ -232,6 +232,7 @@ public class StrongDocDocument {
     }
 
     // ---------------------------------- UploadDocument ----------------------------------
+    // proto.UploadDocReq
 
     /**
      * Uploads a document to Strongdoc provided storage.
@@ -255,6 +256,7 @@ public class StrongDocDocument {
     }
 
     // ---------------------------------- DownloadDocument ----------------------------------
+    // proto.DownloadDocReq
 
     /**
      * Downloads a document stored in Strongdoc provided storage.
@@ -337,6 +339,7 @@ public class StrongDocDocument {
 
     /**
      * Lists the documents the user can access.
+     * An administrator can see all documents belonging to the organization.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -364,6 +367,8 @@ public class StrongDocDocument {
 
     /**
      * Removes a document from the service.
+     * An administrator can remove document for the whole organization.
+     * A 'regular' user only can remove document for him/herself.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -568,6 +573,7 @@ public class StrongDocDocument {
     }
 
     // ---------------------------------- EncryptDocument ----------------------------------
+    // proto.EncryptDocReq
 
     /**
      * Encrypts the document.
@@ -590,6 +596,7 @@ public class StrongDocDocument {
     }
 
     // ---------------------------------- DecryptDocument ----------------------------------
+    // proto.DecryptDocReq
 
     /**
      * Decrypts the passed in ciphertext.

@@ -10,8 +10,23 @@ package com.strongsalt.strongdoc.sdk.api.responses;
  */
 public class NextBillingFrequencyResponse {
     /**
-     * Constructs a NextBillingFrequencyResponse
+     * The next billing frequency
      */
-    public NextBillingFrequencyResponse() {
+    private BillingFrequency nextBillingFrequency;
+
+    /**
+     * Constructs a NextBillingFrequencyResponse
+     *
+     * @param nextBillingFrequency The next billing frequency
+     */
+    public NextBillingFrequencyResponse(BillingFrequency nextBillingFrequency) {
+        this.nextBillingFrequency = nextBillingFrequency;
+    }
+
+    /**
+     * Get the next billing frequency
+     */
+    public BillingFrequency getNextBillingFrequency() {
+        return nextBillingFrequency;
     }
 }

@@ -10,6 +10,7 @@ option java_generic_services = true;
 package proto;
 
 import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 message RegisterOrganizationReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
@@ -189,7 +190,7 @@ message LoginReq {
       title: "LoginReq"
     }
     example: {
-      value: '{"userID": "donald.trump@whitehouse.gov", "password": "makeamericagreatagain", "orgID": "WhiteHouse"}'
+      value: '{"userID": "donald.trump@whitehouse.gov", "password": "ukrainismyfriend", "orgID": "WhiteHouse"}'
     }
   };
 
@@ -288,12 +289,14 @@ message RemoveOrganizationResp {
       title: "RemoveOrganizationResp"
     }
     example: {
-      value: '{"success": true}'
+      value: '{"success": true, "postponed": false}'
     }
   };
 
   // Whether the removal was successful
   bool success = 1;
+  // True in case the removal will happen later after org has been charged one last time
+  bool postponed = 2;
 }
 
 message AddSharableOrgReq {
@@ -398,6 +401,30 @@ message Subscription {
   string status = 2;
 }
 
+message Payment {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Payment"
+    }
+    example: {
+      value: '{"billedAt": "2020-02-01T12:30:15.123Z", "periodStart": "2020-01-01T00:00:00.000Z", "periodEnd": "2020-02-01T00:00:00.000Z", "amount": 52.16, "status": "No Payment" }'
+    }
+  };
+ 
+  // Timestamp of the payment billing transaction
+  google.protobuf.Timestamp billedAt = 1;
+  // Start of the payment period
+  google.protobuf.Timestamp periodStart = 2;
+  // End of the payment period
+  google.protobuf.Timestamp periodEnd = 3;
+  // Amount of  payment 
+  double amount = 4;
+  // TODO document integer codes
+
+  // Payment status ("No Payment","Zero Payment","Payment Pending","Payment Success","Payment Failed")
+  string status = 5;
+}
+
 message GetAccountInfoReq {
 }
 
@@ -407,10 +434,12 @@ message GetAccountInfoResp {
       title: "GetAccountInfoResp"
     }
     example: {
-      value: '{"subscription":{"type":"Credit Card","status":"Subscribed"}}'
+      value: '{"subscription":{"type":"Credit Card","status":"Subscribed"}, "payments":[{"billedAt": "2020-02-01T12:30:15.123Z", "periodStart": "2020-01-01T00:00:00.000Z", "periodEnd": "2020-02-01T00:00:00.000Z", "amount": 52.16, "status": "Payment Success" }]}'
     }
   };
 
   // Account's subscription info
   Subscription subscription = 1;
+  // List of all account's payments
+  repeated Payment payments = 2;
 }

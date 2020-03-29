@@ -4,16 +4,16 @@
 
 package com.strongsalt.strongdoc.sdk.api;
 
+import com.strongsalt.strongdoc.sdk.api.responses.AccountInfoResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.OrgUserInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.RegisterOrganizationResponse;
+import com.strongsalt.strongdoc.sdk.api.responses.RemoveOrganizationResponse;
 import com.strongsalt.strongdoc.sdk.client.JwtCallCredential;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.proto.Account;
 import io.grpc.StatusRuntimeException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class can be used to perform actions that are related to an account like organizations and users.
@@ -25,38 +25,45 @@ public class StrongDocAccount {
      * Registers a new organization. A new administrator user will also be created.
      * New users can be added using this administrator account.
      *
-     * @param client        The StrongDoc client used to call this API.
-     * @param orgName       The organization name to create.
-     * @param orgAddress    The organization address.
-     * @param adminName     The organization administrator name.
-     * @param adminPassword The organization administrator password.
-     * @param adminEmail    The organization administrator email.
-     * @param source        How was the organization registered.
-     * @param sourceData    Any data related to registration from the source (in JSON).
+     * @param client          The StrongDoc client used to call this API.
+     * @param orgName         The organization name to create.
+     * @param orgAddress      The organization address.
+     * @param adminName       The organization administrator name.
+     * @param adminPassword   The organization administrator password.
+     * @param adminEmail      The organization administrator email.
+     * @param sharableOrgs    The list of sharable organization IDs.
+     * @param multiLevelShare The ability to "reshare" a document that has been shared with to another user.
+     * @param source          How was the organization registered.
+     * @param sourceData      Any data related to registration from the source (in JSON).
      * @return The register organization response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public RegisterOrganizationResponse registerOrganization(final StrongDocServiceClient client,
-                                                             final String orgName,
-                                                             final String orgAddress,
-                                                             final String adminName,
-                                                             final String adminPassword,
-                                                             final String adminEmail,
-                                                             final String source,
-                                                             final String sourceData)
+    private RegisterOrganizationResponse registerOrganization(final StrongDocServiceClient client,
+                                                              final String orgName,
+                                                              final String orgAddress,
+                                                              final String adminName,
+                                                              final String adminPassword,
+                                                              final String adminEmail,
+                                                              final String[] sharableOrgs,
+                                                              final Boolean multiLevelShare,
+                                                              final String source,
+                                                              final String sourceData)
             throws StatusRuntimeException {
 
-        final Account.RegisterOrganizationReq req = Account.RegisterOrganizationReq.newBuilder()
-                .setOrgName(orgName)
-                .setOrgAddr(orgAddress)
-                .setUserName(adminName)
-                .setPassword(adminPassword)
-                .setEmail(adminEmail)
-                .setMultiLevelShare(false)
-                .setSource(source)
-                .setSourceData(sourceData)
-                .build();
+        final Account.RegisterOrganizationReq.Builder regOrg = Account.RegisterOrganizationReq.newBuilder();
+        regOrg.setOrgName(orgName);
+        regOrg.setOrgAddr(orgAddress);
+        regOrg.setUserName(adminName);
+        regOrg.setPassword(adminPassword);
+        regOrg.setEmail(adminEmail);
+        regOrg.setMultiLevelShare(multiLevelShare);
+        regOrg.setSource(source);
+        regOrg.setSourceData(sourceData);
+        for (String sharableOrg : sharableOrgs) {
+            regOrg.addSharableOrgs(sharableOrg);
+        }
+        final Account.RegisterOrganizationReq req = regOrg.build();
 
         final Account.RegisterOrganizationResp res = client.getBlockingStub().registerOrganization(req);
         return new RegisterOrganizationResponse(res.getOrgID(), res.getUserID());
@@ -67,6 +74,7 @@ public class StrongDocAccount {
     /**
      * Creates new user if it doesn't already exist.
      * Trying to create a user with an existing username throws an error.
+     * This requires an administrator privilege.
      *
      * @param client   The StrongDoc client used to call this API.
      * @param token    The user JWT token.
@@ -102,6 +110,7 @@ public class StrongDocAccount {
 
     /**
      * Removes user from the organization.
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -128,6 +137,7 @@ public class StrongDocAccount {
 
     /**
      * Promotes a regular user to administrator.
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -154,6 +164,7 @@ public class StrongDocAccount {
 
     /**
      * Demotes an administrator to regular user level.
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -255,18 +266,18 @@ public class StrongDocAccount {
 
     /**
      * Removes an organization, deleting all data stored with the organization.
-     * This requires an administrator priviledge.
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param force  If this is false, removal will fail if there
      *               are still data stored with the organization.
      *               This prevents accidental deletion.
-     * @return Whether the operation was a success.
+     * @return The remove organization response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean removeOrganization(final StrongDocServiceClient client, final String token,
+    public RemoveOrganizationResponse removeOrganization(final StrongDocServiceClient client, final String token,
                                       final Boolean force)
             throws StatusRuntimeException {
 
@@ -276,13 +287,16 @@ public class StrongDocAccount {
 
         final Account.RemoveOrganizationResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).removeOrganization(req);
-        return res.getSuccess();
+
+        final RemoveOrganizationResponse response = new RemoveOrganizationResponse(res.getSuccess(), res.getPostponed());
+        return response;
     }
 
     // ---------------------------------- AddSharableOrgReq ----------------------------------
 
     /**
      * Adds a sharable Organization.
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -309,6 +323,7 @@ public class StrongDocAccount {
 
     /**
      * Removes a sharable Organization.
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -335,6 +350,7 @@ public class StrongDocAccount {
 
     /**
      * Sets Multi-level Sharing.
+     * This requires an administrator privilege.
      *
      * @param client   The StrongDoc client used to call this API.
      * @param token    The user JWT token.
@@ -364,11 +380,11 @@ public class StrongDocAccount {
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
-     * @return A map of subscription type and status.
+     * @return The account info response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Map<String, String> getAccountInfo(final StrongDocServiceClient client,
+    public AccountInfoResponse getAccountInfo(final StrongDocServiceClient client,
                                               final String token)
             throws StatusRuntimeException {
 
@@ -376,9 +392,16 @@ public class StrongDocAccount {
 
         final Account.GetAccountInfoResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getAccountInfo(req);
-        Map<String, String> infoMap = new HashMap<String, String>();
-        infoMap.put("type", res.getSubscription().getType());
-        infoMap.put("status", res.getSubscription().getStatus());
-        return infoMap;
+
+        final AccountInfoResponse response = new AccountInfoResponse();
+        response.setSubscription(res.getSubscription().getType(), res.getSubscription().getStatus());
+        for (int index = 0; index < res.getPaymentsCount(); index++) {
+            Account.Payment payment = res.getPayments(index);
+            response.addPayment(payment.getBilledAt(), payment.getPeriodStart(), payment.getPeriodEnd(),
+                    payment.getAmount(), payment.getStatus());
+        }
+
+        return response;
     }
 }
+
