@@ -56,189 +56,79 @@ public class BillingDetailsResponse {
      */
     private BillingFrequency billingFrequency;
 
-    // --------------------------- BillingDetailsResponse ---------------------------
-
     /**
      * Constructs a BillingDetailsResponse
      *
      * @param periodStart Start of the requested billing period
      * @param periodEnd   End of the requested billing period
      * @param totalCost   Total cost incurred during the requested billing period
+     * @param documentCosts   Usage and cost breakdown for stored documents
+     * @param searchCosts   Usage and cost breakdown for stored search indices
+     * @param trafficCosts   Usage and cost breakdown for used traffic
+     * @param billingFrequency   Billing frequency used during the requested billing period
      */
     public BillingDetailsResponse(final String periodStart,
                                   final String periodEnd,
-                                  final double totalCost) {
+                                  final double totalCost,
+                                  final DocumentCosts documentCosts,
+                                  final SearchCosts searchCosts,
+                                  final TrafficCosts trafficCosts,
+                                  final BillingFrequency billingFrequency) {
         this.periodStart = periodStart;
         this.periodEnd = periodEnd;
         this.totalCost = totalCost;
+        this.documentCosts = documentCosts;
+        this.searchCosts = searchCosts;
+        this.trafficCosts = trafficCosts;
+        this.billingFrequency = billingFrequency;
     }
 
     /**
-     * Set the response's usage and cost breakdown for stored documents
-     *
-     * @param cost Cost of document storage incurred during a billing period
-     * @param size Size of documents stored during a billing period (in MBhours)
-     * @param tier Cost tier reached for document storage during a billing period
+     * Gets the start of the requested billing period
      */
-    public void setDocumentCosts(final double cost, final double size, final String tier) {
-        this.documentCosts = new DocumentCosts(cost, size, tier);
+    public String getPeriodStart() {
+      return periodStart;
     }
 
     /**
-     * Set the response's usage and cost breakdown for stored search indices
-     *
-     * @param cost Cost of search index storage incurred during a billing period
-     * @param size Size of search indices stored during a billing period (in MBhours)
-     * @param tier Cost tier reached for search index storage during a billing period
+     * Gets the end of the requested billing period
      */
-    public void setSearchCosts(final double cost, final double size, final String tier) {
-        this.searchCosts = new SearchCosts(cost, size, tier);
+    public String getPeriodEnd() {
+      return periodEnd;
     }
 
     /**
-     * Set the response's usage and cost breakdown for used traffic
-     *
-     * @param cost     Cost of network traffic incurred during a billing period
-     * @param incoming Size of incoming requests during a billing period (in MB)
-     * @param outgoing Size of outgoing requests during a billing period (in MB)
-     * @param tier     Cost tier reached for network traffic during a billing period
+     * Gets the total cost incurred during the requested billing period
      */
-    public void setTrafficCosts(final double cost, final double incoming, final double outgoing, final String tier) {
-        this.trafficCosts = new TrafficCosts(cost, incoming, outgoing, tier);
+    public double getTotalCost() {
+      return totalCost;
     }
 
     /**
-     * Set the response's billingFrequency Billing frequency used during the requested billing period
-     *
-     * @param frequency Billing frequency
-     * @param validFrom Start of billing frequency validity
-     * @param validTo   End of billing frequency validity
+     * Gets the usage and cost breakdown for stored documents
      */
-    public void setBillingFrequency(final Billing.TimeInterval frequency, final Timestamp validFrom, final Timestamp validTo) {
-        this.billingFrequency = new BillingFrequency(frequency, validFrom, validTo);
+    public DocumentCosts getDocumentCosts() {
+      return documentCosts;
     }
 
-    // --------------------------- DocumentCosts ---------------------------
-    class DocumentCosts {
-        /**
-         * Cost of document storage incurred during a billing period
-         */
-        private double cost;
-        /**
-         * Size of documents stored during a billing period (in MBhours)
-         */
-        private double size;
-        /**
-         * Cost tier reached for document storage during a billing period
-         */
-        private String tier;
-
-        /**
-         * Constructs a DocumentCosts
-         *
-         * @param cost Cost of document storage incurred during a billing period
-         * @param size Size of documents stored during a billing period (in MBhours)
-         * @param tier Cost tier reached for document storage during a billing period
-         */
-        public DocumentCosts(final double cost, final double size, final String tier) {
-            this.cost = cost;
-            this.size = size;
-            this.tier = tier;
-        }
+    /**
+     * Gets the usage and cost breakdown for stored search indices
+     */
+    public SearchCosts getSearchCosts() {
+      return searchCosts;
     }
 
-    // --------------------------- SearchCosts ---------------------------
-    class SearchCosts {
-        /**
-         * Cost of search index storage incurred during a billing period
-         */
-        private double cost;
-        /**
-         * Size of search indices stored during a billing period (in MBhours)
-         */
-        private double size;
-        /**
-         * Cost tier reached for search index storage during a billing period
-         */
-        private String tier;
-
-        /**
-         * Constructs a SearchCosts
-         *
-         * @param cost Cost of search index storage incurred during a billing period
-         * @param size Size of search indices stored during a billing period (in MBhours)
-         * @param tier Cost tier reached for search index storage during a billing period
-         */
-        public SearchCosts(final double cost, final double size, final String tier) {
-            this.cost = cost;
-            this.size = size;
-            this.tier = tier;
-        }
+    /**
+     * Gets the usage and cost breakdown for used traffic
+     */
+    public TrafficCosts getTrafficCosts() {
+      return trafficCosts;
     }
 
-    // --------------------------- TrafficCosts ---------------------------
-    class TrafficCosts {
-        /**
-         * Cost of network traffic incurred during a billing period
-         */
-        private double cost;
-        /**
-         * Size of incoming requests during a billing period (in MB)
-         */
-        private double incoming;
-        /**
-         * Size of outgoing requests during a billing period (in MB)
-         */
-        private double outgoing;
-        /**
-         * Cost tier reached for network traffic during a billing period
-         */
-        private String tier;
-
-        /**
-         * Constructs a TrafficCosts
-         *
-         * @param cost     Cost of network traffic incurred during a billing period
-         * @param incoming Size of incoming requests during a billing period (in MB)
-         * @param outgoing Size of outgoing requests during a billing period (in MB)
-         * @param tier     Cost tier reached for network traffic during a billing period
-         */
-        public TrafficCosts(final double cost, final double incoming, final double outgoing,
-                            final String tier) {
-            this.cost = cost;
-            this.incoming = incoming;
-            this.outgoing = outgoing;
-            this.tier = tier;
-        }
-    }
-
-    // --------------------------- BillingFrequency ---------------------------
-    class BillingFrequency {
-        /**
-         * Billing frequency
-         */
-        private Billing.TimeInterval frequency;
-        /**
-         * Start of billing frequency validity
-         */
-        private Timestamp validFrom;
-        /**
-         * End of billing frequency validity
-         */
-        private Timestamp validTo;
-
-        /**
-         * Constructs a BillingFrequency
-         *
-         * @param frequency Billing frequency
-         * @param validFrom Start of billing frequency validity
-         * @param validTo   End of billing frequency validity
-         */
-        public BillingFrequency(final Billing.TimeInterval frequency, final Timestamp validFrom,
-                                final Timestamp validTo) {
-            this.frequency = frequency;
-            this.validFrom = validFrom;
-            this.validTo = validTo;
-        }
+    /**
+     * Gets the billing frequency used during the requested billing period
+     */
+    public BillingFrequency getBillingFrequency() {
+      return billingFrequency;
     }
 }

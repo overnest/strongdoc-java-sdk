@@ -5,11 +5,10 @@
 package com.strongsalt.strongdoc.sdk.api;
 
 
+import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
-import com.strongsalt.strongdoc.sdk.api.responses.BillingDetailsResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.BillingFrequencyListResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.NextBillingFrequencyResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.ProcessSubscriptionEventResponse;
+import com.strongsalt.strongdoc.sdk.api.responses.*;
+import com.strongsalt.strongdoc.sdk.client.JwtCallCredential;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.proto.Billing;
 import io.grpc.StatusRuntimeException;
@@ -21,44 +20,49 @@ import io.grpc.StatusRuntimeException;
 public class StrongDocBilling {
     /**
      * It lists all items of the cost breakdown and also other details such as the billing frequency.
-     * Requires Administrator privilege
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
+     * @param at     The timestamp of the requested billing details.
      * @return The billing details response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public BillingDetailsResponse getBillingDetails(final StrongDocServiceClient client, final String token)
+    public BillingDetailsResponse getBillingDetails(final StrongDocServiceClient client, final String token,
+                                                    final Timestamp at)
             throws StatusRuntimeException {
 
-        final Billing.GetBillingDetailsReq req = Billing.GetBillingDetailsReq.newBuilder().build();
-        final Billing.GetBillingDetailsResp res = client.getBlockingStub().getBillingDetails(req);
+        final Billing.GetBillingDetailsReq req = Billing.GetBillingDetailsReq.newBuilder()
+                .setAt(at)
+                .build();
+        final Billing.GetBillingDetailsResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).getBillingDetails(req);
+
+        Billing.DocumentCosts bdc = res.getDocuments();
+        DocumentCosts dc = new DocumentCosts(bdc.getCost(), bdc.getSize(), bdc.getTier());
+
+        Billing.SearchCosts bsc = res.getSearch();
+        SearchCosts sc = new SearchCosts(bsc.getCost(), bsc.getSize(), bsc.getTier());
+
+        Billing.TrafficCosts btc = res.getTraffic();
+        TrafficCosts tc = new TrafficCosts(btc.getCost(), btc.getIncoming(), btc.getOutgoing(), btc.getTier());
+
+        Billing.BillingFrequency bbf = res.getBillingFrequency();
+        BillingFrequency bf = new BillingFrequency(bbf.getFrequency(), bbf.getValidFrom(), bbf.getValidTo());
 
         BillingDetailsResponse response = new BillingDetailsResponse(
                 Timestamps.toString(res.getPeriodStart()),
                 Timestamps.toString(res.getPeriodEnd()),
-                res.getTotalCost());
-        //searchCosts,
-        //trafficCosts,
-        //res.getBillingFrequency());
-
-        Billing.DocumentCosts dc = res.getDocuments();
-        response.setDocumentCosts(dc.getCost(), dc.getSize(), dc.getTier());
-
-        Billing.SearchCosts sc = res.getSearch();
-        response.setSearchCosts(sc.getCost(), sc.getSize(), sc.getTier());
-
-        Billing.BillingFrequency bf = res.getBillingFrequency();
-        response.setBillingFrequency(bf.getFrequency(), bf.getValidFrom(), bf.getValidTo());
+                res.getTotalCost(),
+                dc, sc, tc, bf);
 
         return response;
-        //return new BillingDetailsResponse(res);
     }
 
     /**
      * It obtains the list of billing frequencies (past, current and future)
-     * Requires Administrator privilege
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
@@ -69,44 +73,85 @@ public class StrongDocBilling {
     public BillingFrequencyListResponse getBillingFrequencyList(final StrongDocServiceClient client,
                                                                 final String token)
             throws StatusRuntimeException {
+
         final Billing.GetBillingFrequencyListReq req = Billing.GetBillingFrequencyListReq.newBuilder().build();
-        final Billing.GetBillingFrequencyListResp res = client.getBlockingStub().getBillingFrequencyList(req);
-        return new BillingFrequencyListResponse();
+        final Billing.GetBillingFrequencyListResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).getBillingFrequencyList(req);
+
+        // To do create response
+        final BillingFrequencyListResponse response = new BillingFrequencyListResponse();
+
+        for (int index = 0; index < res.getBillingFrequencyListCount(); index++) {
+            Billing.BillingFrequency bf = res.getBillingFrequencyList(index);
+            response.addBillingFrequency(bf.getFrequency(), bf.getValidFrom(), bf.getValidTo());
+        }
+
+        return response;
     }
 
     /**
      * It changes the next billing frequency
-     * Requires Administrator privilege
+     * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
-     * @param token  The user JWT token.
+     * @param client    The StrongDoc client used to call this API.
+     * @param token     The user JWT token.
+     * @param frequency The Billing frequency.
+     * @param validFrom When this billing frequency becomes valid.
      * @return The next billing frequency response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
     public NextBillingFrequencyResponse setNextBillingFrequency(final StrongDocServiceClient client,
-                                                                final String token)
+                                                                final String token,
+                                                                final Billing.TimeInterval frequency,
+                                                                final Timestamp validFrom)
             throws StatusRuntimeException {
-        final Billing.SetNextBillingFrequencyReq req = Billing.SetNextBillingFrequencyReq.newBuilder().build();
-        final Billing.SetNextBillingFrequencyResp res = client.getBlockingStub().setNextBillingFrequency(req);
-        return new NextBillingFrequencyResponse();
+
+        final Billing.SetNextBillingFrequencyReq req = Billing.SetNextBillingFrequencyReq.newBuilder()
+                .setFrequency(frequency)
+                .setValidFrom(validFrom)
+                .build();
+        final Billing.SetNextBillingFrequencyResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).setNextBillingFrequency(req);
+
+        Billing.BillingFrequency bbf = res.getNextBillingFrequency();
+        BillingFrequency bf = new BillingFrequency(bbf.getFrequency(), bbf.getValidFrom(), bbf.getValidTo());
+
+        return new NextBillingFrequencyResponse(bf);
     }
 
     /**
-     * It processes subscription-related event
-     * Designed to be called only by third-party services (like online payments provider)
+     * Obtains the list of large traffic usages
+     * This requires an administrator privilege.
      *
      * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
-     * @return The billing details response.
+     * @param at     The Timestamp of the requested traffic information
+     * @return The large traffic response
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public ProcessSubscriptionEventResponse processSubscriptionEvent(final StrongDocServiceClient client,
-                                                                     final String token)
+    public LargeTrafficResponse getLargeTraffic(final StrongDocServiceClient client,
+                                                final String token,
+                                                final Timestamp at)
             throws StatusRuntimeException {
-        final Billing.ProcessSubscriptionEventReq req = Billing.ProcessSubscriptionEventReq.newBuilder().build();
-        final Billing.ProcessSubscriptionEventResp res = client.getBlockingStub().processSubscriptionEvent(req);
-        return new ProcessSubscriptionEventResponse();
+
+        final Billing.GetLargeTrafficReq req = Billing.GetLargeTrafficReq.newBuilder()
+                .setAt(at)
+                .build();
+        final Billing.GetLargeTrafficResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).getLargeTraffic(req);
+
+        final LargeTrafficResponse response = new LargeTrafficResponse(
+                Timestamps.toString(res.getPeriodStart()),
+                Timestamps.toString(res.getPeriodEnd()));
+
+        for (int index = 0; index < res.getLargeTrafficCount(); index++) {
+            Billing.TrafficDetail td = res.getLargeTraffic(index);
+            response.addTrafficDetail(Timestamps.toString(td.getTime()), td.getUserID(), td.getMethod(),
+                    td.getURI(), td.getIncoming(), td.getOutgoing());
+        }
+
+        return response;
     }
 }

@@ -9,7 +9,6 @@ option java_generic_services = true;
 
 package proto;
 
-import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
@@ -86,6 +85,43 @@ message SetNextBillingFrequencyResp {
   BillingFrequency nextBillingFrequency = 1;
 }
 
+message GetLargeTrafficReq {
+  // Timestamp of the requested traffic information
+  google.protobuf.Timestamp at = 1;
+}
+
+message GetLargeTrafficResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetLargeTrafficResp"
+    }
+    example: { 
+      value: '{"largeTraffic": [{"time": "2020-03-20T11:05:11.956889144Z","userID": "user@company.com","method": "GET","URI": "/v1/account/billing","incoming": 810,"outgoing": 392},{"time":"2020-03-20T11:30:34.630333618Z","userID": "user2@company.com","method": "GET","URI": "/v1/account/largeTraffic","incoming": 816,"outgoing": 95}],"periodStart": "2020-03-20T11:04:47.210Z","periodEnd": "2020-04-01T00:00:00Z"}'
+    }
+  };
+  // Details of large traffic events
+  repeated TrafficDetail largeTraffic = 1;
+  // Start of the requested billing period
+  google.protobuf.Timestamp periodStart = 2;
+  // End of the requested billing period
+  google.protobuf.Timestamp periodEnd = 3;
+}
+
+message TrafficDetail {
+  // Timestamp of the large traffic event 
+  google.protobuf.Timestamp time = 1;
+  // The ID of the user who made the request
+  string userID = 2;
+  // HTTP method of the request
+  string method = 3;
+  // URI called by the request
+  string URI = 4;
+  // Size of the request (in MB)
+  double incoming = 5;
+  // Size of the response (in MB)
+  double outgoing = 6;
+}
+
 enum TimeInterval {
   UNDEFINED = 0; // this is the default value
   MONTHLY = 1;
@@ -160,40 +196,4 @@ message TrafficCosts {
   double outgoing = 3;
   // Cost tier reached for network traffic during a billing period
   string tier = 4;
-}
-
-message ProcessSubscriptionEventReq {
-  // https://stripe.com/docs/api/events/object
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
-    json_schema: {
-      title: "ProcessSubscriptionEventReq"
-    }
-  };
-
-  message EventData {
-    google.protobuf.Struct object = 1;
-  }
-  message EventReq {
-    string id = 1;
-    string idempotencyKey = 2 [json_name = "idempotency_key"];
-  }
-
-	string id = 1;
-  string account = 2;
-  int32 created = 3;
-  EventData data = 4;
-	bool livemode = 5;
-	int32 pendingWebhooks = 6 [json_name = "pending_webhooks"];
-  EventReq request = 7;
-  string type = 8;
-  string apiVersion = 9 [json_name = "api_version"];
-  string object = 10;
-}
-
-message ProcessSubscriptionEventResp {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
-    json_schema: {
-      title: "ProcessSubscriptionEventResp"
-    }
-  };
 }

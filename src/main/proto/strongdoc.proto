@@ -537,6 +537,24 @@ service StrongDocService {
     };
   }
 
+  //Obtain the list of large traffic usages
+  //
+  //Requires Administrator privilege
+  //Requires Login
+  rpc GetLargeTraffic(GetLargeTrafficReq) returns (GetLargeTrafficResp) {
+    option (google.api.http) = {
+      get: "/v1/account/largeTraffic"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
   //Obtain information about the account
   //
   //Requires Login
@@ -571,16 +589,6 @@ service StrongDocService {
   //     };
   //   };
   // }
-
-  // Process subscription-related event
-  //
-  // Designed to be called only by third-party services (like online payments provider)
-  rpc ProcessSubscriptionEvent(ProcessSubscriptionEventReq) returns (ProcessSubscriptionEventResp) {
-    option (google.api.http) = {
-      post: "/v1/subscriptionWebhook"
-      body: "*"
-    };
-  }
 }
 
 message GetConfigurationReq {
