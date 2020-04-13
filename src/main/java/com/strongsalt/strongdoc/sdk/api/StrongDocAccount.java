@@ -13,7 +13,10 @@ import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.proto.Account;
 import io.grpc.StatusRuntimeException;
 
+import com.google.protobuf.util.Timestamps;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class can be used to perform actions that are related to an account like organizations and users.
@@ -257,7 +260,7 @@ public class StrongDocAccount {
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).listUsers(req);
         final ArrayList<OrgUserInfo> orgUserList = new ArrayList<OrgUserInfo>();
         for (Account.ListUsersResp.OrgUser orgUser : res.getOrgUsersList()) {
-            orgUserList.add(new OrgUserInfo(orgUser.getUserName(), orgUser.getUserID(), orgUser.getIsAdmin()));
+            orgUserList.add(new OrgUserInfo(orgUser.getUserID(), orgUser.getUserName(), "", "", orgUser.getIsAdmin()));
         }
         return orgUserList;
     }
@@ -393,13 +396,51 @@ public class StrongDocAccount {
         final Account.GetAccountInfoResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getAccountInfo(req);
 
-        final AccountInfoResponse response = new AccountInfoResponse();
+        final AccountInfoResponse response = new AccountInfoResponse(
+                res.getOrgID(), res.getOrgAddress(), res.getMultiLevelShare());
+
         response.setSubscription(res.getSubscription().getType(), res.getSubscription().getStatus());
+        
         for (int index = 0; index < res.getPaymentsCount(); index++) {
             Account.Payment payment = res.getPayments(index);
-            response.addPayment(payment.getBilledAt(), payment.getPeriodStart(), payment.getPeriodEnd(),
+
+            Date billedAt = new Date(Timestamps.toMillis(payment.getBilledAt()));
+            Date periodStart = new Date(Timestamps.toMillis(payment.getPeriodStart()));
+            Date periodEnd = new Date(Timestamps.toMillis(payment.getPeriodEnd()));
+            
+            response.addPayment(billedAt, periodStart, periodEnd,
                     payment.getAmount(), payment.getStatus());
         }
+
+        for (int i = 0; i < res.getSharableOrgsCount(); i++) {
+            response.addSharableOrg(res.getSharableOrgs(i));
+        }
+
+        return response;
+    }
+
+    // ---------------------------------- GetUserInfoReq ----------------------------------
+
+    /**
+     * Obtains information about the user
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @return The user info response.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public OrgUserInfo getUserInfo(final StrongDocServiceClient client,
+                                              final String token)
+            throws StatusRuntimeException {
+
+        final Account.GetUserInfoReq req = Account.GetUserInfoReq.newBuilder().build();
+
+        final Account.GetUserInfoResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).getUserInfo(req);
+
+        final OrgUserInfo response = new OrgUserInfo(
+                res.getUserID(), res.getUserName(), res.getOrgID(), res.getEmail(), res.getIsAdmin());
 
         return response;
     }

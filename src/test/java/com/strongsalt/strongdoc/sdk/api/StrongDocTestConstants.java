@@ -1,9 +1,15 @@
 package com.strongsalt.strongdoc.sdk.api;
 
+import java.nio.file.FileSystems;
+
 public class StrongDocTestConstants {
     // StrongDoc client
-    public final static String HOST = "api.strongsalt.com";
+    public final static String HOST = "localhost";
     public final static int PORT = 9090;
+    public final static String CERT_PATH = FileSystems.getDefault()
+        .getPath("src", "test", "resources", "certs", "grpc.root.localhost.pem")
+        .toAbsolutePath()
+        .toString();
 
     // Subscription
     public final static String SOURCE = "Test Active";
@@ -40,6 +46,15 @@ public class StrongDocTestConstants {
     public final static String ORG4_USER_NAME = "Org4UserName";
     public final static String ORG4_USER_PASSWORD = "Org4UserPassword";
     public final static String ORG4_USER_EMAIL = "Org4User@somewhere.com";
+
+    public final static String ORG6_ADMIN_NAME = "Org6AdminUserName";
+    public final static String ORG6_ADMIN_PASSWORD = "Org6AdminUserPassword";
+    public final static String ORG6_ADMIN_EMAIL = "Org6AdminUser@somewhere.com";
+    public final static String ORG6_NAME = "Org6Organization";
+    public final static String ORG6_ADDRESS = "600 Java SDK Drive.";
+    public final static String ORG6_USER_NAME = "Org6UserName";
+    public final static String ORG6_USER_PASSWORD = "Org6UserPassword";
+    public final static String ORG6_USER_EMAIL = "Org6User@somewhere.com";
 
     // StrongDocSearch
     public final static String ORG5_ADMIN_NAME = "Org5AdminUserName";

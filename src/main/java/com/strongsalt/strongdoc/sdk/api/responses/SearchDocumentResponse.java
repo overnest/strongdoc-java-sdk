@@ -13,14 +13,14 @@ public class SearchDocumentResponse {
     /**
      * The hit list of the search query
      */
-    private List hitsList;
+    private List<SearchDocumentResult> hitsList;
 
     /**
      * Constructs a SearchDocumentResponse
      *
      * @param hitsList The hit list of the search query
      */
-    public SearchDocumentResponse(final List hitsList) {
+    public SearchDocumentResponse(final List<SearchDocumentResult> hitsList) {
         this.hitsList = hitsList;
     }
 
@@ -29,7 +29,7 @@ public class SearchDocumentResponse {
      *
      * @return The hit list of the search query
      */
-    public List getHitsList() {
+    public List<SearchDocumentResult> getHitsList() {
         return hitsList;
     }
 }

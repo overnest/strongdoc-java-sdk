@@ -4,14 +4,21 @@
 
 package com.strongsalt.strongdoc.sdk.api.responses;
 
-import com.google.protobuf.Timestamp;
-
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class holds the response from a billing details request.
  */
 public class AccountInfoResponse {
+    /**
+     * Account's orgID
+     */
+    private String orgID;
+    /**
+     * Account's organization address
+     */
+    private String orgAddress;
     /**
      * Account's subscription info
      */
@@ -20,14 +27,44 @@ public class AccountInfoResponse {
      * List of all account's payments
      */
     private ArrayList<Payment> paymentList;
+    /**
+     * Whether multi-level sharing is enabled
+     */
+    private boolean multiLevelSharing;
+    /**
+     * List of all account's sharable orgs
+     */
+    private ArrayList<String> sharableOrgList;
 
     // --------------------------- AccountInfoResponse ---------------------------
 
     /**
      * Constructs a AccountInfoResponse
      */
-    public AccountInfoResponse() {
+    public AccountInfoResponse(String orgID, String orgAddress, boolean multiLevelSharing) {
+        this.orgID = orgID;
+        this.orgAddress = orgAddress;
         this.paymentList = new ArrayList<Payment>();
+        this.multiLevelSharing = multiLevelSharing;
+        this.sharableOrgList = new ArrayList<String>();
+    }
+
+    /**
+     * Gets the orgID from response
+     *
+     * @return The orgID
+     */
+    public String getOrgID() {
+        return this.orgID;
+    }
+
+    /**
+     * Gets the organization's address from response
+     *
+     * @return The org address
+     */
+    public String getOrgAddress() {
+        return this.orgAddress;
     }
 
     /**
@@ -58,8 +95,8 @@ public class AccountInfoResponse {
      * @param amount      The amount of payment
      * @param status      The Payment status ("No Payment","Zero Payment","Payment Pending","Payment Success","Payment Failed")
      */
-    public void addPayment(final Timestamp billedAt, final Timestamp periodStart,
-                           final Timestamp periodEnd, final double amount,
+    public void addPayment(final Date billedAt, final Date periodStart,
+                           final Date periodEnd, final double amount,
                            final String status) {
         this.paymentList.add(new Payment(billedAt, periodStart, periodEnd, amount, status));
     }
@@ -69,5 +106,30 @@ public class AccountInfoResponse {
      */
     public ArrayList<Payment> getPayments() {
         return this.paymentList;
+    }
+
+    /**
+     * Gets whether multi-level sharing is enabled
+     *
+     * @return Whether multi-level sharing is enabled
+     */
+    public boolean getMultiLevelSharing() {
+        return this.multiLevelSharing;
+    }
+
+    /**
+     * Adds a payment to the response's payment list
+     *
+     * @param sharableOrg    The orgID of the sharable org
+     */
+    public void addSharableOrg(final String sharableOrg) {
+        this.sharableOrgList.add(sharableOrg);
+    }
+
+    /**
+     * Gets the account's sharable orgs
+     */
+    public ArrayList<String> getSharableOrgs() {
+        return this.sharableOrgList;
     }
 }

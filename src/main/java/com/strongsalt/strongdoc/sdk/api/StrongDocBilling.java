@@ -4,8 +4,6 @@
 
 package com.strongsalt.strongdoc.sdk.api;
 
-
-import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
 import com.strongsalt.strongdoc.sdk.api.responses.*;
 import com.strongsalt.strongdoc.sdk.client.JwtCallCredential;
@@ -13,11 +11,34 @@ import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.proto.Billing;
 import io.grpc.StatusRuntimeException;
 
+import java.util.Date;
 
 /**
  * This class can be used to perform actions that are related to the cost breakdown and other details related to billing.
  */
 public class StrongDocBilling {
+    public enum TimeInterval {
+        /**
+        * <code>UNDEFINED = 0;</code>
+        */
+        UNDEFINED(0),
+        /**
+        * <code>MONTHLY = 1;</code>
+        */
+        MONTHLY(1),
+        /**
+        * <code>YEARLY = 2;</code>
+        */
+        YEARLY(2),
+        UNRECOGNIZED(-1);
+    
+        public final int interval;
+    
+        private TimeInterval(int interval) {
+            this.interval = interval;
+        }
+    }
+
     /**
      * It lists all items of the cost breakdown and also other details such as the billing frequency.
      * This requires an administrator privilege.
@@ -30,11 +51,11 @@ public class StrongDocBilling {
      * @see StatusRuntimeException io.grpc
      */
     public BillingDetailsResponse getBillingDetails(final StrongDocServiceClient client, final String token,
-                                                    final Timestamp at)
+                                                    final Date at)
             throws StatusRuntimeException {
 
         final Billing.GetBillingDetailsReq req = Billing.GetBillingDetailsReq.newBuilder()
-                .setAt(at)
+                .setAt(Timestamps.fromMillis(at.getTime()))
                 .build();
         final Billing.GetBillingDetailsResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getBillingDetails(req);
@@ -49,11 +70,14 @@ public class StrongDocBilling {
         TrafficCosts tc = new TrafficCosts(btc.getCost(), btc.getIncoming(), btc.getOutgoing(), btc.getTier());
 
         Billing.BillingFrequency bbf = res.getBillingFrequency();
-        BillingFrequency bf = new BillingFrequency(bbf.getFrequency(), bbf.getValidFrom(), bbf.getValidTo());
+        BillingFrequency bf = new BillingFrequency(
+                TimeInterval.valueOf(bbf.getFrequency().toString()), 
+                new Date(Timestamps.toMillis(bbf.getValidFrom())), 
+                new Date(Timestamps.toMillis(bbf.getValidTo())));
 
         BillingDetailsResponse response = new BillingDetailsResponse(
-                Timestamps.toString(res.getPeriodStart()),
-                Timestamps.toString(res.getPeriodEnd()),
+                new Date(Timestamps.toMillis(res.getPeriodStart())),
+                new Date(Timestamps.toMillis(res.getPeriodEnd())),
                 res.getTotalCost(),
                 dc, sc, tc, bf);
 
@@ -83,7 +107,9 @@ public class StrongDocBilling {
 
         for (int index = 0; index < res.getBillingFrequencyListCount(); index++) {
             Billing.BillingFrequency bf = res.getBillingFrequencyList(index);
-            response.addBillingFrequency(bf.getFrequency(), bf.getValidFrom(), bf.getValidTo());
+            response.addBillingFrequency(TimeInterval.valueOf(bf.getFrequency().toString()), 
+                new Date(Timestamps.toMillis(bf.getValidFrom())), 
+                new Date(Timestamps.toMillis(bf.getValidTo())));
         }
 
         return response;
@@ -103,19 +129,22 @@ public class StrongDocBilling {
      */
     public NextBillingFrequencyResponse setNextBillingFrequency(final StrongDocServiceClient client,
                                                                 final String token,
-                                                                final Billing.TimeInterval frequency,
-                                                                final Timestamp validFrom)
+                                                                final TimeInterval frequency,
+                                                                final Date validFrom)
             throws StatusRuntimeException {
 
         final Billing.SetNextBillingFrequencyReq req = Billing.SetNextBillingFrequencyReq.newBuilder()
-                .setFrequency(frequency)
-                .setValidFrom(validFrom)
+                .setFrequency(Billing.TimeInterval.valueOf(frequency.toString()))
+                .setValidFrom(Timestamps.fromMillis(validFrom.getTime()))
                 .build();
         final Billing.SetNextBillingFrequencyResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).setNextBillingFrequency(req);
 
         Billing.BillingFrequency bbf = res.getNextBillingFrequency();
-        BillingFrequency bf = new BillingFrequency(bbf.getFrequency(), bbf.getValidFrom(), bbf.getValidTo());
+        BillingFrequency bf = new BillingFrequency(
+                TimeInterval.valueOf(bbf.getFrequency().toString()), 
+                new Date(Timestamps.toMillis(bbf.getValidFrom())), 
+                new Date(Timestamps.toMillis(bbf.getValidTo())));
 
         return new NextBillingFrequencyResponse(bf);
     }
@@ -133,22 +162,22 @@ public class StrongDocBilling {
      */
     public LargeTrafficResponse getLargeTraffic(final StrongDocServiceClient client,
                                                 final String token,
-                                                final Timestamp at)
+                                                final Date at)
             throws StatusRuntimeException {
 
         final Billing.GetLargeTrafficReq req = Billing.GetLargeTrafficReq.newBuilder()
-                .setAt(at)
+                .setAt(Timestamps.fromMillis(at.getTime()))
                 .build();
         final Billing.GetLargeTrafficResp res = client.getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getLargeTraffic(req);
 
         final LargeTrafficResponse response = new LargeTrafficResponse(
-                Timestamps.toString(res.getPeriodStart()),
-                Timestamps.toString(res.getPeriodEnd()));
+                new Date(Timestamps.toMillis(res.getPeriodStart())),
+                new Date(Timestamps.toMillis(res.getPeriodEnd())));
 
         for (int index = 0; index < res.getLargeTrafficCount(); index++) {
             Billing.TrafficDetail td = res.getLargeTraffic(index);
-            response.addTrafficDetail(Timestamps.toString(td.getTime()), td.getUserID(), td.getMethod(),
+            response.addTrafficDetail(new Date(Timestamps.toMillis(td.getTime())), td.getUserID(), td.getMethod(),
                     td.getURI(), td.getIncoming(), td.getOutgoing());
         }
 

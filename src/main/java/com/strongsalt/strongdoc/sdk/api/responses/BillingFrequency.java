@@ -4,8 +4,8 @@
 
 package com.strongsalt.strongdoc.sdk.api.responses;
 
-import com.google.protobuf.Timestamp;
-import com.strongsalt.strongdoc.sdk.proto.Billing;
+import java.util.Date;
+import com.strongsalt.strongdoc.sdk.api.StrongDocBilling;
 
 /**
  * This class holds the billing frequency used during the requested billing period
@@ -14,15 +14,15 @@ public class BillingFrequency {
     /**
      * Billing frequency
      */
-    private Billing.TimeInterval frequency;
+    private StrongDocBilling.TimeInterval frequency;
     /**
      * Start of billing frequency validity
      */
-    private Timestamp validFrom;
+    private Date validFrom;
     /**
      * End of billing frequency validity
      */
-    private Timestamp validTo;
+    private Date validTo;
 
     /**
      * Constructs a BillingFrequency
@@ -31,8 +31,8 @@ public class BillingFrequency {
      * @param validFrom Start of billing frequency validity
      * @param validTo   End of billing frequency validity
      */
-    public BillingFrequency(final Billing.TimeInterval frequency, final Timestamp validFrom,
-                            final Timestamp validTo) {
+    public BillingFrequency(final StrongDocBilling.TimeInterval frequency, final Date validFrom,
+                            final Date validTo) {
         this.frequency = frequency;
         this.validFrom = validFrom;
         this.validTo = validTo;
@@ -41,21 +41,21 @@ public class BillingFrequency {
     /**
      * Gets the billing frequency
      */
-    public Billing.TimeInterval getFrequency() {
+    public StrongDocBilling.TimeInterval getFrequency() {
         return frequency;
     }
 
     /**
      * Gets the start of billing frequency validity
      */
-    public Timestamp getValidFrom() {
+    public Date getValidFrom() {
         return validFrom;
     }
 
     /**
      * Gets the end of billing frequency validity
      */
-    public Timestamp getValidTo() {
+    public Date getValidTo() {
         return validTo;
     }
 }

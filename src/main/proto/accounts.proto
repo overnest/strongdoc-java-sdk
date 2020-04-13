@@ -434,12 +434,45 @@ message GetAccountInfoResp {
       title: "GetAccountInfoResp"
     }
     example: {
-      value: '{"subscription":{"type":"Credit Card","status":"Subscribed"}, "payments":[{"billedAt": "2020-02-01T12:30:15.123Z", "periodStart": "2020-01-01T00:00:00.000Z", "periodEnd": "2020-02-01T00:00:00.000Z", "amount": 52.16, "status": "Payment Success" }]}'
+      value: '{"subscription":{"type":"Credit Card","status":"Subscribed"}, "payments":[{"billedAt": "2020-02-01T12:30:15.123Z", "periodStart": "2020-01-01T00:00:00.000Z", "periodEnd": "2020-02-01T00:00:00.000Z", "amount": 52.16, "status": "Payment Success" }], "orgAddress": "1600 Pennsylvania Ave NW, Washington, DC 20500", "multiLevelShare": true, "sharableOrgs": ["cnn", "democrats"]}'
     }
   };
 
+  // Account's orgID
+  string orgID = 1;
   // Account's subscription info
-  Subscription subscription = 1;
+  Subscription subscription = 2;
   // List of all account's payments
-  repeated Payment payments = 2;
+  repeated Payment payments = 3;
+  // The address of the organization
+  string orgAddress = 4;  
+  // The ability to "reshare" a document that was shared to him/her to another user
+  bool multiLevelShare = 5;
+  // The list of sharable organization IDs.
+  repeated string sharableOrgs = 6;
+}
+
+message GetUserInfoReq {
+}
+
+message GetUserInfoResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetUserInfoResp"
+    }
+    example: {
+      value: '{"email": "donald.trump@whitehouse.gov", "userName": "Donald Trump", "role": "admin"}'
+    }
+  };
+
+  // The user's userID
+  string userID = 1;  
+  // The user's email
+  string email = 2;
+  // The user's name
+  string userName = 3;
+  // The user's orgID
+  string orgID = 4;
+  // Whether the user is an admin
+  bool isAdmin = 5;
 }

@@ -10,13 +10,21 @@ package com.strongsalt.strongdoc.sdk.api.responses;
  */
 public class OrgUserInfo {
     /**
-     * The user name
-     */
-    private String username;
-    /**
      * The user ID
      */
     private String userID;
+    /**
+     * The user's name
+     */
+    private String name;
+    /**
+     * The user's orgID
+     */
+    private String orgID;
+    /**
+     * The user's email address
+     */
+    private String email;
     /**
      * Indicates whether the user is an administrator
      */
@@ -25,23 +33,19 @@ public class OrgUserInfo {
     /**
      * Constructs an organization user info
      *
-     * @param username The user name
-     * @param userID   The user ID
+     * @param userID The userID
+     * @param name   The user's name
+     * @param orgID The user's orgID
+     * @param email The user's email address
      * @param isAdmin  Indicates whether the user is an administrator
      */
-    public OrgUserInfo(final String username, final String userID, final boolean isAdmin) {
-        this.username = username;
+    public OrgUserInfo(final String userID, final String name, final String orgID, 
+        final String email, final boolean isAdmin) {
+        this.name = name;
         this.userID = userID;
+        this.email = email;
+        this.orgID = orgID;
         this.isAdmin = isAdmin;
-    }
-
-    /**
-     * Returns the username
-     *
-     * @return The username
-     */
-    public String getUsername() {
-        return username;
     }
 
     /**
@@ -51,6 +55,33 @@ public class OrgUserInfo {
      */
     public String getUserID() {
         return userID;
+    }
+
+    /**
+     * Returns the user's name
+     *
+     * @return The user's name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the user's orgID
+     *
+     * @return The user's orgID
+     */
+    public String getOrgID() {
+        return orgID;
+    }
+
+    /**
+     * Returns the user's email address
+     *
+     * @return The user's email address
+     */
+    public String getEmail() {
+        return email;
     }
 
     /**

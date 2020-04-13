@@ -4,7 +4,7 @@
 
 package com.strongsalt.strongdoc.sdk.api.responses;
 
-import com.google.protobuf.Timestamp;
+import java.util.Date;
 
 /**
  * This class holds the payment information
@@ -13,15 +13,15 @@ public class Payment {
     /**
      * The timestamp of the payment billing transaction
      */
-    private Timestamp billedAt;
+    private Date billedAt;
     /**
      * The start of the payment period
      */
-    private Timestamp periodStart;
+    private Date periodStart;
     /**
      * The end of the payment period
      */
-    private Timestamp periodEnd;
+    private Date periodEnd;
     /**
      * The amount of payment
      */
@@ -40,8 +40,8 @@ public class Payment {
      * @param amount      The amount of payment
      * @param status      The Payment status ("No Payment","Zero Payment","Payment Pending","Payment Success","Payment Failed")
      */
-    public Payment(final Timestamp billedAt, final Timestamp periodStart,
-                   final Timestamp periodEnd, final double amount, final String status) {
+    public Payment(final Date billedAt, final Date periodStart,
+                   final Date periodEnd, final double amount, final String status) {
         this.billedAt = billedAt;
         this.periodStart = periodStart;
         this.periodEnd = periodEnd;
@@ -54,7 +54,7 @@ public class Payment {
      *
      * @return The timestamp of the payment billing transaction
      */
-    public Timestamp getBillAt() {
+    public Date getBillAt() {
         return billedAt;
     }
 
@@ -63,7 +63,7 @@ public class Payment {
      *
      * @return The start of the payment period
      */
-    public Timestamp getPeriodStart() {
+    public Date getPeriodStart() {
         return periodStart;
     }
 
@@ -72,7 +72,7 @@ public class Payment {
      *
      * @return The end of the payment period
      */
-    public Timestamp getPeriodEnd() {
+    public Date getPeriodEnd() {
         return periodEnd;
     }
 
