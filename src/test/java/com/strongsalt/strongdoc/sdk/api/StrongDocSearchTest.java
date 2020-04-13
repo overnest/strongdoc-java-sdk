@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -19,7 +20,7 @@ class StrongDocSearchTest {
 
     private final StrongDocTestSetup testSetup = new StrongDocTestSetup();
     private final StrongDocSearch search = new StrongDocSearch();
-    private com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants sdConst;
+    //private com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants sdConst;
     private StrongDocServiceClient client;
     private String adminToken;
     private String uploadedDocID;
@@ -30,12 +31,12 @@ class StrongDocSearchTest {
         client = testSetup.init();
 
         testSetup.registerOrganization(
-                client, sdConst.ORG5_NAME, sdConst.ORG5_ADDRESS, sdConst.ORG5_ADMIN_NAME,
-                sdConst.ORG5_ADMIN_PASSWORD, sdConst.ORG5_ADMIN_EMAIL, new String[]{},
-                false, sdConst.SOURCE, sdConst.SOURCE_DATA);
+                client, ORG5_NAME, ORG5_ADDRESS, ORG5_ADMIN_NAME,
+                ORG5_ADMIN_PASSWORD, ORG5_ADMIN_EMAIL, new String[]{},
+                false, SOURCE, SOURCE_DATA);
 
         adminToken = testSetup.getToken(
-                client, sdConst.ORG5_NAME, sdConst.ORG5_ADMIN_EMAIL, sdConst.ORG5_ADMIN_PASSWORD);
+                client, ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADMIN_PASSWORD);
 
         uploadFile();
     }

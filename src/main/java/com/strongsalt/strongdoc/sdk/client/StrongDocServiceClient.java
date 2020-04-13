@@ -15,12 +15,20 @@ import io.netty.handler.ssl.SslContextBuilder;
 
 import javax.net.ssl.SSLException;
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.concurrent.TimeUnit;
 
 /**
  * A simple client that requests an authentication token with TLS.
  */
 public class StrongDocServiceClient {
+    private static final String HOST = "api.strongsalt.com";
+    private static final int PORT = 9090;
+    private static final String CERT_PATH = FileSystems.getDefault()
+        .getPath("src", "test", "resources", "certs", "grpc.root.pem")
+        .toAbsolutePath()
+        .toString();
+
     private final ManagedChannel channel;
     private final StrongDocServiceGrpc.StrongDocServiceBlockingStub blockingStub;
     private final StrongDocServiceGrpc.StrongDocServiceStub asyncStub;
@@ -36,7 +44,7 @@ public class StrongDocServiceClient {
      * @return A SSL context
      * @throws SSLException A SSL exception
      */
-    public static SslContext buildSslContext(final String trustCertCollectionFilePath,
+    private static SslContext buildSslContext(final String trustCertCollectionFilePath,
                                              final String clientCertChainFilePath,
                                              final String clientPrivateKeyFilePath)
             throws SSLException {
@@ -52,21 +60,31 @@ public class StrongDocServiceClient {
     }
 
     /**
-     * Constructs a StrongDoc service client with TLS enabled
+     * Constructs a StrongDoc service client with TLS enabled.
      *
-     * @param sslContext The SSL context
-     * @param host       The StrongDoc service url
-     * @param port       The StrongDoc service port
      * @throws SSLException A SSL exception
      */
-    public StrongDocServiceClient(final SslContext sslContext,
-                                  final String host,
-                                  final int port)
+    public StrongDocServiceClient() 
+            throws SSLException {
+        this(HOST, PORT, CERT_PATH);
+    }
+
+    /**
+     * For internal use. Constructs a StrongDoc service client with TLS enabled.
+     *
+     * @param host       The StrongDoc service url
+     * @param port       The StrongDoc service port
+     * @param certPath   Path to the TLS certificate
+     * @throws SSLException A SSL exception
+     */
+    public StrongDocServiceClient(final String host,
+                                  final int port,
+                                  final String certPath)
             throws SSLException {
 
         this(NettyChannelBuilder.forAddress(host, port)
                 .negotiationType(NegotiationType.TLS)
-                .sslContext(sslContext)
+                .sslContext(buildSslContext(certPath, null, null))
                 .build());
     }
 
@@ -75,7 +93,7 @@ public class StrongDocServiceClient {
      *
      * @param channel The channel
      */
-    public StrongDocServiceClient(final ManagedChannel channel) {
+    private StrongDocServiceClient(final ManagedChannel channel) {
         this.channel = channel;
         blockingStub = StrongDocServiceGrpc.newBlockingStub(channel);
         asyncStub = StrongDocServiceGrpc.newStub(channel);
@@ -92,7 +110,7 @@ public class StrongDocServiceClient {
     }
 
     /**
-     * Returns a stub that will make non-blocking calls to the server
+     * For internal use. Returns a stub that will make non-blocking calls to the server.
      *
      * @return A stub that will make non-blocking calls to the server
      */
@@ -101,7 +119,7 @@ public class StrongDocServiceClient {
     }
 
     /**
-     * Returns a stub that will make blocking calls to the server
+     * For internal use. Returns a stub that will make blocking calls to the server.
      *
      * @return A stub that will make blocking calls to the server
      */
@@ -114,7 +132,7 @@ public class StrongDocServiceClient {
      *
      * @return A StrongDoc document for streaming documents
      */
-    public StrongDocDocument getStreamDocument() {
+    /*public StrongDocDocument getStreamDocument() {
         return streamDocument;
-    }
+    }*/
 }

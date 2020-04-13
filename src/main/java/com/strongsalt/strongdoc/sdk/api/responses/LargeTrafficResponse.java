@@ -5,6 +5,7 @@
 package com.strongsalt.strongdoc.sdk.api.responses;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class holds the response from a large traffic information request.
@@ -13,12 +14,12 @@ public class LargeTrafficResponse {
     /**
      * Start of the requested billing period
      */
-    private String periodStart;
+    private Date periodStart;
     //private Timestamps periodStart;
     /**
      * End of the requested billing period
      */
-    private String periodEnd;
+    private Date periodEnd;
     //private Timestamps periodEnd;
     /**
      * The details of large traffic events
@@ -31,8 +32,8 @@ public class LargeTrafficResponse {
      * @param periodStart Start of the requested billing period
      * @param periodEnd   End of the requested billing period
      */
-    public LargeTrafficResponse(final String periodStart,
-                                final String periodEnd) {
+    public LargeTrafficResponse(final Date periodStart,
+                                final Date periodEnd) {
         this.periodStart = periodStart;
         this.periodEnd = periodEnd;
         this.trafficDetailList = new ArrayList<TrafficDetail>();
@@ -48,7 +49,7 @@ public class LargeTrafficResponse {
      * @param incoming Size of the request (in MB)
      * @param outgoing Size of the response (in MB)
      */
-    public void addTrafficDetail(final String time, final String userID, final String method,
+    public void addTrafficDetail(final Date time, final String userID, final String method,
                                  final String uri, final double incoming, final double outgoing) {
         this.trafficDetailList.add(new TrafficDetail(time, userID, method, uri, incoming, outgoing));
     }
@@ -56,14 +57,14 @@ public class LargeTrafficResponse {
     /**
      * Gets the start of the requested billing period
      */
-    public String getPeriodStart() {
+    public Date getPeriodStart() {
         return periodStart;
     }
 
     /**
      * Gets the end of the requested billing period
      */
-    public String getPeriodEnd() {
+    public Date getPeriodEnd() {
         return periodEnd;
     }
 

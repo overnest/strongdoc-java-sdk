@@ -4,8 +4,9 @@
 
 package com.strongsalt.strongdoc.sdk.api.responses;
 
-import com.google.protobuf.Timestamp;
 import com.strongsalt.strongdoc.sdk.proto.Billing;
+
+import java.util.Date;
 
 /*
 enum TimeInterval {
@@ -28,12 +29,12 @@ public class BillingDetailsResponse {
     /**
      * Start of the requested billing period
      */
-    private String periodStart;
+    private Date periodStart;
     //private Timestamps periodStart;
     /**
      * End of the requested billing period
      */
-    private String periodEnd;
+    private Date periodEnd;
     //private Timestamps periodEnd;
     /**
      * Total cost incurred during the requested billing period
@@ -67,8 +68,8 @@ public class BillingDetailsResponse {
      * @param trafficCosts   Usage and cost breakdown for used traffic
      * @param billingFrequency   Billing frequency used during the requested billing period
      */
-    public BillingDetailsResponse(final String periodStart,
-                                  final String periodEnd,
+    public BillingDetailsResponse(final Date periodStart,
+                                  final Date periodEnd,
                                   final double totalCost,
                                   final DocumentCosts documentCosts,
                                   final SearchCosts searchCosts,
@@ -86,14 +87,14 @@ public class BillingDetailsResponse {
     /**
      * Gets the start of the requested billing period
      */
-    public String getPeriodStart() {
+    public Date getPeriodStart() {
       return periodStart;
     }
 
     /**
      * Gets the end of the requested billing period
      */
-    public String getPeriodEnd() {
+    public Date getPeriodEnd() {
       return periodEnd;
     }
 

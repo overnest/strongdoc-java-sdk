@@ -95,6 +95,12 @@
          <artifactId>protobuf-java-util</artifactId>
          <version>${protobuf.java.util.version}</version>
       </dependency>
+      <dependency>
+         <groupId>io.netty</groupId>
+         <artifactId>netty-tcnative-boringssl-static</artifactId>
+         <version>2.0.26.Final</version>
+         <scope>runtime</scope>
+      </dependency>
       <!-- junit 5 -->
       <dependency>
          <groupId>org.junit.jupiter</groupId>
@@ -132,6 +138,17 @@
          </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+               <excludes>
+                  <exclude>com/strongsalt/strongdoc/sdk/proto/*.java</exclude>
+                  <exclude>grpc/gateway/protoc_gen_swagger/options/*.java</exclude>
+               </excludes>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
             <version>1.4.1</version>
             <executions>
@@ -166,7 +183,11 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.1.1</version>
             <configuration>
-              <additionalOptions>-html5</additionalOptions>
+              <!-- <additionalOptions>-html5</additionalOptions> -->
+              <sourceFileExcludes>
+                  <exclude>com/strongsalt/strongdoc/sdk/client/JwtCallCredential.java</exclude>
+               </sourceFileExcludes>
+              <excludePackageNames>*.proto:grpc.*</excludePackageNames>
             </configuration>
             <executions>
                <execution>

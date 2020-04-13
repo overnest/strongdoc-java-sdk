@@ -4,6 +4,8 @@
 
 package com.strongsalt.strongdoc.sdk.api.responses;
 
+import java.util.Date;
+
 /**
  * This class holds the details of large traffic events
  */
@@ -11,7 +13,7 @@ public class TrafficDetail {
     /**
      * Timestamp of the large traffic event
      */
-    private String time;
+    private Date time;
     /**
      * The ID of the user who made the request
      */
@@ -43,7 +45,7 @@ public class TrafficDetail {
      * @param incoming Size of the request (in MB)
      * @param outgoing Size of the response (in MB)
      */
-    public TrafficDetail(final String time, final String userID, final String method,
+    public TrafficDetail(final Date time, final String userID, final String method,
                          final String uri, final double incoming, final double outgoing) {
         this.time = time;
         this.userID = userID;
@@ -56,7 +58,7 @@ public class TrafficDetail {
     /*
      * Gets the timestamp of the large traffic event
      */
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 

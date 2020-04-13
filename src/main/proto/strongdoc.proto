@@ -557,10 +557,28 @@ service StrongDocService {
 
   //Obtain information about the account
   //
+  //Requires Administrator privilege
   //Requires Login
   rpc GetAccountInfo(GetAccountInfoReq) returns (GetAccountInfoResp) {
     option (google.api.http) = {
       get: "/v1/account"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Obtain information about logged user
+  //
+  // Requires Login
+  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp) {
+    option (google.api.http) = {
+      get: "/v1/account/user"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
       security: {

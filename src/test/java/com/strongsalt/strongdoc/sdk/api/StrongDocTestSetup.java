@@ -6,22 +6,17 @@ import com.strongsalt.strongdoc.sdk.proto.Account;
 import io.netty.handler.ssl.SslContext;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.FileSystems;
+
+import static com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants.*;
 
 public class StrongDocTestSetup {
 
-    private com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants sdConst;
+    //private com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants sdConst;
 
     public StrongDocServiceClient init() throws Exception {
-        final Path resourceDirectory = Paths.get("src", "test", "resources", "certs");
-        final String absolutePath = resourceDirectory.toFile().getAbsolutePath();
-
-        final SslContext sslContext = StrongDocServiceClient.buildSslContext(
-                absolutePath + "/grpc.root.pem", 
-                absolutePath + "/grpc.cert.pem",
-                null);
         final StrongDocServiceClient client =
-                new StrongDocServiceClient(sslContext, sdConst.HOST, sdConst.PORT);
+                new StrongDocServiceClient(HOST, PORT, CERT_PATH);
 
         return client;
     }

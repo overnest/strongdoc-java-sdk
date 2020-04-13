@@ -4,10 +4,10 @@
 
 package com.strongsalt.strongdoc.sdk.api.responses;
 
-import com.google.protobuf.Timestamp;
-import com.strongsalt.strongdoc.sdk.proto.Billing;
+import com.strongsalt.strongdoc.sdk.api.StrongDocBilling;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class holds the response from a billing frequency list request.
@@ -32,8 +32,8 @@ public class BillingFrequencyListResponse {
      * @param validFrom Start of billing frequency validity
      * @param validTo   End of billing frequency validity
      */
-    public void addBillingFrequency(final Billing.TimeInterval frequency,
-                                    final Timestamp validFrom, final Timestamp validTo) {
+    public void addBillingFrequency(final StrongDocBilling.TimeInterval frequency,
+                                    final Date validFrom, final Date validTo) {
         this.billingFrequencyList.add(new BillingFrequency(frequency, validFrom, validTo));
     }
 
