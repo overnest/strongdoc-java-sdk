@@ -21,8 +21,9 @@ public class StrongDocTestSetup {
         return client;
     }
 
-    public void registerOrganization(StrongDocServiceClient client,
+    public String registerOrganization(StrongDocServiceClient client,
                                      final String orgName,
+                                     final String orgEmail,
                                      final String orgAddress,
                                      final String adminName,
                                      final String adminPassword,
@@ -34,10 +35,11 @@ public class StrongDocTestSetup {
 
         final Account.RegisterOrganizationReq.Builder regOrg = Account.RegisterOrganizationReq.newBuilder();
         regOrg.setOrgName(orgName);
+        regOrg.setOrgEmail(orgEmail);
         regOrg.setOrgAddr(orgAddress);
         regOrg.setUserName(adminName);
         regOrg.setPassword(adminPassword);
-        regOrg.setEmail(adminEmail);
+        regOrg.setAdminEmail(adminEmail);
         regOrg.setMultiLevelShare(multiLevelShare);
         regOrg.setSource(source);
         regOrg.setSourceData(sourceData);
@@ -48,6 +50,8 @@ public class StrongDocTestSetup {
 
         final Account.RegisterOrganizationResp res = client.getBlockingStub().registerOrganization(req);
         System.out.printf("Registered Organziation.  OrgID: %s, UserID: %s\n\n", res.getOrgID(), res.getUserID());
+
+        return res.getUserID();
     }
 
     public void removeOrganization(final StrongDocServiceClient client, final String token)

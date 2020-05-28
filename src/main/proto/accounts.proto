@@ -18,33 +18,37 @@ message RegisterOrganizationReq {
       title: "RegisterOrganizationReq"
     }
     example: {
-      value: '{"orgName": "WhiteHouse", "orgAddr": "1600 Pennsylvania Ave NW, Washington, DC 20500", "userName": "Donald Trump", "password": "ukrainismyfriend", "email": "donald.trump@whitehouse.gov", "sharableOrgs": ["cnn", "fbi", "democrats"], "multiLevelShare": true, "source": "", "sourceData": "{\\"registrationToken\\": \\"abcd1234\\"}"}'
+      value: '{"orgName": "WhiteHouse", "orgEmail": "email@company.com", "orgAddr": "1600 Pennsylvania Ave NW, Washington, DC 20500", "userName": "Donald Trump", "password": "ukrainismyfriend", "adminEmail": "donald.trump@whitehouse.gov", "sharableOrgs": ["cnn", "fbi", "democrats"], "multiLevelShare": true, "source": "", "sourceData": "{\\"registrationToken\\": \\"abcd1234\\"}"}'
     }
   };
 
   // The name of the organization. This value has to be unique.
   string orgName = 1;
+  // The email of the organization.
+  string orgEmail = 2;
   // The address of the organization. This is optional.
-  string orgAddr = 2;
+  string orgAddr = 3;
   // The administrator username. If the administrator does not exist,
   // it will be created.
-  string userName = 3;
+  string userName = 4;
   // The administrator password.
-  string password = 4;
+  string password = 5;
   // The administrator email. This serves as the unique ID of
   // the administrator user.
-  string email = 5;
+  string adminEmail = 6;
   // The list of sharable organization IDs. The users in this
   // organization can only share documents to other users in
   // the organizations in the sharableOrgs list.
-  repeated string sharableOrgs = 6;
+  repeated string sharableOrgs = 7;
   // Enables the ability to "reshare" a document that was shared
   // to him/her to another user.
-  bool multiLevelShare = 7;
+  bool multiLevelShare = 8;
   // How was the organization registered (e.g. from "AWS Marketplace")
-  string source = 8;
+  string source = 9;
   // Any data related to registration from the source (in JSON)
-  string sourceData = 9;
+  string sourceData = 10;
+  // Stripe paymentID for syncronous account setup
+  string pmID = 11;
 }
 
 message RegisterOrganizationResp {
@@ -383,6 +387,96 @@ message  SetMultiLevelSharingResp {
   bool success = 1;
 }
 
+message SetAccountInfoReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetAccountInfoReq"
+    }
+    example: {
+      value: '{"orgEmail": "newEmail@orgwebsite.com", "orgAddress": "1234 Org St."}'
+    }
+  };
+
+  // The new organization email address
+  string orgEmail = 1;
+  // The new organization address
+  string orgAddress = 2;
+}
+  
+message  SetAccountInfoResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetAccountInfoResp"
+    }
+    example: {
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the update was successful
+  bool success = 1;
+}
+
+message SetUserInfoReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetUserInfoReq"
+    }
+    example: {
+      value: '{"name": "User Person", "email": "newEmail@website.com"}'
+    }
+  };
+
+  // The new user name
+  string name = 1;
+  // The new user email
+  string email = 2;
+}
+
+message  SetUserInfoResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetUserInfoResp"
+    }
+    example: {
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the update was successful
+  bool success = 1;
+}
+
+message ChangeUserPasswordReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ChangeUserPasswordReq"
+    }
+    example: {
+      value: '{"oldPassword": "oldPassword123", "newPassword": "newPassword123"}'
+    }
+  };
+
+  // The old user password
+  string oldPassword = 1;
+  // The new user password
+  string newPassword = 2;
+}
+
+message  ChangeUserPasswordResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ChangeUserPasswordResp"
+    }
+    example: {
+      value: '{"success": true}'
+    }
+  };
+
+  // Whether the update was successful
+  bool success = 1;
+}
+
 message Subscription {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
@@ -434,22 +528,24 @@ message GetAccountInfoResp {
       title: "GetAccountInfoResp"
     }
     example: {
-      value: '{"subscription":{"type":"Credit Card","status":"Subscribed"}, "payments":[{"billedAt": "2020-02-01T12:30:15.123Z", "periodStart": "2020-01-01T00:00:00.000Z", "periodEnd": "2020-02-01T00:00:00.000Z", "amount": 52.16, "status": "Payment Success" }], "orgAddress": "1600 Pennsylvania Ave NW, Washington, DC 20500", "multiLevelShare": true, "sharableOrgs": ["cnn", "democrats"]}'
+      value: '{"orgID": "thisOrganization", "orgEmail": "email@company.com", "subscription":{"type":"Credit Card","status":"Subscribed"}, "payments":[{"billedAt": "2020-02-01T12:30:15.123Z", "periodStart": "2020-01-01T00:00:00.000Z", "periodEnd": "2020-02-01T00:00:00.000Z", "amount": 52.16, "status": "Payment Success" }], "orgAddress": "1600 Pennsylvania Ave NW, Washington, DC 20500", "multiLevelShare": true, "sharableOrgs": ["cnn", "democrats"]}'
     }
   };
 
   // Account's orgID
   string orgID = 1;
+  // Account's email
+  string orgEmail = 2;
   // Account's subscription info
-  Subscription subscription = 2;
+  Subscription subscription = 3;
   // List of all account's payments
-  repeated Payment payments = 3;
+  repeated Payment payments = 4;
   // The address of the organization
-  string orgAddress = 4;  
+  string orgAddress = 5;  
   // The ability to "reshare" a document that was shared to him/her to another user
-  bool multiLevelShare = 5;
+  bool multiLevelShare = 6;
   // The list of sharable organization IDs.
-  repeated string sharableOrgs = 6;
+  repeated string sharableOrgs = 7;
 }
 
 message GetUserInfoReq {

@@ -59,6 +59,18 @@ service StrongDocService {
     };
   }
 
+  // Reactivate an organization that was unsubscribed via aws
+  //
+  // The user reactivating the organization becomes the administrator
+  //
+  // Does not require login
+  rpc ReactivateOrganization(RegisterOrganizationReq) returns (RegisterOrganizationResp) {
+    option (google.api.http) = {
+      post: "/v1/account/reactivateOrganization"
+      body: "*"
+    };
+  }
+
   // Remove an organization and its search indexes
   //
   // Requires Administrator privilege. Only an administrator can remove the whole organization
@@ -482,6 +494,26 @@ service StrongDocService {
     };
   }
 
+  //Update the organization's account info
+  //
+  //Requires Administrator privilege.
+  //Requires Login
+  rpc SetAccountInfo(SetAccountInfoReq) returns (SetAccountInfoResp) {
+    option (google.api.http) = {
+      put: "/v1/account/setAccountInfo"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+
   //List all items of the cost breakdown and also other details such as the billing frequency
   //
   //Requires Administrator privilege
@@ -573,12 +605,122 @@ service StrongDocService {
     };
   }
 
-  // Obtain information about logged user
+  // Obtain information about logged in user
   //
   // Requires Login
   rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp) {
     option (google.api.http) = {
       get: "/v1/account/user"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Change the password of a logged in user
+  //
+  // Requires Login
+  rpc ChangeUserPassword(ChangeUserPasswordReq) returns (ChangeUserPasswordResp) {
+    option (google.api.http) = {
+      put: "/v1/account/changeUserPassword"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Set information about a logged in user
+  //
+  // Requires Login
+  rpc SetUserInfo(SetUserInfoReq) returns (SetUserInfoResp) {
+    option (google.api.http) = {
+      put: "/v1/account/setUserInfo"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Obtain a list of the org's credit cards
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc ListCreditCards(ListCreditCardsReq) returns (ListCreditCardsResp) {
+    option (google.api.http) = {
+      get: "/v1/billing/cards"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Add a payment method to the customer and validate the payment method
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc AddPaymentMethod(AddPaymentMethodReq) returns (AddPaymentMethodResp) {
+    option (google.api.http) = {
+      post: "/v1/billing/paymentMethod"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Set the default payment method for a stripe customer
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc SetDefaultPaymentMethod(SetDefaultPaymentMethodReq) returns (SetDefaultPaymentMethodResp) {
+    option (google.api.http) = {
+      put: "/v1/billing/paymentMethod/default"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Remove a payment method for a stripe customer
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc RemovePaymentMethod(RemovePaymentMethodReq) returns (RemovePaymentMethodResp) {
+    option (google.api.http) = {
+      delete: "/v1/billing/paymentMethod/remove/{pmID}"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
       security: {

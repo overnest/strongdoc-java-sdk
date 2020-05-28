@@ -44,6 +44,7 @@ public class StrongDocAccount {
      */
     private RegisterOrganizationResponse registerOrganization(final StrongDocServiceClient client,
                                                               final String orgName,
+                                                              final String orgEmail,
                                                               final String orgAddress,
                                                               final String adminName,
                                                               final String adminPassword,
@@ -56,10 +57,11 @@ public class StrongDocAccount {
 
         final Account.RegisterOrganizationReq.Builder regOrg = Account.RegisterOrganizationReq.newBuilder();
         regOrg.setOrgName(orgName);
+        regOrg.setOrgEmail(orgEmail);
         regOrg.setOrgAddr(orgAddress);
         regOrg.setUserName(adminName);
         regOrg.setPassword(adminPassword);
-        regOrg.setEmail(adminEmail);
+        regOrg.setAdminEmail(adminEmail);
         regOrg.setMultiLevelShare(multiLevelShare);
         regOrg.setSource(source);
         regOrg.setSourceData(sourceData);
@@ -397,7 +399,7 @@ public class StrongDocAccount {
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getAccountInfo(req);
 
         final AccountInfoResponse response = new AccountInfoResponse(
-                res.getOrgID(), res.getOrgAddress(), res.getMultiLevelShare());
+                res.getOrgID(), res.getOrgEmail(), res.getOrgAddress(), res.getMultiLevelShare());
 
         response.setSubscription(res.getSubscription().getType(), res.getSubscription().getStatus());
         
@@ -417,6 +419,36 @@ public class StrongDocAccount {
         }
 
         return response;
+    }
+
+        // ---------------------------------- SetAccountInfoReq ----------------------------------
+
+    /**
+     * Sets information about the account's organization
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param orgEmail The organization's new email address. Must be a valid email address.
+     * @param orgAddress The organization address
+     * @return Whether or not the change was a success
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public boolean setAccountInfo(final StrongDocServiceClient client,
+                                              final String token,
+                                              final String orgEmail,
+                                              final String orgAddress)
+            throws StatusRuntimeException {
+
+        final Account.SetAccountInfoReq req = Account.SetAccountInfoReq.newBuilder()
+                .setOrgEmail(orgEmail)
+                .setOrgAddress(orgAddress)
+                .build();
+
+        final Account.SetAccountInfoResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).setAccountInfo(req);
+
+        return res.getSuccess();
     }
 
     // ---------------------------------- GetUserInfoReq ----------------------------------
@@ -444,5 +476,64 @@ public class StrongDocAccount {
 
         return response;
     }
-}
 
+    // ---------------------------------- SetUserInfoReq ----------------------------------
+
+    /**
+     * Sets information about the user
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param name The user's new name. Cannot be an empty string.
+     * @param email The user's new email address. Must be a valid email address.
+     * @return Whether or not the change was a success.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public boolean setUserInfo(final StrongDocServiceClient client,
+                                                final String token,
+                                                final String name,
+                                                final String email)
+            throws StatusRuntimeException {
+
+        final Account.SetUserInfoReq req = Account.SetUserInfoReq.newBuilder()
+                .setName(name)
+                .setEmail(email)
+                .build();
+
+        final Account.SetUserInfoResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).setUserInfo(req);
+
+        return res.getSuccess();
+    }
+
+    // ---------------------------------- ChangeUserPasswordReq ----------------------------------
+
+    /**
+     * Changes the user password
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param currentPassword The user's current password.
+     * @param newPassword The user's new password.
+     * @return Whether or not the change was a success.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public boolean changeUserPassword(final StrongDocServiceClient client,
+                                                final String token,
+                                                final String currentPassword,
+                                                final String newPassword)
+            throws StatusRuntimeException {
+
+        final Account.ChangeUserPasswordReq req = Account.ChangeUserPasswordReq.newBuilder()
+                .setOldPassword(currentPassword)
+                .setNewPassword(newPassword)
+                .build();
+
+        final Account.ChangeUserPasswordResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).changeUserPassword(req);
+
+        return res.getSuccess();
+    }
+}

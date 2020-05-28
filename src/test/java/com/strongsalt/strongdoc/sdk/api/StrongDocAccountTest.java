@@ -21,6 +21,9 @@ class StrongDocAccountTest {
     private StrongDocServiceClient client;
     private String org1AdminToken;
     private String org2AdminToken;
+    
+    private String org1AdminUserID;
+    private String org1UserID;
 
     @BeforeAll
     @DisplayName("Register organizations and obtain token")
@@ -49,7 +52,7 @@ class StrongDocAccountTest {
                 false);
         System.out.printf("A new user %s has been added to organization 1\n\n", userID);
 
-        assertEquals(ORG1_USER_EMAIL, userID);
+        org1UserID = userID;
     }
 
     @Test
@@ -101,7 +104,7 @@ class StrongDocAccountTest {
     @Order(6)
     @DisplayName("Remove User")
     void removeUser() throws Exception {
-        final long removeCount = account.removeUser(client, org1AdminToken, ORG1_USER_EMAIL);
+        final long removeCount = account.removeUser(client, org1AdminToken, org1UserID);
         System.out.printf("%d user has been removed\n\n", removeCount);
 
         assertTrue(removeCount == 1);
@@ -148,6 +151,7 @@ class StrongDocAccountTest {
         assertTrue(accountInfoResponse.getMultiLevelSharing());
         assertEquals(ORG1_ADDRESS, accountInfoResponse.getOrgAddress());
         assertEquals(ORG1_NAME, accountInfoResponse.getOrgID());
+        assertEquals(ORG1_ADMIN_EMAIL, accountInfoResponse.getOrgEmail());
     }
 
     @Test
@@ -171,11 +175,65 @@ class StrongDocAccountTest {
         System.out.printf("  OrgID: %s\n\n", userInfoResponse.getOrgID());
         System.out.printf("  Email: %s\n\n", userInfoResponse.getEmail());
 
-        assertEquals(ORG1_ADMIN_EMAIL, userInfoResponse.getUserID());
+        assertEquals(org1AdminUserID, userInfoResponse.getUserID());
         assertEquals(ORG1_ADMIN_NAME, userInfoResponse.getName());
         assertEquals(ORG1_NAME, userInfoResponse.getOrgID());
         assertEquals(ORG1_ADMIN_EMAIL, userInfoResponse.getEmail());
         assertTrue(userInfoResponse.isAdmin());
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("Set Account Info")
+    void setAccountInfo() throws Exception {
+        final String newEmail = "neworgemail@website.com";
+        final String newAddress = "123 Test New St.";
+
+        final boolean setAccountInfoResponse = account.setAccountInfo(client, org1AdminToken, 
+            newEmail, newAddress);
+
+        assertTrue(setAccountInfoResponse);
+
+        final AccountInfoResponse accountInfoResponse = account.getAccountInfo(client, org1AdminToken);
+
+        assertEquals(newAddress, accountInfoResponse.getOrgAddress());
+        assertEquals(newEmail, accountInfoResponse.getOrgEmail());
+
+        assertTrue(account.setAccountInfo(client, org1AdminToken, ORG1_ADMIN_EMAIL, ORG1_ADDRESS));
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("Set User Info")
+    void setUserInfo() throws Exception {
+        final String newName = "NewUserName";
+        final String newEmail = "newuseremail@website.com";
+
+        final boolean setUserInfoResponse = account.setUserInfo(client, org1AdminToken, 
+            newName, newEmail);
+
+        assertTrue(setUserInfoResponse);
+
+        final OrgUserInfo userInfoResponse = account.getUserInfo(client, org1AdminToken);
+
+        assertEquals(newName, userInfoResponse.getName());
+        assertEquals(newEmail, userInfoResponse.getEmail());
+
+        assertTrue(account.setUserInfo(client, org1AdminToken, ORG1_ADMIN_NAME, ORG1_ADMIN_EMAIL));
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("Change User Password")
+    void changeUserPassword() throws Exception {
+        final String newPassword = "NewPassword";
+
+        final boolean changeUserPasswordResponse = account.changeUserPassword(client, org1AdminToken, 
+            ORG1_ADMIN_PASSWORD, newPassword);
+
+        assertTrue(changeUserPasswordResponse);
+
+        assertTrue(account.changeUserPassword(client, org1AdminToken, newPassword, ORG1_ADMIN_PASSWORD));
     }
 
     private void getTokens() throws Exception {
@@ -187,11 +245,11 @@ class StrongDocAccountTest {
 
     private void registerOrganizations() throws Exception {
         testSetup.registerOrganization(
-                client, ORG2_NAME, ORG2_ADDRESS, ORG2_ADMIN_NAME,
+                client, ORG2_NAME, ORG2_ADMIN_EMAIL, ORG2_ADDRESS, ORG2_ADMIN_NAME,
                 ORG2_ADMIN_PASSWORD, ORG2_ADMIN_EMAIL, new String[]{},
                 false, SOURCE, SOURCE_DATA);
-        testSetup.registerOrganization(
-                client, ORG1_NAME, ORG1_ADDRESS, ORG1_ADMIN_NAME,
+        org1AdminUserID = testSetup.registerOrganization(
+                client, ORG1_NAME, ORG1_ADMIN_EMAIL, ORG1_ADDRESS, ORG1_ADMIN_NAME,
                 ORG1_ADMIN_PASSWORD, ORG1_ADMIN_EMAIL, new String[]{ORG2_NAME},
                 false, SOURCE, SOURCE_DATA);
     }
@@ -201,3 +259,4 @@ class StrongDocAccountTest {
         testSetup.removeOrganization(client, org2AdminToken);
     }
 }
+
