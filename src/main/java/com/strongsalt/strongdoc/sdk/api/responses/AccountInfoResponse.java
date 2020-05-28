@@ -16,6 +16,10 @@ public class AccountInfoResponse {
      */
     private String orgID;
     /**
+     * Account's organization email address
+     */
+    private String orgEmail;
+    /**
      * Account's organization address
      */
     private String orgAddress;
@@ -41,8 +45,9 @@ public class AccountInfoResponse {
     /**
      * Constructs a AccountInfoResponse
      */
-    public AccountInfoResponse(String orgID, String orgAddress, boolean multiLevelSharing) {
+    public AccountInfoResponse(String orgID, String orgEmail, String orgAddress, boolean multiLevelSharing) {
         this.orgID = orgID;
+        this.orgEmail = orgEmail;
         this.orgAddress = orgAddress;
         this.paymentList = new ArrayList<Payment>();
         this.multiLevelSharing = multiLevelSharing;
@@ -56,6 +61,15 @@ public class AccountInfoResponse {
      */
     public String getOrgID() {
         return this.orgID;
+    }
+
+    /**
+     * Gets the organization email address from response
+     *
+     * @return The org email address
+     */
+    public String getOrgEmail() {
+        return this.orgEmail;
     }
 
     /**

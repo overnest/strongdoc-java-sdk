@@ -31,7 +31,7 @@ class StrongDocSearchTest {
         client = testSetup.init();
 
         testSetup.registerOrganization(
-                client, ORG5_NAME, ORG5_ADDRESS, ORG5_ADMIN_NAME,
+                client, ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADDRESS, ORG5_ADMIN_NAME,
                 ORG5_ADMIN_PASSWORD, ORG5_ADMIN_EMAIL, new String[]{},
                 false, SOURCE, SOURCE_DATA);
 

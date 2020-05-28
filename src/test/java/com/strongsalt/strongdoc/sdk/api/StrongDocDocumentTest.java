@@ -48,11 +48,11 @@ class StrongDocDocumentTest {
         client = testSetup.init();
 
         testSetup.registerOrganization(
-                client, ORG6_NAME, ORG6_ADDRESS, ORG6_ADMIN_NAME,
+                client, ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADDRESS, ORG6_ADMIN_NAME,
                 ORG6_ADMIN_PASSWORD, ORG6_ADMIN_EMAIL, new String[]{},
                 false, SOURCE, SOURCE_DATA);
         testSetup.registerOrganization(
-                client, ORG4_NAME, ORG4_ADDRESS, ORG4_ADMIN_NAME,
+                client, ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADDRESS, ORG4_ADMIN_NAME,
                 ORG4_ADMIN_PASSWORD, ORG4_ADMIN_EMAIL, new String[]{ORG6_NAME},
                 false, SOURCE, SOURCE_DATA);
         adminToken = testSetup.getToken(

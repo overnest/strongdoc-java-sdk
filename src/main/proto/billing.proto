@@ -57,6 +57,99 @@ message GetBillingFrequencyListResp {
   repeated BillingFrequency billingFrequencyList = 1;
 }
 
+message ListCreditCardsReq {}
+
+message ListCreditCardsResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "listCreditCardsResp"
+    }
+    example: {
+      value: '{"creditCardList": [{"id": "card_1GhzeM2eZvKYlo2CrJT4qB4r", "brand": "American Express", "country": "US", "exp_month": 5, "exp_year": 2021, "last4": "8431"}]}'
+    }
+  };
+
+  repeated Card creditCardList = 1;
+}
+
+message AddPaymentMethodReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "AddPaymentMethodReq"
+    }
+    example: {
+      value: '{"pmID": "pm_1GiPe1FFYLtHE2OyZ6OfqGfS"}'
+    }
+  };
+  // payment method id
+  string pmID = 1;
+}
+
+message AddPaymentMethodResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "AddPaymentMethodResp"
+    }
+    example: {
+      value: '{"pmID": "pm_1GiPe1FFYLtHE2OyZ6OfqGfS"}'
+    }
+  };
+  // payment method id
+  string pmID = 1;
+}
+
+message SetDefaultPaymentMethodReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetDefaultPaymentMethodReq"
+    }
+    example: {
+      value: '{"pmID": "pm_1GiPe1FFYLtHE2OyZ6OfqGfS"}'
+    }
+  };
+  // payment method id
+  string pmID = 1;
+}
+
+message SetDefaultPaymentMethodResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetDefaultPaymentMethodResp"
+    }
+    example: {
+      value: '{"pmID": "pm_1GiPe1FFYLtHE2OyZ6OfqGfS"}'
+    }
+  };
+  // payment method id
+  string pmID = 1;
+}
+
+message RemovePaymentMethodReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemovePaymentMethodReq"
+    }
+    example: {
+      value: '{"pmID": "pm_1GiPe1FFYLtHE2OyZ6OfqGfS"}'
+    }
+  };
+  // payment method id
+  string pmID = 1;
+}
+
+message RemovePaymentMethodResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RemovePaymentMethodResp"
+    }
+    example: {
+      value: '{"pmID": "pm_1GiPe1FFYLtHE2OyZ6OfqGfS"}'
+    }
+  };
+  // payment method id
+  string pmID = 1;
+}
+
 message SetNextBillingFrequencyReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
@@ -196,4 +289,29 @@ message TrafficCosts {
   double outgoing = 3;
   // Cost tier reached for network traffic during a billing period
   string tier = 4;
+}
+
+message Card {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Card"
+    }
+    example: { 
+      value: '{"id": "card_1GhzeM2eZvKYlo2CrJT4qB4r", "brand": "American Express", "country": "US", "exp_month": 5, "exp_year": 2021, "last4": "8431", "isDefault": true}'
+    }
+  };
+  // Card id
+  string id = 1;
+  // Card brand: visa, mastercard, amex, etc.
+  string brand = 2;
+  // country
+  string country = 3;
+  //expiration month
+  uint64 expMonth = 4;
+  //expiration year
+  uint64 expYear = 5;
+  //last four digits of card number
+  string lastFour = 6;
+  //is the default payment method
+  bool isDefault = 7;
 }
