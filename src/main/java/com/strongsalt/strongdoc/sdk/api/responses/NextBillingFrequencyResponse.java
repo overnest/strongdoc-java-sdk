@@ -8,7 +8,7 @@ package com.strongsalt.strongdoc.sdk.api.responses;
 /**
  * This class holds the response from a next billing frequency request.
  */
-public class NextBillingFrequencyResponse {
+class NextBillingFrequencyResponse {
     /**
      * The next billing frequency
      */

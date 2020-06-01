@@ -127,7 +127,7 @@ public class StrongDocBilling {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public NextBillingFrequencyResponse setNextBillingFrequency(final StrongDocServiceClient client,
+    /*private NextBillingFrequencyResponse setNextBillingFrequency(final StrongDocServiceClient client,
                                                                 final String token,
                                                                 final TimeInterval frequency,
                                                                 final Date validFrom)
@@ -147,7 +147,7 @@ public class StrongDocBilling {
                 new Date(Timestamps.toMillis(bbf.getValidTo())));
 
         return new NextBillingFrequencyResponse(bf);
-    }
+    }*/
 
     /**
      * Obtains the list of large traffic usages
