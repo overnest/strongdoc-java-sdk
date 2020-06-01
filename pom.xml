@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>com.strongsalt.strongdoc.sdk</groupId>
    <artifactId>strongDocSdk</artifactId>
-   <version>1.0.7</version>
+   <version>1.0.8-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>${project.groupId}:${project.artifactId}</name>
    <description>The StrongDoc API allows users to add documents to the search index and make the search indexes searchable through API.</description>
@@ -27,7 +27,7 @@
       <connection>scm:git:https://github.com/overnest/strongdoc-java-sdk.git</connection>
       <developerConnection>scm:git:https://github.com/overnest/strongdoc-java-sdk.git</developerConnection>
       <url>https://github.com/overnest/strongdoc-java-sdk/tree/master</url>
-      <tag>1.0.7</tag>
+      <tag>1.0.6</tag>
    </scm>
    <!-- We are deploying to Sonatype, so enter Sonatype Distribution Stuff Here -->
    <distributionManagement>
