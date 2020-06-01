@@ -3,7 +3,7 @@ package com.strongsalt.strongdoc.sdk.api;
 import com.strongsalt.strongdoc.sdk.api.responses.BillingDetailsResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.BillingFrequencyListResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.LargeTrafficResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.NextBillingFrequencyResponse;
+//import com.strongsalt.strongdoc.sdk.api.responses.NextBillingFrequencyResponse;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import org.junit.jupiter.api.*;
 
@@ -60,6 +60,7 @@ class StrongDocBillingTest {
         assertNotNull(res.getBillingFrequencyList().get(0));
     }
 
+    /*
     @Test
     @Order(3)
     @DisplayName("Set Next Billing Frequency")
@@ -79,7 +80,7 @@ class StrongDocBillingTest {
             client, org3AdminToken, StrongDocBilling.TimeInterval.YEARLY, validFrom.getTime());
 
         assertEquals(res.getNextBillingFrequency().getFrequency(), StrongDocBilling.TimeInterval.YEARLY);
-    }
+    }*/
 
     @Test
     @Order(4)
