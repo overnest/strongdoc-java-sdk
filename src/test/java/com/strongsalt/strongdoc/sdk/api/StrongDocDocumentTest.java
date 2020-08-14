@@ -1,5 +1,8 @@
 package com.strongsalt.strongdoc.sdk.api;
 
+import com.google.protobuf.Timestamp;
+import static com.google.protobuf.util.Timestamps.fromMillis;
+import com.strongsalt.strongdoc.sdk.api.responses.DocActionHistoryInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.DocumentInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
@@ -13,6 +16,7 @@ import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,20 +51,13 @@ class StrongDocDocumentTest {
     void setUp() throws Exception {
         client = testSetup.init();
 
-        testSetup.registerOrganization(
-                client, ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADDRESS, ORG6_ADMIN_NAME,
-                ORG6_ADMIN_PASSWORD, ORG6_ADMIN_EMAIL, new String[]{},
-                false, SOURCE, SOURCE_DATA);
-        testSetup.registerOrganization(
-                client, ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADDRESS, ORG4_ADMIN_NAME,
-                ORG4_ADMIN_PASSWORD, ORG4_ADMIN_EMAIL, new String[]{ORG6_NAME},
-                false, SOURCE, SOURCE_DATA);
-        adminToken = testSetup.getToken(
-                client, ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADMIN_PASSWORD);
-        adminToken2 = testSetup.getToken(
-                client, ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADMIN_PASSWORD);
+        testSetup.registerOrganization(client, ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADDRESS, ORG6_ADMIN_NAME,
+                ORG6_ADMIN_PASSWORD, ORG6_ADMIN_EMAIL, new String[] {}, false, SOURCE, SOURCE_DATA);
+        testSetup.registerOrganization(client, ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADDRESS, ORG4_ADMIN_NAME,
+                ORG4_ADMIN_PASSWORD, ORG4_ADMIN_EMAIL, new String[] { ORG6_NAME }, false, SOURCE, SOURCE_DATA);
+        adminToken = testSetup.getToken(client, ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADMIN_PASSWORD);
+        adminToken2 = testSetup.getToken(client, ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADMIN_PASSWORD);
 
-        
         final Path resourceDirectory = Paths.get("src", "test", "resources", "testDocuments");
         docPath = resourceDirectory.toFile().getAbsolutePath() + "/";
         docFilename = "textSample.txt";
@@ -109,8 +106,8 @@ class StrongDocDocumentTest {
     void uploadDocumentStream() throws Exception {
         final File file = new File(docPath + docFilename);
         System.out.printf("Uploading %s ...\n", docFilename);
-        UploadDocumentResponse uploadDocumentResponse = document.uploadDocumentStream(
-                client, adminToken, docFilename, new FileInputStream(file));
+        UploadDocumentResponse uploadDocumentResponse = document.uploadDocumentStream(client, adminToken, docFilename,
+                new FileInputStream(file));
         System.out.printf("The document %s has been uploaded using stream.\n", docFilename);
         System.out.printf("  Uploaded document ID is %s\n", uploadDocumentResponse.getDocID());
         System.out.printf("  Uploaded total of bytes is %d\n", uploadDocumentResponse.getNumBytes());
@@ -182,8 +179,8 @@ class StrongDocDocumentTest {
     void encryptDocumentStream() throws Exception {
         final File file = new File(docPath + docFilename);
         System.out.printf("Encrypting %s ...\n", docFilename);
-        EncryptDocumentResponse encryptDocumentResponse = document.encryptDocumentStream(
-                client, adminToken, docFilename, new FileInputStream(file));
+        EncryptDocumentResponse encryptDocumentResponse = document.encryptDocumentStream(client, adminToken,
+                docFilename, new FileInputStream(file));
         System.out.printf("The document %s has been encrypted using stream.\n", docFilename);
         System.out.printf("  Encrypted document ID is %s\n", encryptDocumentResponse.getDocID());
         System.out.printf("  Encrypted total of bytes is %d\n", encryptDocumentResponse.getCiphertext().length);
@@ -219,7 +216,7 @@ class StrongDocDocumentTest {
         EncryptDocumentResponse res = document.encryptDocument(client, adminToken, docFilename, data);
         encryptDocID = res.getDocID();
         encryptDocCiphertext = res.getCiphertext();
-        
+
         System.out.printf("The document %s (%d bytes) has been encrypted.\n", docFilename, data.length);
         System.out.printf("  Uploaded document ID is %s\n", encryptDocID);
 
@@ -236,5 +233,19 @@ class StrongDocDocumentTest {
 
         assertTrue(plaintext.length > 0);
         assertTrue(Arrays.equals(docByteArray, plaintext));
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("Document Action History List")
+    void listActionHistoryDocument() throws Exception {
+        System.out.printf("Querying the action history of current user ...\n");
+        Timestamp startTimeStamp = fromMillis(System.currentTimeMillis() - 300000);
+        Timestamp endTimeStamp = fromMillis(System.currentTimeMillis());
+        ArrayList<DocActionHistoryInfo> result = document.ListDocActionHistory(client, adminToken, "", "", 
+            startTimeStamp, endTimeStamp, 1, 100);
+        System.out.println("The Document Action History List has fetched.\n");
+        System.out.println(result.get(0));
+        assertTrue(result.size() > 0);
     }
 }

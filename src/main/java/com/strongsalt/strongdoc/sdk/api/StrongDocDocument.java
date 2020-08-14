@@ -6,6 +6,8 @@ package com.strongsalt.strongdoc.sdk.api;
 
 import com.google.common.io.ByteStreams;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.Timestamp;
+import com.strongsalt.strongdoc.sdk.api.responses.DocActionHistoryInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.DocumentInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
@@ -361,6 +363,43 @@ public class StrongDocDocument {
         }
 
         return docInfoList;
+    }
+
+    // ---------------------------------- ListDocActionHistory ----------------------------------
+
+    /**
+     * Lists the documents the user can access.
+     * An administrator can see all documents belonging to the organization.
+     *
+     * @param client The StrongDoc client used to call this API.
+     * @param token  The user JWT token.
+     * @param docID   
+     * @param userID
+     * @param actionStartTime 
+     * @param actionEndTime
+     * @param page
+     * @param per_page    
+     * @return The list of document action history info.
+     * @throws StatusRuntimeException on gRPC errors
+     * @see StatusRuntimeException io.grpc
+     */
+    public ArrayList<DocActionHistoryInfo> ListDocActionHistory(final StrongDocServiceClient client,
+                                                 final String token, final String docID, final String userID, 
+                                                 final Timestamp actionStartTime, final Timestamp actionEndTime, final int page, final int per_page)
+            throws StatusRuntimeException {
+
+        final Documents.ListDocActionHistoryReq req = Documents.ListDocActionHistoryReq.newBuilder().setDocID(docID).setUserID(userID)
+        .setActionStartTime(actionStartTime).setActionEndTime(actionEndTime).setPage(page).setPerPage(per_page).build();
+
+        final Documents.ListDocActionHistoryResp res = client.getBlockingStub()
+                .withCallCredentials(JwtCallCredential.getCallCredential(token)).listDocActionHistory(req);
+        final ArrayList<DocActionHistoryInfo> docActioniHistoryInfoList = new ArrayList<DocActionHistoryInfo>();
+        for (Documents.ListDocActionHistoryResp.DocActionHistory docActionHistory : res.getDocActionHistoryListList()) {
+            docActioniHistoryInfoList.add(new DocActionHistoryInfo(docActionHistory.getDocID(), docActionHistory.getUserID(), docActionHistory.getDocName(),
+            docActionHistory.getActionTime(), docActionHistory.getActionType(), docActionHistory.getOtherUserID()));
+        }
+
+        return docActioniHistoryInfoList;
     }
 
     // ---------------------------------- RemoveDocument ----------------------------------
