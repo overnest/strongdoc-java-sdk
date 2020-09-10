@@ -93,17 +93,17 @@ class StrongDocBillingTest {
 
     private void getTokens() throws Exception {
         org3AdminToken = testSetup.getToken(
-                client, ORG3_NAME, ORG3_ADMIN_EMAIL, ORG3_ADMIN_PASSWORD);
+                ORG3_NAME, ORG3_ADMIN_EMAIL, ORG3_ADMIN_PASSWORD);
     }
 
     private void registerOrganizations() throws Exception {
         testSetup.registerOrganization(
-                client, ORG3_NAME, ORG3_ADMIN_EMAIL, ORG3_ADDRESS, ORG3_ADMIN_NAME,
+                ORG3_NAME, ORG3_ADMIN_EMAIL, ORG3_ADDRESS, ORG3_ADMIN_NAME,
                 ORG3_ADMIN_PASSWORD, ORG3_ADMIN_EMAIL, new String[]{},
                 false, SOURCE, SOURCE_DATA);
     }
 
     private void removeOrganizations() throws Exception {
-        testSetup.removeOrganization(client, org3AdminToken);
+        testSetup.removeOrganization(org3AdminToken);
     }
 }

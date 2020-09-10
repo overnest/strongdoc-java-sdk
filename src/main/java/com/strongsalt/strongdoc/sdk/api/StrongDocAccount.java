@@ -4,12 +4,18 @@
 
 package com.strongsalt.strongdoc.sdk.api;
 
+import com.strongsalt.crypto.exception.StrongSaltKdfException;
+import com.strongsalt.crypto.exception.StrongSaltKeyException;
+import com.strongsalt.crypto.kdf.StrongSaltKDF;
+import com.strongsalt.crypto.key.StrongSaltKey;
 import com.strongsalt.strongdoc.sdk.api.responses.AccountInfoResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.OrgUserInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.RegisterOrganizationResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.RemoveOrganizationResponse;
 import com.strongsalt.strongdoc.sdk.client.JwtCallCredential;
-import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
+import com.strongsalt.strongdoc.sdk.client.StrongDocManager;
+import com.strongsalt.strongdoc.sdk.exceptions.StrongDocAccountException;
+import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Account;
 import io.grpc.StatusRuntimeException;
 
@@ -28,7 +34,6 @@ public class StrongDocAccount {
      * Registers a new organization. A new administrator user will also be created.
      * New users can be added using this administrator account.
      *
-     * @param client          The StrongDoc client used to call this API.
      * @param orgName         The organization name to create.
      * @param orgAddress      The organization address.
      * @param adminName       The organization administrator name.
@@ -42,8 +47,7 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    private RegisterOrganizationResponse registerOrganization(final StrongDocServiceClient client,
-                                                              final String orgName,
+    public RegisterOrganizationResponse registerOrganization(final String orgName,
                                                               final String orgEmail,
                                                               final String orgAddress,
                                                               final String adminName,
@@ -53,7 +57,7 @@ public class StrongDocAccount {
                                                               final Boolean multiLevelShare,
                                                               final String source,
                                                               final String sourceData)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.RegisterOrganizationReq.Builder regOrg = Account.RegisterOrganizationReq.newBuilder();
         regOrg.setOrgName(orgName);
@@ -70,7 +74,7 @@ public class StrongDocAccount {
         }
         final Account.RegisterOrganizationReq req = regOrg.build();
 
-        final Account.RegisterOrganizationResp res = client.getBlockingStub().registerOrganization(req);
+        final Account.RegisterOrganizationResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub().registerOrganization(req);
         return new RegisterOrganizationResponse(res.getOrgID(), res.getUserID());
     }
 
@@ -81,7 +85,6 @@ public class StrongDocAccount {
      * Trying to create a user with an existing username throws an error.
      * This requires an administrator privilege.
      *
-     * @param client   The StrongDoc client used to call this API.
      * @param token    The user JWT token.
      * @param username The username of the new user.
      * @param password The password of the new user.
@@ -91,13 +94,12 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public String registerUser(final StrongDocServiceClient client,
-                               final String token,
+    public String registerUser(final String token,
                                final String username,
                                final String password,
                                final String email,
                                final Boolean isAdmin)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.RegisterUserReq req = Account.RegisterUserReq.newBuilder()
                 .setUserName(username)
@@ -106,7 +108,7 @@ public class StrongDocAccount {
                 .setAdmin(isAdmin)
                 .build();
 
-        final Account.RegisterUserResp res = client.getBlockingStub()
+        final Account.RegisterUserResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).registerUser(req);
         return res.getUserID();
     }
@@ -117,23 +119,21 @@ public class StrongDocAccount {
      * Removes user from the organization.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param userID ID of the user.
      * @return The number of users that were removed.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public long removeUser(final StrongDocServiceClient client,
-                           final String token,
+    public long removeUser(final String token,
                            final String userID)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.RemoveUserReq req = Account.RemoveUserReq.newBuilder()
                 .setUserID(userID)
                 .build();
 
-        final Account.RemoveUserResp res = client.getBlockingStub()
+        final Account.RemoveUserResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).removeUser(req);
         return res.getCount();
     }
@@ -144,23 +144,21 @@ public class StrongDocAccount {
      * Promotes a regular user to administrator.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param userID ID of the user.
      * @return Whether the operation was a success.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean promoteUser(final StrongDocServiceClient client,
-                               final String token,
+    public Boolean promoteUser(final String token,
                                final String userID)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.PromoteUserReq req = Account.PromoteUserReq.newBuilder()
                 .setUserID(userID)
                 .build();
 
-        final Account.PromoteUserResp res = client.getBlockingStub()
+        final Account.PromoteUserResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).promoteUser(req);
         return res.getSuccess();
     }
@@ -171,23 +169,21 @@ public class StrongDocAccount {
      * Demotes an administrator to regular user level.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param userID ID of the user.
      * @return Whether the operation was a success.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean demoteUser(final StrongDocServiceClient client,
-                              final String token,
+    public Boolean demoteUser(final String token,
                               final String userID)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.DemoteUserReq req = Account.DemoteUserReq.newBuilder()
                 .setUserID(userID)
                 .build();
 
-        final Account.DemoteUserResp res = client.getBlockingStub()
+        final Account.DemoteUserResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).demoteUser(req);
         return res.getSuccess();
     }
@@ -197,7 +193,6 @@ public class StrongDocAccount {
     /**
      * Verifies the user and organization identity, and returns a JWT token for future API use.
      *
-     * @param client       The StrongDoc client used to call this API.
      * @param userID       The login user ID
      * @param userPassword The login user password
      * @param orgID        The login organization ID
@@ -205,38 +200,61 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public String login(final StrongDocServiceClient client, final String orgID,
+    public String login(final String orgID,
                         final String userID, final String userPassword)
-            throws StatusRuntimeException {
-
-        final Account.LoginReq req = Account.LoginReq.newBuilder()
-                .setUserID(userID)
-                .setPassword(userPassword)
-                .setOrgID(orgID)
-                .build();
-
-        final Account.LoginResp res = client.getBlockingStub().login(req);
+            throws StatusRuntimeException, StrongDocServiceException {
+        final Account.LoginResp res = getLoginResp(orgID, userID, userPassword);
         return res.getToken();
     }
+
+    // end to end login
+    public String login(String userID, String userPassword, String orgID, String keyPassword)
+            throws StrongDocAccountException, StrongDocServiceException {
+        final Account.LoginResp res = getLoginResp(orgID, userID, userPassword);
+        String token = res.getToken();
+        System.out.println("token = "+token);
+        String passwordKeyID = res.getKeyID();
+        System.out.println("passwordKeyID = "+passwordKeyID);
+        String kdfMeta = res.getKdfMeta();
+        System.out.println("kdfMeta = "+kdfMeta);
+        StrongDocManager manger = StrongDocManager.getInstance();
+        manger.setPasswordKey(passwordKeyID);
+        try{
+            StrongSaltKDF kdf = StrongSaltKDF.Deserialize(kdfMeta.getBytes());
+            StrongSaltKey passwordKey = kdf.GenerateKey(keyPassword.getBytes());
+            manger.setPasswordKey(passwordKey);
+        }catch(StrongSaltKdfException | StrongSaltKeyException e){
+            throw new StrongDocAccountException("Failed to login, cannot generate passwordKey");
+        }
+        return token;
+    }
+
+
+    private Account.LoginResp getLoginResp(final String orgID, final String userID, final String userPassword) throws StatusRuntimeException, StrongDocServiceException {
+            final Account.LoginReq req = Account.LoginReq.newBuilder()
+                    .setUserID(userID)
+                    .setPassword(userPassword)
+                    .setOrgID(orgID)
+                    .build();
+            return StrongDocManager.getInstance().getStrongDocClient().getBlockingStub().login(req);
+        }
 
     // ---------------------------------- LogoutReq ----------------------------------
 
     /**
      * Invalidates the JWT token and ending the current user session.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @return Status of the logout.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public String logout(final StrongDocServiceClient client,
-                         final String token)
-            throws StatusRuntimeException {
+    public String logout(final String token)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.LogoutReq req = Account.LogoutReq.newBuilder().build();
 
-        final Account.LogoutResp res = client.getBlockingStub()
+        final Account.LogoutResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).logout(req);
         return res.getStatus();
     }
@@ -246,21 +264,19 @@ public class StrongDocAccount {
     /**
      * Lists users in the organization.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @return Array of objects containing data for each user in the organization.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public ArrayList<OrgUserInfo> listUsers(final StrongDocServiceClient client,
-                                            final String token)
-            throws StatusRuntimeException {
+    public ArrayList<OrgUserInfo> listUsers(final String token)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.ListUsersReq req = Account.ListUsersReq.newBuilder().build();
 
-        final Account.ListUsersResp res = client.getBlockingStub()
+        final Account.ListUsersResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).listUsers(req);
-        final ArrayList<OrgUserInfo> orgUserList = new ArrayList<OrgUserInfo>();
+        final ArrayList<OrgUserInfo> orgUserList = new ArrayList<>();
         for (Account.ListUsersResp.OrgUser orgUser : res.getOrgUsersList()) {
             orgUserList.add(new OrgUserInfo(orgUser.getUserID(), orgUser.getUserName(), "", "", orgUser.getIsAdmin()));
         }
@@ -273,7 +289,6 @@ public class StrongDocAccount {
      * Removes an organization, deleting all data stored with the organization.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param force  If this is false, removal will fail if there
      *               are still data stored with the organization.
@@ -282,19 +297,18 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public RemoveOrganizationResponse removeOrganization(final StrongDocServiceClient client, final String token,
-                                      final Boolean force)
-            throws StatusRuntimeException {
+    public RemoveOrganizationResponse removeOrganization(final String token,
+                                                         final Boolean force)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.RemoveOrganizationReq req = Account.RemoveOrganizationReq.newBuilder()
                 .setForce(force)
                 .build();
 
-        final Account.RemoveOrganizationResp res = client.getBlockingStub()
+        final Account.RemoveOrganizationResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).removeOrganization(req);
 
-        final RemoveOrganizationResponse response = new RemoveOrganizationResponse(res.getSuccess(), res.getPostponed());
-        return response;
+        return new RemoveOrganizationResponse(res.getSuccess(), res.getPostponed());
     }
 
     // ---------------------------------- AddSharableOrgReq ----------------------------------
@@ -303,23 +317,21 @@ public class StrongDocAccount {
      * Adds a sharable Organization.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param orgID  The organization ID
      * @return Whether the operation was a success.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean addSharableOrg(final StrongDocServiceClient client,
-                                  final String token,
+    public Boolean addSharableOrg(final String token,
                                   final String orgID)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.AddSharableOrgReq req = Account.AddSharableOrgReq.newBuilder()
                 .setNewOrgID(orgID)
                 .build();
 
-        final Account.AddSharableOrgResp res = client.getBlockingStub()
+        final Account.AddSharableOrgResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).addSharableOrg(req);
         return res.getSuccess();
     }
@@ -330,23 +342,21 @@ public class StrongDocAccount {
      * Removes a sharable Organization.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param orgID  The organization ID
      * @return Whether the operation was a success.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean removeSharableOrg(final StrongDocServiceClient client,
-                                     final String token,
+    public Boolean removeSharableOrg(final String token,
                                      final String orgID)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.RemoveSharableOrgReq req = Account.RemoveSharableOrgReq.newBuilder()
                 .setRemoveOrgID(orgID)
                 .build();
 
-        final Account.RemoveSharableOrgResp res = client.getBlockingStub()
+        final Account.RemoveSharableOrgResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).removeSharableOrg(req);
         return res.getSuccess();
     }
@@ -357,23 +367,21 @@ public class StrongDocAccount {
      * Sets Multi-level Sharing.
      * This requires an administrator privilege.
      *
-     * @param client   The StrongDoc client used to call this API.
      * @param token    The user JWT token.
      * @param isEnable Indicates whether to enable or disable Multi-level Sharing
      * @return Whether the operation was a success.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean setMultiLevelSharing(final StrongDocServiceClient client,
-                                        final String token,
+    public Boolean setMultiLevelSharing(final String token,
                                         final Boolean isEnable)
-            throws StatusRuntimeException {
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.SetMultiLevelSharingReq req = Account.SetMultiLevelSharingReq.newBuilder()
                 .setEnable(isEnable)
                 .build();
 
-        final Account.SetMultiLevelSharingResp res = client.getBlockingStub()
+        final Account.SetMultiLevelSharingResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).setMultiLevelSharing(req);
         return res.getSuccess();
     }
@@ -383,19 +391,17 @@ public class StrongDocAccount {
     /**
      * Obtains information about the account
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @return The account info response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public AccountInfoResponse getAccountInfo(final StrongDocServiceClient client,
-                                              final String token)
-            throws StatusRuntimeException {
+    public AccountInfoResponse getAccountInfo(final String token)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.GetAccountInfoReq req = Account.GetAccountInfoReq.newBuilder().build();
 
-        final Account.GetAccountInfoResp res = client.getBlockingStub()
+        final Account.GetAccountInfoResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getAccountInfo(req);
 
         final AccountInfoResponse response = new AccountInfoResponse(
@@ -426,7 +432,6 @@ public class StrongDocAccount {
     /**
      * Sets information about the account's organization
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param orgEmail The organization's new email address. Must be a valid email address.
      * @param orgAddress The organization address
@@ -434,18 +439,17 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public boolean setAccountInfo(final StrongDocServiceClient client,
-                                              final String token,
-                                              final String orgEmail,
-                                              final String orgAddress)
-            throws StatusRuntimeException {
+    public boolean setAccountInfo(final String token,
+                                  final String orgEmail,
+                                  final String orgAddress)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.SetAccountInfoReq req = Account.SetAccountInfoReq.newBuilder()
                 .setOrgEmail(orgEmail)
                 .setOrgAddress(orgAddress)
                 .build();
 
-        final Account.SetAccountInfoResp res = client.getBlockingStub()
+        final Account.SetAccountInfoResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).setAccountInfo(req);
 
         return res.getSuccess();
@@ -456,25 +460,21 @@ public class StrongDocAccount {
     /**
      * Obtains information about the user
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @return The user info response.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public OrgUserInfo getUserInfo(final StrongDocServiceClient client,
-                                              final String token)
-            throws StatusRuntimeException {
+    public OrgUserInfo getUserInfo(final String token)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.GetUserInfoReq req = Account.GetUserInfoReq.newBuilder().build();
 
-        final Account.GetUserInfoResp res = client.getBlockingStub()
+        final Account.GetUserInfoResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).getUserInfo(req);
 
-        final OrgUserInfo response = new OrgUserInfo(
+        return new OrgUserInfo(
                 res.getUserID(), res.getUserName(), res.getOrgID(), res.getEmail(), res.getIsAdmin());
-
-        return response;
     }
 
     // ---------------------------------- SetUserInfoReq ----------------------------------
@@ -482,7 +482,6 @@ public class StrongDocAccount {
     /**
      * Sets information about the user
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param name The user's new name. Cannot be an empty string.
      * @param email The user's new email address. Must be a valid email address.
@@ -490,18 +489,17 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public boolean setUserInfo(final StrongDocServiceClient client,
-                                                final String token,
-                                                final String name,
-                                                final String email)
-            throws StatusRuntimeException {
+    public boolean setUserInfo(final String token,
+                                final String name,
+                                final String email)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.SetUserInfoReq req = Account.SetUserInfoReq.newBuilder()
                 .setName(name)
                 .setEmail(email)
                 .build();
 
-        final Account.SetUserInfoResp res = client.getBlockingStub()
+        final Account.SetUserInfoResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).setUserInfo(req);
 
         return res.getSuccess();
@@ -512,7 +510,6 @@ public class StrongDocAccount {
     /**
      * Changes the user password
      *
-     * @param client The StrongDoc client used to call this API.
      * @param token  The user JWT token.
      * @param currentPassword The user's current password.
      * @param newPassword The user's new password.
@@ -520,18 +517,17 @@ public class StrongDocAccount {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public boolean changeUserPassword(final StrongDocServiceClient client,
-                                                final String token,
-                                                final String currentPassword,
-                                                final String newPassword)
-            throws StatusRuntimeException {
+    public boolean changeUserPassword(final String token,
+                                      final String currentPassword,
+                                      final String newPassword)
+            throws StatusRuntimeException, StrongDocServiceException {
 
         final Account.ChangeUserPasswordReq req = Account.ChangeUserPasswordReq.newBuilder()
                 .setOldPassword(currentPassword)
                 .setNewPassword(newPassword)
                 .build();
 
-        final Account.ChangeUserPasswordResp res = client.getBlockingStub()
+        final Account.ChangeUserPasswordResp res = StrongDocManager.getInstance().getStrongDocClient().getBlockingStub()
                 .withCallCredentials(JwtCallCredential.getCallCredential(token)).changeUserPassword(req);
 
         return res.getSuccess();

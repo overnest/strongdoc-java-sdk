@@ -1,0 +1,328 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+//option java_multiple_files = true;
+//option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.sdk.proto";
+option java_outer_classname = "Encryption";
+option java_generic_services = true;
+
+package proto;
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+
+message EnableE2EReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "EnableE2EReq"
+    }
+  example: {
+  value: '{"orgPubKey": "testOrgPubKey", "userPubKey": "testUserPubKey", "userEncPriKey": "testUserEncPriKey", "orgEncPriKey": "testOrgEncPriKey"}'
+}
+};
+
+// The public key of the organization.
+string orgPubKey = 1;
+// The public key of the user.
+string userPubKey = 2;
+// The encrypted private key of the organization.
+string userEncPriKey = 3;
+// The encrypted private key of the user.
+string orgEncPriKey = 4;
+}
+
+message  EnableE2EResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "EnableE2EResp"
+    }
+    example: {
+      value: '{"publicKeyList": []}'
+    }
+  };
+// The list of organization public keys
+repeated string publicKeys = 1;
+}
+
+message GetOwnKeysReq {
+}
+
+message GetOwnKeysResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetOwnKeysResp"
+    }
+    example: {
+      value: '{"encPrivKey": "asdfasdf", "encryptorID": "asdfasdf", "userPubKeys": "publicKeyData"}'
+    }
+  };
+  string encPrivKey = 1;
+  string encryptorID = 2;
+  UserPubKeys userPubKeys = 3;
+}
+
+message UserPubKeys {
+  Key userPubKey = 1;
+  repeated Key orgPubKeys = 2;
+}
+
+message Key {
+  string key = 1;
+  string keyID = 2;
+  string ownerID = 3;
+}
+
+message EncryptedKey {
+  string encKey = 1;
+  string encryptorID = 2;
+  string ownerID = 3;
+  string keyID = 4;
+}
+
+/*SetKeyPassword(KDF)
+    - RETURN:
+        - KdfID
+        - List(keyid, ciphertext of asym keys encrypted with old KDF)
+    - Save KdfID
+    UpdateAsymKeys(kdfID, List(keyid, ciphertextPriKey))
+        - Add new Encrypted Keys
+        - If every old key has a pair with new kdfID LocID, delete old encKeys and kdf
+        - RETURN success or new List(keyid, ciphertext enc with old KDF) and repeat
+    
+
+SetAsymKey()*/
+
+message SetKeyPasswordReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetKeyPasswordReq"
+    }
+    example: {
+      value: '{"kdfMeta": "kdfMetadata"}'
+    }
+  };
+  string kdfMeta = 1;
+}
+
+message SetKeyPasswordResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetKeyPasswordResp"
+    }
+    example: {
+      value: '{"passwordKeyID": "blergID", "encAsymKeys": [{"encKey": "asdf", "encryptorID": "abc123", "ownerID": "person", "keyID": "asdf"}]}'
+    }
+  };
+  string passwordKeyID = 1;
+  repeated EncryptedKey encAsymKeys = 2;
+}
+
+message UpdateEncAsymKeysReq {
+  string encryptorID = 1;
+  repeated EncryptedKey encAsymKeys = 2;
+}
+
+message UpdateEncAsymKeysResp {
+  bool success = 1;
+  repeated EncryptedKey moreEncAsymKeys = 2;
+}
+
+message SetAsymKeyReq {
+
+}
+
+message SetAsymKeyResp {
+
+}
+
+message ShareE2EKeysReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ShareE2EKeysReq"
+    }
+  example: {
+  value: '{"sharedKeys":[{"userPubKey": "testUserPubKey", "userEncPriKey": "testUserEncPriKey", "orgEncPriKey": "testOrgEncPriKey"}]}'
+}
+};
+  // list of admin's keys
+  repeated SharedKeyE2e sharedKeys = 1;
+}
+
+message SharedKeyE2e {
+  // The public key of the user.
+  string userPubKey = 1;
+  // The encrypted private key of the organization.
+  string userEncPriKey = 2;
+  // The encrypted private key of the user.
+  string orgEncPriKey = 3;
+}
+
+message  ShareE2EKeysResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ShareE2EKeysResp"
+    }
+  example: {
+  value: '{"publicKeyList": []}'
+}
+};
+// The list of organization public keys
+repeated string publicKeys = 1;
+}
+
+message GetKeyE2eReq {
+}
+
+message  GetKeyE2eResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetKeyE2eResp"
+    }
+  example: {
+  value: '{"keyID": "dadadadada", "pubKey": "dadadadada","encPriKey": "dadadadada", "version": "version"}'
+}
+};
+  string keyID = 1;
+  string pubKey = 2;
+  string encPriKey = 3;
+  string version = 4;
+}
+
+message GetKeysE2eReq {
+}
+message KeyE2e {
+  string keyID = 1;
+  string pubKey = 2;
+  string encPriKey = 3;
+  string version = 4;
+}
+message  GetKeysE2eResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetKeysE2eResp"
+    }
+  example: {
+  value: '{"keyList":[{"keyID": "dadadadada", "pubKey": "dadadadada","encPriKey": "dadadadada" ,"version": "version"}]}'
+}
+};
+repeated KeyE2e keyList = 1;
+}
+
+message UpdateKeyE2eReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateKeyE2eReq"
+    }
+  example: {
+  value: '{"pubKey": "pubKey", "encPriKey": "encPriKey"}'
+}
+};
+
+  string pubKey = 1;
+  string encPriKey = 2;
+}
+
+message  UpdateKeyE2eResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateKeyE2eResp"
+    }
+  example: {
+  value: '{"keyID": "keyID"}'
+}
+};
+
+string keyID = 1;
+}
+
+message GetFileKeysE2eReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetFileKeysE2eReq"
+    }
+  example: {
+  value: '{"keyID": "keyID", "limit": "100", "page": "1"}'
+}
+};
+
+string keyID = 1;
+int64 limit = 2;
+int64 page = 3;
+}
+
+message DocEncFileKeyE2E {
+  string keyID = 1;
+  string encFileKey = 2;
+}
+
+message  GetFileKeysE2eResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetFileKeysE2eResp"
+    }
+  example: {
+  value: '{"encFileKeyList": [{"keyID": "keyID", "encFileKey": "encFileKey"}]}'
+}
+};
+// The list of user encrypted file keys
+repeated DocEncFileKeyE2E encFileKeyList = 1;
+}
+
+message UpdateFileKeysE2eReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateFileKeysE2eReq"
+    }
+  example: {
+  value: '{"newEncFileKeyList":[{"keyID": "keyID", "encFileKey": "encFileKey"}]}'
+}
+};
+// The list of newly encrypted file keys
+repeated DocEncFileKeyE2E newEncFileKeyList = 1;
+}
+
+message  UpdateFileKeysE2eResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateFileKeysE2eResp"
+    }
+  example: {
+  value: '{"modified": 1}'
+}
+};
+
+int64 modified = 1;
+}
+
+message UpdateE2EKeyReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateE2EKeyReq"
+    }
+  example: {
+  value: '{"userPubKey": "userPubKey", "userEncPriKey": "userEncPriKey"}'
+}
+};
+
+// The public key of the user.
+string userPubKey = 1;
+// The encrypted private key of the organization.
+string userEncPriKey = 2;
+
+}
+
+message  UpdateE2EKeyResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateE2EKeyResp"
+    }
+  example: {
+  value: '{"keyID": "keyID", "version": "version"}'
+}
+};
+// The keyID of newly saved E2E key
+string keyID = 1;
+string version = 2;
+}
+

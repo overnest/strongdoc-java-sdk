@@ -31,12 +31,12 @@ class StrongDocSearchTest {
         client = testSetup.init();
 
         testSetup.registerOrganization(
-                client, ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADDRESS, ORG5_ADMIN_NAME,
+                ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADDRESS, ORG5_ADMIN_NAME,
                 ORG5_ADMIN_PASSWORD, ORG5_ADMIN_EMAIL, new String[]{},
                 false, SOURCE, SOURCE_DATA);
 
         adminToken = testSetup.getToken(
-                client, ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADMIN_PASSWORD);
+                ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADMIN_PASSWORD);
 
         uploadFile();
     }
@@ -44,7 +44,7 @@ class StrongDocSearchTest {
     @AfterAll
     @DisplayName("Remove organization")
     void tearDown() throws Exception, InterruptedException {
-        testSetup.removeOrganization(client, adminToken);
+        testSetup.removeOrganization(adminToken);
         client.shutdown();
     }
 
@@ -72,7 +72,7 @@ class StrongDocSearchTest {
         byte[] data = Files.readAllBytes(file.toPath());
 
         final StrongDocDocument document = new StrongDocDocument();
-        uploadedDocID = document.uploadDocument(client, adminToken, filename, data);
+        uploadedDocID = document.uploadDocument(adminToken, filename, data);
         System.out.printf("The document %s (%d bytes) has been uploaded.\n", filename, data.length);
         System.out.printf("  Uploaded document ID is %s\n\n", uploadedDocID);
     }

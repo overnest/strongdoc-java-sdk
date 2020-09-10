@@ -212,12 +212,14 @@ message LoginResp {
       title: "LoginResp"
     }
     example: {
-      value: '{"token": "blahblahblah"}'
+      value: '{"token": "blahblahblah", "kdfMeta": "serializedKdfMetaData"}'
     }
   };
 
   // The JWT token to be used for all APIs that require authentication.
   string token = 1;
+  string kdfMeta = 2;
+  string keyID = 3;
 }
 
 message LogoutReq {
@@ -557,7 +559,7 @@ message GetUserInfoResp {
       title: "GetUserInfoResp"
     }
     example: {
-      value: '{"email": "donald.trump@whitehouse.gov", "userName": "Donald Trump", "role": "admin"}'
+      value: '{"userID": "userID", "email": "email", "userName": "userName", "orgID": "orgID","keyse2e":{"orgPubKey":"orgPubKey","orgEncPrivKey":"orgEncPrivKey","userPubKey":"userPubKey","userEncPrivKey":"userEncPrivKey"}'
     }
   };
 
@@ -571,4 +573,13 @@ message GetUserInfoResp {
   string orgID = 4;
   // Whether the user is an admin
   bool isAdmin = 5;
+  // Returns organization and user keypairs if e2e enabled
+  KeysE2e keyse2e = 6;
+}
+
+message KeysE2e {
+  string orgPubKey = 1;
+  string orgEncPrivKey = 2;
+  string userPubKey = 3;
+  string userEncPrivKey = 4;
 }

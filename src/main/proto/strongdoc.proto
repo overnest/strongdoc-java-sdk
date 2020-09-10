@@ -16,6 +16,7 @@ import "documentNoStore.proto";
 import "search.proto";
 import "accounts.proto";
 import "billing.proto";
+import "encryption.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 	info: {
@@ -721,6 +722,293 @@ service StrongDocService {
   rpc RemovePaymentMethod(RemovePaymentMethodReq) returns (RemovePaymentMethodResp) {
     option (google.api.http) = {
       delete: "/v1/billing/paymentMethod/remove/{pmID}"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // List payments for the organization
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc ListPayments(ListPaymentsReq) returns (ListPaymentsResp) {
+    option (google.api.http) = {
+      get: "/v1/billing/payments"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Enable end to end encryption for the organization
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc EnableE2EEncryption(EnableE2EReq) returns (EnableE2EResp) {
+    option (google.api.http) = {
+      post: "/v1/encrypt/enableE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Upload document using end to end encryption
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc UploadDocumentE2E(UploadDocE2EReq) returns (UploadDocE2EResp) {
+    option (google.api.http) = {
+      post: "/v1/doc/uploadE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Download document using end to end encryption
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc DownloadDocumentE2E(DownloadDocE2EReq) returns (DownloadDocE2EResp) {
+    option (google.api.http) = {
+      post: "/v1/doc/downloadE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Share E2E keys with other administrators
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc ShareKeysE2EE(ShareE2EKeysReq) returns (ShareE2EKeysResp) {
+    option (google.api.http) = {
+      post: "/v1/encrypt/shareKeysE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Share E2E document with other users
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc ShareDocE2EE(ShareDocumentE2EReq) returns (ShareDocumentE2EResp) {
+    option (google.api.http) = {
+      post: "/v1/doc/shareDocE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Unshare E2E document
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc UnshareDocE2EE(UnshareDocumentE2EReq) returns (UnshareDocumentE2EResp) {
+    option (google.api.http) = {
+      post: "/v1/doc/unshareDocE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Get current E2EE keypair
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc GetKeyE2EE(GetKeyE2eReq) returns (GetKeyE2eResp) {
+    option (google.api.http) = {
+      get: "/v1/encrypt/getKeyE2EE"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Get all E2E keypairs related to user
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc GetKeysE2EE(GetKeysE2eReq) returns (GetKeysE2eResp) {
+    option (google.api.http) = {
+      get: "/v1/encrypt/getKeysE2EE"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Update user E2EE keypair
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc UpdateKeyE2EE(UpdateE2EKeyReq) returns (UpdateE2EKeyResp) {
+    option (google.api.http) = {
+      put: "/v1/encrypt/updateKeyE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Get file keys encrypted by E2EE key
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc GetFileKeysE2EE(GetFileKeysE2eReq) returns (GetFileKeysE2eResp) {
+    option (google.api.http) = {
+      get: "/v1/encrypt/getFileKeysEncByE2EE/{keyID}"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Update E2EE file keys
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc UpdateFileKeysE2EE(UpdateFileKeysE2eReq) returns (UpdateFileKeysE2eResp) {
+    option (google.api.http) = {
+      put: "/v1/encrypt/updateFileKeysE2EE"
+      body: "*"
+
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Gets data related to a user's encryption keys
+  //
+  // Requires Login
+  rpc GetOwnKeys(GetOwnKeysReq) returns (GetOwnKeysResp) {
+    option (google.api.http) = {
+      get: "/v1/encrypt/getOwnKeys"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Gets data needed to proceed with downloading a document
+  //
+  // Requires Login
+  rpc PrepareDownloadDoc(PrepareDownloadDocReq) returns (PrepareDownloadDocResp) {
+    option (google.api.http) = {
+      get: "/v1/document/prepareDownloadDoc/{docID}"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Gets data needed to proceed with sharing a document
+  //
+  // Requires Login
+  rpc PrepareShareDocument(PrepareShareDocumentReq) returns (PrepareShareDocumentResp) {
+    option (google.api.http) = {
+      post: "/v1/document/prepareShareDocument"
+      body: "*"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
       security: {

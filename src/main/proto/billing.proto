@@ -11,6 +11,7 @@ package proto;
 
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-swagger/options/annotations.proto";
+import "accounts.proto";
 
 message GetBillingDetailsReq {
   // Timestamp of the requested billing details
@@ -22,7 +23,7 @@ message GetBillingDetailsResp {
     json_schema: {
       title: "GetBillingDetailsResp"
     }
-    example: { 
+    example: {
       value: '{"periodStart": "2020-02-10T12:30:15.123Z", "periodEnd": "2020-03-01T00:00:00Z", "totalCost": 800548.00, "documents": {"cost": 16.08, "size": 148193280, "tier": "Document Storage Mid"}, "search": {"cost": 2.00, "size": 58982400, "tier": "Search Index Storage Low"}, "traffic": {"cost": 0, "incoming": 500.456, "outgoing": 200.564, "tier": "Network Traffic Free"}, "billingFrequency": {"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}}'
     }
   };
@@ -49,12 +50,27 @@ message GetBillingFrequencyListResp {
     json_schema: {
       title: "GetBillingFrequencyListResp"
     }
-    example: { 
+    example: {
       value: '{"billingFrequencyList": [{"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}]}'
     }
   };
   // List of billing frequencies
   repeated BillingFrequency billingFrequencyList = 1;
+}
+
+message ListPaymentsReq {}
+
+message ListPaymentsResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListPaymentsResp"
+    }
+    example: {
+      value: '{"billingFrequencyList": [{"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}]}'
+    }
+  };
+  // List of payments
+  repeated Payment paymentsList = 1;
 }
 
 message ListCreditCardsReq {}
@@ -155,7 +171,7 @@ message SetNextBillingFrequencyReq {
     json_schema: {
       title: "SetNextBillingFrequencyReq"
     }
-    example: { 
+    example: {
       value: '{"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}'
     }
   };
@@ -170,7 +186,7 @@ message SetNextBillingFrequencyResp {
     json_schema: {
       title: "SetNextBillingFrequencyResp"
     }
-    example: { 
+    example: {
       value: '{"nextBillingFrequency": {"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}}'
     }
   };
@@ -188,7 +204,7 @@ message GetLargeTrafficResp {
     json_schema: {
       title: "GetLargeTrafficResp"
     }
-    example: { 
+    example: {
       value: '{"largeTraffic": [{"time": "2020-03-20T11:05:11.956889144Z","userID": "user@company.com","method": "GET","URI": "/v1/account/billing","incoming": 810,"outgoing": 392},{"time":"2020-03-20T11:30:34.630333618Z","userID": "user2@company.com","method": "GET","URI": "/v1/account/largeTraffic","incoming": 816,"outgoing": 95}],"periodStart": "2020-03-20T11:04:47.210Z","periodEnd": "2020-04-01T00:00:00Z"}'
     }
   };
@@ -201,7 +217,7 @@ message GetLargeTrafficResp {
 }
 
 message TrafficDetail {
-  // Timestamp of the large traffic event 
+  // Timestamp of the large traffic event
   google.protobuf.Timestamp time = 1;
   // The ID of the user who made the request
   string userID = 2;
@@ -226,7 +242,7 @@ message BillingFrequency {
     json_schema: {
       title: "BillingFrequency"
     }
-    example: { 
+    example: {
       value: '{"frequency": "MONTHLY", "validFrom": "2020-03-01T00:00:15.123Z", "validTo": "2020-06-01T00:00:00Z"}'
     }
   };
@@ -243,7 +259,7 @@ message DocumentCosts {
     json_schema: {
       title: "DocumentsCosts"
     }
-    example: { 
+    example: {
       value: '{"cost": 16.08, "size": 148193280, "tier": "Document Storage Mid"}'
     }
   };
@@ -260,7 +276,7 @@ message SearchCosts {
     json_schema: {
       title: "SearchCosts"
     }
-    example: { 
+    example: {
       value: '{"cost": 2.00, "size": 58982400, "tier": "Search Index Storage Low"}'
     }
   };
@@ -277,7 +293,7 @@ message TrafficCosts {
     json_schema: {
       title: "TrafficCosts"
     }
-    example: { 
+    example: {
       value: '{"cost": 0, "incoming": 500.456, "outgoing": 200.564, "tier": "Network Traffic Free"}'
     }
   };
@@ -296,7 +312,7 @@ message Card {
     json_schema: {
       title: "Card"
     }
-    example: { 
+    example: {
       value: '{"id": "card_1GhzeM2eZvKYlo2CrJT4qB4r", "brand": "American Express", "country": "US", "exp_month": 5, "exp_year": 2021, "last4": "8431", "isDefault": true}'
     }
   };
@@ -315,3 +331,26 @@ message Card {
   //is the default payment method
   bool isDefault = 7;
 }
+
+// message Payment {
+//   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+//     json_schema: {
+//       title: "Card"
+//     }
+//     example: {
+//       value: '{ "id": "123bj457y3g99sd7", "billedAt": "2020-03-01T00:00:15.123Z", "periodStart": "2020-03-01T00:00:15.123Z", "periodEnd": "2020-03-01T00:00:15.123Z", "amount": 100, "status": "Payment Success" }'
+//     }
+//   };
+//   // Payment id
+//   string id = 1;
+//   // Billed timestamp
+//   google.protobuf.Timestamp billedAt = 2;
+//   // Start timestamp
+//   google.protobuf.Timestamp periodStart = 3;
+//   // Period end timestamp
+//   google.protobuf.Timestamp periodEnd = 4;
+//   //Amount
+//   uint64 amount = 5;
+//   //status
+//   string status = 6;
+// }

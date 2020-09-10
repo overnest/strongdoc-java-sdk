@@ -1,6 +1,7 @@
 package com.strongsalt.strongdoc.sdk.api;
 
 import java.nio.file.FileSystems;
+import java.util.Map;
 
 public class StrongDocTestConstants {
     // StrongDoc client
@@ -65,4 +66,29 @@ public class StrongDocTestConstants {
     public final static String ORG5_USER_NAME = "Org5UserName";
     public final static String ORG5_USER_PASSWORD = "Org5UserPassword";
     public final static String ORG5_USER_EMAIL = "Org5User@somewhere.com";
+
+    // Internal Server, superUser API
+    public final static String LOGIN_API = "http://localhost:8081/v1/account/login";
+    public final static String LOGOUT_API = "http://localhost:8081/v1/account/logout";
+    public final static String REMOVE_ORG_API = "http://localhost:8081/v1/organization";
+    public final static String USER_ID = "userid";
+    public final static String PASSWORD = "passwd";
+    public final static String TOKEN = "Token";
+    public final static String AUTHENTICATION = "authorization";
+    public final static String AUTHENTICATION_BEARER = "bearer";
+    public final static String SUPER_USER_ID = "SUPER_USER_ID";
+    public final static String SUPER_USER_PASSWORD = "SUPER_USER_PASSWORD";
+
+    public static String getSuperUserId(){
+        return getEnv(SUPER_USER_ID);
+    }
+
+    public static String getSuperUserPassword() {
+        return getEnv(SUPER_USER_PASSWORD);
+    }
+
+    private static String getEnv(String key){
+        Map<String, String> env = System.getenv();
+        return env.getOrDefault(key, null);
+    }
 }

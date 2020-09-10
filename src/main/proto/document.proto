@@ -11,14 +11,42 @@ package proto;
 
 import "protoc-gen-swagger/options/annotations.proto";
 
+import "encryption.proto";
+
 
 message UploadDocStreamReq {
   oneof NameOrData {
-    // The name of the document to upload.
+    // The name of the document to upload. (OBSOLUTE. Use 'metadata' instead.)
     string docName = 1;
-    // The data of the document to upload.
+    // The data of the document to upload. (OBSOLETE. Use 'data' instead.)
     bytes plaintext = 2;
+    // The metadata of the document to upload before uploading data.
+    UploadDocPreMetadata preMetadata = 3;
+    // The data of the document to upload.
+    bytes data = 4;
+    // The metadata of the document to upload after uploading data.
+    UploadDocPostMetadata postMetadata = 5;
   }
+}
+
+message UploadDocPreMetadata {
+  // The name of the document to upload.
+  string docName = 1;
+  // Whether or not this will be client-side encrypted.
+  bool clientSide = 2;
+  // The document key encrypted by the user's public key.
+  EncryptedKey userEncDocKey = 3;
+  // The MAC key encrypted by the user's public key.
+  EncryptedKey userEncMACKey = 4;
+  // The document key encrypted by the orgs' public key.
+  repeated EncryptedKey orgEncDocKeys = 5;
+  // The MAC key encrypted by the orgs' public key.
+  repeated EncryptedKey orgEncMACKeys = 6;
+}
+
+message UploadDocPostMetadata {
+  // The MAC of the ciphertext of the document.
+  string mac = 1;
 }
 
 message UploadDocStreamResp {
@@ -26,6 +54,30 @@ message UploadDocStreamResp {
   string docID = 1;
   // The number of bytes uploaded and stored.
   int64 bytes = 2;
+}
+
+message PrepareDownloadDocReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PrepareDownloadDocReq"
+    }
+    example: {
+      value: '{"docID": "thisIsTheDocID"}'
+    }
+  };
+  string docID = 1;
+}
+
+message PrepareDownloadDocResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UploadDocReq"
+    }
+    example: {
+      value: '{"docName": "bribeamount", "plaintext": "I paid 1M to Volodymyr"}'
+    }
+  };
+  DocumentAccessMetadata documentAccessMetadata = 1;
 }
 
 message DownloadDocStreamReq {
@@ -36,17 +88,19 @@ message DownloadDocStreamReq {
 message DownloadDocStreamResp {
   // The ID of the document downloaded.
   string docID = 1;
-  // The decrypted data of the document.
+  // The decrypted data of the document. (OBSOLETE. Use 'data' instead.)
   bytes plaintext = 2;
+  // The data of the document.
+  bytes data = 3;
 }
 
 message UploadDocReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "UploadDocReq"
+      title: "UploadDocReq"
     }
-    example: { 
-        value: '{"docName": "bribeamount", "plaintext": "I paid 1M to Volodymyr"}'
+    example: {
+      value: '{"docName": "bribeamount", "plaintext": "I paid 1M to Volodymyr"}'
     }
   };
 
@@ -59,10 +113,10 @@ message UploadDocReq {
 message UploadDocResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "UploadDocResp"
+      title: "UploadDocResp"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID"}'
+    example: {
+      value: '{"docID": "bribeamount_ID"}'
     }
   };
 
@@ -73,10 +127,10 @@ message UploadDocResp {
 message DownloadDocReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "DownloadDocReq"
+      title: "DownloadDocReq"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID"}'
+    example: {
+      value: '{"docID": "bribeamount_ID"}'
     }
   };
 
@@ -87,10 +141,10 @@ message DownloadDocReq {
 message DownloadDocResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "DownloadDocReq"
+      title: "DownloadDocReq"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID", "plaintext": "I paid 1M to Volodymyr"}'
+    example: {
+      value: '{"docID": "bribeamount_ID", "plaintext": "I paid 1M to Volodymyr"}'
     }
   };
 
@@ -100,13 +154,39 @@ message DownloadDocResp {
   string plaintext = 2;
 }
 
-message ShareDocumentReq {
+message DocumentAccessMetadata {
+  // Whether or not the doc was uploaded with client-side encryption.
+  bool isEncryptedByClientSide = 1;
+
+  // Whether or not the encrypted keys are encrypted with the org's public key (for admin access).
+  bool isKeyOrgs = 2;
+
+  // The document key encrypted with the user's key, or org's key if keyIsOrgs.
+  string encDocKey = 3;
+
+  // The user/org's key that encrypts the document key and mac key, its either {orgPriKey}userPubKey or userPubKey
+  string docKeyEncryptor = 4;
+
+  // {userPriKey}userKeyPassword
+  string encUserAsymKey = 5;
+
+  // the encryptor id for userPriKey, for key rotation version validation
+  string userAsymKeyEncryptorId = 6;
+
+  // The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
+  string encMACKey = 7;
+
+  // The MAC of the ciphertext of the document.
+  string mac = 8;
+}
+
+message PrepareShareDocumentReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ShareDocumentReq"
+      title: "PrepareShareDocumentReq"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID", "userID": "FBI"}'
+    example: {
+      value: '{"docID": "thisIsTheDocID", "userID": "thisIsTheUserIdToShareTo"}'
     }
   };
 
@@ -115,28 +195,63 @@ message ShareDocumentReq {
   // The user ID to share it to.
   string userID = 2;
 }
-  
+
+message PrepareShareDocumentResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PrepareShareDocumentResp"
+    }
+    example: {
+      value: '{"allowed": true, "clientSide": true, "encDocKey": "asdf", "toUserPubKey": "asdf", "toUserOrgPubKey": "asdf"}'
+    }
+  };
+
+  DocumentAccessMetadata documentAccessMetadata = 1;
+  // If client-side: The public keys of the user and orgs being shared to.
+  UserPubKeys toUserPubKeys = 2;
+}
+
+message ShareDocumentReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ShareDocumentReq"
+    }
+    example: {
+      value: '{"docID": "bribeamount_ID", "userID": "FBI"}'
+    }
+  };
+
+  // The ID of the document to share.
+  string docID = 1;
+  // The user ID to share it to.
+  string userID = 2;
+  EncryptedKey userEncDocKey = 3;
+  EncryptedKey userEncMACKey = 4;
+  repeated EncryptedKey orgEncDocKeys = 5;
+  repeated EncryptedKey orgEncMACKeys = 6;
+}
+
 message ShareDocumentResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ShareDocumentResp"
+      title: "ShareDocumentResp"
     }
-    example: { 
-        value: '{"success": true}'
+    example: {
+      value: '{"success": true}'
     }
   };
 
   // Whether the share was successful.
   bool success = 1;
 }
-  
+
 message UnshareDocumentReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "UnshareDocumentReq"
+      title: "UnshareDocumentReq"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID", "userID": "Fox News"}'
+    example: {
+      value: '{"docID": "bribeamount_ID", "userID": "Fox News"}'
     }
   };
 
@@ -145,17 +260,17 @@ message UnshareDocumentReq {
   // The user ID to share it unshare.
   string userID = 2;
 }
-  
+
 message UnshareDocumentResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "UnshareDocumentResp"
+      title: "UnshareDocumentResp"
     }
-    example: { 
-        value: '{"count": 1}'
+    example: {
+      value: '{"count": 1}'
     }
   };
-  
+
   // The unshared document count.
   int64 count = 1;
 }
@@ -163,7 +278,7 @@ message UnshareDocumentResp {
 message ListDocumentsReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ListDocumentsReq"
+      title: "ListDocumentsReq"
     }
   };
 }
@@ -171,10 +286,10 @@ message ListDocumentsReq {
 message ListDocumentsResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ListDocumentsResp"
+      title: "ListDocumentsResp"
     }
-    example: { 
-        value: '{"documents": [{"docID": "bribeamount_ID", "docName": "bribeamount.pdf", "size": 561}]}'
+    example: {
+      value: '{"documents": [{"docID": "bribeamount_ID", "docName": "bribeamount.pdf", "size": 561}]}'
     }
   };
 
@@ -194,27 +309,155 @@ message ListDocumentsResp {
 message RemoveDocumentReq{
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "RemoveDocumentReq"
+      title: "RemoveDocumentReq"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID"}'
+    example: {
+      value: '{"docID": "bribeamount_ID"}'
     }
   };
 
-  // The ID of the document to remove.  
+  // The ID of the document to remove.
   string docID = 1;
 }
-  
+
 message RemoveDocumentResp{
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "RemoveDocumentResp"
+      title: "RemoveDocumentResp"
     }
-    example: { 
-        value: '{"status": true}'
+    example: {
+      value: '{"status": true}'
     }
   };
 
   // Whether the document removal was successful.
   bool status = 1;
+}
+
+message UploadDocE2EReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UploadDocE2EReq"
+    }
+    example: {
+      value: '{"cipherText": "dadas", "encryptedFileKeyUser": "encryptedFileKeyUser", "encryptedFileKeyOrg": "encryptedFileKeyOrg"}'
+    }
+  };
+
+  // The encrypted document to upload.
+  string cipherText = 1;
+  // The document metadata.
+  UploadDocPreMetadata metadata = 2;
+}
+
+message UploadDocE2EResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UploadDocE2EResp"
+    }
+    example: {
+      value: '{"docID": "bribeamount_ID"}'
+    }
+  };
+
+  // The ID of the document uploaded.
+  string docID = 1;
+}
+
+message DownloadDocE2EReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "DownloadDocE2EReq"
+    }
+    example: {
+      value: '{"docID": "bribeamount_ID"}'
+    }
+  };
+
+  // The ID of the document to download.
+  string docID = 1;
+};
+
+
+message DownloadDocE2EResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "DownloadDocE2EResp"
+    }
+    example: {
+      value: '{"docID": "bribeamount_ID", "cipherText": "sadasda", "encryptedFileKeyUser": "encryptedFileKeyUser", "encryptedFileKeyOrg": "encryptedFileKeyOrg"}'
+    }
+  };
+
+  // The ID of the document downloaded.
+  string docID = 1;
+  // The encrypted data of the document.
+  string cipherText = 2;
+  // The encrypted filekey by user pub key.
+  string encryptedFileKeyUser = 3;
+  // The encrypted filekey by organization pub key.
+  string encryptedFileKeyOrg = 4;
+}
+
+message ShareDocumentE2EReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ShareDocumentE2EReq"
+    }
+    example: {
+      value: '{"encryptedFileKey": "encryptedFileKey", "docID": "bribeamount_ID", "shareToList": ["sharedToUserE2EPubKey"]}'
+    }
+  };
+  // The encrypted AES key of the document.
+  string encryptedFileKey = 1;
+  // The ID of the document to share.
+  string docID = 2;
+  // Public keys of users, whom document is shared with
+  repeated string shareToList = 3;
+}
+
+message ShareDocumentE2EResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ShareDocumentE2EResp"
+    }
+    example: {
+      value: '{"success": true, "userE2EPubKey":"userE2EPubKey"}'
+    }
+  };
+
+  // Whether the share was successful.
+  bool success = 1;
+  // E2E public key of user
+  string userE2EPubKey = 2;
+}
+
+message UnshareDocumentE2EReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UnshareDocumentE2EReq"
+    }
+    example: {
+      value: '{"docID": "bribeamount_ID", "unshareFromList": ["unshareFromUserE2EPubKey"]}'
+    }
+  };
+
+  // The ID of the document to share.
+  string docID = 1;
+  // Public keys of users, whom document is shared with
+  repeated string unshareFromPubKeyList = 2;
+}
+
+message UnshareDocumentE2EResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UnshareDocumentE2EResp"
+    }
+    example: {
+      value: '{"count": 1}'
+    }
+  };
+
+  // The unshared document count.
+  int64 count = 1;
 }
