@@ -10,7 +10,7 @@ public class StrongDocTestTeardown {
 
     public StrongDocTestTeardown() throws IOException, JSONException {
         manager = new InternalServiceManager();
-        token = manager.login(StrongDocTestConstants.getSuperUserId(), StrongDocTestConstants.getSuperUserPassword());
+        token = InternalServiceManager.getInstance().login(StrongDocTestConstants.getSuperUserId(), StrongDocTestConstants.getSuperUserPassword());
     }
 
 

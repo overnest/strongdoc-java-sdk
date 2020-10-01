@@ -21,7 +21,16 @@ import java.util.Map;
  *  - superUser removeOrg request would actually delete record in database
  */
 public class InternalServiceManager {
-    static CloseableHttpClient httpClient;
+    CloseableHttpClient httpClient;
+    private static InternalServiceManager manager = null;
+
+    // singleton
+    public static InternalServiceManager getInstance(){
+        if( manager == null){
+            manager = new InternalServiceManager();
+        }
+        return manager;
+    }
 
     public CloseableHttpClient getClient(){
         if(httpClient == null){
