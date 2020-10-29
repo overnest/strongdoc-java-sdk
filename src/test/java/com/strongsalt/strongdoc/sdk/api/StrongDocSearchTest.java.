@@ -38,7 +38,7 @@ class StrongDocSearchTest {
     @AfterAll
     @DisplayName("Remove organization")
     void tearDown() throws Exception, InterruptedException {
-        StrongDocTestSetup.removeOrganization(client);
+    	StrongDocTestSetup.removeOrganization(client);
         client.shutdown();
     }
 

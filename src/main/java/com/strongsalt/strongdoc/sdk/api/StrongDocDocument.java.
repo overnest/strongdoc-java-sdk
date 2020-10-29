@@ -57,47 +57,47 @@ public class StrongDocDocument {
         final CountDownLatch finishLatch = new CountDownLatch(1);
 
         final class UploadStreamObserver implements StreamObserver<Documents.UploadDocStreamResp> {
-            private Throwable exception = null;
-            private Documents.UploadDocStreamResp resp = null;
+        	private Throwable exception = null;
+        	private Documents.UploadDocStreamResp resp = null;
 
-            public Documents.UploadDocStreamResp getResp() {
-                return resp;
-            }
+			public Documents.UploadDocStreamResp getResp() {
+				return resp;
+			}
 
-            private void setResp(Documents.UploadDocStreamResp resp) {
-                this.resp = resp;
-            }
+			private void setResp(Documents.UploadDocStreamResp resp) {
+				this.resp = resp;
+			}
 
-            @Override
-            public void onNext(UploadDocStreamResp value) {
-                if (getResp() == null) {
-                    setResp(value);
-                }
-            }
+			@Override
+			public void onNext(UploadDocStreamResp value) {
+				if (getResp() == null) {
+					setResp(value);
+				}
+			}
 
-            @Override
-            public void onError(Throwable t) {
-                setException(t);
+			@Override
+			public void onError(Throwable t) {
+				setException(t);
                 finishLatch.countDown();
-            }
+			}
 
-            @Override
-            public void onCompleted() {
+			@Override
+			public void onCompleted() {
                 finishLatch.countDown();
-            }
+			}
 
-            public Throwable getException() {
-                return exception;
-            }
+			public Throwable getException() {
+				return exception;
+			}
 
-            private void setException(Throwable exception) {
-                this.exception = exception;
-            }
+			private void setException(Throwable exception) {
+				this.exception = exception;
+			}
         }
 
         final UploadStreamObserver responseObserver = new UploadStreamObserver();
-        final StreamObserver<Documents.UploadDocStreamReq> requestObserver = client.getAsyncStub()
-                .uploadDocumentStream(responseObserver);
+		final StreamObserver<Documents.UploadDocStreamReq> requestObserver = client.getAsyncStub()
+				.uploadDocumentStream(responseObserver);
 
         long bytes = 0;
         try {
@@ -110,19 +110,19 @@ public class StrongDocDocument {
 
             // If the inputStream is EOF, then -1 will be returned
             while ((read = dataStream.read(buffer)) >= 0) {
-                if (read > 0) {
-                    bytes += read;
+            	if (read > 0) {
+            		bytes += read;
                     final ByteString byteString = ByteString.copyFrom(buffer, 0, read);
                     req = Documents.UploadDocStreamReq.newBuilder().setPlaintext(byteString).build();
                     requestObserver.onNext(req);
-//                    System.out.println("uploadDocumentStream bytes=" + bytes);
-                }
+//            		System.out.println("uploadDocumentStream bytes=" + bytes);
+            	}
             }
             dataStream.close();
         } catch (final IOException | RuntimeException e) {
             requestObserver.onError(e);
-            throw e;
-        }
+        	throw e;
+		}
 
         requestObserver.onCompleted();
 
@@ -131,7 +131,7 @@ public class StrongDocDocument {
         finishLatch.await();
 
         if (responseObserver.getException() != null) {
-            throw new StrongDocServiceException(responseObserver.getException());
+        	throw new StrongDocServiceException(responseObserver.getException());
         }
 
         return new UploadDocumentResponse(responseObserver.getResp().getDocID(), bytes);
@@ -149,21 +149,21 @@ public class StrongDocDocument {
      * @throws IOException on pipe stream creation error
      */
     public InputStream downloadDocumentStream(final StrongDocServiceClient client,
-                                                 final String docID)
+                                       		  final String docID)
                throws InterruptedException, IOException {
         final PipedOutputStream outputStream = new PipedOutputStream();
         final PipedInputStream inputStream = new PipedInputStream(outputStream);
 
         final class DownloadStreamObserver implements StreamObserver<Documents.DownloadDocStreamResp> {
-            private Throwable exception = null;
-            private OutputStream outputStream;
+        	private Throwable exception = null;
+        	private OutputStream outputStream;
 
-            private DownloadStreamObserver(final OutputStream outputStream) {
-                this.outputStream = outputStream;
-            }
+        	private DownloadStreamObserver(final OutputStream outputStream) {
+        		this.outputStream = outputStream;
+        	}
 
-            @Override
-            public void onNext(DownloadDocStreamResp value) {
+    		@Override
+    		public void onNext(DownloadDocStreamResp value) {
                 final ByteString downloadedBytes = value.getPlaintext();
                 if (!downloadedBytes.isEmpty()) {
                     try {
@@ -172,33 +172,33 @@ public class StrongDocDocument {
                         e.printStackTrace();
                     }
                 }
-            }
+    		}
 
-            @Override
-            public void onError(Throwable t) {
-                this.setException(t);
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                }
-            }
+    		@Override
+    		public void onError(Throwable t) {
+    			this.setException(t);
+    			try {
+    				outputStream.close();
+    			} catch (IOException e) {
+    			}
+    		}
 
-            @Override
-            public void onCompleted() {
-                try {
-                    outputStream.close();
-                } catch (final IOException e) {
-                    this.setException(e);
-                }
-            }
+    		@Override
+    		public void onCompleted() {
+    			try {
+    				outputStream.close();
+    			} catch (final IOException e) {
+    				this.setException(e);
+    			}
+    		}
 
-            public Throwable getException() {
-                return exception;
-            }
+    		public Throwable getException() {
+    			return exception;
+    		}
 
-            private void setException(Throwable exception) {
-                this.exception = exception;
-            }
+    		private void setException(Throwable exception) {
+    			this.exception = exception;
+    		}
         } // final class DownloadStreamObserver implements StreamObserver<Documents.DownloadDocStreamResp>
 
         final DownloadStreamObserver responseObserver = new DownloadStreamObserver(outputStream);
@@ -206,13 +206,13 @@ public class StrongDocDocument {
         try {
             final Documents.DownloadDocStreamReq req = Documents.DownloadDocStreamReq.newBuilder()
                     .setDocID(docID).build();
-            client.getAsyncStub().downloadDocumentStream(req, responseObserver);
+			client.getAsyncStub().downloadDocumentStream(req, responseObserver);
         } catch (final RuntimeException e) {
             responseObserver.onError(e);
             throw e;
         }
 
-        return inputStream;
+		return inputStream;
     }
 
     // ---------------------------------- UploadDocument ----------------------------------
@@ -280,7 +280,7 @@ public class StrongDocDocument {
                 .setDocID(docID)
                 .setUserID(userID)
                 .build();
-        final Documents.ShareDocumentResp res = client.getBlockingStub().shareDocument(req);
+		final Documents.ShareDocumentResp res = client.getBlockingStub().shareDocument(req);
         return res.getSuccess();
     }
 
@@ -305,7 +305,7 @@ public class StrongDocDocument {
                 .setDocID(docID)
                 .setUserID(userID)
                 .build();
-        final Documents.UnshareDocumentResp res = client.getBlockingStub().unshareDocument(req);
+		final Documents.UnshareDocumentResp res = client.getBlockingStub().unshareDocument(req);
         return res.getCount();
     }
 
@@ -325,7 +325,7 @@ public class StrongDocDocument {
 
         final Documents.ListDocumentsReq req = Documents.ListDocumentsReq.newBuilder().build();
 
-        final Documents.ListDocumentsResp res = client.getBlockingStub().listDocuments(req);
+		final Documents.ListDocumentsResp res = client.getBlockingStub().listDocuments(req);
         final ArrayList<DocumentInfo> docInfoList = new ArrayList<DocumentInfo>();
         for (Documents.ListDocumentsResp.Document document : res.getDocumentsList()) {
             docInfoList.add(new DocumentInfo(document.getDocID(), document.getDocName(), document.getSize()));
@@ -373,7 +373,7 @@ public class StrongDocDocument {
      * @throws IOException on stream errors
      */
     public EncryptDocumentStreamResponse encryptDocumentStream(
-                                             final StrongDocServiceClient client,
+    										 final StrongDocServiceClient client,
                                              final String docName,
                                              final InputStream dataStream)
             throws InterruptedException, IOException {
@@ -381,154 +381,154 @@ public class StrongDocDocument {
         final PipedOutputStream outputStream = new PipedOutputStream();
         final PipedInputStream inputStream = new PipedInputStream(outputStream);
 
-        final class EncryptRequestSendThread extends Thread {
+    	final class EncryptRequestSendThread extends Thread {
             private AtomicBoolean running = new AtomicBoolean(false);
             private AtomicBoolean stopped = new AtomicBoolean(false);
 
             private int bufferSize;
-            private InputStream plainStream;
-            private StreamObserver<DocumentsNoStore.EncryptDocStreamReq> requestObserver;
+        	private InputStream plainStream;
+        	private StreamObserver<DocumentsNoStore.EncryptDocStreamReq> requestObserver;
 
-            public EncryptRequestSendThread(
-                    final int bufferSize,
-                    final InputStream plainStream,
-                    final StreamObserver<DocumentsNoStore.EncryptDocStreamReq> requestObserver) {
-                this.bufferSize = bufferSize;
-                this.plainStream = plainStream;
-                this.requestObserver = requestObserver;
-            }
+        	public EncryptRequestSendThread(
+        			final int bufferSize,
+        			final InputStream plainStream,
+        			final StreamObserver<DocumentsNoStore.EncryptDocStreamReq> requestObserver) {
+        		this.bufferSize = bufferSize;
+        		this.plainStream = plainStream;
+        		this.requestObserver = requestObserver;
+        	}
 
-            @Override
-            public void interrupt() {
-                running.set(false);
-                super.interrupt();
-            }
+    	    @Override
+    		public void interrupt() {
+    	        running.set(false);
+    	        super.interrupt();
+    	    }
 
-            public boolean isRunning() {
-                return running.get();
-            }
+    	    public boolean isRunning() {
+    	        return running.get();
+    	    }
 
-            public boolean isStopped() {
-                return stopped.get();
-            }
+    	    public boolean isStopped() {
+    	        return stopped.get();
+    	    }
 
-            @Override
-            public void run() {
-                running.set(true);
-                stopped.set(false);
-                final byte[] buffer = new byte[bufferSize];
-                int read = 0;
+    		@Override
+    		public void run() {
+    	        running.set(true);
+    	        stopped.set(false);
+    			final byte[] buffer = new byte[bufferSize];
+    			int read = 0;
 
-                try {
-                    // If the inputStream is EOF, then -1 will be returned
-                    while (isRunning() && (read = plainStream.read(buffer)) >= 0) {
-                        if (read > 0) {
-                            final ByteString byteString = ByteString.copyFrom(buffer, 0, read);
-                            DocumentsNoStore.EncryptDocStreamReq req = DocumentsNoStore.
-                                    EncryptDocStreamReq.newBuilder().setPlaintext(byteString).build();
-                            requestObserver.onNext(req);
-                        }
-                    }
-                    plainStream.close();
-                    requestObserver.onCompleted();
-                } catch (IOException e) {
-                    requestObserver.onError(e);
-                }
-                stopped.set(true);
-            }
+    			try {
+    				// If the inputStream is EOF, then -1 will be returned
+    				while (isRunning() && (read = plainStream.read(buffer)) >= 0) {
+    					if (read > 0) {
+    						final ByteString byteString = ByteString.copyFrom(buffer, 0, read);
+    						DocumentsNoStore.EncryptDocStreamReq req = DocumentsNoStore.
+    								EncryptDocStreamReq.newBuilder().setPlaintext(byteString).build();
+    						requestObserver.onNext(req);
+    					}
+    				}
+    				plainStream.close();
+    				requestObserver.onCompleted();
+    			} catch (IOException e) {
+    				requestObserver.onError(e);
+    			}
+    	        stopped.set(true);
+    		}
         }
 
         final class ResponseCallback implements StreamObserver<DocumentsNoStore.
-            EncryptDocStreamResp>
+        	EncryptDocStreamResp>
         {
-            private OutputStream cipherOutputStream;
-            private EncryptRequestSendThread encryptRequestSendThread;
-            private String docID = null;
-            private IOException exception = null;
+        	private OutputStream cipherOutputStream;
+        	private EncryptRequestSendThread encryptRequestSendThread;
+        	private String docID = null;
+        	private IOException exception = null;
 
-            private ResponseCallback(OutputStream outputStream) {
-                this.cipherOutputStream = outputStream;
-            }
+			private ResponseCallback(OutputStream outputStream) {
+        		this.cipherOutputStream = outputStream;
+        	}
 
-            @Override
-            public void onNext(EncryptDocStreamResp value) {
-                if (getDocID() == null) {
-                    setDocID(value.getDocID());
-                    finishLatch.countDown();
-                }
+			@Override
+			public void onNext(EncryptDocStreamResp value) {
+				if (getDocID() == null) {
+					setDocID(value.getDocID());
+					finishLatch.countDown();
+				}
                 final ByteString bs = value.getCiphertext();
                 if (!bs.isEmpty()) {
                     try {
-                        bs.writeTo(cipherOutputStream);
-                    } catch (IOException e) {
-                        if (getEncryptRequestSendThread() != null) {
-                            getEncryptRequestSendThread().interrupt();
-                        }
-                        setException(e);
-                    }
+						bs.writeTo(cipherOutputStream);
+					} catch (IOException e) {
+						if (getEncryptRequestSendThread() != null) {
+							getEncryptRequestSendThread().interrupt();
+						}
+						setException(e);
+					}
                 }
-            }
+			}
 
-            @Override
-            public void onError(Throwable t) {
-                finishLatch.countDown();
-                try {
-                    cipherOutputStream.close();
-                    if (getEncryptRequestSendThread() != null) {
-                        getEncryptRequestSendThread().interrupt();
-                    }
-                } catch (IOException e) {
-                    setException(e);
-                }
-            }
+			@Override
+			public void onError(Throwable t) {
+				finishLatch.countDown();
+				try {
+					cipherOutputStream.close();
+					if (getEncryptRequestSendThread() != null) {
+						getEncryptRequestSendThread().interrupt();
+					}
+				} catch (IOException e) {
+					setException(e);
+				}
+			}
 
-            @Override
-            public void onCompleted() {
-                finishLatch.countDown();
-                try {
-                    cipherOutputStream.close();
-                } catch (IOException e) {
-                    setException(e);
-                }
-            }
+			@Override
+			public void onCompleted() {
+				finishLatch.countDown();
+            	try {
+					cipherOutputStream.close();
+				} catch (IOException e) {
+					setException(e);
+				}
+			}
 
-            public IOException getException() {
-                return exception;
-            }
+			public IOException getException() {
+				return exception;
+			}
 
-            private void setException(IOException exception) {
-                this.exception = exception;
-            }
+			private void setException(IOException exception) {
+				this.exception = exception;
+			}
 
-            public String getDocID() {
-                return docID;
-            }
+        	public String getDocID() {
+				return docID;
+			}
 
-            private void setDocID(String docID) {
-                this.docID = docID;
-            }
+			private void setDocID(String docID) {
+				this.docID = docID;
+			}
 
-            public EncryptRequestSendThread getEncryptRequestSendThread() {
-                return encryptRequestSendThread;
-            }
+			public EncryptRequestSendThread getEncryptRequestSendThread() {
+				return encryptRequestSendThread;
+			}
 
-            public void setEncryptRequestSendThread(EncryptRequestSendThread thread) {
-                this.encryptRequestSendThread = thread;
-            }
+			public void setEncryptRequestSendThread(EncryptRequestSendThread thread) {
+				this.encryptRequestSendThread = thread;
+			}
         }
 
-        final ResponseCallback responseCallback = new ResponseCallback(outputStream);
-        final StreamObserver<DocumentsNoStore.EncryptDocStreamReq> requestObserver = client.getAsyncStub()
-                .encryptDocumentStream(responseCallback);
+		final ResponseCallback responseCallback = new ResponseCallback(outputStream);
+		final StreamObserver<DocumentsNoStore.EncryptDocStreamReq> requestObserver = client.getAsyncStub()
+				.encryptDocumentStream(responseCallback);
 
-        DocumentsNoStore.EncryptDocStreamReq req = DocumentsNoStore.EncryptDocStreamReq.
-                newBuilder().setDocName(docName).build();
-        requestObserver.onNext(req);
-        finishLatch.await();
+		DocumentsNoStore.EncryptDocStreamReq req = DocumentsNoStore.EncryptDocStreamReq.
+				newBuilder().setDocName(docName).build();
+		requestObserver.onNext(req);
+		finishLatch.await();
 
-        final EncryptRequestSendThread thread = new EncryptRequestSendThread(BLOCK_SIZE, dataStream, requestObserver);
-        responseCallback.setEncryptRequestSendThread(thread);
-        thread.start();
+		final EncryptRequestSendThread thread = new EncryptRequestSendThread(BLOCK_SIZE, dataStream, requestObserver);
+		responseCallback.setEncryptRequestSendThread(thread);
+		thread.start();
 
         return new EncryptDocumentStreamResponse(responseCallback.getDocID(), inputStream);
     }
@@ -548,157 +548,157 @@ public class StrongDocDocument {
      * @throws StrongDocServiceException on requested document ID not matching returned
      */
     public InputStream decryptDocumentStream(final StrongDocServiceClient client,
-                                             final String docID,
-                                             final InputStream dataStream)
+                                        	 final String docID,
+                                        	 final InputStream dataStream)
             throws InterruptedException, IOException, StrongDocServiceException {
         final CountDownLatch finishLatch = new CountDownLatch(1);
         final PipedOutputStream outputStream = new PipedOutputStream();
         final PipedInputStream plainInputStream = new PipedInputStream(outputStream);
 
 
-        final class DecryptRequestSendThread extends Thread {
+    	final class DecryptRequestSendThread extends Thread {
             private AtomicBoolean running = new AtomicBoolean(false);
             private AtomicBoolean stopped = new AtomicBoolean(false);
 
             private int bufferSize;
-            private InputStream cipherStream;
-            private StreamObserver<DocumentsNoStore.DecryptDocStreamReq> requestObserver;
+        	private InputStream cipherStream;
+        	private StreamObserver<DocumentsNoStore.DecryptDocStreamReq> requestObserver;
 
-            public DecryptRequestSendThread(
-                    final int bufferSize,
-                    final InputStream cipherStream,
-                    final StreamObserver<DocumentsNoStore.DecryptDocStreamReq> requestObserver) {
-                this.bufferSize = bufferSize;
-                this.cipherStream = cipherStream;
-                this.requestObserver = requestObserver;
-            }
+        	public DecryptRequestSendThread(
+        			final int bufferSize,
+        			final InputStream cipherStream,
+        			final StreamObserver<DocumentsNoStore.DecryptDocStreamReq> requestObserver) {
+        		this.bufferSize = bufferSize;
+        		this.cipherStream = cipherStream;
+        		this.requestObserver = requestObserver;
+        	}
 
-            @Override
-            public void interrupt() {
-                running.set(false);
-                super.interrupt();
-            }
+    	    @Override
+    		public void interrupt() {
+    	        running.set(false);
+    	        super.interrupt();
+    	    }
 
-            public boolean isRunning() {
-                return running.get();
-            }
+    	    public boolean isRunning() {
+    	        return running.get();
+    	    }
 
-            public boolean isStopped() {
-                return stopped.get();
-            }
+    	    public boolean isStopped() {
+    	        return stopped.get();
+    	    }
 
-            @Override
-            public void run() {
-                running.set(true);
-                stopped.set(false);
-                final byte[] buffer = new byte[bufferSize];
-                int read = 0;
+    		@Override
+    		public void run() {
+    	        running.set(true);
+    	        stopped.set(false);
+    			final byte[] buffer = new byte[bufferSize];
+    			int read = 0;
 
-                try {
-                    // If the inputStream is EOF, then -1 will be returned
-                    while (isRunning() && (read = cipherStream.read(buffer)) >= 0) {
-                        if (read > 0) {
-                            final ByteString byteString = ByteString.copyFrom(buffer, 0, read);
-                            DocumentsNoStore.DecryptDocStreamReq req = DocumentsNoStore
-                                    .DecryptDocStreamReq.newBuilder()
-                                    .setCiphertext(byteString)
-                                    .build();
-                            requestObserver.onNext(req);
-                        }
-                    }
-                    cipherStream.close();
-                    requestObserver.onCompleted();
-                } catch (IOException e) {
-                    requestObserver.onError(e);
-                }
-                stopped.set(true);
-            }
+    			try {
+        			// If the inputStream is EOF, then -1 will be returned
+    				while (isRunning() && (read = cipherStream.read(buffer)) >= 0) {
+    					if (read > 0) {
+    	                    final ByteString byteString = ByteString.copyFrom(buffer, 0, read);
+    	                    DocumentsNoStore.DecryptDocStreamReq req = DocumentsNoStore
+    	                    		.DecryptDocStreamReq.newBuilder()
+    	                    		.setCiphertext(byteString)
+    	                    		.build();
+    	                    requestObserver.onNext(req);
+    					}
+    				}
+    				cipherStream.close();
+    				requestObserver.onCompleted();
+    			} catch (IOException e) {
+    				requestObserver.onError(e);
+    			}
+    	        stopped.set(true);
+    		}
         }
 
         final class ResponseCallback implements StreamObserver<DocumentsNoStore.
-            DecryptDocStreamResp>
+        	DecryptDocStreamResp>
         {
-            private OutputStream plainOutputStream;
-            private DecryptRequestSendThread decryptRequestSendThread;
-            private String docID = null;
-            private IOException exception = null;
+        	private OutputStream plainOutputStream;
+        	private DecryptRequestSendThread decryptRequestSendThread;
+        	private String docID = null;
+        	private IOException exception = null;
 
-            private ResponseCallback(OutputStream outputStream) {
-                this.plainOutputStream = outputStream;
-            }
+			private ResponseCallback(OutputStream outputStream) {
+        		this.plainOutputStream = outputStream;
+        	}
 
             @Override
             public void onNext(final DocumentsNoStore.DecryptDocStreamResp value) {
-                if (getDocID() == null) {
-                    setDocID(value.getDocID());
-                    finishLatch.countDown();
-                }
+				if (getDocID() == null) {
+					setDocID(value.getDocID());
+					finishLatch.countDown();
+				}
 
                 final ByteString bs = value.getPlaintext();
                 if (!bs.isEmpty()) {
                     try {
-                         bs.writeTo(plainOutputStream);
-                     } catch (IOException e) {
-                         if (getDecryptRequestSendThread() != null) {
-                             getDecryptRequestSendThread().interrupt();
-                         }
-                         setException(e);
-                     }
+ 						bs.writeTo(plainOutputStream);
+ 					} catch (IOException e) {
+ 						if (getDecryptRequestSendThread() != null) {
+ 							getDecryptRequestSendThread().interrupt();
+ 						}
+ 						setException(e);
+ 					}
                 }
             }
 
             @Override
             public void onError(final Throwable t) {
-                finishLatch.countDown();
-                try {
-                    plainOutputStream.close();
-                    if (getDecryptRequestSendThread() != null) {
-                        getDecryptRequestSendThread().interrupt();
-                    }
-                } catch (IOException e) {
-                    setException(e);
-                }
+				finishLatch.countDown();
+				try {
+					plainOutputStream.close();
+					if (getDecryptRequestSendThread() != null) {
+						getDecryptRequestSendThread().interrupt();
+					}
+				} catch (IOException e) {
+					setException(e);
+				}
             }
 
             @Override
             public void onCompleted() {
-                finishLatch.countDown();
-                try {
-                    plainOutputStream.close();
-                } catch (IOException e) {
-                    setException(e);
-                }
+				finishLatch.countDown();
+            	try {
+            		plainOutputStream.close();
+				} catch (IOException e) {
+					setException(e);
+				}
             }
 
-            public IOException getException() {
-                return exception;
-            }
+			public IOException getException() {
+				return exception;
+			}
 
-            private void setException(IOException exception) {
-                this.exception = exception;
-            }
+			private void setException(IOException exception) {
+				this.exception = exception;
+			}
 
-            public String getDocID() {
-                return docID;
-            }
+        	public String getDocID() {
+				return docID;
+			}
 
-            private void setDocID(String docID) {
-                this.docID = docID;
-            }
+			private void setDocID(String docID) {
+				this.docID = docID;
+			}
 
-            public DecryptRequestSendThread getDecryptRequestSendThread() {
-                return decryptRequestSendThread;
-            }
+			public DecryptRequestSendThread getDecryptRequestSendThread() {
+				return decryptRequestSendThread;
+			}
 
-            public void setDecryptRequestSendThread(DecryptRequestSendThread thread) {
-                this.decryptRequestSendThread = thread;
-            }
+			public void setDecryptRequestSendThread(DecryptRequestSendThread thread) {
+				this.decryptRequestSendThread = thread;
+			}
         }
 
 
-        final ResponseCallback responseCallback = new ResponseCallback(outputStream);
-        final StreamObserver<DocumentsNoStore.DecryptDocStreamReq> requestObserver = client.getAsyncStub()
-                .decryptDocumentStream(responseCallback);
+		final ResponseCallback responseCallback = new ResponseCallback(outputStream);
+		final StreamObserver<DocumentsNoStore.DecryptDocStreamReq> requestObserver = client.getAsyncStub()
+				.decryptDocumentStream(responseCallback);
 
         DocumentsNoStore.DecryptDocStreamReq req = DocumentsNoStore.DecryptDocStreamReq.newBuilder()
                 .setDocID(docID).build();
@@ -706,20 +706,20 @@ public class StrongDocDocument {
         finishLatch.await();
 
         if (responseCallback.getDocID() == null ||
-                !responseCallback.getDocID().equals(docID)) {
-            StrongDocServiceException e = new StrongDocServiceException(
-                    "The request document ID " + docID +
-                    "does not match the returned document ID " +
-                            responseCallback.getDocID());
-            requestObserver.onError(e);
-            plainInputStream.close();
-            throw e;
+        		!responseCallback.getDocID().equals(docID)) {
+        	StrongDocServiceException e = new StrongDocServiceException(
+        			"The request document ID " + docID +
+        			"does not match the returned document ID " +
+        					responseCallback.getDocID());
+        	requestObserver.onError(e);
+        	plainInputStream.close();
+        	throw e;
         }
 
-        final DecryptRequestSendThread thread = new DecryptRequestSendThread(
-                BLOCK_SIZE, dataStream, requestObserver);
-        responseCallback.setDecryptRequestSendThread(thread);
-        thread.start();
+		final DecryptRequestSendThread thread = new DecryptRequestSendThread(
+				BLOCK_SIZE, dataStream, requestObserver);
+		responseCallback.setDecryptRequestSendThread(thread);
+		thread.start();
 
         return plainInputStream;
     }
@@ -740,12 +740,12 @@ public class StrongDocDocument {
     public EncryptDocumentResponse encryptDocument(final StrongDocServiceClient client,
                                                    final String docName,
                                                    final byte[] plaintext)
-            throws InterruptedException, IOException {
-        InputStream in = new ByteArrayInputStream(plaintext);
-        EncryptDocumentStreamResponse resp = encryptDocumentStream(client, docName, in);
-        return new EncryptDocumentResponse(resp.getDocID(), ByteStreams.toByteArray(resp.getCipherStream()));
+			throws InterruptedException, IOException {
+		InputStream in = new ByteArrayInputStream(plaintext);
+		EncryptDocumentStreamResponse resp = encryptDocumentStream(client, docName, in);
+		return new EncryptDocumentResponse(resp.getDocID(), ByteStreams.toByteArray(resp.getCipherStream()));
 
-    }
+	}
 
     // ---------------------------------- DecryptDocument ----------------------------------
     // proto.DecryptDocReq

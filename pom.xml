@@ -172,6 +172,9 @@
 					<protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
 					<pluginId>grpc-java</pluginId>
 					<pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+					<checkStaleness>false</checkStaleness>
+					<clearOutputDirectory>false</clearOutputDirectory>
+					<outputDirectory>${project.build.sourceDirectory}</outputDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -183,6 +186,24 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${project.build.sourceDirectory}</directory>
+							<includes>
+								<include>com/strongsalt/strongdoc/sdk/proto/*.java</include>
+								<include>grpc/gateway/protoc_gen_swagger/options/*.java</include>
+							</includes>
+							<excludes>
+							</excludes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -190,8 +211,8 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<excludes>
-						<exclude>com/strongsalt/strongdoc/sdk/proto/*.java</exclude>
-						<exclude>grpc/gateway/protoc_gen_swagger/options/*.java</exclude>
+						<!-- <exclude>com/strongsalt/strongdoc/sdk/proto/*.java</exclude> -->
+						<!-- <exclude>grpc/gateway/protoc_gen_swagger/options/*.java</exclude> -->
 					</excludes>
 				</configuration>
 			</plugin>
@@ -231,6 +252,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.1.1</version>
 				<configuration>
+					<source>8</source>
 					<!-- <additionalOptions>-html5</additionalOptions> -->
 					<sourceFileExcludes>
 						<exclude>com/strongsalt/strongdoc/sdk/client/JwtCallCredential.java</exclude>

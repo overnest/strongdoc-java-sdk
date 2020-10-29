@@ -7,7 +7,7 @@ import static com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants.*;
 
 public class StrongDocTestSetup {
     public static StrongDocServiceClient init() throws Exception {
-        return StrongDocServiceClient.createStrongDocServiceClient(location);
+    	return StrongDocServiceClient.createStrongDocServiceClient(location);
     }
 
     public static String registerOrganization(StrongDocServiceClient client,
@@ -42,7 +42,7 @@ public class StrongDocTestSetup {
         return res.getUserID();
     }
 
-    public static void removeOrganization(final StrongDocServiceClient client) throws Exception {
+	public static void removeOrganization(final StrongDocServiceClient client) throws Exception {
         final StrongDocAccount account = new StrongDocAccount();
 
         final boolean isForce = true;
