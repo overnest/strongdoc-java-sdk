@@ -191,7 +191,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${project.build.sourceDirectory}</directory>
+							<directory>src/main/java</directory>
 							<includes>
 								<include>com/strongsalt/strongdoc/sdk/proto/*.java</include>
 								<include>grpc/gateway/protoc_gen_swagger/options/*.java</include>
