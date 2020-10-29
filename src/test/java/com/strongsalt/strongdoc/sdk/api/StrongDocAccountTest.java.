@@ -43,8 +43,8 @@ class StrongDocAccountTest {
     @AfterAll
     @DisplayName("Remove organizations")
     void tearDown() throws Exception, InterruptedException {
-        StrongDocTestSetup.removeOrganization(client1);
-        StrongDocTestSetup.removeOrganization(client2);
+    	StrongDocTestSetup.removeOrganization(client1);
+    	StrongDocTestSetup.removeOrganization(client2);
         client1.shutdown();
         client2.shutdown();
     }
@@ -97,7 +97,7 @@ class StrongDocAccountTest {
     @Order(5)
     @DisplayName("Logout User")
     void logout() throws Exception {
-        StrongDocServiceClient client = StrongDocTestSetup.init();
+    	StrongDocServiceClient client = StrongDocTestSetup.init();
         final String org1UserToken = client.login(
                 ORG1_NAME, ORG1_USER_EMAIL, ORG1_USER_PASSWORD);
         assertNotNull(org1UserToken);

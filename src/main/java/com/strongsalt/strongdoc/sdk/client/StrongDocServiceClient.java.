@@ -24,136 +24,136 @@ import java.util.concurrent.TimeUnit;
  * A simple client that requests an authentication token with TLS.
  */
 public class StrongDocServiceClient {
-    private static String CERT_PATH = FileSystems.getDefault()
-            .getPath("src", "test", "resources", "certs", "grpc.root.pem").toAbsolutePath().toString();
-    private static String LOCAL_CERT_PATH = FileSystems.getDefault()
-            .getPath("src", "test", "resources", "certs", "grpc.root.localhost.pem").toAbsolutePath().toString();
+	private static String CERT_PATH = FileSystems.getDefault()
+			.getPath("src", "test", "resources", "certs", "grpc.root.pem").toAbsolutePath().toString();
+	private static String LOCAL_CERT_PATH = FileSystems.getDefault()
+			.getPath("src", "test", "resources", "certs", "grpc.root.localhost.pem").toAbsolutePath().toString();
 
     /**
      * Valid locations of the StrongDoc service. This should be used to
      * initialize the StrongDocServiceClient.
      */
-    public static enum ServiceLocation {
-        PRODUCTION("api.strongsalt.com", 9090, CERT_PATH),
-        SANDBOX("api.sandbox.strongsalt.com", 9090, CERT_PATH),
-        QA("api.strongsaltqa.com", 9090, CERT_PATH),
-        LOCAL("localhost", 9090, LOCAL_CERT_PATH);
+	public static enum ServiceLocation {
+		PRODUCTION("api.strongsalt.com", 9090, CERT_PATH),
+		SANDBOX("api.sandbox.strongsalt.com", 9090, CERT_PATH),
+		QA("api.strongsaltqa.com", 9090, CERT_PATH),
+		LOCAL("localhost", 9090, LOCAL_CERT_PATH);
 
-        private String host;
-        private int port;
-        private String certPath;
+		private String host;
+		private int port;
+		private String certPath;
 
-        /**
-         * For internal use. Constructs a service location for StrongDoc
-         *
-         * @param host       The StrongDoc service host
-         * @param port       The StrongDoc service port
-         * @param certPath   Path to the TLS certificate
-         */
-        private ServiceLocation(final String host, final int port, final String certPath) {
-            this.setHost(host);
-            this.setPort(port);
-            this.setCertPath(certPath);
-        }
+	    /**
+	     * For internal use. Constructs a service location for StrongDoc
+	     *
+	     * @param host       The StrongDoc service host
+	     * @param port       The StrongDoc service port
+	     * @param certPath   Path to the TLS certificate
+	     */
+		private ServiceLocation(final String host, final int port, final String certPath) {
+			this.setHost(host);
+			this.setPort(port);
+			this.setCertPath(certPath);
+		}
 
-        public String getHost() {
-            return host;
-        }
-        private void setHost(String host) {
-            this.host = host;
-        }
-        public int getPort() {
-            return port;
-        }
-        private void setPort(int port) {
-            this.port = port;
-        }
-        public String getCertPath() {
-            return certPath;
-        }
-        private void setCertPath(String certPath) {
-            this.certPath = certPath;
-        }
-    }
+		public String getHost() {
+			return host;
+		}
+		private void setHost(String host) {
+			this.host = host;
+		}
+		public int getPort() {
+			return port;
+		}
+		private void setPort(int port) {
+			this.port = port;
+		}
+		public String getCertPath() {
+			return certPath;
+		}
+		private void setCertPath(String certPath) {
+			this.certPath = certPath;
+		}
+	}
 
-    private final ServiceLocation location;
-    private String authToken = null;
+	private final ServiceLocation location;
+	private String authToken = null;
     private final ManagedChannel channel;
     private final StrongDocServiceGrpc.StrongDocServiceBlockingStub blockingStub;
     private final StrongDocServiceGrpc.StrongDocServiceStub asyncStub;
 
 
     // Singleton
-      private static StrongDocServiceClient client = null;
+  	private static StrongDocServiceClient client = null;
 
       /**
-       * Initializes the singleton StrongDocServiceClient to use a specific
-       * ServiceLocation
-       *
-       * @param location The service location to initialize the client with
-       * @param reset    If a service location is already set, a reset will close the
-       *                 old singleton client and recreate it with the new service
-       *                 location
-       * @return The initialized StrongDocServiceClient
+  	 * Initializes the singleton StrongDocServiceClient to use a specific
+  	 * ServiceLocation
+  	 *
+  	 * @param location The service location to initialize the client with
+  	 * @param reset    If a service location is already set, a reset will close the
+  	 *                 old singleton client and recreate it with the new service
+  	 *                 location
+  	 * @return The initialized StrongDocServiceClient
        * @throws StrongDocServiceException if singleton already initialized, and reset is not set
        * @throws InterruptedException if error occurred shutting down the previously configured client
        * @throws SSLException if error occurred initializing SSL connection
-       */
-      public static StrongDocServiceClient initDefaultClient(final ServiceLocation location, final boolean reset)
-              throws StrongDocServiceException, InterruptedException, SSLException {
-          if (location == null) {
-              return null;
-          }
+  	 */
+  	public static StrongDocServiceClient initDefaultClient(final ServiceLocation location, final boolean reset)
+  			throws StrongDocServiceException, InterruptedException, SSLException {
+      	if (location == null) {
+      		return null;
+      	}
 
-          if (client != null) {
-              if (client.getLocation() == location) {
-                  return client;
-              }
+      	if (client != null) {
+      		if (client.getLocation() == location) {
+      			return client;
+      		}
 
-              if (!reset) {
-                  throw new StrongDocServiceException("StrongDocServiceClient already configured for " +
-                          client.getLocation());
-              }
-          }
+      		if (!reset) {
+      			throw new StrongDocServiceException("StrongDocServiceClient already configured for " +
+      					client.getLocation());
+      		}
+      	}
 
-          if (client == null || reset) {
-              synchronized (StrongDocServiceClient.class) {
-                  if (client != null) {
-                      client.shutdown();
-                  }
-                  client = createStrongDocServiceClient(location);
-              }
-          }
-          return client;
+  		if (client == null || reset) {
+  			synchronized (StrongDocServiceClient.class) {
+  				if (client != null) {
+  					client.shutdown();
+  				}
+  				client = createStrongDocServiceClient(location);
+  			}
+  		}
+  		return client;
       }
 
       /**
-       * Retrieves the previously initialized StrongDocServiceClient singleton.
-       *
-       * @return The StrongDocServiceClient singleton
+  	 * Retrieves the previously initialized StrongDocServiceClient singleton.
+  	 *
+  	 * @return The StrongDocServiceClient singleton
        * @throws StrongDocServiceException if singleton is not initialized
-       */
-      public static StrongDocServiceClient getDefaultClient() throws StrongDocServiceException {
-          if (StrongDocServiceClient.client == null) {
-              throw new StrongDocServiceException("Please call initStrongDocClient to initialize the client first");
-          }
-          return client;
-      }
+  	 */
+  	public static StrongDocServiceClient getDefaultClient() throws StrongDocServiceException {
+  		if (StrongDocServiceClient.client == null) {
+  			throw new StrongDocServiceException("Please call initStrongDocClient to initialize the client first");
+  		}
+  		return client;
+  	}
 
 
       /**
-       * Creates a StrongDocServiceClient to use a specific ServiceLocation. This is
-       * for users who wish to keep several clients with different credentials logged
-       * in concurrently.
-       *
-       * @param location The service location to initialize the client with
-       * @return The created StrongDocServiceClient
-       * @throws SSLException if error occurred initializing SSL connection
-       */
-      public static StrongDocServiceClient createStrongDocServiceClient(final ServiceLocation location)
-              throws SSLException {
-          return new StrongDocServiceClient(location);
-      }
+  	 * Creates a StrongDocServiceClient to use a specific ServiceLocation. This is
+  	 * for users who wish to keep several clients with different credentials logged
+  	 * in concurrently.
+  	 *
+  	 * @param location The service location to initialize the client with
+  	 * @return The created StrongDocServiceClient
+  	 * @throws SSLException if error occurred initializing SSL connection
+  	 */
+  	public static StrongDocServiceClient createStrongDocServiceClient(final ServiceLocation location)
+  			throws SSLException {
+  		return new StrongDocServiceClient(location);
+  	}
 
 
       /**
@@ -161,9 +161,9 @@ public class StrongDocServiceClient {
        *
        * @throws SSLException A SSL exception
        */
-      private StrongDocServiceClient() throws SSLException {
-          this(ServiceLocation.PRODUCTION);
-      }
+  	private StrongDocServiceClient() throws SSLException {
+  		this(ServiceLocation.PRODUCTION);
+  	}
 
       /**
        * For internal use. Constructs a StrongDoc service client with TLS enabled.
@@ -171,15 +171,15 @@ public class StrongDocServiceClient {
        * @param location      The StrongDoc service location
        * @throws SSLException A SSL exception
        */
-      private StrongDocServiceClient(ServiceLocation location) throws SSLException {
-          this.location = location;
+  	private StrongDocServiceClient(ServiceLocation location) throws SSLException {
+  		this.location = location;
           this.channel = NettyChannelBuilder.forAddress(location.getHost(), location.getPort())
-                  .negotiationType(NegotiationType.TLS)
-                  .sslContext(buildSslContext(location.getCertPath(), null, null))
-                  .build();
+          		.negotiationType(NegotiationType.TLS)
+  				.sslContext(buildSslContext(location.getCertPath(), null, null))
+  				.build();
           blockingStub = StrongDocServiceGrpc.newBlockingStub(channel);
           asyncStub = StrongDocServiceGrpc.newStub(channel);
-      }
+  	}
 
     /**
      * Creates an SSL context for gRPC
@@ -217,8 +217,8 @@ public class StrongDocServiceClient {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public String login(final String orgID, final String userID, final String userPassword)
-            throws StatusRuntimeException {
+	public String login(final String orgID, final String userID, final String userPassword)
+			throws StatusRuntimeException {
         final Account.LoginReq req = Account.LoginReq.newBuilder()
                 .setUserID(userID)
                 .setPassword(userPassword)
@@ -235,7 +235,7 @@ public class StrongDocServiceClient {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public String logout() throws StatusRuntimeException {
+	public String logout() throws StatusRuntimeException {
         final Account.LogoutReq req = Account.LogoutReq.newBuilder().build();
         return getBlockingStub().logout(req).getStatus();
     }
@@ -292,9 +292,9 @@ public class StrongDocServiceClient {
      *
      * @return The service location configured with this client
      */
-    public ServiceLocation getLocation() {
-        return location;
-    }
+	public ServiceLocation getLocation() {
+		return location;
+	}
 
     /**
      * For internal use. Returns the authorization token associated with this client.
@@ -302,9 +302,9 @@ public class StrongDocServiceClient {
      *
      * @return The authorization token
      */
-    public String getAuthToken() {
-        return authToken;
-    }
+	public String getAuthToken() {
+		return authToken;
+	}
 
     /**
      * Returns a StrongDoc document for streaming documents

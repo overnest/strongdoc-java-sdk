@@ -49,13 +49,13 @@ public class StrongDocBilling {
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public BillingDetailsResponse getBillingDetails(final StrongDocServiceClient client, final Date at)
+	public BillingDetailsResponse getBillingDetails(final StrongDocServiceClient client, final Date at)
             throws StatusRuntimeException {
 
         final Billing.GetBillingDetailsReq req = Billing.GetBillingDetailsReq.newBuilder()
                 .setAt(Timestamps.fromMillis(at.getTime()))
                 .build();
-        final Billing.GetBillingDetailsResp res = client.getBlockingStub().getBillingDetails(req);
+		final Billing.GetBillingDetailsResp res = client.getBlockingStub().getBillingDetails(req);
 
         Billing.DocumentCosts bdc = res.getDocuments();
         DocumentCosts dc = new DocumentCosts(bdc.getCost(), bdc.getSize(), bdc.getTier());
@@ -94,7 +94,7 @@ public class StrongDocBilling {
             throws StatusRuntimeException {
 
         final Billing.GetBillingFrequencyListReq req = Billing.GetBillingFrequencyListReq.newBuilder().build();
-        final Billing.GetBillingFrequencyListResp res = client.getBlockingStub().getBillingFrequencyList(req);
+		final Billing.GetBillingFrequencyListResp res = client.getBlockingStub().getBillingFrequencyList(req);
 
         // To do create response
         final BillingFrequencyListResponse response = new BillingFrequencyListResponse();
@@ -158,7 +158,7 @@ public class StrongDocBilling {
         final Billing.GetLargeTrafficReq req = Billing.GetLargeTrafficReq.newBuilder()
                 .setAt(Timestamps.fromMillis(at.getTime()))
                 .build();
-        final Billing.GetLargeTrafficResp res = client.getBlockingStub().getLargeTraffic(req);
+		final Billing.GetLargeTrafficResp res = client.getBlockingStub().getLargeTraffic(req);
 
         final LargeTrafficResponse response = new LargeTrafficResponse(
                 new Date(Timestamps.toMillis(res.getPeriodStart())),
