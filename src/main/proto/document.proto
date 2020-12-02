@@ -10,6 +10,8 @@ option java_generic_services = true;
 package proto;
 
 import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "encryption.proto";
 
 
 message UploadDocStreamReq {
@@ -28,6 +30,36 @@ message UploadDocStreamResp {
   int64 bytes = 2;
 }
 
+message E2EEUploadDocStreamReq {
+  message PreMetaData {
+    string docName = 1;
+    bool isEncryptedByClient = 2;
+  }
+  message PostMetaData {
+    string macOfCipherText = 1;
+  }
+  message EncKeyList {
+    repeated EncryptedKey encDocKeys = 1;
+  }
+  oneof stagesOfUploading {
+    PreMetaData preMetaData = 1;
+    EncKeyList encDocKeys = 2;
+    bytes cipherText = 3;
+    PostMetaData postMetaData = 4;
+  }
+}
+
+message E2EEUploadDocStreamResp {
+  message PubKeyList {
+    repeated Key pubKeys = 1;
+  }
+  oneof stagesOfUploading {
+    bool readyForData = 1;
+    PubKeyList encryptors = 2;
+    string docID = 3;
+  }
+}
+
 message DownloadDocStreamReq {
   // The ID of the document to download.
   string docID = 1;
@@ -38,6 +70,38 @@ message DownloadDocStreamResp {
   string docID = 1;
   // The decrypted data of the document.
   bytes plaintext = 2;
+}
+
+message E2EEPrepareDownloadDocReq {
+  string docID = 1;
+}
+
+message E2EEPrepareDownloadDocResp {
+  DocumentAccessMetadata documentAccessMetadata = 1;
+}
+
+message KeyChain {
+  repeated EncryptedKey keys = 1;
+}
+
+message DocumentAccessMetadata {
+  bool isEncryptedByClientSide = 1;
+  bool isKeyChainOrg = 2;
+  KeyChain docKeyChain = 3;
+  // the encryptor id for userPriKey, for key rotation version validation
+  string userAsymKeyEncryptorId = 4;
+  // The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
+  string encMACKey = 5;
+  // The MAC of the ciphertext of the document.
+  string mac = 6;
+}
+
+message E2EEDownloadDocStreamReq {
+  string docID = 1;
+}
+
+message E2EEDownloadDocStreamResp {
+  bytes cipherText = 1;
 }
 
 message UploadDocReq {
@@ -166,6 +230,7 @@ message ListDocumentsReq {
         title: "ListDocumentsReq"
     }
   };
+  bool includeDeleted = 1;
 }
 
 message ListDocumentsResp {
@@ -185,6 +250,8 @@ message ListDocumentsResp {
     string docName = 2;
     // The document size.
     uint64 size = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    google.protobuf.Timestamp deletedAt = 5;
   }
 
   // The list of documents.
@@ -217,4 +284,49 @@ message RemoveDocumentResp{
 
   // Whether the document removal was successful.
   bool status = 1;
+}
+
+
+message ListDocActionHistoryReq{
+  // TODO: example need to change
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "ListDocActionHistoryReq"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID"}'
+    }
+  };
+
+  string docID = 1;
+  string userID = 2;
+  google.protobuf.Timestamp actionStartTime = 3;
+  google.protobuf.Timestamp actionEndTime = 4;
+  int32 page = 5;
+  int32 per_page = 6;
+}
+
+message ListDocActionHistoryResp {
+  // TODO: example need to change
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListDocActionHistoryResp"
+    }
+    example: {
+      value: '{"DocActionHistoryList":[{"userName": "Donald Trump", "userID": "donald.trump@whitehouse.gov", "isAdmin": true}]}'
+    }
+  };
+
+  message DocActionHistory {
+    string docID = 1;
+    string userID = 2;
+    string docName = 3;
+    google.protobuf.Timestamp actionTime = 4;
+    string actionType = 5;
+    string OtherUserID = 6;
+  }
+
+  repeated DocActionHistory DocActionHistoryList = 1;
+  int32 ResultTotalCount = 2;
+  int32 Offset = 3;
 }

@@ -11,6 +11,21 @@ package proto;
 
 import "protoc-gen-swagger/options/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "encryption.proto";
+
+enum LoginType {
+  NONE = 0;
+  SRP = 1;
+}
+
+message RegisterLoginData {
+  // The type of login the user will use
+  LoginType loginType = 1;
+  // Which version of the specified login type the user will use
+  int32 loginVersion = 2;
+  // If using the SRP login type: the user's srp verifier string
+  string srpVerifier = 3;
+}
 
 message RegisterOrganizationReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
@@ -18,7 +33,7 @@ message RegisterOrganizationReq {
       title: "RegisterOrganizationReq"
     }
     example: {
-      value: '{"orgName": "WhiteHouse", "orgEmail": "email@company.com", "orgAddr": "1600 Pennsylvania Ave NW, Washington, DC 20500", "userName": "Donald Trump", "password": "ukrainismyfriend", "adminEmail": "donald.trump@whitehouse.gov", "sharableOrgs": ["cnn", "fbi", "democrats"], "multiLevelShare": true, "source": "", "sourceData": "{\\"registrationToken\\": \\"abcd1234\\"}"}'
+      value: '{"orgName": "WhiteHouse", "orgEmail": "email@company.com", "orgAddr": "1600 Pennsylvania Ave NW, Washington, DC 20500", "userName": "Donald Trump", "password": "ukrainismyfriend", "adminEmail": "donald.trump@whitehouse.gov", "sharableOrgs": ["cnn", "fbi", "democrats"], "multiLevelShare": true, "source": "", "sourceData": "{\\"registrationToken\\": \\"abcd1234\\"}", "kdfMetadata":"serialized kdf", "userPubKey": "userPubKey", "encUserPriKey": "encUserPriKey", "orgPubKey":"orgPubKey", "encOrgPriKey":"encOrgPriKey", "adminLoginData": {"loginType": "SRP", "loginVersion": 1, "srpVerifier": "neededIfTypeSRP"}}'
     }
   };
 
@@ -49,6 +64,18 @@ message RegisterOrganizationReq {
   string sourceData = 10;
   // Stripe paymentID for syncronous account setup
   string pmID = 11;
+  // serialized kdf
+  string kdfMetadata = 12;
+  // user public key
+  string userPubKey = 13;
+  // encrypted user private key
+  string encUserPriKey = 14;
+  // organization public key
+  string orgPubKey = 15;
+  // encrypted organization private key
+  string encOrgPriKey = 16;
+  // Data needed to establish how the admin user will log in
+  RegisterLoginData adminLoginData = 17;
 }
 
 message RegisterOrganizationResp {
@@ -76,18 +103,19 @@ message RegisterUserReq {
       title: "RegisterUserReq"
     }
     example: {
-      value: '{"userName": "Mike Pence", "password": "donaldismyfriend", "email": "mike.pence@whitehouse.gov", "admin": "false"}'
+      value: '{"invitationCode": "abc123", "orgID": "orgid123", "email": "mike.pence@whitehouse.gov", "kdfMetadata": "kdfMetadata", "userPubKey": "dfdabddfaj", "encUserPriKey": "abdfjalsd", "userName": "Mike Pence", "userPassword": "password", "loginData": {"loginType": "SRP", "loginVersion": 1, "srpVerifier": "neededIfTypeSRP"}}'
     }
   };
-
-  // The new username. If the user does not exist, it will be created.
-  string userName = 1;
-  // The user password.
-  string password = 2;
-  // The user email. This serves as the unique ID of the user.
+  string invitationCode = 1;
+  string orgID = 2;
   string email = 3;
-  // Whether this new user is an administrator of the organization.
-  bool admin = 4;
+  string kdfMetadata = 4;
+  string userPubKey = 5;
+  string encUserPriKey = 6;
+  string userName = 7;
+  string password = 8;
+  // Data needed to establish how the user will log in
+  RegisterLoginData loginData = 9;
 }
 
 message RegisterUserResp {
@@ -96,12 +124,12 @@ message RegisterUserResp {
       title: "RegisterUserResp"
     }
     example: {
-      value: '{"userID": "mike.pence@whitehouse.gov"}'
+      value: '{"success": true, "userID": "account@strongsalt.com"}'
     }
   };
-
-  // The newly added unique user ID.
-  string userID = 1;
+  bool success = 1;
+  string userID = 2;
+  string orgID = 3;
 }
 
 message RemoveUserReq {
@@ -132,10 +160,10 @@ message RemoveUserResp {
   int64 count = 1;
 }
 
-message PromoteUserReq {
+message PreparePromoteUserReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-      title: "PromoteUserReq"
+      title: "PreparePromoteUserReq"
     }
     example: {
       value: '{"userID": "donald.duck@whitehouse.gov"}'
@@ -144,6 +172,40 @@ message PromoteUserReq {
 
   // The ID of the user to promote.
   string userID = 1;
+}
+
+message PreparePromoteUserResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PreparePromoteUserResp"
+    }
+    example: {
+      value: '{"success": true, "encOrgPriKey": "encOrgPriKey", "encUserPriKey": "encUserPriKey", "newUserPubKey": "newUserPubKey"}'
+    }
+  };
+
+  // Whether to continue with next step
+  bool success = 1;
+  // encrypted organization private key
+  EncryptedKey encOrgKey = 2;
+  // encrypted user private key
+  string encUserPriKey = 3;
+  // public key of new user
+  string newUserPubKey = 4;
+}
+
+message PromoteUserReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PromoteUserReq"
+    }
+    example: {
+      value: '{"encryptedKey": {"encKey": "asdf", "encryptorID": "abc123", "ownerID": "person", "keyID": "asdf"}}'
+    }
+  };
+
+  // re-encrypted key
+  EncryptedKey encryptedKey = 1;
 }
 
 message PromoteUserResp {
@@ -158,6 +220,8 @@ message PromoteUserResp {
 
   // Whether the promotion was successful.
   bool success = 1;
+  // Whether need start over
+  bool startOver = 2;
 }
 
 message DemoteUserReq {
@@ -188,6 +252,40 @@ message DemoteUserResp {
   bool success = 1;
 }
 
+message PrepareLoginReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PrepareLoginReq"
+    }
+    example: {
+      value: '{"emailOrUserID": "user@website.com", "orgID": "OrgCorp"}'
+    }
+  };
+
+  // Either the user's email address or the user's userID
+  string emailOrUserID = 1;
+  // The orgID of the organization the user would like to log in to
+  string orgID = 2;
+}
+
+message PrepareLoginResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PrepareLoginResp"
+    }
+    example: {
+      value: '{"userID": "user123", "loginType": "SRP", "loginVersion": 1}'
+    }
+  };
+
+  // The user's userID, needed in case the user specified their email address in the request
+  string userID = 1;
+  // The type of login the user uses
+  LoginType loginType = 2;
+  // Which version of the login type the user uses
+  int32 loginVersion = 3;
+}
+
 message LoginReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
@@ -212,12 +310,86 @@ message LoginResp {
       title: "LoginResp"
     }
     example: {
-      value: '{"token": "blahblahblah"}'
+      value: '{"token": "blahblahblah", "kdfMeta": "serializedKdfMetaData"}'
     }
   };
 
   // The JWT token to be used for all APIs that require authentication.
   string token = 1;
+  // The user's serialized KDF metadata
+  string kdfMeta = 2;
+  // The keyID of the user's current passwordKey
+  string keyID = 3;
+}
+
+message SrpInitReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SrpInitReq"
+    }
+    example: {
+      value: '{"userID": "user123", "orgID": "OrgCorp", "clientCreds": "srpGeneratedString123"}'
+    }
+  };
+
+  // The userID of the user that will be logging in
+  string userID = 1;
+  // The orgID that the user will be logging in to
+  string orgID = 2;
+  // The client credentials string generated by the SRP package
+  string clientCreds = 3;
+}
+
+message SrpInitResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SrpInitResp"
+    }
+    example: {
+      value: '{"loginID": "abc123", "serverCreds": "srpGeneratedString123"}'
+    }
+  };
+
+  // The loginID of this attempted login, which needs to be given in the next step
+  string loginID = 1;
+  // The server credentials string generated by the SRP package
+  string serverCreds = 2;
+}
+
+message SrpProofReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SrpProofReq"
+    }
+    example: {
+      value: '{"userID": "user123", "loginID": "abc123", "clientProof": "srpGeneratedString"}'
+    }
+  };
+
+  // The user's userID
+  string userID = 1;
+  // The loginID received from the SrpInit step
+  string loginID = 2;
+  // The client proof string generated by the SRP package
+  string clientProof = 3;
+}
+
+message SrpProofResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SrpProofResp"
+    }
+    example: {
+      value: '{"success": true, "serverProof": "srpGeneratedString123", "loginResponse": {"token": "abc123", "kdfMeta": "a1b2c3", "keyID": "12345"}}'
+    }
+  };
+
+  // Whether or not the server accepted the client proof (i.e. the user's password was correct)
+  bool success = 1;
+  // The server proof generated by the SRP package
+  string serverProof = 2;
+  // The login metadata given in response to a successful login
+  LoginResp loginResponse = 3;
 }
 
 message LogoutReq {
@@ -557,8 +729,9 @@ message GetUserInfoResp {
       title: "GetUserInfoResp"
     }
     example: {
-      value: '{"email": "donald.trump@whitehouse.gov", "userName": "Donald Trump", "role": "admin"}'
-    }
+    value: '{"userID": "userID", "email": "email", "userName": "userName", "orgID": "orgID","keyse2e":{"orgPubKey":"orgPubKey","orgEncPrivKey":"orgEncPrivKey","userPubKey":"userPubKey","userEncPrivKey":"userEncPrivKey"}}'
+
+}
   };
 
   // The user's userID
@@ -571,4 +744,95 @@ message GetUserInfoResp {
   string orgID = 4;
   // Whether the user is an admin
   bool isAdmin = 5;
+  // Returns organization and user keypairs if e2e enabled
+  KeysE2e keyse2e = 6;
+}
+
+message KeysE2e {
+  string orgPubKey = 1;
+  string orgEncPrivKey = 2;
+  string userPubKey = 3;
+  string userEncPrivKey = 4;
+}
+
+
+message Invitation {
+  string email = 1;
+  google.protobuf.Timestamp expireTime = 2;
+  google.protobuf.Timestamp createTime = 3;
+}
+
+message InviteUserReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "InviteUserReq"
+    }
+    example: {
+      value: '{"email": "account@strongsalt.com", "expireTime": 10}'
+    }
+  };
+  string email = 1;
+  // expiration time in minutes, default 7*24*60
+  int64 expireTime = 2;
+}
+
+message InviteUserResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "InviteUserResp"
+    }
+    example: {
+      value: '{"success": true}'
+    }
+  };
+  bool success = 1;
+}
+
+message ListInvitationsReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListInvitationsReq"
+    }
+    example: {
+      value: '{"maxInvitation": 10}'
+    }
+  };
+  int64 maxInvitation = 1;
+}
+
+message ListInvitationsResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListInvitationsResp"
+    }
+    example: {
+      value: '{"invitations": [{"email":"example@email.com", "expireTime":10, "invitedAt": "2020-02-01T12:30:15.123Z"}]}'
+    }
+  };
+  repeated Invitation invitations = 1;
+}
+
+message RevokeInvitationReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RevokeInvitationsReq"
+    }
+    example: {
+      value: '{"email": "account@strongsalt.com"}'
+    }
+  };
+  string email = 1;
+}
+
+message RevokeInvitationResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "RevokeInvitationsResp"
+    }
+    example: {
+      value: '{"success": true, "codeAlreadyUsed": false}'
+    }
+  };
+  bool success = 1;
+  bool codeAlreadyUsed = 2;
 }

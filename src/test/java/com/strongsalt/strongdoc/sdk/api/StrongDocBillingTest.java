@@ -3,13 +3,13 @@ package com.strongsalt.strongdoc.sdk.api;
 import com.strongsalt.strongdoc.sdk.api.responses.BillingDetailsResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.BillingFrequencyListResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.LargeTrafficResponse;
-//import com.strongsalt.strongdoc.sdk.api.responses.NextBillingFrequencyResponse;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import org.junit.jupiter.api.*;
 
 import java.util.Date;
-import static com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants.*;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -18,21 +18,25 @@ class StrongDocBillingTest {
     private final StrongDocBilling billing = new StrongDocBilling();
     private StrongDocServiceClient client;
 
+    private TestOrg testOrg;
+    private TestUser testOrgAdmin;
+
     @BeforeAll
-    @DisplayName("Register organizations and obtain token")
+    @DisplayName("Register organization and admin")
     void setUp() throws Exception {
-        client = StrongDocTestSetup.init();
-        StrongDocTestSetup.registerOrganization(
-                client, ORG3_NAME, ORG3_ADMIN_EMAIL, ORG3_ADDRESS, ORG3_ADMIN_NAME,
-                ORG3_ADMIN_PASSWORD, ORG3_ADMIN_EMAIL, new String[]{},
-                false, SOURCE, SOURCE_DATA);
-        client.login(ORG3_NAME, ORG3_ADMIN_EMAIL, ORG3_ADMIN_PASSWORD);
+        client = StrongDocTestSetupAndTearDown.initClient();
+
+        TestData testData = StrongDocTestSetupAndTearDown.registerOrgAndUser(client, 1, 1);
+        testOrg = testData.testOrgs[0];
+        testOrgAdmin = testData.testUsers[0][0];
+        
+        client.login(testOrg.orgName, testOrgAdmin.userEmail, testOrgAdmin.password);
     }
 
     @AfterAll
-    @DisplayName("Remove organizations")
-    void tearDown() throws Exception, InterruptedException {
-        StrongDocTestSetup.removeOrganization(client);
+    @DisplayName("Hard Remove organizations")
+    void tearDown() throws Exception {
+        StrongDocTestSetupAndTearDown.hardRemoveOrg(testOrg);
         client.shutdown();
     }
 
@@ -85,6 +89,6 @@ class StrongDocBillingTest {
     void getLargeTraffic() throws Exception {
         final LargeTrafficResponse res = billing.getLargeTraffic(client, new Date());
 
-        assertEquals(res.getTrafficDetails().size(), 0);
+        assertEquals(res.getTrafficDetails().size(), 1);
     }
 }

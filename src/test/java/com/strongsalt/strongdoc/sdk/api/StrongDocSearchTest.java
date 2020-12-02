@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -22,23 +21,26 @@ class StrongDocSearchTest {
     private StrongDocServiceClient client;
     private String uploadedDocID;
 
+    private TestOrg testOrg;
+    private TestUser testOrgAdmin;
+
     @BeforeAll
     @DisplayName("Register organization and obtain token")
     void setUp() throws Exception {
-        client = StrongDocTestSetup.init();
+        client = StrongDocTestSetupAndTearDown.initClient();
 
-        StrongDocTestSetup.registerOrganization(
-                client, ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADDRESS, ORG5_ADMIN_NAME,
-                ORG5_ADMIN_PASSWORD, ORG5_ADMIN_EMAIL, new String[]{},
-                false, SOURCE, SOURCE_DATA);
-        client.login(ORG5_NAME, ORG5_ADMIN_EMAIL, ORG5_ADMIN_PASSWORD);
+        TestData testData = StrongDocTestSetupAndTearDown.registerOrgAndUser(client, 1, 1);
+        testOrg = testData.testOrgs[0];
+        testOrgAdmin = testData.testUsers[0][0];
+
+        client.login(testOrg.orgName, testOrgAdmin.userEmail, testOrgAdmin.password);
         uploadFile();
     }
 
     @AfterAll
-    @DisplayName("Remove organization")
-    void tearDown() throws Exception, InterruptedException {
-        StrongDocTestSetup.removeOrganization(client);
+    @DisplayName("Hard Remove organizations")
+    void tearDown() throws Exception {
+        StrongDocTestSetupAndTearDown.hardRemoveOrg(testOrg);
         client.shutdown();
     }
 

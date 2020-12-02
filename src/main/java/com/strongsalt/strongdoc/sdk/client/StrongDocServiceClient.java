@@ -4,6 +4,14 @@
 
 package com.strongsalt.strongdoc.sdk.client;
 
+import com.strongsalt.crypto.exception.StrongSaltKdfException;
+import com.strongsalt.crypto.exception.StrongSaltKeyException;
+import com.strongsalt.crypto.exception.StrongSaltSRPException;
+import com.strongsalt.crypto.kdf.StrongSaltKDF;
+import com.strongsalt.crypto.key.StrongSaltKey;
+import com.strongsalt.crypto.pake.srp.SRP;
+import com.strongsalt.crypto.pake.srp.SRPClient;
+import com.strongsalt.crypto.pake.srp.SRPSession;
 import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Account;
 import com.strongsalt.strongdoc.sdk.proto.StrongDocServiceGrpc;
@@ -18,6 +26,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import javax.net.ssl.SSLException;
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -68,9 +77,11 @@ public class StrongDocServiceClient {
         private void setPort(int port) {
             this.port = port;
         }
+
         public String getCertPath() {
             return certPath;
         }
+
         private void setCertPath(String certPath) {
             this.certPath = certPath;
         }
@@ -78,46 +89,48 @@ public class StrongDocServiceClient {
 
     private final ServiceLocation location;
     private String authToken = null;
+    private StrongSaltKey passwordKey = null;
+    private String passwordKeyID = null;
     private final ManagedChannel channel;
     private final StrongDocServiceGrpc.StrongDocServiceBlockingStub blockingStub;
     private final StrongDocServiceGrpc.StrongDocServiceStub asyncStub;
 
 
     // Singleton
-      private static StrongDocServiceClient client = null;
+    private static StrongDocServiceClient client = null;
 
-      /**
-       * Initializes the singleton StrongDocServiceClient to use a specific
-       * ServiceLocation
-       *
-       * @param location The service location to initialize the client with
-       * @param reset    If a service location is already set, a reset will close the
-       *                 old singleton client and recreate it with the new service
-       *                 location
-       * @return The initialized StrongDocServiceClient
-       * @throws StrongDocServiceException if singleton already initialized, and reset is not set
-       * @throws InterruptedException if error occurred shutting down the previously configured client
-       * @throws SSLException if error occurred initializing SSL connection
-       */
-      public static StrongDocServiceClient initDefaultClient(final ServiceLocation location, final boolean reset)
-              throws StrongDocServiceException, InterruptedException, SSLException {
-          if (location == null) {
-              return null;
-          }
+    /**
+     * Initializes the singleton StrongDocServiceClient to use a specific
+     * ServiceLocation
+     *
+     * @param location The service location to initialize the client with
+     * @param reset    If a service location is already set, a reset will close the
+     *                 old singleton client and recreate it with the new service
+     *                 location
+     * @return The initialized StrongDocServiceClient
+     * @throws StrongDocServiceException if singleton already initialized, and reset is not set
+     * @throws InterruptedException      if error occurred shutting down the previously configured client
+     * @throws SSLException              if error occurred initializing SSL connection
+     */
+    public static StrongDocServiceClient initDefaultClient(final ServiceLocation location, final boolean reset)
+            throws StrongDocServiceException, InterruptedException, SSLException {
+        if (location == null) {
+            return null;
+        }
 
-          if (client != null) {
-              if (client.getLocation() == location) {
-                  return client;
-              }
+        if (client != null) {
+            if (client.getLocation() == location) {
+                return client;
+            }
 
-              if (!reset) {
-                  throw new StrongDocServiceException("StrongDocServiceClient already configured for " +
-                          client.getLocation());
-              }
-          }
+            if (!reset) {
+                throw new StrongDocServiceException("StrongDocServiceClient already configured for " +
+                        client.getLocation());
+            }
+        }
 
-          if (client == null || reset) {
-              synchronized (StrongDocServiceClient.class) {
+        if (client == null || reset) {
+            synchronized (StrongDocServiceClient.class) {
                   if (client != null) {
                       client.shutdown();
                   }
@@ -208,24 +221,94 @@ public class StrongDocServiceClient {
 
 
     /**
-     * Verifies the user and organization identity, and returns a JWT token for future API use.
+     * Verifies the user and organization identity, and returns whether login is successful.
      *
-     * @param userID       The login user ID
-     * @param userPassword The login user password
-     * @param orgID        The login organization ID
-     * @return The JWT token used to authenticate user/org when using StrongDoc APIs.
-     * @throws StatusRuntimeException on gRPC errors
-     * @see StatusRuntimeException io.grpc
+     * @param userIDorEmail The login userID or email
+     * @param password      The login user password
+     * @param orgID         The login organization ID
+     * @return whether login is successful
+     * @throws StrongDocServiceException on StrongDocServiceException errors
      */
-    public String login(final String orgID, final String userID, final String userPassword)
-            throws StatusRuntimeException {
-        final Account.LoginReq req = Account.LoginReq.newBuilder()
-                .setUserID(userID)
-                .setPassword(userPassword)
+    public boolean login(final String orgID, final String userIDorEmail, final String password)
+            throws StrongDocServiceException {
+        // prepare login
+        final Account.PrepareLoginReq prepareLoginReq = Account.PrepareLoginReq.newBuilder()
+                .setEmailOrUserID(userIDorEmail)
                 .setOrgID(orgID)
                 .build();
-        this.authToken = getBlockingStubNoAuth().login(req).getToken();
-        return getAuthToken();
+        Account.PrepareLoginResp prepareLoginResp = getBlockingStubNoAuth().prepareLogin(prepareLoginReq);
+
+        switch (prepareLoginResp.getLoginType()) {
+            case SRP:
+                return loginSRP(orgID, prepareLoginResp.getUserID(), password, prepareLoginResp.getLoginVersion());
+        }
+        Account.LoginReq loginReq = Account.LoginReq.newBuilder()
+                .setOrgID(orgID)
+                .setUserID(userIDorEmail)
+                .setPassword(password)
+                .build();
+        Account.LoginResp loginResp = getBlockingStubNoAuth().login(loginReq);
+        this.authToken = loginResp.getToken();
+        this.passwordKeyID = loginResp.getKeyID();
+        byte[] kdfMetaBytes = Base64.getUrlDecoder().decode(loginResp.getKdfMeta());
+        try {
+            StrongSaltKDF kdf = StrongSaltKDF.Deserialize(kdfMetaBytes);
+            this.passwordKey = kdf.GenerateKey(password.getBytes());
+        } catch (StrongSaltKeyException | StrongSaltKdfException e) {
+            throw new StrongDocServiceException("Fail to generate passwordKey", e);
+        }
+        return true;
+    }
+
+    private boolean loginSRP(String orgID, String serverUserID, String password, int SRPVersion) throws StrongDocServiceException {
+        // srp init
+        SRPClient srpClient = null;
+        final Account.SrpInitReq.Builder srpInitReqBuilder = Account.SrpInitReq.newBuilder();
+        try {
+            SRPSession srpSession = SRP.Deserialize(SRPVersion).getSession();
+            srpClient = srpSession.newClient(serverUserID.getBytes(), password.getBytes());
+            String creds = srpClient.credentials();
+            srpInitReqBuilder.setClientCreds(creds);
+            srpInitReqBuilder.setUserID(serverUserID);
+            srpInitReqBuilder.setOrgID(orgID);
+        } catch (StrongSaltSRPException e) {
+            throw new StrongDocServiceException("Fail to init SRP client", e);
+        }
+        Account.SrpInitResp srpInitResp = getBlockingStubNoAuth().srpInit(srpInitReqBuilder.build());
+        String respCreds = srpInitResp.getServerCreds();
+        String loginID = srpInitResp.getLoginID();
+
+        // srp proof
+        Account.SrpProofReq.Builder srpProofReqBuilder = Account.SrpProofReq.newBuilder();
+        try {
+            String proof = srpClient.generate(respCreds);
+            srpProofReqBuilder.setClientProof(proof);
+            srpProofReqBuilder.setLoginID(loginID);
+            srpProofReqBuilder.setUserID(serverUserID);
+        } catch (StrongSaltSRPException e) {
+            throw new StrongDocServiceException("Fail to generate client proof", e);
+        }
+        Account.SrpProofResp srpProofResp = getBlockingStubNoAuth().srpProof(srpProofReqBuilder.build());
+
+        try {
+            boolean serverOk = srpClient.serverOk(srpProofResp.getServerProof());
+            if (!serverOk) {
+                throw new StrongDocServiceException("Fail to validate server proof");
+            }
+        } catch (StrongSaltSRPException e) {
+            throw new StrongDocServiceException("Fail to validate server proof", e);
+        }
+        Account.LoginResp loginResp = srpProofResp.getLoginResponse();
+        this.authToken = loginResp.getToken();
+        this.passwordKeyID = loginResp.getKeyID();
+        byte[] kdfMetaBytes = Base64.getUrlDecoder().decode(loginResp.getKdfMeta());
+        try {
+            StrongSaltKDF kdf = StrongSaltKDF.Deserialize(kdfMetaBytes);
+            this.passwordKey = kdf.GenerateKey(password.getBytes());
+        } catch (StrongSaltKeyException | StrongSaltKdfException e) {
+            throw new StrongDocServiceException("Fail to generate passwordKey", e);
+        }
+        return srpProofResp.getSuccess();
     }
 
     /**
@@ -304,6 +387,10 @@ public class StrongDocServiceClient {
      */
     public String getAuthToken() {
         return authToken;
+    }
+
+    public StrongSaltKey getPasswordKey() {
+        return passwordKey;
     }
 
     /**

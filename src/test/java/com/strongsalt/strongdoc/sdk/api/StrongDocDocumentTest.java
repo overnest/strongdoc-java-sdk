@@ -8,17 +8,13 @@ import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import org.junit.jupiter.api.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import static com.strongsalt.strongdoc.sdk.api.StrongDocTestConstants.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -41,22 +37,29 @@ class StrongDocDocumentTest {
     private String encryptStreamDocID;
     private byte[] encryptStreamCiphertext;
 
+    private TestOrg testOrg1;
+    private TestOrg testOrg2;
+    private TestUser testOrg1Admin;
+    private TestUser testOrg2Admin;
+
     @BeforeAll
     @DisplayName("Register organization and obtain token")
     void setUp() throws Exception {
-        client1 = StrongDocTestSetup.init();
-        client2 = StrongDocTestSetup.init();
+        client1 = StrongDocTestSetupAndTearDown.initClient();
+        client2 = StrongDocTestSetupAndTearDown.initClient();
 
-        StrongDocTestSetup.registerOrganization(
-                client2, ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADDRESS, ORG6_ADMIN_NAME,
-                ORG6_ADMIN_PASSWORD, ORG6_ADMIN_EMAIL, new String[]{},
-                false, SOURCE, SOURCE_DATA);
-        StrongDocTestSetup.registerOrganization(
-                client1, ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADDRESS, ORG4_ADMIN_NAME,
-                ORG4_ADMIN_PASSWORD, ORG4_ADMIN_EMAIL, new String[]{ORG6_NAME},
-                false, SOURCE, SOURCE_DATA);
-        client1.login(ORG4_NAME, ORG4_ADMIN_EMAIL, ORG4_ADMIN_PASSWORD);
-        client2.login(ORG6_NAME, ORG6_ADMIN_EMAIL, ORG6_ADMIN_PASSWORD);
+        TestData registerOrgRes = StrongDocTestSetupAndTearDown.registerOrgAndUser(client1, 2, 1);
+        testOrg1 = registerOrgRes.testOrgs[0];
+        testOrg1Admin = registerOrgRes.testUsers[0][0];
+        testOrg2 = registerOrgRes.testOrgs[1];
+        testOrg2Admin = registerOrgRes.testUsers[1][0];
+
+        client1.login(testOrg1.orgName, testOrg1Admin.userEmail, testOrg1Admin.password);
+        final boolean success = new StrongDocAccount().addSharableOrg(client1, testOrg2.orgName);
+        System.out.printf("Added sharable org successfully? %b\n\n", success);
+        assertTrue(success);
+
+        client2.login(testOrg2.orgName, testOrg2Admin.userEmail, testOrg2Admin.password);
 
         final Path resourceDirectory = Paths.get("src", "test", "resources", "testDocuments");
         docPath = resourceDirectory.toFile().getAbsolutePath() + "/";
@@ -66,10 +69,9 @@ class StrongDocDocumentTest {
     }
 
     @AfterAll
-    @DisplayName("Remove organization")
+    @DisplayName("Hard Remove organizations")
     void tearDown() throws Exception {
-        StrongDocTestSetup.removeOrganization(client1);
-        StrongDocTestSetup.removeOrganization(client2);
+        StrongDocTestSetupAndTearDown.hardRemoveOrgs(new TestOrg[]{testOrg1, testOrg2});
         client1.shutdown();
         client2.shutdown();
     }
@@ -149,7 +151,7 @@ class StrongDocDocumentTest {
     @Order(5)
     @DisplayName("Share Document")
     void shareDocument() throws Exception {
-        final boolean success = document.shareDocument(client1, uploadDocID, ORG6_ADMIN_EMAIL);
+        final boolean success = document.shareDocument(client1, uploadDocID, testOrg2Admin.userEmail);
         System.out.printf("Shared doc successfully? %b\n\n", success);
 
         assertTrue(success);
@@ -159,7 +161,7 @@ class StrongDocDocumentTest {
     @Order(6)
     @DisplayName("Unshare Document")
     void unshareDocument() throws Exception {
-        final long count = document.unshareDocument(client1, uploadDocID, ORG6_ADMIN_EMAIL);
+        final long count = document.unshareDocument(client1, uploadDocID, testOrg2Admin.userEmail);
         System.out.printf("Unshared doc successfully? %b\n\n", count > 0);
 
         assertTrue(count > 0);

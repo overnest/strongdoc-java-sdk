@@ -16,6 +16,7 @@ import "documentNoStore.proto";
 import "search.proto";
 import "accounts.proto";
 import "billing.proto";
+import "encryption.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 	info: {
@@ -90,15 +91,102 @@ service StrongDocService {
     };
   }
 
+  // InviteUser
+  // Requires administrator privilege
+  rpc InviteUser(InviteUserReq) returns (InviteUserResp) {
+    option (google.api.http) = {
+      post: "/v1/account/inviteUser"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // ListInvitations
+  // Requires administrator privilege
+  rpc ListInvitations(ListInvitationsReq) returns (ListInvitationsResp) {
+    option (google.api.http) = {
+      post: "/v1/account/listInvitations"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // ListInvitations
+  // Requires administrator privilege
+  rpc RevokeInvitation(RevokeInvitationReq) returns (RevokeInvitationResp) {
+    option (google.api.http) = {
+      post: "/v1/account/revokeInvitation"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
   // Register new user
   //
   // Creates new user if it doesn't already exist. If the user already exist, and
   // error is thrown
   //
-  // Requires administrator privilege
+  // Does not require Login
   rpc RegisterUser(RegisterUserReq) returns (RegisterUserResp) {
     option (google.api.http) = {
       post: "/v1/account/registerUser"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Get user private keys
+  //
+  // Requires Login
+  rpc GetUserPrivateKeys(GetUserPrivateKeysReq) returns (GetUserPrivateKeysResp) {
+    option (google.api.http) = {
+      post: "/v1/document/getUserPrivateKeys"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Sets the user's kdf metadata for a new passwordKey
+  //
+  // Requires Login
+  rpc SetUserKdfMetadata(SetUserKdfMetadataReq) returns (SetUserKdfMetadataResp) {
+    option (google.api.http) = {
+      post: "/v1/document/setUserKdfMetadata"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
@@ -152,6 +240,24 @@ service StrongDocService {
   rpc RemoveUser(RemoveUserReq) returns (RemoveUserResp) {
     option (google.api.http) = {
       post: "/v1/account/removeUser"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // Prepare to promote a regular user to administrator at the organization
+  //
+  // Requires administrator privilege.
+  rpc PreparePromoteUser(PreparePromoteUserReq) returns (PreparePromoteUserResp) {
+    option (google.api.http) = {
+      post: "/v1/account/preparePromoteUser"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
@@ -247,6 +353,19 @@ service StrongDocService {
   //
   // Requires Login
   rpc UploadDocumentStream(stream UploadDocStreamReq) returns (UploadDocStreamResp) {
+    // This is not available through gRPC REST gateway,
+    // since REST api does not support streaming protocol
+  }
+
+  rpc E2EEUploadDocumentStream(stream E2EEUploadDocStreamReq) returns (E2EEUploadDocStreamResp) {
+    // This is not available through gRPC REST gateway,
+    // since REST api does not support streaming protocol
+  }
+
+  rpc E2EEPrepareDownloadDocument(E2EEPrepareDownloadDocReq) returns (E2EEPrepareDownloadDocResp) {
+  }
+
+  rpc E2EEDownloadDocumentStream(E2EEDownloadDocStreamReq) returns (stream E2EEDownloadDocStreamResp) {
     // This is not available through gRPC REST gateway,
     // since REST api does not support streaming protocol
   }
@@ -389,6 +508,20 @@ service StrongDocService {
     };
   }
 
+  rpc ListDocActionHistory(ListDocActionHistoryReq) returns (ListDocActionHistoryResp) {
+    option (google.api.http) = {
+      get: "/v1/doc/listDocActionHistory";
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
   // Obtain an authentication token to be used with other APIs
   //
   // An authentication token will be returned after user has been validated
@@ -397,6 +530,34 @@ service StrongDocService {
   rpc Login(LoginReq) returns (LoginResp) {
     option (google.api.http) = {
       post: "/v1/auth/login"
+      body: "*"
+    };
+  }
+
+  // Obtain the metadata needed to attempt to login with a specified user
+  rpc PrepareLogin(PrepareLoginReq) returns (PrepareLoginResp) {
+    option (google.api.http) = {
+      post: "/v1/auth/prepareLogin"
+      body: "*"
+    };
+  }
+
+  // The first step in the SRP login proccess
+  rpc SrpInit(SrpInitReq) returns (SrpInitResp) {
+    option (google.api.http) = {
+      post: "/v1/auth/srpInit"
+      body: "*"
+    };
+  }
+
+  // The second and final step in the SRP login proccess
+  //
+  // An authentication token will be returned after user has been validated
+  // The returned token will be used as a Bearer Token and need to be set in
+  // the request header
+  rpc SrpProof(SrpProofReq) returns (SrpProofResp) {
+    option (google.api.http) = {
+      post: "/v1/auth/srpProof"
       body: "*"
     };
   }
@@ -721,6 +882,24 @@ service StrongDocService {
   rpc RemovePaymentMethod(RemovePaymentMethodReq) returns (RemovePaymentMethodResp) {
     option (google.api.http) = {
       delete: "/v1/billing/paymentMethod/remove/{pmID}"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
+  // List payments for the organization
+  //
+  // Requires Administrator privilege
+  // Requires Login
+  rpc ListPayments(ListPaymentsReq) returns (ListPaymentsResp) {
+    option (google.api.http) = {
+      get: "/v1/billing/payments"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
       security: {

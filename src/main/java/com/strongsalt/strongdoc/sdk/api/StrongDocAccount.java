@@ -4,18 +4,26 @@
 
 package com.strongsalt.strongdoc.sdk.api;
 
-import com.strongsalt.strongdoc.sdk.api.responses.AccountInfoResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.OrgUserInfo;
-import com.strongsalt.strongdoc.sdk.api.responses.RegisterOrganizationResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.RemoveOrganizationResponse;
+import com.google.protobuf.util.Timestamps;
+import com.strongsalt.crypto.exception.StrongSaltKdfException;
+import com.strongsalt.crypto.exception.StrongSaltKeyException;
+import com.strongsalt.crypto.exception.StrongSaltSRPException;
+import com.strongsalt.crypto.kdf.StrongSaltKDF;
+import com.strongsalt.crypto.key.StrongSaltKey;
+import com.strongsalt.crypto.pake.srp.SRP;
+import com.strongsalt.crypto.pake.srp.SRPSession;
+import com.strongsalt.crypto.pake.srp.Verifier;
+import com.strongsalt.strongdoc.sdk.api.responses.*;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
+import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Account;
+import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import io.grpc.StatusRuntimeException;
 
-import com.google.protobuf.util.Timestamps;
-
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class can be used to perform actions that are related to an account like organizations and users.
@@ -38,28 +46,25 @@ public class StrongDocAccount {
      * @param source          How was the organization registered.
      * @param sourceData      Any data related to registration from the source (in JSON).
      * @return The register organization response.
-     * @throws StatusRuntimeException on gRPC errors
-     * @see StatusRuntimeException io.grpc
+     * @throws StrongDocServiceException on StrongDocServiceException errors
      */
-    private RegisterOrganizationResponse registerOrganization(final StrongDocServiceClient client,
-                                                              final String orgName,
-                                                              final String orgEmail,
-                                                              final String orgAddress,
-                                                              final String adminName,
-                                                              final String adminPassword,
-                                                              final String adminEmail,
-                                                              final String[] sharableOrgs,
-                                                              final Boolean multiLevelShare,
-                                                              final String source,
-                                                              final String sourceData)
-            throws StatusRuntimeException {
-
-        final Account.RegisterOrganizationReq.Builder regOrg = Account.RegisterOrganizationReq.newBuilder();
+    public RegisterOrganizationResponse registerOrganization(final StrongDocServiceClient client,
+                                                             final String orgName,
+                                                             final String orgEmail,
+                                                             final String orgAddress,
+                                                             final String adminName,
+                                                             final String adminPassword,
+                                                             final String adminEmail,
+                                                             final String[] sharableOrgs,
+                                                             final Boolean multiLevelShare,
+                                                             final String source,
+                                                             final String sourceData)
+            throws StrongDocServiceException {
+        Account.RegisterOrganizationReq.Builder regOrg = Account.RegisterOrganizationReq.newBuilder();
         regOrg.setOrgName(orgName);
         regOrg.setOrgEmail(orgEmail);
         regOrg.setOrgAddr(orgAddress);
         regOrg.setUserName(adminName);
-        regOrg.setPassword(adminPassword);
         regOrg.setAdminEmail(adminEmail);
         regOrg.setMultiLevelShare(multiLevelShare);
         regOrg.setSource(source);
@@ -67,8 +72,48 @@ public class StrongDocAccount {
         for (String sharableOrg : sharableOrgs) {
             regOrg.addSharableOrgs(sharableOrg);
         }
-        final Account.RegisterOrganizationReq req = regOrg.build();
 
+//        regOrg.setPassword(adminPassword); // TODO: remove
+
+        // generate loginData
+        Account.RegisterLoginData.Builder loginData = Account.RegisterLoginData.newBuilder();
+        loginData.setLoginType(Account.LoginType.SRP);
+        loginData.setLoginVersion(1);
+        try {
+            SRPSession srpSession = SRP.ONE.getSession();
+            Verifier verifier = srpSession.verifier("whatever".getBytes(), adminPassword.getBytes());
+            String[] encodedVerifier = verifier.encode();
+            loginData.setSrpVerifier(encodedVerifier[1]);
+        } catch (StrongSaltSRPException e) {
+            throw new StrongDocServiceException("Fail to init SRP", e);
+        }
+        regOrg.setAdminLoginData(loginData.build());
+
+        // generate client keys
+        try {
+            StrongSaltKDF userKdf = StrongSaltKDF.GenerateKDF(StrongSaltKDF.KDFType.PBKDF2, StrongSaltKey.KeyType.SECRETBOX);
+            byte[] kdfMetaBytes = userKdf.serialize();
+            StrongSaltKey userPasswordKey = userKdf.GenerateKey(adminPassword.getBytes());
+            StrongSaltKey userKey = StrongSaltKey.GenerateKey(StrongSaltKey.KeyType.X25519);
+            byte[] userPublicKeyBytes = userKey.serializePublic();
+            byte[] userFullKeyBytes = userKey.serialize();
+            byte[] encUserPriKeyBytes = userPasswordKey.encrypt(userFullKeyBytes);
+
+            StrongSaltKey orgKey = StrongSaltKey.GenerateKey(StrongSaltKey.KeyType.X25519);
+            byte[] orgPublicKeyBytes = orgKey.serializePublic();
+            byte[] orgFullKeyBytes = orgKey.serialize();
+            byte[] encOrgPriKeyBytes = userKey.encrypt(orgFullKeyBytes);
+
+            regOrg.setKdfMetadata(Base64.getUrlEncoder().encodeToString(kdfMetaBytes));
+            regOrg.setEncOrgPriKey(Base64.getUrlEncoder().encodeToString(encOrgPriKeyBytes));
+            regOrg.setOrgPubKey(Base64.getUrlEncoder().encodeToString(orgPublicKeyBytes));
+            regOrg.setEncUserPriKey(Base64.getUrlEncoder().encodeToString(encUserPriKeyBytes));
+            regOrg.setUserPubKey(Base64.getUrlEncoder().encodeToString(userPublicKeyBytes));
+        } catch (StrongSaltKdfException | StrongSaltKeyException e) {
+            throw new StrongDocServiceException("Fail to generate client keys", e);
+        }
+
+        final Account.RegisterOrganizationReq req = regOrg.build();
         final Account.RegisterOrganizationResp res = client.getBlockingStubNoAuth().registerOrganization(req);
         return new RegisterOrganizationResponse(res.getOrgID(), res.getUserID());
     }
@@ -82,28 +127,61 @@ public class StrongDocAccount {
      *
      * @param client   The StrongDoc client used to call this API.
      * @param username The username of the new user.
-     * @param password The password of the new user.
      * @param email    The email of the new user.
-     * @param isAdmin  Whether the new user should be an organization administrator.
-     * @return ID of the user.
+     * @param password The password of the new user.
+     * @return RegisterUserResponse
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public String registerUser(final StrongDocServiceClient client,
-                               final String username,
-                               final String password,
-                               final String email,
-                               final Boolean isAdmin)
-            throws StatusRuntimeException {
+    public RegisterUserResponse registerUser(final StrongDocServiceClient client,
+                                             final String orgID,
+                                             final String username,
+                                             final String email,
+                                             final String password,
+                                             final String invitationCode)
+            throws StrongDocServiceException {
 
-        final Account.RegisterUserReq req = Account.RegisterUserReq.newBuilder()
-                .setUserName(username)
-                .setPassword(password)
-                .setEmail(email)
-                .setAdmin(isAdmin)
-                .build();
-        final Account.RegisterUserResp res = client.getBlockingStub().registerUser(req);
-        return res.getUserID();
+        final Account.RegisterUserReq.Builder registerUserReqBuilder = Account.RegisterUserReq.newBuilder();
+        registerUserReqBuilder.setEmail(email);
+        registerUserReqBuilder.setInvitationCode(invitationCode);
+        registerUserReqBuilder.setOrgID(orgID);
+        registerUserReqBuilder.setUserName(username);
+//        registerUserReqBuilder.setPassword(password); // TODO remove later
+
+        // generate client keys
+        try {
+            StrongSaltKDF userKdf = StrongSaltKDF.GenerateKDF(StrongSaltKDF.KDFType.PBKDF2, StrongSaltKey.KeyType.SECRETBOX);
+            byte[] kdfMetaBytes = userKdf.serialize();
+            StrongSaltKey userPasswordKey = userKdf.GenerateKey(password.getBytes());
+            StrongSaltKey userKey = StrongSaltKey.GenerateKey(StrongSaltKey.KeyType.X25519);
+            byte[] userPublicKeyBytes = userKey.serializePublic();
+            byte[] userFullKeyBytes = userKey.serialize();
+            byte[] encUserPriKeyBytes = userPasswordKey.encrypt(userFullKeyBytes);
+
+            registerUserReqBuilder.setKdfMetadata(Base64.getUrlEncoder().encodeToString(kdfMetaBytes));
+            registerUserReqBuilder.setEncUserPriKey(Base64.getUrlEncoder().encodeToString(encUserPriKeyBytes));
+            registerUserReqBuilder.setUserPubKey(Base64.getUrlEncoder().encodeToString(userPublicKeyBytes));
+        } catch (StrongSaltKdfException | StrongSaltKeyException e) {
+            throw new StrongDocServiceException("Fail to generate client keys", e);
+        }
+
+        // generate loginData
+        Account.RegisterLoginData.Builder loginData = Account.RegisterLoginData.newBuilder();
+        loginData.setLoginType(Account.LoginType.SRP);
+        loginData.setLoginVersion(1);
+        try {
+            SRPSession srpSession = SRP.ONE.getSession();
+            Verifier verifier = srpSession.verifier("whatever".getBytes(), password.getBytes());
+            String[] encodedVerifier = verifier.encode();
+            loginData.setSrpVerifier(encodedVerifier[1]);
+        } catch (StrongSaltSRPException e) {
+            throw new StrongDocServiceException("Fail to init SRP", e);
+        }
+        registerUserReqBuilder.setLoginData(loginData.build());
+
+
+        final Account.RegisterUserResp res = client.getBlockingStub().registerUser(registerUserReqBuilder.build());
+        return new RegisterUserResponse(res.getSuccess(), res.getOrgID(), res.getUserID());
     }
 
     // ---------------------------------- RemoveUserReq ----------------------------------
@@ -135,20 +213,52 @@ public class StrongDocAccount {
      * Promotes a regular user to administrator.
      * This requires an administrator privilege.
      *
-     * @param client The StrongDoc client used to call this API.
-     * @param userID ID of the user.
+     * @param client        The StrongDoc client used to call this API.
+     * @param userIDOrEmail ID or email of the user.
      * @return Whether the operation was a success.
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
     public Boolean promoteUser(final StrongDocServiceClient client,
-                               final String userID)
+                               final String userIDOrEmail)
             throws StatusRuntimeException {
 
-        final Account.PromoteUserReq req = Account.PromoteUserReq.newBuilder()
-                .setUserID(userID)
+        final Account.PreparePromoteUserReq preparePromoteUserReq = Account.PreparePromoteUserReq.newBuilder()
+                .setUserID(userIDOrEmail)
                 .build();
-        final Account.PromoteUserResp res = client.getBlockingStub().promoteUser(req);
+        final Account.PreparePromoteUserResp preparePromoteRes = client.getBlockingStub().preparePromoteUser(preparePromoteUserReq);
+
+        Encryption.EncryptedKey encryptedOrgKey = preparePromoteRes.getEncOrgKey();
+        byte[] encOrgPriKeyBytes = Base64.getUrlDecoder().decode(encryptedOrgKey.getEncKey());
+        byte[] encUserPriKeyBytes = Base64.getUrlDecoder().decode(preparePromoteRes.getEncUserPriKey());
+        byte[] newUserPubKeyBytes = Base64.getUrlDecoder().decode(preparePromoteRes.getNewUserPubKey());
+
+
+        Encryption.EncryptedKey.Builder encryptedKeyBuilder = Encryption.EncryptedKey.newBuilder();
+        try {
+            StrongSaltKey passwordKey = client.getPasswordKey();
+            byte[] decryptedUserKeyBytes = passwordKey.decrypt(encUserPriKeyBytes);
+
+            StrongSaltKey adminKey = StrongSaltKey.Deserialize(decryptedUserKeyBytes);
+            byte[] orgPriKeyBytes = adminKey.decrypt(encOrgPriKeyBytes);
+
+            StrongSaltKey userKey = StrongSaltKey.Deserialize(newUserPubKeyBytes);
+            byte[] reEncryptedOrgKey = userKey.encrypt(orgPriKeyBytes);
+            encryptedKeyBuilder.setEncKey(Base64.getUrlEncoder().encodeToString(reEncryptedOrgKey))
+                    .setEncryptorID(encryptedOrgKey.getEncryptorID())
+                    .setOwnerID(encryptedOrgKey.getOwnerID())
+                    .setKeyID(encryptedOrgKey.getKeyID());
+
+
+        } catch (StrongSaltKeyException e) {
+            e.printStackTrace();
+        }
+
+
+        final Account.PromoteUserReq promoteUserReq = Account.PromoteUserReq.newBuilder()
+                .setEncryptedKey(encryptedKeyBuilder.build())
+                .build();
+        final Account.PromoteUserResp res = client.getBlockingStub().promoteUser(promoteUserReq);
         return res.getSuccess();
     }
 
@@ -180,18 +290,17 @@ public class StrongDocAccount {
     /**
      * Verifies the user and organization identity, and returns a JWT token for future API use.
      *
-     * @param client       The StrongDoc client used to call this API.
-     * @param userID       The login user ID
-     * @param userPassword The login user password
-     * @param orgID        The login organization ID
+     * @param client        The StrongDoc client used to call this API.
+     * @param userIDorEmail The login user ID or Email
+     * @param userPassword  The login user password
+     * @param orgID         The login organization ID
      * @return The JWT token used to authenticate user/org when using StrongDoc APIs.
-     * @throws StatusRuntimeException on gRPC errors
-     * @see StatusRuntimeException io.grpc
+     * @throws StrongDocServiceException on StrongDocServiceException errors
      */
-    public String login(final StrongDocServiceClient client, final String orgID,
-                        final String userID, final String userPassword)
-            throws StatusRuntimeException {
-        return client.login(orgID, userID, userPassword);
+    public boolean login(final StrongDocServiceClient client, final String orgID,
+                         final String userIDorEmail, final String userPassword)
+            throws StrongDocServiceException {
+        return client.login(orgID, userIDorEmail, userPassword);
     }
 
     // ---------------------------------- LogoutReq ----------------------------------
@@ -207,6 +316,39 @@ public class StrongDocAccount {
     public String logout(final StrongDocServiceClient client)
             throws StatusRuntimeException {
         return client.logout();
+    }
+
+    // ---------------------------------- InviteUserReq ----------------------------------
+    public boolean InviteUser(final StrongDocServiceClient client, String userEmail, int expireTime) throws StrongDocServiceException {
+        final Account.InviteUserReq inviteUserReq = Account.InviteUserReq.newBuilder()
+                .setEmail(userEmail)
+                .setExpireTime(expireTime)
+                .build();
+        final Account.InviteUserResp inviteUserResp = client.getBlockingStub().inviteUser(inviteUserReq);
+        return inviteUserResp.getSuccess();
+    }
+
+    // ---------------------------------- ListInvitationsReq ----------------------------------
+    public List<InvitationInfo> ListInvitations(final StrongDocServiceClient client) throws StrongDocServiceException {
+        final Account.ListInvitationsReq listInvitationsReq = Account.ListInvitationsReq.newBuilder().build();
+        final Account.ListInvitationsResp inviteUserResp = client.getBlockingStub().listInvitations(listInvitationsReq);
+
+
+        final List<InvitationInfo> res = new ArrayList<>();
+
+        for (Account.Invitation invitation : inviteUserResp.getInvitationsList()) {
+            res.add(new InvitationInfo(invitation.getEmail(), invitation.getCreateTime(), invitation.getExpireTime()));
+        }
+        return res;
+    }
+
+    // ---------------------------------- RevokeInvitationReq ----------------------------------
+    public boolean revokeInvitation(final StrongDocServiceClient client, String userEmail) throws StrongDocServiceException {
+        final Account.RevokeInvitationReq revokeInvitationReq = Account.RevokeInvitationReq.newBuilder()
+                .setEmail(userEmail)
+                .build();
+        final Account.RevokeInvitationResp revokeInvitationResp = client.getBlockingStub().revokeInvitation(revokeInvitationReq);
+        return revokeInvitationResp.getSuccess();
     }
 
     // ---------------------------------- ListUsersReq ----------------------------------

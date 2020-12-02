@@ -11,6 +11,7 @@ package proto;
 
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-swagger/options/annotations.proto";
+import "accounts.proto";
 
 message GetBillingDetailsReq {
   // Timestamp of the requested billing details
@@ -55,6 +56,21 @@ message GetBillingFrequencyListResp {
   };
   // List of billing frequencies
   repeated BillingFrequency billingFrequencyList = 1;
+}
+
+message ListPaymentsReq {}
+
+message ListPaymentsResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListPaymentsResp"
+    }
+    example: { 
+      value: '{"billingFrequencyList": [{"frequency": "MONTHLY", "validFrom": "2020-02-10T12:30:15.123Z"}]}'
+    }
+  };
+  // List of payments
+  repeated Payment paymentsList = 1;
 }
 
 message ListCreditCardsReq {}
@@ -315,3 +331,26 @@ message Card {
   //is the default payment method
   bool isDefault = 7;
 }
+
+// message Payment {
+//   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+//     json_schema: {
+//       title: "Card"
+//     }
+//     example: { 
+//       value: '{ "id": "123bj457y3g99sd7", "billedAt": "2020-03-01T00:00:15.123Z", "periodStart": "2020-03-01T00:00:15.123Z", "periodEnd": "2020-03-01T00:00:15.123Z", "amount": 100, "status": "Payment Success" }'
+//     }
+//   };
+//   // Payment id
+//   string id = 1;
+//   // Billed timestamp
+//   google.protobuf.Timestamp billedAt = 2;
+//   // Start timestamp
+//   google.protobuf.Timestamp periodStart = 3;
+//   // Period end timestamp
+//   google.protobuf.Timestamp periodEnd = 4;
+//   //Amount
+//   uint64 amount = 5;
+//   //status
+//   string status = 6;
+// }

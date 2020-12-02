@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+// This section is specific for Java language
+//option java_multiple_files = true;
+//option objc_class_prefix = "SD";
+option java_package = "com.strongsalt.strongdoc.sdk.proto";
+option java_outer_classname = "Encryption";
+option java_generic_services = true;
+
+package proto;
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+
+enum AccessType {
+  ORG = 0;
+  USER = 1;
+  GROUP = 2;
+  UNKNOWN = 19;
+}
+
+message Key {
+  string key = 1;
+  string keyID = 2;
+  string ownerID = 3;
+  AccessType ownerType = 4;
+}
+
+message EncryptedKey {
+  string encKey = 1; // string of {A}B
+  string encryptorID = 2;  //B's ID
+  int32  encryptorVersion = 3; //B's version
+  string keyID = 4; //A's ID
+  int32  keyVersion = 5; //A's version
+  string ownerID = 6; // B's owener Id
+  AccessType ownerType = 7; // B's owner type
+}
+
+message GetUserPrivateKeysReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetUserPrivateKeysReq"
+    }
+    example: {
+      value: '{}'
+    }
+  };
+}
+
+message GetUserPrivateKeysResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetUserPrivateKeysResp"
+    }
+    example: {
+      value: '{"encryptedKeys": [{"encKey": "asdf", "encryptorID": "abc123", "ownerID": "person", "keyID": "asdf"}]}'
+    }
+  };
+  // List of encrypted asymmetric keys to be decrypted, encrypted with client new passwordKey
+  repeated EncryptedKey encryptedKeys = 1;
+}
+
+message SetUserKdfMetadataReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetUserKdfMetadataReq"
+    }
+    example: {
+      value: '{"kdfMeta": "kdfMetadata", "encryptedKeys": [{"encKey": "asdf", "encryptorID": "abc123", "ownerID": "person", "keyID": "asdf"}]}'
+    }
+  };
+  // new kdfMeta data
+  string kdfMeta = 1;
+  // List of re-encrypted asymmetric keys with the new passwordKey,
+  repeated EncryptedKey encryptedKeys = 2;
+
+}
+
+message SetUserKdfMetadataResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "SetUserKdfMetadataResp"
+    }
+    example: {
+      value: '{"success": true, "restart": false, "keyID": "abc123"}'
+    }
+  };
+  // Whether or not the operation was successful
+    bool success = 1;
+  // Whether or not the operation needs restart
+    bool restart = 2;
+  // The keyID of the new passwordKey
+    string keyID = 3;
+}
