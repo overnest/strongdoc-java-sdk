@@ -1245,7 +1245,7 @@ public final class StrongDocProto {
        * since REST api does not support streaming protocol
        * </pre>
        *
-       * <code>rpc E2EEUploadDocumentStream(stream .proto.E2EEUploadDocStreamReq) returns (.proto.E2EEUploadDocStreamResp);</code>
+       * <code>rpc E2EEUploadDocumentStream(stream .proto.E2EEUploadDocStreamReq) returns (stream .proto.E2EEUploadDocStreamResp);</code>
        */
       public abstract void e2EEUploadDocumentStream(
           com.google.protobuf.RpcController controller,
@@ -2764,7 +2764,7 @@ public final class StrongDocProto {
      * since REST api does not support streaming protocol
      * </pre>
      *
-     * <code>rpc E2EEUploadDocumentStream(stream .proto.E2EEUploadDocStreamReq) returns (.proto.E2EEUploadDocStreamResp);</code>
+     * <code>rpc E2EEUploadDocumentStream(stream .proto.E2EEUploadDocStreamReq) returns (stream .proto.E2EEUploadDocStreamResp);</code>
      */
     public abstract void e2EEUploadDocumentStream(
         com.google.protobuf.RpcController controller,
@@ -5527,7 +5527,7 @@ public final class StrongDocProto {
       "cumentNoStore.proto\032\014search.proto\032\016accou" +
       "nts.proto\032\rbilling.proto\032\020encryption.pro" +
       "to\"\025\n\023GetConfigurationReq\"-\n\024GetConfigur" +
-      "ationResp\022\025\n\rconfiguration\030\001 \001(\t2\2662\n\020Str" +
+      "ationResp\022\025\n\rconfiguration\030\001 \001(\t2\2702\n\020Str" +
       "ongDocService\022\204\001\n\024RegisterOrganization\022\036" +
       ".proto.RegisterOrganizationReq\032\037.proto.R" +
       "egisterOrganizationResp\"+\202\323\344\223\002%\" /v1/acc" +
@@ -5582,123 +5582,123 @@ public final class StrongDocProto {
       "esp\"3\202\323\344\223\002\030*\026/v1/doc/remove/{docID}\222A\022b\020" +
       "\n\016\n\nApiKeyAuth\022\000\022Q\n\024UploadDocumentStream" +
       "\022\031.proto.UploadDocStreamReq\032\032.proto.Uplo" +
-      "adDocStreamResp\"\000(\001\022]\n\030E2EEUploadDocumen" +
+      "adDocStreamResp\"\000(\001\022_\n\030E2EEUploadDocumen" +
       "tStream\022\035.proto.E2EEUploadDocStreamReq\032\036" +
-      ".proto.E2EEUploadDocStreamResp\"\000(\001\022d\n\033E2" +
-      "EEPrepareDownloadDocument\022 .proto.E2EEPr" +
-      "epareDownloadDocReq\032!.proto.E2EEPrepareD" +
-      "ownloadDocResp\"\000\022c\n\032E2EEDownloadDocument" +
-      "Stream\022\037.proto.E2EEDownloadDocStreamReq\032" +
-      " .proto.E2EEDownloadDocStreamResp\"\0000\001\022k\n" +
-      "\016UploadDocument\022\023.proto.UploadDocReq\032\024.p" +
-      "roto.UploadDocResp\".\202\323\344\223\002\023\"\016/v1/doc/uplo" +
-      "ad:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022W\n\026DownloadDo" +
-      "cumentStream\022\033.proto.DownloadDocStreamRe" +
-      "q\032\034.proto.DownloadDocStreamResp\"\0000\001\022x\n\020D" +
-      "ownloadDocument\022\025.proto.DownloadDocReq\032\026" +
-      ".proto.DownloadDocResp\"5\202\323\344\223\002\032\022\030/v1/doc/" +
-      "download/{docID}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022V\n" +
-      "\025EncryptDocumentStream\022\032.proto.EncryptDo" +
-      "cStreamReq\032\033.proto.EncryptDocStreamResp\"" +
-      "\000(\0010\001\022o\n\017EncryptDocument\022\024.proto.Encrypt" +
-      "DocReq\032\025.proto.EncryptDocResp\"/\202\323\344\223\002\024\"\017/" +
-      "v1/doc/encrypt:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022V" +
-      "\n\025DecryptDocumentStream\022\032.proto.DecryptD" +
-      "ocStreamReq\032\033.proto.DecryptDocStreamResp" +
-      "\"\000(\0010\001\022t\n\017DecryptDocument\022\024.proto.Decryp" +
-      "tDocReq\032\025.proto.DecryptDocResp\"4\202\323\344\223\002\031\022\027" +
-      "/v1/doc/decrypt/{docID}\222A\022b\020\n\016\n\nApiKeyAu" +
-      "th\022\000\022t\n\rShareDocument\022\027.proto.ShareDocum" +
-      "entReq\032\030.proto.ShareDocumentResp\"0\202\323\344\223\002\025" +
-      "\"\020/v1/doc/shareDoc:\001*\222A\022b\020\n\016\n\nApiKeyAuth" +
-      "\022\000\022|\n\017UnshareDocument\022\031.proto.UnshareDoc" +
-      "umentReq\032\032.proto.UnshareDocumentResp\"2\202\323" +
-      "\344\223\002\027\"\022/v1/doc/unshareDoc:\001*\222A\022b\020\n\016\n\nApiK" +
-      "eyAuth\022\000\022\222\001\n\024ListDocActionHistory\022\036.prot" +
-      "o.ListDocActionHistoryReq\032\037.proto.ListDo" +
-      "cActionHistoryResp\"9\202\323\344\223\002\036\022\034/v1/doc/list" +
-      "DocActionHistory\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022E\n" +
-      "\005Login\022\017.proto.LoginReq\032\020.proto.LoginRes" +
-      "p\"\031\202\323\344\223\002\023\"\016/v1/auth/login:\001*\022a\n\014PrepareL" +
-      "ogin\022\026.proto.PrepareLoginReq\032\027.proto.Pre" +
-      "pareLoginResp\" \202\323\344\223\002\032\"\025/v1/auth/prepareL" +
-      "ogin:\001*\022M\n\007SrpInit\022\021.proto.SrpInitReq\032\022." +
-      "proto.SrpInitResp\"\033\202\323\344\223\002\025\"\020/v1/auth/srpI" +
-      "nit:\001*\022Q\n\010SrpProof\022\022.proto.SrpProofReq\032\023" +
-      ".proto.SrpProofResp\"\034\202\323\344\223\002\026\"\021/v1/auth/sr" +
-      "pProof:\001*\022V\n\006Logout\022\020.proto.LogoutReq\032\021." +
-      "proto.LogoutResp\"\'\202\323\344\223\002\014\"\n/v1/logout\222A\022b" +
-      "\020\n\016\n\nApiKeyAuth\022\000\022b\n\006Search\022\020.proto.Sear" +
-      "chReq\032\021.proto.SearchResp\"3\202\323\344\223\002\030\022\026/v1/do" +
-      "c/search/{query}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\201\001" +
-      "\n\016AddSharableOrg\022\030.proto.AddSharableOrgR" +
-      "eq\032\031.proto.AddSharableOrgResp\":\202\323\344\223\002\0372\032/" +
-      "v1/account/addSharableOrg:\001*\222A\022b\020\n\016\n\nApi" +
-      "KeyAuth\022\000\022\215\001\n\021RemoveSharableOrg\022\033.proto." +
-      "RemoveSharableOrgReq\032\034.proto.RemoveShara" +
-      "bleOrgResp\"=\202\323\344\223\002\"2\035/v1/account/removeSh" +
-      "arableOrg:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\231\001\n\024Se" +
-      "tMultiLevelSharing\022\036.proto.SetMultiLevel" +
-      "SharingReq\032\037.proto.SetMultiLevelSharingR" +
-      "esp\"@\202\323\344\223\002%\032 /v1/account/setMultiLevelSh" +
-      "aring:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\201\001\n\016SetAcc" +
-      "ountInfo\022\030.proto.SetAccountInfoReq\032\031.pro" +
-      "to.SetAccountInfoResp\":\202\323\344\223\002\037\032\032/v1/accou" +
-      "nt/setAccountInfo:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022" +
-      "\000\022\200\001\n\021GetBillingDetails\022\033.proto.GetBilli" +
-      "ngDetailsReq\032\034.proto.GetBillingDetailsRe" +
-      "sp\"0\202\323\344\223\002\025\022\023/v1/account/billing\222A\022b\020\n\016\n\n" +
-      "ApiKeyAuth\022\000\022\234\001\n\027GetBillingFrequencyList" +
-      "\022!.proto.GetBillingFrequencyListReq\032\".pr" +
-      "oto.GetBillingFrequencyListResp\":\202\323\344\223\002\037\022" +
-      "\035/v1/account/billing/frequency\222A\022b\020\n\016\n\nA" +
-      "piKeyAuth\022\000\022\237\001\n\027SetNextBillingFrequency\022" +
-      "!.proto.SetNextBillingFrequencyReq\032\".pro" +
-      "to.SetNextBillingFrequencyResp\"=\202\323\344\223\002\"\032\035" +
-      "/v1/account/billing/frequency:\001*\222A\022b\020\n\016\n" +
-      "\nApiKeyAuth\022\000\022\177\n\017GetLargeTraffic\022\031.proto" +
-      ".GetLargeTrafficReq\032\032.proto.GetLargeTraf" +
-      "ficResp\"5\202\323\344\223\002\032\022\030/v1/account/largeTraffi" +
-      "c\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022o\n\016GetAccountInfo" +
-      "\022\030.proto.GetAccountInfoReq\032\031.proto.GetAc" +
-      "countInfoResp\"(\202\323\344\223\002\r\022\013/v1/account\222A\022b\020\n" +
-      "\016\n\nApiKeyAuth\022\000\022k\n\013GetUserInfo\022\025.proto.G" +
-      "etUserInfoReq\032\026.proto.GetUserInfoResp\"-\202" +
-      "\323\344\223\002\022\022\020/v1/account/user\222A\022b\020\n\016\n\nApiKeyAu" +
-      "th\022\000\022\221\001\n\022ChangeUserPassword\022\034.proto.Chan" +
-      "geUserPasswordReq\032\035.proto.ChangeUserPass" +
-      "wordResp\">\202\323\344\223\002#\032\036/v1/account/changeUser" +
-      "Password:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022u\n\013SetU" +
-      "serInfo\022\025.proto.SetUserInfoReq\032\026.proto.S" +
-      "etUserInfoResp\"7\202\323\344\223\002\034\032\027/v1/account/setU" +
-      "serInfo:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022x\n\017ListC" +
-      "reditCards\022\031.proto.ListCreditCardsReq\032\032." +
-      "proto.ListCreditCardsResp\".\202\323\344\223\002\023\022\021/v1/b" +
-      "illing/cards\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\206\001\n\020Ad" +
-      "dPaymentMethod\022\032.proto.AddPaymentMethodR" +
-      "eq\032\033.proto.AddPaymentMethodResp\"9\202\323\344\223\002\036\"" +
-      "\031/v1/billing/paymentMethod:\001*\222A\022b\020\n\016\n\nAp" +
-      "iKeyAuth\022\000\022\243\001\n\027SetDefaultPaymentMethod\022!" +
-      ".proto.SetDefaultPaymentMethodReq\032\".prot" +
-      "o.SetDefaultPaymentMethodResp\"A\202\323\344\223\002&\032!/" +
-      "v1/billing/paymentMethod/default:\001*\222A\022b\020" +
-      "\n\016\n\nApiKeyAuth\022\000\022\232\001\n\023RemovePaymentMethod" +
-      "\022\035.proto.RemovePaymentMethodReq\032\036.proto." +
-      "RemovePaymentMethodResp\"D\202\323\344\223\002)*\'/v1/bil" +
-      "ling/paymentMethod/remove/{pmID}\222A\022b\020\n\016\n" +
-      "\nApiKeyAuth\022\000\022r\n\014ListPayments\022\026.proto.Li" +
-      "stPaymentsReq\032\027.proto.ListPaymentsResp\"1" +
-      "\202\323\344\223\002\026\022\024/v1/billing/payments\222A\022b\020\n\016\n\nApi" +
-      "KeyAuth\022\000B\360\002\n\"com.strongsalt.strongdoc.s" +
-      "dk.protoB\016StrongDocProto\210\001\001\222A\265\002\0227\n\rStron" +
-      "gDoc API\"!\n\nStrongSalt\032\023info@strongsalt." +
-      "com2\0031.02\020application/json:\020application/" +
-      "jsonZ\212\001\n\207\001\n\nApiKeyAuth\022y\010\002\022dThe word \'Be" +
-      "arer\' and a space is required before the" +
-      " token.\nFor example,\nBearer authenticati" +
-      "on_token\032\rAuthorization \002rI\n\027More about " +
-      "gRPC-Gateway\022.https://github.com/grpc-ec" +
-      "osystem/grpc-gatewayb\006proto3"
+      ".proto.E2EEUploadDocStreamResp\"\000(\0010\001\022d\n\033" +
+      "E2EEPrepareDownloadDocument\022 .proto.E2EE" +
+      "PrepareDownloadDocReq\032!.proto.E2EEPrepar" +
+      "eDownloadDocResp\"\000\022c\n\032E2EEDownloadDocume" +
+      "ntStream\022\037.proto.E2EEDownloadDocStreamRe" +
+      "q\032 .proto.E2EEDownloadDocStreamResp\"\0000\001\022" +
+      "k\n\016UploadDocument\022\023.proto.UploadDocReq\032\024" +
+      ".proto.UploadDocResp\".\202\323\344\223\002\023\"\016/v1/doc/up" +
+      "load:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022W\n\026Download" +
+      "DocumentStream\022\033.proto.DownloadDocStream" +
+      "Req\032\034.proto.DownloadDocStreamResp\"\0000\001\022x\n" +
+      "\020DownloadDocument\022\025.proto.DownloadDocReq" +
+      "\032\026.proto.DownloadDocResp\"5\202\323\344\223\002\032\022\030/v1/do" +
+      "c/download/{docID}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022" +
+      "V\n\025EncryptDocumentStream\022\032.proto.Encrypt" +
+      "DocStreamReq\032\033.proto.EncryptDocStreamRes" +
+      "p\"\000(\0010\001\022o\n\017EncryptDocument\022\024.proto.Encry" +
+      "ptDocReq\032\025.proto.EncryptDocResp\"/\202\323\344\223\002\024\"" +
+      "\017/v1/doc/encrypt:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000" +
+      "\022V\n\025DecryptDocumentStream\022\032.proto.Decryp" +
+      "tDocStreamReq\032\033.proto.DecryptDocStreamRe" +
+      "sp\"\000(\0010\001\022t\n\017DecryptDocument\022\024.proto.Decr" +
+      "yptDocReq\032\025.proto.DecryptDocResp\"4\202\323\344\223\002\031" +
+      "\022\027/v1/doc/decrypt/{docID}\222A\022b\020\n\016\n\nApiKey" +
+      "Auth\022\000\022t\n\rShareDocument\022\027.proto.ShareDoc" +
+      "umentReq\032\030.proto.ShareDocumentResp\"0\202\323\344\223" +
+      "\002\025\"\020/v1/doc/shareDoc:\001*\222A\022b\020\n\016\n\nApiKeyAu" +
+      "th\022\000\022|\n\017UnshareDocument\022\031.proto.UnshareD" +
+      "ocumentReq\032\032.proto.UnshareDocumentResp\"2" +
+      "\202\323\344\223\002\027\"\022/v1/doc/unshareDoc:\001*\222A\022b\020\n\016\n\nAp" +
+      "iKeyAuth\022\000\022\222\001\n\024ListDocActionHistory\022\036.pr" +
+      "oto.ListDocActionHistoryReq\032\037.proto.List" +
+      "DocActionHistoryResp\"9\202\323\344\223\002\036\022\034/v1/doc/li" +
+      "stDocActionHistory\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022" +
+      "E\n\005Login\022\017.proto.LoginReq\032\020.proto.LoginR" +
+      "esp\"\031\202\323\344\223\002\023\"\016/v1/auth/login:\001*\022a\n\014Prepar" +
+      "eLogin\022\026.proto.PrepareLoginReq\032\027.proto.P" +
+      "repareLoginResp\" \202\323\344\223\002\032\"\025/v1/auth/prepar" +
+      "eLogin:\001*\022M\n\007SrpInit\022\021.proto.SrpInitReq\032" +
+      "\022.proto.SrpInitResp\"\033\202\323\344\223\002\025\"\020/v1/auth/sr" +
+      "pInit:\001*\022Q\n\010SrpProof\022\022.proto.SrpProofReq" +
+      "\032\023.proto.SrpProofResp\"\034\202\323\344\223\002\026\"\021/v1/auth/" +
+      "srpProof:\001*\022V\n\006Logout\022\020.proto.LogoutReq\032" +
+      "\021.proto.LogoutResp\"\'\202\323\344\223\002\014\"\n/v1/logout\222A" +
+      "\022b\020\n\016\n\nApiKeyAuth\022\000\022b\n\006Search\022\020.proto.Se" +
+      "archReq\032\021.proto.SearchResp\"3\202\323\344\223\002\030\022\026/v1/" +
+      "doc/search/{query}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022" +
+      "\201\001\n\016AddSharableOrg\022\030.proto.AddSharableOr" +
+      "gReq\032\031.proto.AddSharableOrgResp\":\202\323\344\223\002\0372" +
+      "\032/v1/account/addSharableOrg:\001*\222A\022b\020\n\016\n\nA" +
+      "piKeyAuth\022\000\022\215\001\n\021RemoveSharableOrg\022\033.prot" +
+      "o.RemoveSharableOrgReq\032\034.proto.RemoveSha" +
+      "rableOrgResp\"=\202\323\344\223\002\"2\035/v1/account/remove" +
+      "SharableOrg:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\231\001\n\024" +
+      "SetMultiLevelSharing\022\036.proto.SetMultiLev" +
+      "elSharingReq\032\037.proto.SetMultiLevelSharin" +
+      "gResp\"@\202\323\344\223\002%\032 /v1/account/setMultiLevel" +
+      "Sharing:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\201\001\n\016SetA" +
+      "ccountInfo\022\030.proto.SetAccountInfoReq\032\031.p" +
+      "roto.SetAccountInfoResp\":\202\323\344\223\002\037\032\032/v1/acc" +
+      "ount/setAccountInfo:\001*\222A\022b\020\n\016\n\nApiKeyAut" +
+      "h\022\000\022\200\001\n\021GetBillingDetails\022\033.proto.GetBil" +
+      "lingDetailsReq\032\034.proto.GetBillingDetails" +
+      "Resp\"0\202\323\344\223\002\025\022\023/v1/account/billing\222A\022b\020\n\016" +
+      "\n\nApiKeyAuth\022\000\022\234\001\n\027GetBillingFrequencyLi" +
+      "st\022!.proto.GetBillingFrequencyListReq\032\"." +
+      "proto.GetBillingFrequencyListResp\":\202\323\344\223\002" +
+      "\037\022\035/v1/account/billing/frequency\222A\022b\020\n\016\n" +
+      "\nApiKeyAuth\022\000\022\237\001\n\027SetNextBillingFrequenc" +
+      "y\022!.proto.SetNextBillingFrequencyReq\032\".p" +
+      "roto.SetNextBillingFrequencyResp\"=\202\323\344\223\002\"" +
+      "\032\035/v1/account/billing/frequency:\001*\222A\022b\020\n" +
+      "\016\n\nApiKeyAuth\022\000\022\177\n\017GetLargeTraffic\022\031.pro" +
+      "to.GetLargeTrafficReq\032\032.proto.GetLargeTr" +
+      "afficResp\"5\202\323\344\223\002\032\022\030/v1/account/largeTraf" +
+      "fic\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022o\n\016GetAccountIn" +
+      "fo\022\030.proto.GetAccountInfoReq\032\031.proto.Get" +
+      "AccountInfoResp\"(\202\323\344\223\002\r\022\013/v1/account\222A\022b" +
+      "\020\n\016\n\nApiKeyAuth\022\000\022k\n\013GetUserInfo\022\025.proto" +
+      ".GetUserInfoReq\032\026.proto.GetUserInfoResp\"" +
+      "-\202\323\344\223\002\022\022\020/v1/account/user\222A\022b\020\n\016\n\nApiKey" +
+      "Auth\022\000\022\221\001\n\022ChangeUserPassword\022\034.proto.Ch" +
+      "angeUserPasswordReq\032\035.proto.ChangeUserPa" +
+      "sswordResp\">\202\323\344\223\002#\032\036/v1/account/changeUs" +
+      "erPassword:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022u\n\013Se" +
+      "tUserInfo\022\025.proto.SetUserInfoReq\032\026.proto" +
+      ".SetUserInfoResp\"7\202\323\344\223\002\034\032\027/v1/account/se" +
+      "tUserInfo:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022x\n\017Lis" +
+      "tCreditCards\022\031.proto.ListCreditCardsReq\032" +
+      "\032.proto.ListCreditCardsResp\".\202\323\344\223\002\023\022\021/v1" +
+      "/billing/cards\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\206\001\n\020" +
+      "AddPaymentMethod\022\032.proto.AddPaymentMetho" +
+      "dReq\032\033.proto.AddPaymentMethodResp\"9\202\323\344\223\002" +
+      "\036\"\031/v1/billing/paymentMethod:\001*\222A\022b\020\n\016\n\n" +
+      "ApiKeyAuth\022\000\022\243\001\n\027SetDefaultPaymentMethod" +
+      "\022!.proto.SetDefaultPaymentMethodReq\032\".pr" +
+      "oto.SetDefaultPaymentMethodResp\"A\202\323\344\223\002&\032" +
+      "!/v1/billing/paymentMethod/default:\001*\222A\022" +
+      "b\020\n\016\n\nApiKeyAuth\022\000\022\232\001\n\023RemovePaymentMeth" +
+      "od\022\035.proto.RemovePaymentMethodReq\032\036.prot" +
+      "o.RemovePaymentMethodResp\"D\202\323\344\223\002)*\'/v1/b" +
+      "illing/paymentMethod/remove/{pmID}\222A\022b\020\n" +
+      "\016\n\nApiKeyAuth\022\000\022r\n\014ListPayments\022\026.proto." +
+      "ListPaymentsReq\032\027.proto.ListPaymentsResp" +
+      "\"1\202\323\344\223\002\026\022\024/v1/billing/payments\222A\022b\020\n\016\n\nA" +
+      "piKeyAuth\022\000B\360\002\n\"com.strongsalt.strongdoc" +
+      ".sdk.protoB\016StrongDocProto\210\001\001\222A\265\002\0227\n\rStr" +
+      "ongDoc API\"!\n\nStrongSalt\032\023info@strongsal" +
+      "t.com2\0031.02\020application/json:\020applicatio" +
+      "n/jsonZ\212\001\n\207\001\n\nApiKeyAuth\022y\010\002\022dThe word \'" +
+      "Bearer\' and a space is required before t" +
+      "he token.\nFor example,\nBearer authentica" +
+      "tion_token\032\rAuthorization \002rI\n\027More abou" +
+      "t gRPC-Gateway\022.https://github.com/grpc-" +
+      "ecosystem/grpc-gatewayb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

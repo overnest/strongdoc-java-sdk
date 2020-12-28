@@ -561,7 +561,7 @@ public final class StrongDocServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "E2EEUploadDocumentStream",
       requestType = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.class,
       responseType = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq,
       com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp> getE2EEUploadDocumentStreamMethod() {
     io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp> getE2EEUploadDocumentStreamMethod;
@@ -570,7 +570,7 @@ public final class StrongDocServiceGrpc {
         if ((getE2EEUploadDocumentStreamMethod = StrongDocServiceGrpc.getE2EEUploadDocumentStreamMethod) == null) {
           StrongDocServiceGrpc.getE2EEUploadDocumentStreamMethod = getE2EEUploadDocumentStreamMethod =
               io.grpc.MethodDescriptor.<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "E2EEUploadDocumentStream"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -2451,7 +2451,7 @@ public final class StrongDocServiceGrpc {
                   this, METHODID_UPLOAD_DOCUMENT_STREAM)))
           .addMethod(
             getE2EEUploadDocumentStreamMethod(),
-            asyncClientStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq,
                 com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp>(
@@ -2943,7 +2943,7 @@ public final class StrongDocServiceGrpc {
      */
     public io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq> e2EEUploadDocumentStream(
         io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp> responseObserver) {
-      return asyncClientStreamingCall(
+      return asyncBidiStreamingCall(
           getChannel().newCall(getE2EEUploadDocumentStreamMethod(), getCallOptions()), responseObserver);
     }
 

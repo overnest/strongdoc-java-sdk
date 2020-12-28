@@ -124,7 +124,7 @@ public class AccountInfoResponse {
      * Gets the account's payments.
      *
      * @return The list of payments
-     * @see com.strongsalt.strongdoc.sdk.api.responses
+     * @see com.strongsalt.strongdoc.sdk.api.responses.Payment
      */
     public ArrayList<Payment> getPayments() {
         return this.paymentList;

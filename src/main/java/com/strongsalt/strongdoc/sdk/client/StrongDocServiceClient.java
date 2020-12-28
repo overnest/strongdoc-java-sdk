@@ -389,8 +389,22 @@ public class StrongDocServiceClient {
         return authToken;
     }
 
-    public StrongSaltKey getPasswordKey() {
-        return passwordKey;
+    /**
+     * For internal use. Encrypts with the logged-in user's password-derived key.
+     *
+     * @return Ciphertext
+     */
+    public byte[] userEncrypt(byte[] plaintext) throws StrongSaltKeyException {
+        return this.passwordKey.encrypt(plaintext);
+    }
+
+    /**
+     * For internal use. Decrypts with the logged-in user's password-derived key.
+     *
+     * @return Plaintext
+     */
+    public byte[] userDecrypt(byte[] ciphertext) throws StrongSaltKeyException {
+        return this.passwordKey.decrypt(ciphertext);
     }
 
     /**

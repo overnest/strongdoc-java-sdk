@@ -6,6 +6,10 @@ package com.strongsalt.strongdoc.sdk.api;
 
 import com.google.common.io.ByteStreams;
 import com.google.protobuf.ByteString;
+import com.strongsalt.crypto.exception.StrongSaltKeyException;
+import com.strongsalt.crypto.key.StrongSaltKey;
+import com.strongsalt.crypto.key.midstream.Decryptor;
+import com.strongsalt.crypto.key.midstream.Encryptor;
 import com.strongsalt.strongdoc.sdk.api.responses.DocumentInfo;
 import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentResponse;
 import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentStreamResponse;
@@ -13,17 +17,33 @@ import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Documents;
+import com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata;
 import com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp;
 import com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType;
+import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.UploadRespStageDataCase;
 import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore;
+import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp;
+import com.strongsalt.strongdoc.sdk.proto.Encryption.Key;
+import com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType;
+import com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey;
 
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -137,6 +157,306 @@ public class StrongDocDocument {
         return new UploadDocumentResponse(responseObserver.getResp().getDocID(), bytes);
     }
 
+        // ---------------------------------- UploadDocumentStream ----------------------------------
+
+    /**
+     * Uploads a document to Strongdoc provided storage.
+     *
+     * @param client      The StrongDoc client used to call this API.
+     * @param docName     The name of the document.
+     * @param dataStream  The stream where the uploaded document will be read from.
+     * @return The upload response.
+     * @throws IOException on inputStream errors
+     * @throws InterruptedException on CountDownLatch errors
+     * @throws StrongDocServiceException on upload error
+     */
+    public UploadDocumentResponse e2eeUploadDocumentStream(final StrongDocServiceClient client,
+                                                       final String docName,
+                                                       final InputStream dataStream)
+            throws IOException, InterruptedException, StrongDocServiceException {
+        final Semaphore semaphore = new Semaphore(0);
+        
+        final class UploadStreamObserver implements StreamObserver<Documents.E2EEUploadDocStreamResp> {
+            private Throwable exception = null;
+            private Documents.E2EEUploadDocStreamResp resp = null;
+
+            public Documents.E2EEUploadDocStreamResp getResp() {
+                return resp;
+            }
+
+            private void setResp(Documents.E2EEUploadDocStreamResp resp) {
+                this.resp = resp;
+            }
+
+            @Override
+            public void onNext(E2EEUploadDocStreamResp value) {
+                setResp(value);
+                semaphore.release();
+                /*if (getResp() == null) {
+                    setResp(value);
+                }*/
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                setException(t);
+                semaphore.release();
+            }
+
+            @Override
+            public void onCompleted() {
+                semaphore.release();
+            }
+
+            public Throwable getException() {
+                return exception;
+            }
+
+            private void setException(Throwable exception) {
+                this.exception = exception;
+            }
+        }
+
+        final UploadStreamObserver responseObserver = new UploadStreamObserver();
+        final StreamObserver<Documents.E2EEUploadDocStreamReq> requestObserver = client.getAsyncStub()
+                .e2EEUploadDocumentStream(responseObserver);
+
+        // generate doc key
+        StrongSaltKey docKey;
+        byte[] serialDocKey;
+        try {
+            docKey = StrongSaltKey.GenerateKey(StrongSaltKey.KeyType.XCHACHA20HMAC);
+            serialDocKey = docKey.serialize();
+        } catch (StrongSaltKeyException e) {
+            requestObserver.onError(e);
+            throw new StrongDocServiceException(e);
+        }
+
+        // send premetadata
+        Documents.E2EEUploadDocStreamReq req = Documents.E2EEUploadDocStreamReq.newBuilder()
+                    .setPreMetaData(Documents.E2EEUploadDocStreamReq.PreMetaDataType.newBuilder()
+                        .setDocName(docName))
+                    .build();
+        requestObserver.onNext(req);
+
+        // wait for server to respond
+        semaphore.acquire();
+
+        Documents.E2EEUploadDocStreamResp resp = responseObserver.getResp();
+        
+        final Base64.Decoder base64decoder = Base64.getUrlDecoder();
+        final Base64.Encoder base64encoder = Base64.getUrlEncoder();
+        byte[] serialPubKey;
+        StrongSaltKey pubKey;
+        byte[] encSerialDocKey;
+        Encryption.EncryptedKey protoEncKey;
+        EncKeyList.Builder encDocKeysBuilder;
+        while (!resp.getReadyForData()) {
+            if (resp.getUploadRespStageDataCase() != UploadRespStageDataCase.ENCRYPTORS) {
+                throw new StrongDocServiceException("Expected server response to contain Encryptors.");
+            }
+
+            encDocKeysBuilder = EncKeyList.newBuilder();
+            List<Key> pubKeys = resp.getEncryptors().getPubKeysList();
+
+            for (Key protoPubKey : pubKeys) {
+                serialPubKey = base64decoder.decode(protoPubKey.getKey());
+                try {
+                    pubKey = StrongSaltKey.Deserialize(serialPubKey);
+                    encSerialDocKey = pubKey.encrypt(serialDocKey);
+                } catch (StrongSaltKeyException e) {
+                    requestObserver.onError(e);
+                    throw new StrongDocServiceException(e);
+                }
+            
+                protoEncKey = EncryptedKey.newBuilder()
+                    .setEncKey(base64encoder.encodeToString(encSerialDocKey))
+                    .setOwnerID(protoPubKey.getOwnerID())
+                    .setEncryptorID(protoPubKey.getKeyID())
+                    .setOwnerType(protoPubKey.getOwnerType())
+                    .setEncryptorVersion(protoPubKey.getVersion())
+                    .build();
+
+                encDocKeysBuilder.addEncDocKeys(protoEncKey);
+            }
+            req = Documents.E2EEUploadDocStreamReq.newBuilder()
+                    .setEncDocKeys(encDocKeysBuilder.build())
+                    .build();
+            requestObserver.onNext(req);
+
+            // wait for response to keys message
+            semaphore.acquire();
+            resp = responseObserver.getResp();
+        }    
+        
+        long bytes = 0;
+        try {
+            final byte[] buffer = new byte[BLOCK_SIZE];
+            byte[] bufferToSend;
+
+            int inputRead = 0;
+            int encryptorRead = 0;
+
+            final Encryptor encryptor = docKey.encryptStream();
+            final byte[] nonce = encryptor.getNonce();
+            docKey.MACWrite(nonce);
+
+            ByteString byteString = ByteString.copyFrom(nonce, 0, nonce.length);
+
+            req = Documents.E2EEUploadDocStreamReq.newBuilder()
+                .setCipherText(byteString)
+                .build();
+            requestObserver.onNext(req);
+
+            // If the inputStream is EOF, then -1 will be returned
+
+            while ((inputRead = dataStream.read(buffer)) >= 0) {
+                if (inputRead > 0) {
+                    bufferToSend = buffer;
+                    if (inputRead != buffer.length) {
+                        bufferToSend = Arrays.copyOfRange(buffer, 0, inputRead);
+                    }
+                    
+                    encryptorRead = encryptor.write(bufferToSend);
+                    if (encryptorRead != inputRead) {
+                        throw new StrongDocServiceException("Error writing to encryptor. Wrong number of bytes.");
+                    }
+
+                    encryptorRead = encryptor.read(bufferToSend);
+
+                    if (encryptorRead == 0) {
+                        continue;
+                    }
+
+                    bytes += encryptorRead;
+                    if (encryptorRead != buffer.length) {
+                        bufferToSend = Arrays.copyOfRange(bufferToSend, 0, encryptorRead);
+                    }
+                    docKey.MACWrite(bufferToSend);
+
+                    byteString = ByteString.copyFrom(bufferToSend);
+                    req = Documents.E2EEUploadDocStreamReq.newBuilder().setCipherText(byteString).build();
+                    requestObserver.onNext(req);
+                }
+            }
+            dataStream.close();
+            bufferToSend = encryptor.readLast();
+            docKey.MACWrite(bufferToSend);
+            bytes += bufferToSend.length;
+
+            byteString = ByteString.copyFrom(bufferToSend);
+            req = Documents.E2EEUploadDocStreamReq.newBuilder().setCipherText(byteString).build();
+            requestObserver.onNext(req);
+
+        } catch (final IOException | RuntimeException e) {
+            requestObserver.onError(e);
+            throw e;
+        } catch (final StrongSaltKeyException e) {
+            requestObserver.onError(e);
+            throw new StrongDocServiceException(e);
+        }
+
+        try {
+            byte[] mac = docKey.MACSum();
+            req = Documents.E2EEUploadDocStreamReq.newBuilder()
+                .setPostMetaData(PostMetaDataType.newBuilder()
+                    .setMacOfCipherText(base64encoder.encodeToString(mac)).build())
+                .build();
+            requestObserver.onNext(req);
+        } catch (StrongSaltKeyException e) {
+            requestObserver.onError(e);
+            throw new StrongDocServiceException(e);
+        }
+        // wait for DocID response
+        semaphore.acquire();
+
+        // Can set a time limit if desired.
+        // Use await(10, TimeUnit.MINUTES)
+        requestObserver.onCompleted();
+
+        // wait for server to close connection
+        semaphore.acquire();
+
+        if (responseObserver.getException() != null) {
+            throw new StrongDocServiceException(responseObserver.getException());
+        }
+
+        return new UploadDocumentResponse(responseObserver.getResp().getDocID(), bytes);
+    }
+
+    /*
+func decryptKeyChain(sdc client.StrongDocClient, encKeyChain []*proto.EncryptedKey) (keyBytes []byte, keyID string, keyVersion int32, err error) {
+	if len(encKeyChain) == 0 {
+		err = fmt.Errorf("Received no document key")
+		return
+	}
+	protoPriKey := encKeyChain[0]
+	// TODO: check password keyID
+	encKeyBytes, err := base64.URLEncoding.DecodeString(protoPriKey.GetEncKey())
+	if err != nil {
+		return
+	}
+	keyBytes, err = sdc.UserDecrypt(encKeyBytes)
+	if err != nil {
+		return
+	}
+	for _, protoEncKey := range encKeyChain[1:] {
+		key, err := ssc.DeserializeKey(keyBytes)
+		if err != nil {
+			return nil, "", 0, err
+		}
+		encKeyBytes, err := base64.URLEncoding.DecodeString(protoEncKey.GetEncKey())
+		if err != nil {
+			return nil, "", 0, err
+		}
+		keyBytes, err = key.Decrypt(encKeyBytes)
+		if err != nil {
+			return nil, "", 0, err
+		}
+	}
+	protoEncDocKey := encKeyChain[len(encKeyChain)-1]
+	keyID = protoEncDocKey.GetKeyID()
+	keyVersion = protoEncDocKey.GetKeyVersion()
+
+	return
+}
+    */
+
+    private class DecryptedProtoKey {
+        byte[] keyBytes;
+        String keyID;
+        int keyVersion;
+
+        private DecryptedProtoKey(byte[] keyBytes, String keyID, int keyVersion) {
+            this.keyBytes = keyBytes;
+            this.keyID = keyID;
+            this.keyVersion = keyVersion;
+        }
+    }
+
+    private DecryptedProtoKey decryptKeyChain(final StrongDocServiceClient client, final List<EncryptedKey> encKeyChain)
+        throws StrongSaltKeyException {
+        if (encKeyChain == null || encKeyChain.size() == 0) {
+            // error
+        }
+
+        final Base64.Decoder base64decoder = Base64.getUrlDecoder();
+
+        EncryptedKey protoEncKey = encKeyChain.get(0);
+        byte[] encKeyBytes = base64decoder.decode(protoEncKey.getEncKey());
+        byte[] keyBytes = client.userDecrypt(encKeyBytes);
+        StrongSaltKey key;
+
+        for (int i = 1; i < encKeyChain.size(); i++) {
+            key = StrongSaltKey.Deserialize(keyBytes);
+
+            protoEncKey = encKeyChain.get(i);
+            encKeyBytes = base64decoder.decode(protoEncKey.getEncKey());
+            keyBytes = key.decrypt(encKeyBytes);
+        }
+
+        return new DecryptedProtoKey(keyBytes, protoEncKey.getKeyID(), protoEncKey.getKeyVersion());
+    }
     // ---------------------------------- DownloadDocumentStream ----------------------------------
 
     /**
@@ -149,6 +469,26 @@ public class StrongDocDocument {
      * @throws IOException on pipe stream creation error
      */
     public InputStream downloadDocumentStream(final StrongDocServiceClient client,
+                                                 final String docID)
+               throws InterruptedException, IOException, StrongDocServiceException {
+        
+
+        E2EEPrepareDownloadDocResp prepareResp;
+        try {
+            E2EEPrepareDownloadDocReq prepareReq = E2EEPrepareDownloadDocReq.newBuilder().setDocID(docID).build();
+            prepareResp = client.getBlockingStub().e2EEPrepareDownloadDocument(prepareReq);
+        } catch (StatusRuntimeException e) {
+            throw new StrongDocServiceException(e);
+        }
+
+        if (prepareResp != null && prepareResp.getDocumentAccessMetadata().getIsClientSide()) {
+            return clientSideDownloadDocumentStream(client, docID, prepareResp.getDocumentAccessMetadata());
+        }
+        
+        return serverSideDownloadDocumentStream(client, docID);
+    }
+
+    private InputStream serverSideDownloadDocumentStream(final StrongDocServiceClient client,
                                                  final String docID)
                throws InterruptedException, IOException {
         final PipedOutputStream outputStream = new PipedOutputStream();
@@ -215,6 +555,157 @@ public class StrongDocDocument {
         return inputStream;
     }
 
+    private InputStream clientSideDownloadDocumentStream(final StrongDocServiceClient client,
+                                                 final String docID, final DocumentAccessMetadata metadata)
+               throws InterruptedException, IOException, StrongDocServiceException {
+        final PipedOutputStream outputStream = new PipedOutputStream();
+        final PipedInputStream inputStream = new PipedInputStream(outputStream);
+        
+
+        final class DownloadInputStream extends FilterInputStream {
+            private Throwable exception = null;
+
+            private DownloadInputStream(InputStream in) {
+                super(in);
+            }
+
+            @Override
+            public int read() throws IOException {
+                if (exception != null) {
+                    throw new IOException(exception);
+                }
+                return super.read();
+            }
+
+            @Override
+            public int read(byte[] b) throws IOException {
+                if (exception != null) {
+                    throw new IOException(exception);
+                }
+                return read(b, 0, b.length);
+            }
+            @Override
+            public int read(byte[] b, int off, int len) throws IOException {
+                if (exception != null) {
+                    throw new IOException(exception);
+                }
+                return super.read(b, off, len);
+            }
+
+            public void setException(Throwable e) {
+                this.exception = e;
+            }
+        }
+
+        final class DownloadStreamObserver implements StreamObserver<Documents.E2EEDownloadDocStreamResp> {
+            private Throwable exception = null;
+            private OutputStream outputStream;
+            private DownloadInputStream inputStream;
+            private Decryptor decryptor;
+            private StrongSaltKey macKey;
+            private byte[] mac;
+
+            private DownloadStreamObserver(final OutputStream outputStream, final DownloadInputStream inputStream, final StrongSaltKey docKey, final byte[] mac) throws StrongSaltKeyException {
+                this.outputStream = outputStream;
+                this.inputStream = inputStream;
+                this.decryptor = docKey.decryptStream(0);
+                this.macKey = docKey;
+                this.mac = mac;
+            }
+
+            @Override
+            public void onNext(E2EEDownloadDocStreamResp value) {
+                final ByteString downloadedBytes = value.getCipherText();
+                if (!downloadedBytes.isEmpty()) {
+                    try {
+                        byte[] downloadedBytesArr = downloadedBytes.toByteArray();
+                        int n = decryptor.write(downloadedBytesArr);
+                        if (n != downloadedBytesArr.length) {
+                            this.onError(new StrongDocServiceException("Error writing to decryptor. Wrong number of bytes."));
+                            return;
+                        }
+                        macKey.MACWrite(downloadedBytesArr);
+
+                        byte[] plaintext = new byte[n];
+                        n = decryptor.read(plaintext);
+                        
+                        outputStream.write(plaintext, 0, n);
+                    } catch (final IOException | StrongSaltKeyException e) {
+                        this.onError(e);
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                this.setException(t);
+                inputStream.setException(t);
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("OnCompleted");
+                try {
+                    boolean macOk = macKey.MACVerify(mac);
+                    if (!macOk) {
+                        inputStream.setException(new StrongDocServiceException("Document integrity check failed."));
+                    } else {
+                        outputStream.write(decryptor.readLast());
+                    }
+                    outputStream.close();
+                } catch (final IOException | StrongSaltKeyException e) {
+                    this.inputStream.setException(e);
+                    this.setException(e);
+                }
+                System.out.println("OnCompleted completed");
+            }
+
+            public Throwable getException() {
+                return exception;
+            }
+
+            private void setException(Throwable exception) {
+                this.exception = exception;
+            }
+        } // final class DownloadStreamObserver implements StreamObserver<Documents.DownloadDocStreamResp>
+
+        final DownloadInputStream downloadInputStream = new DownloadInputStream(inputStream);
+
+        if (metadata == null) {
+            throw new StrongDocServiceException("Client-Side Download metadata is null.");
+        }
+
+        final Base64.Decoder base64decoder = Base64.getUrlDecoder();
+
+        byte[] mac = base64decoder.decode(metadata.getMac());
+
+        StrongSaltKey docKey;
+        DownloadStreamObserver responseObserver;
+        try {
+            DecryptedProtoKey docKeyData = decryptKeyChain(client, metadata.getDocKeyChainList());
+            docKey = StrongSaltKey.Deserialize(docKeyData.keyBytes);
+            responseObserver = new DownloadStreamObserver(outputStream, downloadInputStream, docKey, mac);
+        } catch (StrongSaltKeyException e) {
+            throw new StrongDocServiceException(e);
+        }
+
+        try {
+            final Documents.E2EEDownloadDocStreamReq req = Documents.E2EEDownloadDocStreamReq.newBuilder()
+                    .setDocID(docID).build();
+            client.getAsyncStub().e2EEDownloadDocumentStream(req, responseObserver);
+        } catch (final RuntimeException e) {
+            responseObserver.onError(e);
+            throw e;
+        }
+
+        return downloadInputStream;
+    }
+
     // ---------------------------------- UploadDocument ----------------------------------
     // proto.UploadDocReq
 
@@ -254,7 +745,7 @@ public class StrongDocDocument {
      */
     public byte[] downloadDocument(final StrongDocServiceClient client,
                                    final String docID)
-            throws InterruptedException, IOException {
+            throws InterruptedException, IOException, StrongDocServiceException {
         InputStream inputStream = downloadDocumentStream(client, docID);
         return ByteStreams.toByteArray(inputStream);
     }

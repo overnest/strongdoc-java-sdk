@@ -236,8 +236,7 @@ public class StrongDocAccount {
 
         Encryption.EncryptedKey.Builder encryptedKeyBuilder = Encryption.EncryptedKey.newBuilder();
         try {
-            StrongSaltKey passwordKey = client.getPasswordKey();
-            byte[] decryptedUserKeyBytes = passwordKey.decrypt(encUserPriKeyBytes);
+            byte[] decryptedUserKeyBytes = client.userDecrypt(encUserPriKeyBytes);
 
             StrongSaltKey adminKey = StrongSaltKey.Deserialize(decryptedUserKeyBytes);
             byte[] orgPriKeyBytes = adminKey.decrypt(encOrgPriKeyBytes);

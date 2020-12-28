@@ -1516,19 +1516,19 @@ public final class Documents {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
      * @return Whether the preMetaData field is set.
      */
     boolean hasPreMetaData();
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
      * @return The preMetaData.
      */
-    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData getPreMetaData();
+    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType getPreMetaData();
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
      */
-    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder getPreMetaDataOrBuilder();
+    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder getPreMetaDataOrBuilder();
 
     /**
      * <code>.proto.E2EEUploadDocStreamReq.EncKeyList encDocKeys = 2;</code>
@@ -1552,21 +1552,21 @@ public final class Documents {
     com.google.protobuf.ByteString getCipherText();
 
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
      * @return Whether the postMetaData field is set.
      */
     boolean hasPostMetaData();
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
      * @return The postMetaData.
      */
-    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData getPostMetaData();
+    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType getPostMetaData();
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
      */
-    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder getPostMetaDataOrBuilder();
+    com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder getPostMetaDataOrBuilder();
 
-    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.StagesOfUploadingCase getStagesOfUploadingCase();
+    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.UploadReqStageDataCase getUploadReqStageDataCase();
   }
   /**
    * Protobuf type {@code proto.E2EEUploadDocStreamReq}
@@ -1614,50 +1614,50 @@ public final class Documents {
               done = true;
               break;
             case 10: {
-              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder subBuilder = null;
-              if (stagesOfUploadingCase_ == 1) {
-                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_).toBuilder();
+              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder subBuilder = null;
+              if (uploadReqStageDataCase_ == 1) {
+                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_).toBuilder();
               }
-              stagesOfUploading_ =
-                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.parser(), extensionRegistry);
+              uploadReqStageData_ =
+                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_);
-                stagesOfUploading_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_);
+                uploadReqStageData_ = subBuilder.buildPartial();
               }
-              stagesOfUploadingCase_ = 1;
+              uploadReqStageDataCase_ = 1;
               break;
             }
             case 18: {
               com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.Builder subBuilder = null;
-              if (stagesOfUploadingCase_ == 2) {
-                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_).toBuilder();
+              if (uploadReqStageDataCase_ == 2) {
+                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_).toBuilder();
               }
-              stagesOfUploading_ =
+              uploadReqStageData_ =
                   input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_);
-                stagesOfUploading_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_);
+                uploadReqStageData_ = subBuilder.buildPartial();
               }
-              stagesOfUploadingCase_ = 2;
+              uploadReqStageDataCase_ = 2;
               break;
             }
             case 26: {
-              stagesOfUploadingCase_ = 3;
-              stagesOfUploading_ = input.readBytes();
+              uploadReqStageDataCase_ = 3;
+              uploadReqStageData_ = input.readBytes();
               break;
             }
             case 34: {
-              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder subBuilder = null;
-              if (stagesOfUploadingCase_ == 4) {
-                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_).toBuilder();
+              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder subBuilder = null;
+              if (uploadReqStageDataCase_ == 4) {
+                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_).toBuilder();
               }
-              stagesOfUploading_ =
-                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.parser(), extensionRegistry);
+              uploadReqStageData_ =
+                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_);
-                stagesOfUploading_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_);
+                uploadReqStageData_ = subBuilder.buildPartial();
               }
-              stagesOfUploadingCase_ = 4;
+              uploadReqStageDataCase_ = 4;
               break;
             }
             default: {
@@ -1692,8 +1692,8 @@ public final class Documents {
               com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.Builder.class);
     }
 
-    public interface PreMetaDataOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:proto.E2EEUploadDocStreamReq.PreMetaData)
+    public interface PreMetaDataTypeOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:proto.E2EEUploadDocStreamReq.PreMetaDataType)
         com.google.protobuf.MessageOrBuilder {
 
       /**
@@ -1715,18 +1715,18 @@ public final class Documents {
       boolean getIsEncryptedByClient();
     }
     /**
-     * Protobuf type {@code proto.E2EEUploadDocStreamReq.PreMetaData}
+     * Protobuf type {@code proto.E2EEUploadDocStreamReq.PreMetaDataType}
      */
-    public  static final class PreMetaData extends
+    public  static final class PreMetaDataType extends
         com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:proto.E2EEUploadDocStreamReq.PreMetaData)
-        PreMetaDataOrBuilder {
+        // @@protoc_insertion_point(message_implements:proto.E2EEUploadDocStreamReq.PreMetaDataType)
+        PreMetaDataTypeOrBuilder {
     private static final long serialVersionUID = 0L;
-      // Use PreMetaData.newBuilder() to construct.
-      private PreMetaData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // Use PreMetaDataType.newBuilder() to construct.
+      private PreMetaDataType(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
         super(builder);
       }
-      private PreMetaData() {
+      private PreMetaDataType() {
         docName_ = "";
       }
 
@@ -1734,7 +1734,7 @@ public final class Documents {
       @SuppressWarnings({"unused"})
       protected java.lang.Object newInstance(
           UnusedPrivateParameter unused) {
-        return new PreMetaData();
+        return new PreMetaDataType();
       }
 
       @java.lang.Override
@@ -1742,7 +1742,7 @@ public final class Documents {
       getUnknownFields() {
         return this.unknownFields;
       }
-      private PreMetaData(
+      private PreMetaDataType(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1792,15 +1792,15 @@ public final class Documents {
       }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_descriptor;
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_fieldAccessorTable
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder.class);
+                com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder.class);
       }
 
       public static final int DOCNAME_FIELD_NUMBER = 1;
@@ -1895,10 +1895,10 @@ public final class Documents {
         if (obj == this) {
          return true;
         }
-        if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData)) {
+        if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType)) {
           return super.equals(obj);
         }
-        com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData other = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) obj;
+        com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType other = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) obj;
 
         if (!getDocName()
             .equals(other.getDocName())) return false;
@@ -1925,69 +1925,69 @@ public final class Documents {
         return hash;
       }
 
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           java.nio.ByteBuffer data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           java.nio.ByteBuffer data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(byte[] data)
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(java.io.InputStream input)
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(java.io.InputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseDelimitedFrom(java.io.InputStream input)
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseDelimitedWithIOException(PARSER, input);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseDelimitedFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -2000,7 +2000,7 @@ public final class Documents {
       public static Builder newBuilder() {
         return DEFAULT_INSTANCE.toBuilder();
       }
-      public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData prototype) {
+      public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType prototype) {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
       }
       @java.lang.Override
@@ -2016,26 +2016,26 @@ public final class Documents {
         return builder;
       }
       /**
-       * Protobuf type {@code proto.E2EEUploadDocStreamReq.PreMetaData}
+       * Protobuf type {@code proto.E2EEUploadDocStreamReq.PreMetaDataType}
        */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:proto.E2EEUploadDocStreamReq.PreMetaData)
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder {
+          // @@protoc_insertion_point(builder_implements:proto.E2EEUploadDocStreamReq.PreMetaDataType)
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_descriptor;
+          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_descriptor;
         }
 
         @java.lang.Override
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_fieldAccessorTable
+          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_fieldAccessorTable
               .ensureFieldAccessorsInitialized(
-                  com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder.class);
+                  com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder.class);
         }
 
-        // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.newBuilder()
+        // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
@@ -2063,17 +2063,17 @@ public final class Documents {
         @java.lang.Override
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_descriptor;
+          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_descriptor;
         }
 
         @java.lang.Override
-        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData getDefaultInstanceForType() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType getDefaultInstanceForType() {
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
         }
 
         @java.lang.Override
-        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData build() {
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData result = buildPartial();
+        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType build() {
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(result);
           }
@@ -2081,8 +2081,8 @@ public final class Documents {
         }
 
         @java.lang.Override
-        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData buildPartial() {
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData result = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData(this);
+        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType buildPartial() {
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType result = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType(this);
           result.docName_ = docName_;
           result.isEncryptedByClient_ = isEncryptedByClient_;
           onBuilt();
@@ -2123,16 +2123,16 @@ public final class Documents {
         }
         @java.lang.Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) {
-            return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData)other);
+          if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) {
+            return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType)other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
 
-        public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData other) {
-          if (other == com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance()) return this;
+        public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType other) {
+          if (other == com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance()) return this;
           if (!other.getDocName().isEmpty()) {
             docName_ = other.docName_;
             onChanged();
@@ -2155,11 +2155,11 @@ public final class Documents {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData parsedMessage = null;
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType parsedMessage = null;
           try {
             parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
           } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) e.getUnfinishedMessage();
+            parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) e.getUnfinishedMessage();
             throw e.unwrapIOException();
           } finally {
             if (parsedMessage != null) {
@@ -2287,48 +2287,48 @@ public final class Documents {
         }
 
 
-        // @@protoc_insertion_point(builder_scope:proto.E2EEUploadDocStreamReq.PreMetaData)
+        // @@protoc_insertion_point(builder_scope:proto.E2EEUploadDocStreamReq.PreMetaDataType)
       }
 
-      // @@protoc_insertion_point(class_scope:proto.E2EEUploadDocStreamReq.PreMetaData)
-      private static final com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData DEFAULT_INSTANCE;
+      // @@protoc_insertion_point(class_scope:proto.E2EEUploadDocStreamReq.PreMetaDataType)
+      private static final com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType DEFAULT_INSTANCE;
       static {
-        DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData();
+        DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType();
       }
 
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData getDefaultInstance() {
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType getDefaultInstance() {
         return DEFAULT_INSTANCE;
       }
 
-      private static final com.google.protobuf.Parser<PreMetaData>
-          PARSER = new com.google.protobuf.AbstractParser<PreMetaData>() {
+      private static final com.google.protobuf.Parser<PreMetaDataType>
+          PARSER = new com.google.protobuf.AbstractParser<PreMetaDataType>() {
         @java.lang.Override
-        public PreMetaData parsePartialFrom(
+        public PreMetaDataType parsePartialFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
-          return new PreMetaData(input, extensionRegistry);
+          return new PreMetaDataType(input, extensionRegistry);
         }
       };
 
-      public static com.google.protobuf.Parser<PreMetaData> parser() {
+      public static com.google.protobuf.Parser<PreMetaDataType> parser() {
         return PARSER;
       }
 
       @java.lang.Override
-      public com.google.protobuf.Parser<PreMetaData> getParserForType() {
+      public com.google.protobuf.Parser<PreMetaDataType> getParserForType() {
         return PARSER;
       }
 
       @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData getDefaultInstanceForType() {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
       }
 
     }
 
-    public interface PostMetaDataOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:proto.E2EEUploadDocStreamReq.PostMetaData)
+    public interface PostMetaDataTypeOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:proto.E2EEUploadDocStreamReq.PostMetaDataType)
         com.google.protobuf.MessageOrBuilder {
 
       /**
@@ -2344,18 +2344,18 @@ public final class Documents {
           getMacOfCipherTextBytes();
     }
     /**
-     * Protobuf type {@code proto.E2EEUploadDocStreamReq.PostMetaData}
+     * Protobuf type {@code proto.E2EEUploadDocStreamReq.PostMetaDataType}
      */
-    public  static final class PostMetaData extends
+    public  static final class PostMetaDataType extends
         com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:proto.E2EEUploadDocStreamReq.PostMetaData)
-        PostMetaDataOrBuilder {
+        // @@protoc_insertion_point(message_implements:proto.E2EEUploadDocStreamReq.PostMetaDataType)
+        PostMetaDataTypeOrBuilder {
     private static final long serialVersionUID = 0L;
-      // Use PostMetaData.newBuilder() to construct.
-      private PostMetaData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // Use PostMetaDataType.newBuilder() to construct.
+      private PostMetaDataType(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
         super(builder);
       }
-      private PostMetaData() {
+      private PostMetaDataType() {
         macOfCipherText_ = "";
       }
 
@@ -2363,7 +2363,7 @@ public final class Documents {
       @SuppressWarnings({"unused"})
       protected java.lang.Object newInstance(
           UnusedPrivateParameter unused) {
-        return new PostMetaData();
+        return new PostMetaDataType();
       }
 
       @java.lang.Override
@@ -2371,7 +2371,7 @@ public final class Documents {
       getUnknownFields() {
         return this.unknownFields;
       }
-      private PostMetaData(
+      private PostMetaDataType(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2416,15 +2416,15 @@ public final class Documents {
       }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_descriptor;
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_fieldAccessorTable
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder.class);
+                com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder.class);
       }
 
       public static final int MACOFCIPHERTEXT_FIELD_NUMBER = 1;
@@ -2502,10 +2502,10 @@ public final class Documents {
         if (obj == this) {
          return true;
         }
-        if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData)) {
+        if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType)) {
           return super.equals(obj);
         }
-        com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData other = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) obj;
+        com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType other = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) obj;
 
         if (!getMacOfCipherText()
             .equals(other.getMacOfCipherText())) return false;
@@ -2527,69 +2527,69 @@ public final class Documents {
         return hash;
       }
 
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           java.nio.ByteBuffer data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           java.nio.ByteBuffer data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(byte[] data)
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(java.io.InputStream input)
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(java.io.InputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseDelimitedFrom(java.io.InputStream input)
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseDelimitedWithIOException(PARSER, input);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseDelimitedFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input);
       }
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parseFrom(
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -2602,7 +2602,7 @@ public final class Documents {
       public static Builder newBuilder() {
         return DEFAULT_INSTANCE.toBuilder();
       }
-      public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData prototype) {
+      public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType prototype) {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
       }
       @java.lang.Override
@@ -2618,26 +2618,26 @@ public final class Documents {
         return builder;
       }
       /**
-       * Protobuf type {@code proto.E2EEUploadDocStreamReq.PostMetaData}
+       * Protobuf type {@code proto.E2EEUploadDocStreamReq.PostMetaDataType}
        */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:proto.E2EEUploadDocStreamReq.PostMetaData)
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder {
+          // @@protoc_insertion_point(builder_implements:proto.E2EEUploadDocStreamReq.PostMetaDataType)
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_descriptor;
+          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_descriptor;
         }
 
         @java.lang.Override
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_fieldAccessorTable
+          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_fieldAccessorTable
               .ensureFieldAccessorsInitialized(
-                  com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder.class);
+                  com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.class, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder.class);
         }
 
-        // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.newBuilder()
+        // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
@@ -2663,17 +2663,17 @@ public final class Documents {
         @java.lang.Override
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_descriptor;
+          return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_descriptor;
         }
 
         @java.lang.Override
-        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData getDefaultInstanceForType() {
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType getDefaultInstanceForType() {
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
         }
 
         @java.lang.Override
-        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData build() {
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData result = buildPartial();
+        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType build() {
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(result);
           }
@@ -2681,8 +2681,8 @@ public final class Documents {
         }
 
         @java.lang.Override
-        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData buildPartial() {
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData result = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData(this);
+        public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType buildPartial() {
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType result = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType(this);
           result.macOfCipherText_ = macOfCipherText_;
           onBuilt();
           return result;
@@ -2722,16 +2722,16 @@ public final class Documents {
         }
         @java.lang.Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) {
-            return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData)other);
+          if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) {
+            return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType)other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
 
-        public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData other) {
-          if (other == com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance()) return this;
+        public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType other) {
+          if (other == com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance()) return this;
           if (!other.getMacOfCipherText().isEmpty()) {
             macOfCipherText_ = other.macOfCipherText_;
             onChanged();
@@ -2751,11 +2751,11 @@ public final class Documents {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData parsedMessage = null;
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType parsedMessage = null;
           try {
             parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
           } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) e.getUnfinishedMessage();
+            parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) e.getUnfinishedMessage();
             throw e.unwrapIOException();
           } finally {
             if (parsedMessage != null) {
@@ -2853,41 +2853,41 @@ public final class Documents {
         }
 
 
-        // @@protoc_insertion_point(builder_scope:proto.E2EEUploadDocStreamReq.PostMetaData)
+        // @@protoc_insertion_point(builder_scope:proto.E2EEUploadDocStreamReq.PostMetaDataType)
       }
 
-      // @@protoc_insertion_point(class_scope:proto.E2EEUploadDocStreamReq.PostMetaData)
-      private static final com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData DEFAULT_INSTANCE;
+      // @@protoc_insertion_point(class_scope:proto.E2EEUploadDocStreamReq.PostMetaDataType)
+      private static final com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType DEFAULT_INSTANCE;
       static {
-        DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData();
+        DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType();
       }
 
-      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData getDefaultInstance() {
+      public static com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType getDefaultInstance() {
         return DEFAULT_INSTANCE;
       }
 
-      private static final com.google.protobuf.Parser<PostMetaData>
-          PARSER = new com.google.protobuf.AbstractParser<PostMetaData>() {
+      private static final com.google.protobuf.Parser<PostMetaDataType>
+          PARSER = new com.google.protobuf.AbstractParser<PostMetaDataType>() {
         @java.lang.Override
-        public PostMetaData parsePartialFrom(
+        public PostMetaDataType parsePartialFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
-          return new PostMetaData(input, extensionRegistry);
+          return new PostMetaDataType(input, extensionRegistry);
         }
       };
 
-      public static com.google.protobuf.Parser<PostMetaData> parser() {
+      public static com.google.protobuf.Parser<PostMetaDataType> parser() {
         return PARSER;
       }
 
       @java.lang.Override
-      public com.google.protobuf.Parser<PostMetaData> getParserForType() {
+      public com.google.protobuf.Parser<PostMetaDataType> getParserForType() {
         return PARSER;
       }
 
       @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData getDefaultInstanceForType() {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
       }
 
@@ -3681,18 +3681,18 @@ public final class Documents {
 
     }
 
-    private int stagesOfUploadingCase_ = 0;
-    private java.lang.Object stagesOfUploading_;
-    public enum StagesOfUploadingCase
+    private int uploadReqStageDataCase_ = 0;
+    private java.lang.Object uploadReqStageData_;
+    public enum UploadReqStageDataCase
         implements com.google.protobuf.Internal.EnumLite,
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       PREMETADATA(1),
       ENCDOCKEYS(2),
       CIPHERTEXT(3),
       POSTMETADATA(4),
-      STAGESOFUPLOADING_NOT_SET(0);
+      UPLOADREQSTAGEDATA_NOT_SET(0);
       private final int value;
-      private StagesOfUploadingCase(int value) {
+      private UploadReqStageDataCase(int value) {
         this.value = value;
       }
       /**
@@ -3701,17 +3701,17 @@ public final class Documents {
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
-      public static StagesOfUploadingCase valueOf(int value) {
+      public static UploadReqStageDataCase valueOf(int value) {
         return forNumber(value);
       }
 
-      public static StagesOfUploadingCase forNumber(int value) {
+      public static UploadReqStageDataCase forNumber(int value) {
         switch (value) {
           case 1: return PREMETADATA;
           case 2: return ENCDOCKEYS;
           case 3: return CIPHERTEXT;
           case 4: return POSTMETADATA;
-          case 0: return STAGESOFUPLOADING_NOT_SET;
+          case 0: return UPLOADREQSTAGEDATA_NOT_SET;
           default: return null;
         }
       }
@@ -3720,38 +3720,38 @@ public final class Documents {
       }
     };
 
-    public StagesOfUploadingCase
-    getStagesOfUploadingCase() {
-      return StagesOfUploadingCase.forNumber(
-          stagesOfUploadingCase_);
+    public UploadReqStageDataCase
+    getUploadReqStageDataCase() {
+      return UploadReqStageDataCase.forNumber(
+          uploadReqStageDataCase_);
     }
 
     public static final int PREMETADATA_FIELD_NUMBER = 1;
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
      * @return Whether the preMetaData field is set.
      */
     public boolean hasPreMetaData() {
-      return stagesOfUploadingCase_ == 1;
+      return uploadReqStageDataCase_ == 1;
     }
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
      * @return The preMetaData.
      */
-    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData getPreMetaData() {
-      if (stagesOfUploadingCase_ == 1) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_;
+    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType getPreMetaData() {
+      if (uploadReqStageDataCase_ == 1) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_;
       }
-      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
     }
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
      */
-    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder getPreMetaDataOrBuilder() {
-      if (stagesOfUploadingCase_ == 1) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_;
+    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder getPreMetaDataOrBuilder() {
+      if (uploadReqStageDataCase_ == 1) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_;
       }
-      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
     }
 
     public static final int ENCDOCKEYS_FIELD_NUMBER = 2;
@@ -3760,15 +3760,15 @@ public final class Documents {
      * @return Whether the encDocKeys field is set.
      */
     public boolean hasEncDocKeys() {
-      return stagesOfUploadingCase_ == 2;
+      return uploadReqStageDataCase_ == 2;
     }
     /**
      * <code>.proto.E2EEUploadDocStreamReq.EncKeyList encDocKeys = 2;</code>
      * @return The encDocKeys.
      */
     public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList getEncDocKeys() {
-      if (stagesOfUploadingCase_ == 2) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_;
+      if (uploadReqStageDataCase_ == 2) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_;
       }
       return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
     }
@@ -3776,8 +3776,8 @@ public final class Documents {
      * <code>.proto.E2EEUploadDocStreamReq.EncKeyList encDocKeys = 2;</code>
      */
     public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyListOrBuilder getEncDocKeysOrBuilder() {
-      if (stagesOfUploadingCase_ == 2) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_;
+      if (uploadReqStageDataCase_ == 2) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_;
       }
       return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
     }
@@ -3788,38 +3788,38 @@ public final class Documents {
      * @return The cipherText.
      */
     public com.google.protobuf.ByteString getCipherText() {
-      if (stagesOfUploadingCase_ == 3) {
-        return (com.google.protobuf.ByteString) stagesOfUploading_;
+      if (uploadReqStageDataCase_ == 3) {
+        return (com.google.protobuf.ByteString) uploadReqStageData_;
       }
       return com.google.protobuf.ByteString.EMPTY;
     }
 
     public static final int POSTMETADATA_FIELD_NUMBER = 4;
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
      * @return Whether the postMetaData field is set.
      */
     public boolean hasPostMetaData() {
-      return stagesOfUploadingCase_ == 4;
+      return uploadReqStageDataCase_ == 4;
     }
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
      * @return The postMetaData.
      */
-    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData getPostMetaData() {
-      if (stagesOfUploadingCase_ == 4) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_;
+    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType getPostMetaData() {
+      if (uploadReqStageDataCase_ == 4) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_;
       }
-      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
     }
     /**
-     * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+     * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
      */
-    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder getPostMetaDataOrBuilder() {
-      if (stagesOfUploadingCase_ == 4) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_;
+    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder getPostMetaDataOrBuilder() {
+      if (uploadReqStageDataCase_ == 4) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_;
       }
-      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+      return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3836,18 +3836,18 @@ public final class Documents {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (stagesOfUploadingCase_ == 1) {
-        output.writeMessage(1, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_);
+      if (uploadReqStageDataCase_ == 1) {
+        output.writeMessage(1, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_);
       }
-      if (stagesOfUploadingCase_ == 2) {
-        output.writeMessage(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_);
+      if (uploadReqStageDataCase_ == 2) {
+        output.writeMessage(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_);
       }
-      if (stagesOfUploadingCase_ == 3) {
+      if (uploadReqStageDataCase_ == 3) {
         output.writeBytes(
-            3, (com.google.protobuf.ByteString) stagesOfUploading_);
+            3, (com.google.protobuf.ByteString) uploadReqStageData_);
       }
-      if (stagesOfUploadingCase_ == 4) {
-        output.writeMessage(4, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_);
+      if (uploadReqStageDataCase_ == 4) {
+        output.writeMessage(4, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_);
       }
       unknownFields.writeTo(output);
     }
@@ -3858,22 +3858,22 @@ public final class Documents {
       if (size != -1) return size;
 
       size = 0;
-      if (stagesOfUploadingCase_ == 1) {
+      if (uploadReqStageDataCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_);
+          .computeMessageSize(1, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_);
       }
-      if (stagesOfUploadingCase_ == 2) {
+      if (uploadReqStageDataCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_);
+          .computeMessageSize(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_);
       }
-      if (stagesOfUploadingCase_ == 3) {
+      if (uploadReqStageDataCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(
-              3, (com.google.protobuf.ByteString) stagesOfUploading_);
+              3, (com.google.protobuf.ByteString) uploadReqStageData_);
       }
-      if (stagesOfUploadingCase_ == 4) {
+      if (uploadReqStageDataCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_);
+          .computeMessageSize(4, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3890,8 +3890,8 @@ public final class Documents {
       }
       com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq other = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq) obj;
 
-      if (!getStagesOfUploadingCase().equals(other.getStagesOfUploadingCase())) return false;
-      switch (stagesOfUploadingCase_) {
+      if (!getUploadReqStageDataCase().equals(other.getUploadReqStageDataCase())) return false;
+      switch (uploadReqStageDataCase_) {
         case 1:
           if (!getPreMetaData()
               .equals(other.getPreMetaData())) return false;
@@ -3922,7 +3922,7 @@ public final class Documents {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      switch (stagesOfUploadingCase_) {
+      switch (uploadReqStageDataCase_) {
         case 1:
           hash = (37 * hash) + PREMETADATA_FIELD_NUMBER;
           hash = (53 * hash) + getPreMetaData().hashCode();
@@ -4075,8 +4075,8 @@ public final class Documents {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        stagesOfUploadingCase_ = 0;
-        stagesOfUploading_ = null;
+        uploadReqStageDataCase_ = 0;
+        uploadReqStageData_ = null;
         return this;
       }
 
@@ -4103,31 +4103,31 @@ public final class Documents {
       @java.lang.Override
       public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq result = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq(this);
-        if (stagesOfUploadingCase_ == 1) {
+        if (uploadReqStageDataCase_ == 1) {
           if (preMetaDataBuilder_ == null) {
-            result.stagesOfUploading_ = stagesOfUploading_;
+            result.uploadReqStageData_ = uploadReqStageData_;
           } else {
-            result.stagesOfUploading_ = preMetaDataBuilder_.build();
+            result.uploadReqStageData_ = preMetaDataBuilder_.build();
           }
         }
-        if (stagesOfUploadingCase_ == 2) {
+        if (uploadReqStageDataCase_ == 2) {
           if (encDocKeysBuilder_ == null) {
-            result.stagesOfUploading_ = stagesOfUploading_;
+            result.uploadReqStageData_ = uploadReqStageData_;
           } else {
-            result.stagesOfUploading_ = encDocKeysBuilder_.build();
+            result.uploadReqStageData_ = encDocKeysBuilder_.build();
           }
         }
-        if (stagesOfUploadingCase_ == 3) {
-          result.stagesOfUploading_ = stagesOfUploading_;
+        if (uploadReqStageDataCase_ == 3) {
+          result.uploadReqStageData_ = uploadReqStageData_;
         }
-        if (stagesOfUploadingCase_ == 4) {
+        if (uploadReqStageDataCase_ == 4) {
           if (postMetaDataBuilder_ == null) {
-            result.stagesOfUploading_ = stagesOfUploading_;
+            result.uploadReqStageData_ = uploadReqStageData_;
           } else {
-            result.stagesOfUploading_ = postMetaDataBuilder_.build();
+            result.uploadReqStageData_ = postMetaDataBuilder_.build();
           }
         }
-        result.stagesOfUploadingCase_ = stagesOfUploadingCase_;
+        result.uploadReqStageDataCase_ = uploadReqStageDataCase_;
         onBuilt();
         return result;
       }
@@ -4176,7 +4176,7 @@ public final class Documents {
 
       public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq other) {
         if (other == com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.getDefaultInstance()) return this;
-        switch (other.getStagesOfUploadingCase()) {
+        switch (other.getUploadReqStageDataCase()) {
           case PREMETADATA: {
             mergePreMetaData(other.getPreMetaData());
             break;
@@ -4193,7 +4193,7 @@ public final class Documents {
             mergePostMetaData(other.getPostMetaData());
             break;
           }
-          case STAGESOFUPLOADING_NOT_SET: {
+          case UPLOADREQSTAGEDATA_NOT_SET: {
             break;
           }
         }
@@ -4225,156 +4225,156 @@ public final class Documents {
         }
         return this;
       }
-      private int stagesOfUploadingCase_ = 0;
-      private java.lang.Object stagesOfUploading_;
-      public StagesOfUploadingCase
-          getStagesOfUploadingCase() {
-        return StagesOfUploadingCase.forNumber(
-            stagesOfUploadingCase_);
+      private int uploadReqStageDataCase_ = 0;
+      private java.lang.Object uploadReqStageData_;
+      public UploadReqStageDataCase
+          getUploadReqStageDataCase() {
+        return UploadReqStageDataCase.forNumber(
+            uploadReqStageDataCase_);
       }
 
-      public Builder clearStagesOfUploading() {
-        stagesOfUploadingCase_ = 0;
-        stagesOfUploading_ = null;
+      public Builder clearUploadReqStageData() {
+        uploadReqStageDataCase_ = 0;
+        uploadReqStageData_ = null;
         onChanged();
         return this;
       }
 
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder> preMetaDataBuilder_;
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder> preMetaDataBuilder_;
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        * @return Whether the preMetaData field is set.
        */
       public boolean hasPreMetaData() {
-        return stagesOfUploadingCase_ == 1;
+        return uploadReqStageDataCase_ == 1;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        * @return The preMetaData.
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData getPreMetaData() {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType getPreMetaData() {
         if (preMetaDataBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 1) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_;
+          if (uploadReqStageDataCase_ == 1) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_;
           }
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
         } else {
-          if (stagesOfUploadingCase_ == 1) {
+          if (uploadReqStageDataCase_ == 1) {
             return preMetaDataBuilder_.getMessage();
           }
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
         }
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
-      public Builder setPreMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData value) {
+      public Builder setPreMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType value) {
         if (preMetaDataBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          stagesOfUploading_ = value;
+          uploadReqStageData_ = value;
           onChanged();
         } else {
           preMetaDataBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 1;
+        uploadReqStageDataCase_ = 1;
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
       public Builder setPreMetaData(
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder builderForValue) {
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder builderForValue) {
         if (preMetaDataBuilder_ == null) {
-          stagesOfUploading_ = builderForValue.build();
+          uploadReqStageData_ = builderForValue.build();
           onChanged();
         } else {
           preMetaDataBuilder_.setMessage(builderForValue.build());
         }
-        stagesOfUploadingCase_ = 1;
+        uploadReqStageDataCase_ = 1;
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
-      public Builder mergePreMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData value) {
+      public Builder mergePreMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType value) {
         if (preMetaDataBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 1 &&
-              stagesOfUploading_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance()) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_)
+          if (uploadReqStageDataCase_ == 1 &&
+              uploadReqStageData_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance()) {
+            uploadReqStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_)
                 .mergeFrom(value).buildPartial();
           } else {
-            stagesOfUploading_ = value;
+            uploadReqStageData_ = value;
           }
           onChanged();
         } else {
-          if (stagesOfUploadingCase_ == 1) {
+          if (uploadReqStageDataCase_ == 1) {
             preMetaDataBuilder_.mergeFrom(value);
           }
           preMetaDataBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 1;
+        uploadReqStageDataCase_ = 1;
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
       public Builder clearPreMetaData() {
         if (preMetaDataBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 1) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadReqStageDataCase_ == 1) {
+            uploadReqStageDataCase_ = 0;
+            uploadReqStageData_ = null;
             onChanged();
           }
         } else {
-          if (stagesOfUploadingCase_ == 1) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadReqStageDataCase_ == 1) {
+            uploadReqStageDataCase_ = 0;
+            uploadReqStageData_ = null;
           }
           preMetaDataBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder getPreMetaDataBuilder() {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder getPreMetaDataBuilder() {
         return getPreMetaDataFieldBuilder().getBuilder();
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder getPreMetaDataOrBuilder() {
-        if ((stagesOfUploadingCase_ == 1) && (preMetaDataBuilder_ != null)) {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder getPreMetaDataOrBuilder() {
+        if ((uploadReqStageDataCase_ == 1) && (preMetaDataBuilder_ != null)) {
           return preMetaDataBuilder_.getMessageOrBuilder();
         } else {
-          if (stagesOfUploadingCase_ == 1) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_;
+          if (uploadReqStageDataCase_ == 1) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_;
           }
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
         }
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PreMetaData preMetaData = 1;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PreMetaDataType preMetaData = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder> 
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder> 
           getPreMetaDataFieldBuilder() {
         if (preMetaDataBuilder_ == null) {
-          if (!(stagesOfUploadingCase_ == 1)) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.getDefaultInstance();
+          if (!(uploadReqStageDataCase_ == 1)) {
+            uploadReqStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.getDefaultInstance();
           }
           preMetaDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataOrBuilder>(
-                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaData) stagesOfUploading_,
+              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataTypeOrBuilder>(
+                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PreMetaDataType) uploadReqStageData_,
                   getParentForChildren(),
                   isClean());
-          stagesOfUploading_ = null;
+          uploadReqStageData_ = null;
         }
-        stagesOfUploadingCase_ = 1;
+        uploadReqStageDataCase_ = 1;
         onChanged();;
         return preMetaDataBuilder_;
       }
@@ -4386,7 +4386,7 @@ public final class Documents {
        * @return Whether the encDocKeys field is set.
        */
       public boolean hasEncDocKeys() {
-        return stagesOfUploadingCase_ == 2;
+        return uploadReqStageDataCase_ == 2;
       }
       /**
        * <code>.proto.E2EEUploadDocStreamReq.EncKeyList encDocKeys = 2;</code>
@@ -4394,12 +4394,12 @@ public final class Documents {
        */
       public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList getEncDocKeys() {
         if (encDocKeysBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 2) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_;
+          if (uploadReqStageDataCase_ == 2) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_;
           }
           return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
         } else {
-          if (stagesOfUploadingCase_ == 2) {
+          if (uploadReqStageDataCase_ == 2) {
             return encDocKeysBuilder_.getMessage();
           }
           return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
@@ -4413,12 +4413,12 @@ public final class Documents {
           if (value == null) {
             throw new NullPointerException();
           }
-          stagesOfUploading_ = value;
+          uploadReqStageData_ = value;
           onChanged();
         } else {
           encDocKeysBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 2;
+        uploadReqStageDataCase_ = 2;
         return this;
       }
       /**
@@ -4427,12 +4427,12 @@ public final class Documents {
       public Builder setEncDocKeys(
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.Builder builderForValue) {
         if (encDocKeysBuilder_ == null) {
-          stagesOfUploading_ = builderForValue.build();
+          uploadReqStageData_ = builderForValue.build();
           onChanged();
         } else {
           encDocKeysBuilder_.setMessage(builderForValue.build());
         }
-        stagesOfUploadingCase_ = 2;
+        uploadReqStageDataCase_ = 2;
         return this;
       }
       /**
@@ -4440,21 +4440,21 @@ public final class Documents {
        */
       public Builder mergeEncDocKeys(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList value) {
         if (encDocKeysBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 2 &&
-              stagesOfUploading_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance()) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_)
+          if (uploadReqStageDataCase_ == 2 &&
+              uploadReqStageData_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance()) {
+            uploadReqStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_)
                 .mergeFrom(value).buildPartial();
           } else {
-            stagesOfUploading_ = value;
+            uploadReqStageData_ = value;
           }
           onChanged();
         } else {
-          if (stagesOfUploadingCase_ == 2) {
+          if (uploadReqStageDataCase_ == 2) {
             encDocKeysBuilder_.mergeFrom(value);
           }
           encDocKeysBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 2;
+        uploadReqStageDataCase_ = 2;
         return this;
       }
       /**
@@ -4462,15 +4462,15 @@ public final class Documents {
        */
       public Builder clearEncDocKeys() {
         if (encDocKeysBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 2) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadReqStageDataCase_ == 2) {
+            uploadReqStageDataCase_ = 0;
+            uploadReqStageData_ = null;
             onChanged();
           }
         } else {
-          if (stagesOfUploadingCase_ == 2) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadReqStageDataCase_ == 2) {
+            uploadReqStageDataCase_ = 0;
+            uploadReqStageData_ = null;
           }
           encDocKeysBuilder_.clear();
         }
@@ -4486,11 +4486,11 @@ public final class Documents {
        * <code>.proto.E2EEUploadDocStreamReq.EncKeyList encDocKeys = 2;</code>
        */
       public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyListOrBuilder getEncDocKeysOrBuilder() {
-        if ((stagesOfUploadingCase_ == 2) && (encDocKeysBuilder_ != null)) {
+        if ((uploadReqStageDataCase_ == 2) && (encDocKeysBuilder_ != null)) {
           return encDocKeysBuilder_.getMessageOrBuilder();
         } else {
-          if (stagesOfUploadingCase_ == 2) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_;
+          if (uploadReqStageDataCase_ == 2) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_;
           }
           return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
         }
@@ -4502,17 +4502,17 @@ public final class Documents {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyListOrBuilder> 
           getEncDocKeysFieldBuilder() {
         if (encDocKeysBuilder_ == null) {
-          if (!(stagesOfUploadingCase_ == 2)) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
+          if (!(uploadReqStageDataCase_ == 2)) {
+            uploadReqStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.getDefaultInstance();
           }
           encDocKeysBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyListOrBuilder>(
-                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) stagesOfUploading_,
+                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList) uploadReqStageData_,
                   getParentForChildren(),
                   isClean());
-          stagesOfUploading_ = null;
+          uploadReqStageData_ = null;
         }
-        stagesOfUploadingCase_ = 2;
+        uploadReqStageDataCase_ = 2;
         onChanged();;
         return encDocKeysBuilder_;
       }
@@ -4522,8 +4522,8 @@ public final class Documents {
        * @return The cipherText.
        */
       public com.google.protobuf.ByteString getCipherText() {
-        if (stagesOfUploadingCase_ == 3) {
-          return (com.google.protobuf.ByteString) stagesOfUploading_;
+        if (uploadReqStageDataCase_ == 3) {
+          return (com.google.protobuf.ByteString) uploadReqStageData_;
         }
         return com.google.protobuf.ByteString.EMPTY;
       }
@@ -4536,8 +4536,8 @@ public final class Documents {
         if (value == null) {
     throw new NullPointerException();
   }
-  stagesOfUploadingCase_ = 3;
-        stagesOfUploading_ = value;
+  uploadReqStageDataCase_ = 3;
+        uploadReqStageData_ = value;
         onChanged();
         return this;
       }
@@ -4546,148 +4546,148 @@ public final class Documents {
        * @return This builder for chaining.
        */
       public Builder clearCipherText() {
-        if (stagesOfUploadingCase_ == 3) {
-          stagesOfUploadingCase_ = 0;
-          stagesOfUploading_ = null;
+        if (uploadReqStageDataCase_ == 3) {
+          uploadReqStageDataCase_ = 0;
+          uploadReqStageData_ = null;
           onChanged();
         }
         return this;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder> postMetaDataBuilder_;
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder> postMetaDataBuilder_;
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        * @return Whether the postMetaData field is set.
        */
       public boolean hasPostMetaData() {
-        return stagesOfUploadingCase_ == 4;
+        return uploadReqStageDataCase_ == 4;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        * @return The postMetaData.
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData getPostMetaData() {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType getPostMetaData() {
         if (postMetaDataBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 4) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_;
+          if (uploadReqStageDataCase_ == 4) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_;
           }
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
         } else {
-          if (stagesOfUploadingCase_ == 4) {
+          if (uploadReqStageDataCase_ == 4) {
             return postMetaDataBuilder_.getMessage();
           }
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
         }
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
-      public Builder setPostMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData value) {
+      public Builder setPostMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType value) {
         if (postMetaDataBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          stagesOfUploading_ = value;
+          uploadReqStageData_ = value;
           onChanged();
         } else {
           postMetaDataBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 4;
+        uploadReqStageDataCase_ = 4;
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
       public Builder setPostMetaData(
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder builderForValue) {
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder builderForValue) {
         if (postMetaDataBuilder_ == null) {
-          stagesOfUploading_ = builderForValue.build();
+          uploadReqStageData_ = builderForValue.build();
           onChanged();
         } else {
           postMetaDataBuilder_.setMessage(builderForValue.build());
         }
-        stagesOfUploadingCase_ = 4;
+        uploadReqStageDataCase_ = 4;
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
-      public Builder mergePostMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData value) {
+      public Builder mergePostMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType value) {
         if (postMetaDataBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 4 &&
-              stagesOfUploading_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance()) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_)
+          if (uploadReqStageDataCase_ == 4 &&
+              uploadReqStageData_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance()) {
+            uploadReqStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_)
                 .mergeFrom(value).buildPartial();
           } else {
-            stagesOfUploading_ = value;
+            uploadReqStageData_ = value;
           }
           onChanged();
         } else {
-          if (stagesOfUploadingCase_ == 4) {
+          if (uploadReqStageDataCase_ == 4) {
             postMetaDataBuilder_.mergeFrom(value);
           }
           postMetaDataBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 4;
+        uploadReqStageDataCase_ = 4;
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
       public Builder clearPostMetaData() {
         if (postMetaDataBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 4) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadReqStageDataCase_ == 4) {
+            uploadReqStageDataCase_ = 0;
+            uploadReqStageData_ = null;
             onChanged();
           }
         } else {
-          if (stagesOfUploadingCase_ == 4) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadReqStageDataCase_ == 4) {
+            uploadReqStageDataCase_ = 0;
+            uploadReqStageData_ = null;
           }
           postMetaDataBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder getPostMetaDataBuilder() {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder getPostMetaDataBuilder() {
         return getPostMetaDataFieldBuilder().getBuilder();
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder getPostMetaDataOrBuilder() {
-        if ((stagesOfUploadingCase_ == 4) && (postMetaDataBuilder_ != null)) {
+      public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder getPostMetaDataOrBuilder() {
+        if ((uploadReqStageDataCase_ == 4) && (postMetaDataBuilder_ != null)) {
           return postMetaDataBuilder_.getMessageOrBuilder();
         } else {
-          if (stagesOfUploadingCase_ == 4) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_;
+          if (uploadReqStageDataCase_ == 4) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_;
           }
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
         }
       }
       /**
-       * <code>.proto.E2EEUploadDocStreamReq.PostMetaData postMetaData = 4;</code>
+       * <code>.proto.E2EEUploadDocStreamReq.PostMetaDataType postMetaData = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder> 
+          com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder> 
           getPostMetaDataFieldBuilder() {
         if (postMetaDataBuilder_ == null) {
-          if (!(stagesOfUploadingCase_ == 4)) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.getDefaultInstance();
+          if (!(uploadReqStageDataCase_ == 4)) {
+            uploadReqStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.getDefaultInstance();
           }
           postMetaDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataOrBuilder>(
-                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaData) stagesOfUploading_,
+              com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataTypeOrBuilder>(
+                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType) uploadReqStageData_,
                   getParentForChildren(),
                   isClean());
-          stagesOfUploading_ = null;
+          uploadReqStageData_ = null;
         }
-        stagesOfUploadingCase_ = 4;
+        uploadReqStageDataCase_ = 4;
         onChanged();;
         return postMetaDataBuilder_;
       }
@@ -4781,7 +4781,7 @@ public final class Documents {
     com.google.protobuf.ByteString
         getDocIDBytes();
 
-    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.StagesOfUploadingCase getStagesOfUploadingCase();
+    public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.UploadRespStageDataCase getUploadRespStageDataCase();
   }
   /**
    * Protobuf type {@code proto.E2EEUploadDocStreamResp}
@@ -4829,28 +4829,28 @@ public final class Documents {
               done = true;
               break;
             case 8: {
-              stagesOfUploadingCase_ = 1;
-              stagesOfUploading_ = input.readBool();
+              uploadRespStageDataCase_ = 1;
+              uploadRespStageData_ = input.readBool();
               break;
             }
             case 18: {
               com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.Builder subBuilder = null;
-              if (stagesOfUploadingCase_ == 2) {
-                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_).toBuilder();
+              if (uploadRespStageDataCase_ == 2) {
+                subBuilder = ((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_).toBuilder();
               }
-              stagesOfUploading_ =
+              uploadRespStageData_ =
                   input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_);
-                stagesOfUploading_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_);
+                uploadRespStageData_ = subBuilder.buildPartial();
               }
-              stagesOfUploadingCase_ = 2;
+              uploadRespStageDataCase_ = 2;
               break;
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
-              stagesOfUploadingCase_ = 3;
-              stagesOfUploading_ = s;
+              uploadRespStageDataCase_ = 3;
+              uploadRespStageData_ = s;
               break;
             }
             default: {
@@ -5673,17 +5673,17 @@ public final class Documents {
 
     }
 
-    private int stagesOfUploadingCase_ = 0;
-    private java.lang.Object stagesOfUploading_;
-    public enum StagesOfUploadingCase
+    private int uploadRespStageDataCase_ = 0;
+    private java.lang.Object uploadRespStageData_;
+    public enum UploadRespStageDataCase
         implements com.google.protobuf.Internal.EnumLite,
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       READYFORDATA(1),
       ENCRYPTORS(2),
       DOCID(3),
-      STAGESOFUPLOADING_NOT_SET(0);
+      UPLOADRESPSTAGEDATA_NOT_SET(0);
       private final int value;
-      private StagesOfUploadingCase(int value) {
+      private UploadRespStageDataCase(int value) {
         this.value = value;
       }
       /**
@@ -5692,16 +5692,16 @@ public final class Documents {
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
-      public static StagesOfUploadingCase valueOf(int value) {
+      public static UploadRespStageDataCase valueOf(int value) {
         return forNumber(value);
       }
 
-      public static StagesOfUploadingCase forNumber(int value) {
+      public static UploadRespStageDataCase forNumber(int value) {
         switch (value) {
           case 1: return READYFORDATA;
           case 2: return ENCRYPTORS;
           case 3: return DOCID;
-          case 0: return STAGESOFUPLOADING_NOT_SET;
+          case 0: return UPLOADRESPSTAGEDATA_NOT_SET;
           default: return null;
         }
       }
@@ -5710,10 +5710,10 @@ public final class Documents {
       }
     };
 
-    public StagesOfUploadingCase
-    getStagesOfUploadingCase() {
-      return StagesOfUploadingCase.forNumber(
-          stagesOfUploadingCase_);
+    public UploadRespStageDataCase
+    getUploadRespStageDataCase() {
+      return UploadRespStageDataCase.forNumber(
+          uploadRespStageDataCase_);
     }
 
     public static final int READYFORDATA_FIELD_NUMBER = 1;
@@ -5722,8 +5722,8 @@ public final class Documents {
      * @return The readyForData.
      */
     public boolean getReadyForData() {
-      if (stagesOfUploadingCase_ == 1) {
-        return (java.lang.Boolean) stagesOfUploading_;
+      if (uploadRespStageDataCase_ == 1) {
+        return (java.lang.Boolean) uploadRespStageData_;
       }
       return false;
     }
@@ -5734,15 +5734,15 @@ public final class Documents {
      * @return Whether the encryptors field is set.
      */
     public boolean hasEncryptors() {
-      return stagesOfUploadingCase_ == 2;
+      return uploadRespStageDataCase_ == 2;
     }
     /**
      * <code>.proto.E2EEUploadDocStreamResp.PubKeyList encryptors = 2;</code>
      * @return The encryptors.
      */
     public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList getEncryptors() {
-      if (stagesOfUploadingCase_ == 2) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_;
+      if (uploadRespStageDataCase_ == 2) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_;
       }
       return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
     }
@@ -5750,8 +5750,8 @@ public final class Documents {
      * <code>.proto.E2EEUploadDocStreamResp.PubKeyList encryptors = 2;</code>
      */
     public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyListOrBuilder getEncryptorsOrBuilder() {
-      if (stagesOfUploadingCase_ == 2) {
-         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_;
+      if (uploadRespStageDataCase_ == 2) {
+         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_;
       }
       return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
     }
@@ -5763,8 +5763,8 @@ public final class Documents {
      */
     public java.lang.String getDocID() {
       java.lang.Object ref = "";
-      if (stagesOfUploadingCase_ == 3) {
-        ref = stagesOfUploading_;
+      if (uploadRespStageDataCase_ == 3) {
+        ref = uploadRespStageData_;
       }
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -5772,8 +5772,8 @@ public final class Documents {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (stagesOfUploadingCase_ == 3) {
-          stagesOfUploading_ = s;
+        if (uploadRespStageDataCase_ == 3) {
+          uploadRespStageData_ = s;
         }
         return s;
       }
@@ -5785,15 +5785,15 @@ public final class Documents {
     public com.google.protobuf.ByteString
         getDocIDBytes() {
       java.lang.Object ref = "";
-      if (stagesOfUploadingCase_ == 3) {
-        ref = stagesOfUploading_;
+      if (uploadRespStageDataCase_ == 3) {
+        ref = uploadRespStageData_;
       }
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        if (stagesOfUploadingCase_ == 3) {
-          stagesOfUploading_ = b;
+        if (uploadRespStageDataCase_ == 3) {
+          uploadRespStageData_ = b;
         }
         return b;
       } else {
@@ -5815,15 +5815,15 @@ public final class Documents {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (stagesOfUploadingCase_ == 1) {
+      if (uploadRespStageDataCase_ == 1) {
         output.writeBool(
-            1, (boolean)((java.lang.Boolean) stagesOfUploading_));
+            1, (boolean)((java.lang.Boolean) uploadRespStageData_));
       }
-      if (stagesOfUploadingCase_ == 2) {
-        output.writeMessage(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_);
+      if (uploadRespStageDataCase_ == 2) {
+        output.writeMessage(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_);
       }
-      if (stagesOfUploadingCase_ == 3) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, stagesOfUploading_);
+      if (uploadRespStageDataCase_ == 3) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, uploadRespStageData_);
       }
       unknownFields.writeTo(output);
     }
@@ -5834,17 +5834,17 @@ public final class Documents {
       if (size != -1) return size;
 
       size = 0;
-      if (stagesOfUploadingCase_ == 1) {
+      if (uploadRespStageDataCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(
-              1, (boolean)((java.lang.Boolean) stagesOfUploading_));
+              1, (boolean)((java.lang.Boolean) uploadRespStageData_));
       }
-      if (stagesOfUploadingCase_ == 2) {
+      if (uploadRespStageDataCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_);
+          .computeMessageSize(2, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_);
       }
-      if (stagesOfUploadingCase_ == 3) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, stagesOfUploading_);
+      if (uploadRespStageDataCase_ == 3) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, uploadRespStageData_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5861,8 +5861,8 @@ public final class Documents {
       }
       com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp other = (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp) obj;
 
-      if (!getStagesOfUploadingCase().equals(other.getStagesOfUploadingCase())) return false;
-      switch (stagesOfUploadingCase_) {
+      if (!getUploadRespStageDataCase().equals(other.getUploadRespStageDataCase())) return false;
+      switch (uploadRespStageDataCase_) {
         case 1:
           if (getReadyForData()
               != other.getReadyForData()) return false;
@@ -5889,7 +5889,7 @@ public final class Documents {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      switch (stagesOfUploadingCase_) {
+      switch (uploadRespStageDataCase_) {
         case 1:
           hash = (37 * hash) + READYFORDATA_FIELD_NUMBER;
           hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
@@ -6039,8 +6039,8 @@ public final class Documents {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        stagesOfUploadingCase_ = 0;
-        stagesOfUploading_ = null;
+        uploadRespStageDataCase_ = 0;
+        uploadRespStageData_ = null;
         return this;
       }
 
@@ -6067,20 +6067,20 @@ public final class Documents {
       @java.lang.Override
       public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp result = new com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp(this);
-        if (stagesOfUploadingCase_ == 1) {
-          result.stagesOfUploading_ = stagesOfUploading_;
+        if (uploadRespStageDataCase_ == 1) {
+          result.uploadRespStageData_ = uploadRespStageData_;
         }
-        if (stagesOfUploadingCase_ == 2) {
+        if (uploadRespStageDataCase_ == 2) {
           if (encryptorsBuilder_ == null) {
-            result.stagesOfUploading_ = stagesOfUploading_;
+            result.uploadRespStageData_ = uploadRespStageData_;
           } else {
-            result.stagesOfUploading_ = encryptorsBuilder_.build();
+            result.uploadRespStageData_ = encryptorsBuilder_.build();
           }
         }
-        if (stagesOfUploadingCase_ == 3) {
-          result.stagesOfUploading_ = stagesOfUploading_;
+        if (uploadRespStageDataCase_ == 3) {
+          result.uploadRespStageData_ = uploadRespStageData_;
         }
-        result.stagesOfUploadingCase_ = stagesOfUploadingCase_;
+        result.uploadRespStageDataCase_ = uploadRespStageDataCase_;
         onBuilt();
         return result;
       }
@@ -6129,7 +6129,7 @@ public final class Documents {
 
       public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp other) {
         if (other == com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance()) return this;
-        switch (other.getStagesOfUploadingCase()) {
+        switch (other.getUploadRespStageDataCase()) {
           case READYFORDATA: {
             setReadyForData(other.getReadyForData());
             break;
@@ -6139,12 +6139,12 @@ public final class Documents {
             break;
           }
           case DOCID: {
-            stagesOfUploadingCase_ = 3;
-            stagesOfUploading_ = other.stagesOfUploading_;
+            uploadRespStageDataCase_ = 3;
+            uploadRespStageData_ = other.uploadRespStageData_;
             onChanged();
             break;
           }
-          case STAGESOFUPLOADING_NOT_SET: {
+          case UPLOADRESPSTAGEDATA_NOT_SET: {
             break;
           }
         }
@@ -6176,17 +6176,17 @@ public final class Documents {
         }
         return this;
       }
-      private int stagesOfUploadingCase_ = 0;
-      private java.lang.Object stagesOfUploading_;
-      public StagesOfUploadingCase
-          getStagesOfUploadingCase() {
-        return StagesOfUploadingCase.forNumber(
-            stagesOfUploadingCase_);
+      private int uploadRespStageDataCase_ = 0;
+      private java.lang.Object uploadRespStageData_;
+      public UploadRespStageDataCase
+          getUploadRespStageDataCase() {
+        return UploadRespStageDataCase.forNumber(
+            uploadRespStageDataCase_);
       }
 
-      public Builder clearStagesOfUploading() {
-        stagesOfUploadingCase_ = 0;
-        stagesOfUploading_ = null;
+      public Builder clearUploadRespStageData() {
+        uploadRespStageDataCase_ = 0;
+        uploadRespStageData_ = null;
         onChanged();
         return this;
       }
@@ -6197,8 +6197,8 @@ public final class Documents {
        * @return The readyForData.
        */
       public boolean getReadyForData() {
-        if (stagesOfUploadingCase_ == 1) {
-          return (java.lang.Boolean) stagesOfUploading_;
+        if (uploadRespStageDataCase_ == 1) {
+          return (java.lang.Boolean) uploadRespStageData_;
         }
         return false;
       }
@@ -6208,8 +6208,8 @@ public final class Documents {
        * @return This builder for chaining.
        */
       public Builder setReadyForData(boolean value) {
-        stagesOfUploadingCase_ = 1;
-        stagesOfUploading_ = value;
+        uploadRespStageDataCase_ = 1;
+        uploadRespStageData_ = value;
         onChanged();
         return this;
       }
@@ -6218,9 +6218,9 @@ public final class Documents {
        * @return This builder for chaining.
        */
       public Builder clearReadyForData() {
-        if (stagesOfUploadingCase_ == 1) {
-          stagesOfUploadingCase_ = 0;
-          stagesOfUploading_ = null;
+        if (uploadRespStageDataCase_ == 1) {
+          uploadRespStageDataCase_ = 0;
+          uploadRespStageData_ = null;
           onChanged();
         }
         return this;
@@ -6233,7 +6233,7 @@ public final class Documents {
        * @return Whether the encryptors field is set.
        */
       public boolean hasEncryptors() {
-        return stagesOfUploadingCase_ == 2;
+        return uploadRespStageDataCase_ == 2;
       }
       /**
        * <code>.proto.E2EEUploadDocStreamResp.PubKeyList encryptors = 2;</code>
@@ -6241,12 +6241,12 @@ public final class Documents {
        */
       public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList getEncryptors() {
         if (encryptorsBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 2) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_;
+          if (uploadRespStageDataCase_ == 2) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_;
           }
           return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
         } else {
-          if (stagesOfUploadingCase_ == 2) {
+          if (uploadRespStageDataCase_ == 2) {
             return encryptorsBuilder_.getMessage();
           }
           return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
@@ -6260,12 +6260,12 @@ public final class Documents {
           if (value == null) {
             throw new NullPointerException();
           }
-          stagesOfUploading_ = value;
+          uploadRespStageData_ = value;
           onChanged();
         } else {
           encryptorsBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 2;
+        uploadRespStageDataCase_ = 2;
         return this;
       }
       /**
@@ -6274,12 +6274,12 @@ public final class Documents {
       public Builder setEncryptors(
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.Builder builderForValue) {
         if (encryptorsBuilder_ == null) {
-          stagesOfUploading_ = builderForValue.build();
+          uploadRespStageData_ = builderForValue.build();
           onChanged();
         } else {
           encryptorsBuilder_.setMessage(builderForValue.build());
         }
-        stagesOfUploadingCase_ = 2;
+        uploadRespStageDataCase_ = 2;
         return this;
       }
       /**
@@ -6287,21 +6287,21 @@ public final class Documents {
        */
       public Builder mergeEncryptors(com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList value) {
         if (encryptorsBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 2 &&
-              stagesOfUploading_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance()) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_)
+          if (uploadRespStageDataCase_ == 2 &&
+              uploadRespStageData_ != com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance()) {
+            uploadRespStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.newBuilder((com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_)
                 .mergeFrom(value).buildPartial();
           } else {
-            stagesOfUploading_ = value;
+            uploadRespStageData_ = value;
           }
           onChanged();
         } else {
-          if (stagesOfUploadingCase_ == 2) {
+          if (uploadRespStageDataCase_ == 2) {
             encryptorsBuilder_.mergeFrom(value);
           }
           encryptorsBuilder_.setMessage(value);
         }
-        stagesOfUploadingCase_ = 2;
+        uploadRespStageDataCase_ = 2;
         return this;
       }
       /**
@@ -6309,15 +6309,15 @@ public final class Documents {
        */
       public Builder clearEncryptors() {
         if (encryptorsBuilder_ == null) {
-          if (stagesOfUploadingCase_ == 2) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadRespStageDataCase_ == 2) {
+            uploadRespStageDataCase_ = 0;
+            uploadRespStageData_ = null;
             onChanged();
           }
         } else {
-          if (stagesOfUploadingCase_ == 2) {
-            stagesOfUploadingCase_ = 0;
-            stagesOfUploading_ = null;
+          if (uploadRespStageDataCase_ == 2) {
+            uploadRespStageDataCase_ = 0;
+            uploadRespStageData_ = null;
           }
           encryptorsBuilder_.clear();
         }
@@ -6333,11 +6333,11 @@ public final class Documents {
        * <code>.proto.E2EEUploadDocStreamResp.PubKeyList encryptors = 2;</code>
        */
       public com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyListOrBuilder getEncryptorsOrBuilder() {
-        if ((stagesOfUploadingCase_ == 2) && (encryptorsBuilder_ != null)) {
+        if ((uploadRespStageDataCase_ == 2) && (encryptorsBuilder_ != null)) {
           return encryptorsBuilder_.getMessageOrBuilder();
         } else {
-          if (stagesOfUploadingCase_ == 2) {
-            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_;
+          if (uploadRespStageDataCase_ == 2) {
+            return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_;
           }
           return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
         }
@@ -6349,17 +6349,17 @@ public final class Documents {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyListOrBuilder> 
           getEncryptorsFieldBuilder() {
         if (encryptorsBuilder_ == null) {
-          if (!(stagesOfUploadingCase_ == 2)) {
-            stagesOfUploading_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
+          if (!(uploadRespStageDataCase_ == 2)) {
+            uploadRespStageData_ = com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.getDefaultInstance();
           }
           encryptorsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyListOrBuilder>(
-                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) stagesOfUploading_,
+                  (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.PubKeyList) uploadRespStageData_,
                   getParentForChildren(),
                   isClean());
-          stagesOfUploading_ = null;
+          uploadRespStageData_ = null;
         }
-        stagesOfUploadingCase_ = 2;
+        uploadRespStageDataCase_ = 2;
         onChanged();;
         return encryptorsBuilder_;
       }
@@ -6370,15 +6370,15 @@ public final class Documents {
        */
       public java.lang.String getDocID() {
         java.lang.Object ref = "";
-        if (stagesOfUploadingCase_ == 3) {
-          ref = stagesOfUploading_;
+        if (uploadRespStageDataCase_ == 3) {
+          ref = uploadRespStageData_;
         }
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (stagesOfUploadingCase_ == 3) {
-            stagesOfUploading_ = s;
+          if (uploadRespStageDataCase_ == 3) {
+            uploadRespStageData_ = s;
           }
           return s;
         } else {
@@ -6392,15 +6392,15 @@ public final class Documents {
       public com.google.protobuf.ByteString
           getDocIDBytes() {
         java.lang.Object ref = "";
-        if (stagesOfUploadingCase_ == 3) {
-          ref = stagesOfUploading_;
+        if (uploadRespStageDataCase_ == 3) {
+          ref = uploadRespStageData_;
         }
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          if (stagesOfUploadingCase_ == 3) {
-            stagesOfUploading_ = b;
+          if (uploadRespStageDataCase_ == 3) {
+            uploadRespStageData_ = b;
           }
           return b;
         } else {
@@ -6417,8 +6417,8 @@ public final class Documents {
         if (value == null) {
     throw new NullPointerException();
   }
-  stagesOfUploadingCase_ = 3;
-        stagesOfUploading_ = value;
+  uploadRespStageDataCase_ = 3;
+        uploadRespStageData_ = value;
         onChanged();
         return this;
       }
@@ -6427,9 +6427,9 @@ public final class Documents {
        * @return This builder for chaining.
        */
       public Builder clearDocID() {
-        if (stagesOfUploadingCase_ == 3) {
-          stagesOfUploadingCase_ = 0;
-          stagesOfUploading_ = null;
+        if (uploadRespStageDataCase_ == 3) {
+          uploadRespStageDataCase_ = 0;
+          uploadRespStageData_ = null;
           onChanged();
         }
         return this;
@@ -6445,8 +6445,8 @@ public final class Documents {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        stagesOfUploadingCase_ = 3;
-        stagesOfUploading_ = value;
+        uploadRespStageDataCase_ = 3;
+        uploadRespStageData_ = value;
         onChanged();
         return this;
       }
@@ -8983,880 +8983,94 @@ public final class Documents {
 
   }
 
-  public interface KeyChainOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.KeyChain)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> 
-        getKeysList();
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getKeys(int index);
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    int getKeysCount();
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
-        getKeysOrBuilderList();
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getKeysOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code proto.KeyChain}
-   */
-  public  static final class KeyChain extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.KeyChain)
-      KeyChainOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use KeyChain.newBuilder() to construct.
-    private KeyChain(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private KeyChain() {
-      keys_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new KeyChain();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private KeyChain(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                keys_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              keys_.add(
-                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.parser(), extensionRegistry));
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          keys_ = java.util.Collections.unmodifiableList(keys_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_KeyChain_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_KeyChain_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.class, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder.class);
-    }
-
-    public static final int KEYS_FIELD_NUMBER = 1;
-    private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> keys_;
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> getKeysList() {
-      return keys_;
-    }
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
-        getKeysOrBuilderList() {
-      return keys_;
-    }
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    public int getKeysCount() {
-      return keys_.size();
-    }
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getKeys(int index) {
-      return keys_.get(index);
-    }
-    /**
-     * <code>repeated .proto.EncryptedKey keys = 1;</code>
-     */
-    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getKeysOrBuilder(
-        int index) {
-      return keys_.get(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < keys_.size(); i++) {
-        output.writeMessage(1, keys_.get(i));
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < keys_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, keys_.get(i));
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain)) {
-        return super.equals(obj);
-      }
-      com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain other = (com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain) obj;
-
-      if (!getKeysList()
-          .equals(other.getKeysList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (getKeysCount() > 0) {
-        hash = (37 * hash) + KEYS_FIELD_NUMBER;
-        hash = (53 * hash) + getKeysList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.KeyChain}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.KeyChain)
-        com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_KeyChain_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_KeyChain_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.class, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder.class);
-      }
-
-      // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getKeysFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (keysBuilder_ == null) {
-          keys_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          keysBuilder_.clear();
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_KeyChain_descriptor;
-      }
-
-      @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain getDefaultInstanceForType() {
-        return com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain build() {
-        com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain buildPartial() {
-        com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain result = new com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain(this);
-        int from_bitField0_ = bitField0_;
-        if (keysBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            keys_ = java.util.Collections.unmodifiableList(keys_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.keys_ = keys_;
-        } else {
-          result.keys_ = keysBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain) {
-          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain other) {
-        if (other == com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.getDefaultInstance()) return this;
-        if (keysBuilder_ == null) {
-          if (!other.keys_.isEmpty()) {
-            if (keys_.isEmpty()) {
-              keys_ = other.keys_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureKeysIsMutable();
-              keys_.addAll(other.keys_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.keys_.isEmpty()) {
-            if (keysBuilder_.isEmpty()) {
-              keysBuilder_.dispose();
-              keysBuilder_ = null;
-              keys_ = other.keys_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              keysBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getKeysFieldBuilder() : null;
-            } else {
-              keysBuilder_.addAllMessages(other.keys_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> keys_ =
-        java.util.Collections.emptyList();
-      private void ensureKeysIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          keys_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey>(keys_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> keysBuilder_;
-
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> getKeysList() {
-        if (keysBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(keys_);
-        } else {
-          return keysBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public int getKeysCount() {
-        if (keysBuilder_ == null) {
-          return keys_.size();
-        } else {
-          return keysBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getKeys(int index) {
-        if (keysBuilder_ == null) {
-          return keys_.get(index);
-        } else {
-          return keysBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder setKeys(
-          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
-        if (keysBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureKeysIsMutable();
-          keys_.set(index, value);
-          onChanged();
-        } else {
-          keysBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder setKeys(
-          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
-        if (keysBuilder_ == null) {
-          ensureKeysIsMutable();
-          keys_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          keysBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder addKeys(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
-        if (keysBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureKeysIsMutable();
-          keys_.add(value);
-          onChanged();
-        } else {
-          keysBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder addKeys(
-          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
-        if (keysBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureKeysIsMutable();
-          keys_.add(index, value);
-          onChanged();
-        } else {
-          keysBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder addKeys(
-          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
-        if (keysBuilder_ == null) {
-          ensureKeysIsMutable();
-          keys_.add(builderForValue.build());
-          onChanged();
-        } else {
-          keysBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder addKeys(
-          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
-        if (keysBuilder_ == null) {
-          ensureKeysIsMutable();
-          keys_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          keysBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder addAllKeys(
-          java.lang.Iterable<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> values) {
-        if (keysBuilder_ == null) {
-          ensureKeysIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, keys_);
-          onChanged();
-        } else {
-          keysBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder clearKeys() {
-        if (keysBuilder_ == null) {
-          keys_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          keysBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public Builder removeKeys(int index) {
-        if (keysBuilder_ == null) {
-          ensureKeysIsMutable();
-          keys_.remove(index);
-          onChanged();
-        } else {
-          keysBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder getKeysBuilder(
-          int index) {
-        return getKeysFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getKeysOrBuilder(
-          int index) {
-        if (keysBuilder_ == null) {
-          return keys_.get(index);  } else {
-          return keysBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
-           getKeysOrBuilderList() {
-        if (keysBuilder_ != null) {
-          return keysBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(keys_);
-        }
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder addKeysBuilder() {
-        return getKeysFieldBuilder().addBuilder(
-            com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder addKeysBuilder(
-          int index) {
-        return getKeysFieldBuilder().addBuilder(
-            index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .proto.EncryptedKey keys = 1;</code>
-       */
-      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder> 
-           getKeysBuilderList() {
-        return getKeysFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
-          getKeysFieldBuilder() {
-        if (keysBuilder_ == null) {
-          keysBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder>(
-                  keys_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          keys_ = null;
-        }
-        return keysBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:proto.KeyChain)
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.KeyChain)
-    private static final com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain();
-    }
-
-    public static com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<KeyChain>
-        PARSER = new com.google.protobuf.AbstractParser<KeyChain>() {
-      @java.lang.Override
-      public KeyChain parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new KeyChain(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<KeyChain> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<KeyChain> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface DocumentAccessMetadataOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.DocumentAccessMetadata)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bool isEncryptedByClientSide = 1;</code>
-     * @return The isEncryptedByClientSide.
+     * <pre>
+     * Whether or not this user is allowed to access this document.
+     * </pre>
+     *
+     * <code>bool isAccessible = 1;</code>
+     * @return The isAccessible.
      */
-    boolean getIsEncryptedByClientSide();
-
-    /**
-     * <code>bool isKeyChainOrg = 2;</code>
-     * @return The isKeyChainOrg.
-     */
-    boolean getIsKeyChainOrg();
-
-    /**
-     * <code>.proto.KeyChain docKeyChain = 3;</code>
-     * @return Whether the docKeyChain field is set.
-     */
-    boolean hasDocKeyChain();
-    /**
-     * <code>.proto.KeyChain docKeyChain = 3;</code>
-     * @return The docKeyChain.
-     */
-    com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain getDocKeyChain();
-    /**
-     * <code>.proto.KeyChain docKeyChain = 3;</code>
-     */
-    com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder getDocKeyChainOrBuilder();
+    boolean getIsAccessible();
 
     /**
      * <pre>
-     * the encryptor id for userPriKey, for key rotation version validation
+     * Whether or not the document is client-side encrypted.
      * </pre>
      *
-     * <code>string userAsymKeyEncryptorId = 4;</code>
-     * @return The userAsymKeyEncryptorId.
+     * <code>bool isClientSide = 2;</code>
+     * @return The isClientSide.
      */
-    java.lang.String getUserAsymKeyEncryptorId();
-    /**
-     * <pre>
-     * the encryptor id for userPriKey, for key rotation version validation
-     * </pre>
-     *
-     * <code>string userAsymKeyEncryptorId = 4;</code>
-     * @return The bytes for userAsymKeyEncryptorId.
-     */
-    com.google.protobuf.ByteString
-        getUserAsymKeyEncryptorIdBytes();
+    boolean getIsClientSide();
 
     /**
      * <pre>
-     * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
      * </pre>
      *
-     * <code>string encMACKey = 5;</code>
-     * @return The encMACKey.
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
      */
-    java.lang.String getEncMACKey();
+    java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> 
+        getDocKeyChainList();
     /**
      * <pre>
-     * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
      * </pre>
      *
-     * <code>string encMACKey = 5;</code>
-     * @return The bytes for encMACKey.
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
      */
-    com.google.protobuf.ByteString
-        getEncMACKeyBytes();
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getDocKeyChain(int index);
+    /**
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+     */
+    int getDocKeyChainCount();
+    /**
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+     */
+    java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+        getDocKeyChainOrBuilderList();
+    /**
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getDocKeyChainOrBuilder(
+        int index);
 
     /**
      * <pre>
-     * The MAC of the ciphertext of the document.
+     * The MAC of the ciphertext of the document. Only used when downloading.
      * </pre>
      *
-     * <code>string mac = 6;</code>
+     * <code>string mac = 4;</code>
      * @return The mac.
      */
     java.lang.String getMac();
     /**
      * <pre>
-     * The MAC of the ciphertext of the document.
+     * The MAC of the ciphertext of the document. Only used when downloading.
      * </pre>
      *
-     * <code>string mac = 6;</code>
+     * <code>string mac = 4;</code>
      * @return The bytes for mac.
      */
     com.google.protobuf.ByteString
@@ -9875,8 +9089,7 @@ public final class Documents {
       super(builder);
     }
     private DocumentAccessMetadata() {
-      userAsymKeyEncryptorId_ = "";
-      encMACKey_ = "";
+      docKeyChain_ = java.util.Collections.emptyList();
       mac_ = "";
     }
 
@@ -9900,6 +9113,7 @@ public final class Documents {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9912,40 +9126,24 @@ public final class Documents {
               break;
             case 8: {
 
-              isEncryptedByClientSide_ = input.readBool();
+              isAccessible_ = input.readBool();
               break;
             }
             case 16: {
 
-              isKeyChainOrg_ = input.readBool();
+              isClientSide_ = input.readBool();
               break;
             }
             case 26: {
-              com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder subBuilder = null;
-              if (docKeyChain_ != null) {
-                subBuilder = docKeyChain_.toBuilder();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                docKeyChain_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey>();
+                mutable_bitField0_ |= 0x00000001;
               }
-              docKeyChain_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(docKeyChain_);
-                docKeyChain_ = subBuilder.buildPartial();
-              }
-
+              docKeyChain_.add(
+                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.parser(), extensionRegistry));
               break;
             }
             case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              userAsymKeyEncryptorId_ = s;
-              break;
-            }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              encMACKey_ = s;
-              break;
-            }
-            case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
               mac_ = s;
@@ -9966,6 +9164,9 @@ public final class Documents {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          docKeyChain_ = java.util.Collections.unmodifiableList(docKeyChain_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -9983,145 +9184,102 @@ public final class Documents {
               com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.class, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder.class);
     }
 
-    public static final int ISENCRYPTEDBYCLIENTSIDE_FIELD_NUMBER = 1;
-    private boolean isEncryptedByClientSide_;
+    public static final int ISACCESSIBLE_FIELD_NUMBER = 1;
+    private boolean isAccessible_;
     /**
-     * <code>bool isEncryptedByClientSide = 1;</code>
-     * @return The isEncryptedByClientSide.
+     * <pre>
+     * Whether or not this user is allowed to access this document.
+     * </pre>
+     *
+     * <code>bool isAccessible = 1;</code>
+     * @return The isAccessible.
      */
-    public boolean getIsEncryptedByClientSide() {
-      return isEncryptedByClientSide_;
+    public boolean getIsAccessible() {
+      return isAccessible_;
     }
 
-    public static final int ISKEYCHAINORG_FIELD_NUMBER = 2;
-    private boolean isKeyChainOrg_;
+    public static final int ISCLIENTSIDE_FIELD_NUMBER = 2;
+    private boolean isClientSide_;
     /**
-     * <code>bool isKeyChainOrg = 2;</code>
-     * @return The isKeyChainOrg.
+     * <pre>
+     * Whether or not the document is client-side encrypted.
+     * </pre>
+     *
+     * <code>bool isClientSide = 2;</code>
+     * @return The isClientSide.
      */
-    public boolean getIsKeyChainOrg() {
-      return isKeyChainOrg_;
+    public boolean getIsClientSide() {
+      return isClientSide_;
     }
 
     public static final int DOCKEYCHAIN_FIELD_NUMBER = 3;
-    private com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain docKeyChain_;
+    private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> docKeyChain_;
     /**
-     * <code>.proto.KeyChain docKeyChain = 3;</code>
-     * @return Whether the docKeyChain field is set.
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
      */
-    public boolean hasDocKeyChain() {
-      return docKeyChain_ != null;
+    public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> getDocKeyChainList() {
+      return docKeyChain_;
     }
     /**
-     * <code>.proto.KeyChain docKeyChain = 3;</code>
-     * @return The docKeyChain.
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
      */
-    public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain getDocKeyChain() {
-      return docKeyChain_ == null ? com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.getDefaultInstance() : docKeyChain_;
+    public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+        getDocKeyChainOrBuilderList() {
+      return docKeyChain_;
     }
     /**
-     * <code>.proto.KeyChain docKeyChain = 3;</code>
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
      */
-    public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder getDocKeyChainOrBuilder() {
-      return getDocKeyChain();
+    public int getDocKeyChainCount() {
+      return docKeyChain_.size();
+    }
+    /**
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getDocKeyChain(int index) {
+      return docKeyChain_.get(index);
+    }
+    /**
+     * <pre>
+     * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+     * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getDocKeyChainOrBuilder(
+        int index) {
+      return docKeyChain_.get(index);
     }
 
-    public static final int USERASYMKEYENCRYPTORID_FIELD_NUMBER = 4;
-    private volatile java.lang.Object userAsymKeyEncryptorId_;
-    /**
-     * <pre>
-     * the encryptor id for userPriKey, for key rotation version validation
-     * </pre>
-     *
-     * <code>string userAsymKeyEncryptorId = 4;</code>
-     * @return The userAsymKeyEncryptorId.
-     */
-    public java.lang.String getUserAsymKeyEncryptorId() {
-      java.lang.Object ref = userAsymKeyEncryptorId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        userAsymKeyEncryptorId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * the encryptor id for userPriKey, for key rotation version validation
-     * </pre>
-     *
-     * <code>string userAsymKeyEncryptorId = 4;</code>
-     * @return The bytes for userAsymKeyEncryptorId.
-     */
-    public com.google.protobuf.ByteString
-        getUserAsymKeyEncryptorIdBytes() {
-      java.lang.Object ref = userAsymKeyEncryptorId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userAsymKeyEncryptorId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ENCMACKEY_FIELD_NUMBER = 5;
-    private volatile java.lang.Object encMACKey_;
-    /**
-     * <pre>
-     * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-     * </pre>
-     *
-     * <code>string encMACKey = 5;</code>
-     * @return The encMACKey.
-     */
-    public java.lang.String getEncMACKey() {
-      java.lang.Object ref = encMACKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        encMACKey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-     * </pre>
-     *
-     * <code>string encMACKey = 5;</code>
-     * @return The bytes for encMACKey.
-     */
-    public com.google.protobuf.ByteString
-        getEncMACKeyBytes() {
-      java.lang.Object ref = encMACKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        encMACKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int MAC_FIELD_NUMBER = 6;
+    public static final int MAC_FIELD_NUMBER = 4;
     private volatile java.lang.Object mac_;
     /**
      * <pre>
-     * The MAC of the ciphertext of the document.
+     * The MAC of the ciphertext of the document. Only used when downloading.
      * </pre>
      *
-     * <code>string mac = 6;</code>
+     * <code>string mac = 4;</code>
      * @return The mac.
      */
     public java.lang.String getMac() {
@@ -10138,10 +9296,10 @@ public final class Documents {
     }
     /**
      * <pre>
-     * The MAC of the ciphertext of the document.
+     * The MAC of the ciphertext of the document. Only used when downloading.
      * </pre>
      *
-     * <code>string mac = 6;</code>
+     * <code>string mac = 4;</code>
      * @return The bytes for mac.
      */
     public com.google.protobuf.ByteString
@@ -10172,23 +9330,17 @@ public final class Documents {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (isEncryptedByClientSide_ != false) {
-        output.writeBool(1, isEncryptedByClientSide_);
+      if (isAccessible_ != false) {
+        output.writeBool(1, isAccessible_);
       }
-      if (isKeyChainOrg_ != false) {
-        output.writeBool(2, isKeyChainOrg_);
+      if (isClientSide_ != false) {
+        output.writeBool(2, isClientSide_);
       }
-      if (docKeyChain_ != null) {
-        output.writeMessage(3, getDocKeyChain());
-      }
-      if (!getUserAsymKeyEncryptorIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, userAsymKeyEncryptorId_);
-      }
-      if (!getEncMACKeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, encMACKey_);
+      for (int i = 0; i < docKeyChain_.size(); i++) {
+        output.writeMessage(3, docKeyChain_.get(i));
       }
       if (!getMacBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, mac_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, mac_);
       }
       unknownFields.writeTo(output);
     }
@@ -10199,26 +9351,20 @@ public final class Documents {
       if (size != -1) return size;
 
       size = 0;
-      if (isEncryptedByClientSide_ != false) {
+      if (isAccessible_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, isEncryptedByClientSide_);
+          .computeBoolSize(1, isAccessible_);
       }
-      if (isKeyChainOrg_ != false) {
+      if (isClientSide_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, isKeyChainOrg_);
+          .computeBoolSize(2, isClientSide_);
       }
-      if (docKeyChain_ != null) {
+      for (int i = 0; i < docKeyChain_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getDocKeyChain());
-      }
-      if (!getUserAsymKeyEncryptorIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, userAsymKeyEncryptorId_);
-      }
-      if (!getEncMACKeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, encMACKey_);
+          .computeMessageSize(3, docKeyChain_.get(i));
       }
       if (!getMacBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, mac_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, mac_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10235,19 +9381,12 @@ public final class Documents {
       }
       com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata other = (com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata) obj;
 
-      if (getIsEncryptedByClientSide()
-          != other.getIsEncryptedByClientSide()) return false;
-      if (getIsKeyChainOrg()
-          != other.getIsKeyChainOrg()) return false;
-      if (hasDocKeyChain() != other.hasDocKeyChain()) return false;
-      if (hasDocKeyChain()) {
-        if (!getDocKeyChain()
-            .equals(other.getDocKeyChain())) return false;
-      }
-      if (!getUserAsymKeyEncryptorId()
-          .equals(other.getUserAsymKeyEncryptorId())) return false;
-      if (!getEncMACKey()
-          .equals(other.getEncMACKey())) return false;
+      if (getIsAccessible()
+          != other.getIsAccessible()) return false;
+      if (getIsClientSide()
+          != other.getIsClientSide()) return false;
+      if (!getDocKeyChainList()
+          .equals(other.getDocKeyChainList())) return false;
       if (!getMac()
           .equals(other.getMac())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -10261,20 +9400,16 @@ public final class Documents {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ISENCRYPTEDBYCLIENTSIDE_FIELD_NUMBER;
+      hash = (37 * hash) + ISACCESSIBLE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsEncryptedByClientSide());
-      hash = (37 * hash) + ISKEYCHAINORG_FIELD_NUMBER;
+          getIsAccessible());
+      hash = (37 * hash) + ISCLIENTSIDE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsKeyChainOrg());
-      if (hasDocKeyChain()) {
+          getIsClientSide());
+      if (getDocKeyChainCount() > 0) {
         hash = (37 * hash) + DOCKEYCHAIN_FIELD_NUMBER;
-        hash = (53 * hash) + getDocKeyChain().hashCode();
+        hash = (53 * hash) + getDocKeyChainList().hashCode();
       }
-      hash = (37 * hash) + USERASYMKEYENCRYPTORID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserAsymKeyEncryptorId().hashCode();
-      hash = (37 * hash) + ENCMACKEY_FIELD_NUMBER;
-      hash = (53 * hash) + getEncMACKey().hashCode();
       hash = (37 * hash) + MAC_FIELD_NUMBER;
       hash = (53 * hash) + getMac().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -10405,25 +9540,22 @@ public final class Documents {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getDocKeyChainFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        isEncryptedByClientSide_ = false;
+        isAccessible_ = false;
 
-        isKeyChainOrg_ = false;
+        isClientSide_ = false;
 
         if (docKeyChainBuilder_ == null) {
-          docKeyChain_ = null;
+          docKeyChain_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          docKeyChain_ = null;
-          docKeyChainBuilder_ = null;
+          docKeyChainBuilder_.clear();
         }
-        userAsymKeyEncryptorId_ = "";
-
-        encMACKey_ = "";
-
         mac_ = "";
 
         return this;
@@ -10452,15 +9584,18 @@ public final class Documents {
       @java.lang.Override
       public com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata result = new com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata(this);
-        result.isEncryptedByClientSide_ = isEncryptedByClientSide_;
-        result.isKeyChainOrg_ = isKeyChainOrg_;
+        int from_bitField0_ = bitField0_;
+        result.isAccessible_ = isAccessible_;
+        result.isClientSide_ = isClientSide_;
         if (docKeyChainBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            docKeyChain_ = java.util.Collections.unmodifiableList(docKeyChain_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
           result.docKeyChain_ = docKeyChain_;
         } else {
           result.docKeyChain_ = docKeyChainBuilder_.build();
         }
-        result.userAsymKeyEncryptorId_ = userAsymKeyEncryptorId_;
-        result.encMACKey_ = encMACKey_;
         result.mac_ = mac_;
         onBuilt();
         return result;
@@ -10510,22 +9645,37 @@ public final class Documents {
 
       public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata other) {
         if (other == com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.getDefaultInstance()) return this;
-        if (other.getIsEncryptedByClientSide() != false) {
-          setIsEncryptedByClientSide(other.getIsEncryptedByClientSide());
+        if (other.getIsAccessible() != false) {
+          setIsAccessible(other.getIsAccessible());
         }
-        if (other.getIsKeyChainOrg() != false) {
-          setIsKeyChainOrg(other.getIsKeyChainOrg());
+        if (other.getIsClientSide() != false) {
+          setIsClientSide(other.getIsClientSide());
         }
-        if (other.hasDocKeyChain()) {
-          mergeDocKeyChain(other.getDocKeyChain());
-        }
-        if (!other.getUserAsymKeyEncryptorId().isEmpty()) {
-          userAsymKeyEncryptorId_ = other.userAsymKeyEncryptorId_;
-          onChanged();
-        }
-        if (!other.getEncMACKey().isEmpty()) {
-          encMACKey_ = other.encMACKey_;
-          onChanged();
+        if (docKeyChainBuilder_ == null) {
+          if (!other.docKeyChain_.isEmpty()) {
+            if (docKeyChain_.isEmpty()) {
+              docKeyChain_ = other.docKeyChain_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDocKeyChainIsMutable();
+              docKeyChain_.addAll(other.docKeyChain_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.docKeyChain_.isEmpty()) {
+            if (docKeyChainBuilder_.isEmpty()) {
+              docKeyChainBuilder_.dispose();
+              docKeyChainBuilder_ = null;
+              docKeyChain_ = other.docKeyChain_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              docKeyChainBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDocKeyChainFieldBuilder() : null;
+            } else {
+              docKeyChainBuilder_.addAllMessages(other.docKeyChain_);
+            }
+          }
         }
         if (!other.getMac().isEmpty()) {
           mac_ = other.mac_;
@@ -10559,179 +9709,415 @@ public final class Documents {
         }
         return this;
       }
+      private int bitField0_;
 
-      private boolean isEncryptedByClientSide_ ;
+      private boolean isAccessible_ ;
       /**
-       * <code>bool isEncryptedByClientSide = 1;</code>
-       * @return The isEncryptedByClientSide.
+       * <pre>
+       * Whether or not this user is allowed to access this document.
+       * </pre>
+       *
+       * <code>bool isAccessible = 1;</code>
+       * @return The isAccessible.
        */
-      public boolean getIsEncryptedByClientSide() {
-        return isEncryptedByClientSide_;
+      public boolean getIsAccessible() {
+        return isAccessible_;
       }
       /**
-       * <code>bool isEncryptedByClientSide = 1;</code>
-       * @param value The isEncryptedByClientSide to set.
+       * <pre>
+       * Whether or not this user is allowed to access this document.
+       * </pre>
+       *
+       * <code>bool isAccessible = 1;</code>
+       * @param value The isAccessible to set.
        * @return This builder for chaining.
        */
-      public Builder setIsEncryptedByClientSide(boolean value) {
+      public Builder setIsAccessible(boolean value) {
         
-        isEncryptedByClientSide_ = value;
+        isAccessible_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bool isEncryptedByClientSide = 1;</code>
+       * <pre>
+       * Whether or not this user is allowed to access this document.
+       * </pre>
+       *
+       * <code>bool isAccessible = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearIsEncryptedByClientSide() {
+      public Builder clearIsAccessible() {
         
-        isEncryptedByClientSide_ = false;
-        onChanged();
-        return this;
-      }
-
-      private boolean isKeyChainOrg_ ;
-      /**
-       * <code>bool isKeyChainOrg = 2;</code>
-       * @return The isKeyChainOrg.
-       */
-      public boolean getIsKeyChainOrg() {
-        return isKeyChainOrg_;
-      }
-      /**
-       * <code>bool isKeyChainOrg = 2;</code>
-       * @param value The isKeyChainOrg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIsKeyChainOrg(boolean value) {
-        
-        isKeyChainOrg_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool isKeyChainOrg = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIsKeyChainOrg() {
-        
-        isKeyChainOrg_ = false;
+        isAccessible_ = false;
         onChanged();
         return this;
       }
 
-      private com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain docKeyChain_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder> docKeyChainBuilder_;
+      private boolean isClientSide_ ;
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
-       * @return Whether the docKeyChain field is set.
+       * <pre>
+       * Whether or not the document is client-side encrypted.
+       * </pre>
+       *
+       * <code>bool isClientSide = 2;</code>
+       * @return The isClientSide.
        */
-      public boolean hasDocKeyChain() {
-        return docKeyChainBuilder_ != null || docKeyChain_ != null;
+      public boolean getIsClientSide() {
+        return isClientSide_;
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
-       * @return The docKeyChain.
+       * <pre>
+       * Whether or not the document is client-side encrypted.
+       * </pre>
+       *
+       * <code>bool isClientSide = 2;</code>
+       * @param value The isClientSide to set.
+       * @return This builder for chaining.
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain getDocKeyChain() {
+      public Builder setIsClientSide(boolean value) {
+        
+        isClientSide_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether or not the document is client-side encrypted.
+       * </pre>
+       *
+       * <code>bool isClientSide = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsClientSide() {
+        
+        isClientSide_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> docKeyChain_ =
+        java.util.Collections.emptyList();
+      private void ensureDocKeyChainIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          docKeyChain_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey>(docKeyChain_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> docKeyChainBuilder_;
+
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> getDocKeyChainList() {
         if (docKeyChainBuilder_ == null) {
-          return docKeyChain_ == null ? com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.getDefaultInstance() : docKeyChain_;
+          return java.util.Collections.unmodifiableList(docKeyChain_);
         } else {
-          return docKeyChainBuilder_.getMessage();
+          return docKeyChainBuilder_.getMessageList();
         }
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
-      public Builder setDocKeyChain(com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain value) {
+      public int getDocKeyChainCount() {
+        if (docKeyChainBuilder_ == null) {
+          return docKeyChain_.size();
+        } else {
+          return docKeyChainBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getDocKeyChain(int index) {
+        if (docKeyChainBuilder_ == null) {
+          return docKeyChain_.get(index);
+        } else {
+          return docKeyChainBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public Builder setDocKeyChain(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
         if (docKeyChainBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          docKeyChain_ = value;
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.set(index, value);
           onChanged();
         } else {
-          docKeyChainBuilder_.setMessage(value);
+          docKeyChainBuilder_.setMessage(index, value);
         }
-
         return this;
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
       public Builder setDocKeyChain(
-          com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder builderForValue) {
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
         if (docKeyChainBuilder_ == null) {
-          docKeyChain_ = builderForValue.build();
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.set(index, builderForValue.build());
           onChanged();
         } else {
-          docKeyChainBuilder_.setMessage(builderForValue.build());
+          docKeyChainBuilder_.setMessage(index, builderForValue.build());
         }
-
         return this;
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
-      public Builder mergeDocKeyChain(com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain value) {
+      public Builder addDocKeyChain(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
         if (docKeyChainBuilder_ == null) {
-          if (docKeyChain_ != null) {
-            docKeyChain_ =
-              com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.newBuilder(docKeyChain_).mergeFrom(value).buildPartial();
-          } else {
-            docKeyChain_ = value;
+          if (value == null) {
+            throw new NullPointerException();
           }
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.add(value);
           onChanged();
         } else {
-          docKeyChainBuilder_.mergeFrom(value);
+          docKeyChainBuilder_.addMessage(value);
         }
-
         return this;
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public Builder addDocKeyChain(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (docKeyChainBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.add(index, value);
+          onChanged();
+        } else {
+          docKeyChainBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public Builder addDocKeyChain(
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (docKeyChainBuilder_ == null) {
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.add(builderForValue.build());
+          onChanged();
+        } else {
+          docKeyChainBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public Builder addDocKeyChain(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (docKeyChainBuilder_ == null) {
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          docKeyChainBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public Builder addAllDocKeyChain(
+          java.lang.Iterable<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> values) {
+        if (docKeyChainBuilder_ == null) {
+          ensureDocKeyChainIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, docKeyChain_);
+          onChanged();
+        } else {
+          docKeyChainBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
       public Builder clearDocKeyChain() {
         if (docKeyChainBuilder_ == null) {
-          docKeyChain_ = null;
+          docKeyChain_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          docKeyChain_ = null;
-          docKeyChainBuilder_ = null;
+          docKeyChainBuilder_.clear();
         }
-
         return this;
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder getDocKeyChainBuilder() {
-        
-        onChanged();
-        return getDocKeyChainFieldBuilder().getBuilder();
+      public Builder removeDocKeyChain(int index) {
+        if (docKeyChainBuilder_ == null) {
+          ensureDocKeyChainIsMutable();
+          docKeyChain_.remove(index);
+          onChanged();
+        } else {
+          docKeyChainBuilder_.remove(index);
+        }
+        return this;
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder getDocKeyChainOrBuilder() {
-        if (docKeyChainBuilder_ != null) {
-          return docKeyChainBuilder_.getMessageOrBuilder();
-        } else {
-          return docKeyChain_ == null ?
-              com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.getDefaultInstance() : docKeyChain_;
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder getDocKeyChainBuilder(
+          int index) {
+        return getDocKeyChainFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getDocKeyChainOrBuilder(
+          int index) {
+        if (docKeyChainBuilder_ == null) {
+          return docKeyChain_.get(index);  } else {
+          return docKeyChainBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>.proto.KeyChain docKeyChain = 3;</code>
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder> 
+      public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+           getDocKeyChainOrBuilderList() {
+        if (docKeyChainBuilder_ != null) {
+          return docKeyChainBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(docKeyChain_);
+        }
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder addDocKeyChainBuilder() {
+        return getDocKeyChainFieldBuilder().addBuilder(
+            com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder addDocKeyChainBuilder(
+          int index) {
+        return getDocKeyChainFieldBuilder().addBuilder(
+            index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * A chain of EncryptedKeys. The user's passwordKey is used to decrypt the first one.
+       * Each one is used to decrypt the next one. The final plaintext will be the docKey.
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey docKeyChain = 3;</code>
+       */
+      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder> 
+           getDocKeyChainBuilderList() {
+        return getDocKeyChainFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
           getDocKeyChainFieldBuilder() {
         if (docKeyChainBuilder_ == null) {
-          docKeyChainBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChain.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.KeyChainOrBuilder>(
-                  getDocKeyChain(),
+          docKeyChainBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder>(
+                  docKeyChain_,
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           docKeyChain_ = null;
@@ -10739,205 +10125,13 @@ public final class Documents {
         return docKeyChainBuilder_;
       }
 
-      private java.lang.Object userAsymKeyEncryptorId_ = "";
-      /**
-       * <pre>
-       * the encryptor id for userPriKey, for key rotation version validation
-       * </pre>
-       *
-       * <code>string userAsymKeyEncryptorId = 4;</code>
-       * @return The userAsymKeyEncryptorId.
-       */
-      public java.lang.String getUserAsymKeyEncryptorId() {
-        java.lang.Object ref = userAsymKeyEncryptorId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          userAsymKeyEncryptorId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * the encryptor id for userPriKey, for key rotation version validation
-       * </pre>
-       *
-       * <code>string userAsymKeyEncryptorId = 4;</code>
-       * @return The bytes for userAsymKeyEncryptorId.
-       */
-      public com.google.protobuf.ByteString
-          getUserAsymKeyEncryptorIdBytes() {
-        java.lang.Object ref = userAsymKeyEncryptorId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userAsymKeyEncryptorId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * the encryptor id for userPriKey, for key rotation version validation
-       * </pre>
-       *
-       * <code>string userAsymKeyEncryptorId = 4;</code>
-       * @param value The userAsymKeyEncryptorId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUserAsymKeyEncryptorId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        userAsymKeyEncryptorId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * the encryptor id for userPriKey, for key rotation version validation
-       * </pre>
-       *
-       * <code>string userAsymKeyEncryptorId = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearUserAsymKeyEncryptorId() {
-        
-        userAsymKeyEncryptorId_ = getDefaultInstance().getUserAsymKeyEncryptorId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * the encryptor id for userPriKey, for key rotation version validation
-       * </pre>
-       *
-       * <code>string userAsymKeyEncryptorId = 4;</code>
-       * @param value The bytes for userAsymKeyEncryptorId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUserAsymKeyEncryptorIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        userAsymKeyEncryptorId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object encMACKey_ = "";
-      /**
-       * <pre>
-       * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-       * </pre>
-       *
-       * <code>string encMACKey = 5;</code>
-       * @return The encMACKey.
-       */
-      public java.lang.String getEncMACKey() {
-        java.lang.Object ref = encMACKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          encMACKey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-       * </pre>
-       *
-       * <code>string encMACKey = 5;</code>
-       * @return The bytes for encMACKey.
-       */
-      public com.google.protobuf.ByteString
-          getEncMACKeyBytes() {
-        java.lang.Object ref = encMACKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          encMACKey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-       * </pre>
-       *
-       * <code>string encMACKey = 5;</code>
-       * @param value The encMACKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEncMACKey(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        encMACKey_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-       * </pre>
-       *
-       * <code>string encMACKey = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEncMACKey() {
-        
-        encMACKey_ = getDefaultInstance().getEncMACKey();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The document MAC key encrypted with the user's public key, or org's public key if keyIsOrgs.
-       * </pre>
-       *
-       * <code>string encMACKey = 5;</code>
-       * @param value The bytes for encMACKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEncMACKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        encMACKey_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object mac_ = "";
       /**
        * <pre>
-       * The MAC of the ciphertext of the document.
+       * The MAC of the ciphertext of the document. Only used when downloading.
        * </pre>
        *
-       * <code>string mac = 6;</code>
+       * <code>string mac = 4;</code>
        * @return The mac.
        */
       public java.lang.String getMac() {
@@ -10954,10 +10148,10 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The MAC of the ciphertext of the document.
+       * The MAC of the ciphertext of the document. Only used when downloading.
        * </pre>
        *
-       * <code>string mac = 6;</code>
+       * <code>string mac = 4;</code>
        * @return The bytes for mac.
        */
       public com.google.protobuf.ByteString
@@ -10975,10 +10169,10 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The MAC of the ciphertext of the document.
+       * The MAC of the ciphertext of the document. Only used when downloading.
        * </pre>
        *
-       * <code>string mac = 6;</code>
+       * <code>string mac = 4;</code>
        * @param value The mac to set.
        * @return This builder for chaining.
        */
@@ -10994,10 +10188,10 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The MAC of the ciphertext of the document.
+       * The MAC of the ciphertext of the document. Only used when downloading.
        * </pre>
        *
-       * <code>string mac = 6;</code>
+       * <code>string mac = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearMac() {
@@ -11008,10 +10202,10 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The MAC of the ciphertext of the document.
+       * The MAC of the ciphertext of the document. Only used when downloading.
        * </pre>
        *
-       * <code>string mac = 6;</code>
+       * <code>string mac = 4;</code>
        * @param value The bytes for mac to set.
        * @return This builder for chaining.
        */
@@ -24816,15 +24010,15 @@ public final class Documents {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_E2EEUploadDocStreamReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_descriptor;
+    internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_fieldAccessorTable;
+      internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_descriptor;
+    internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_fieldAccessorTable;
+      internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_E2EEUploadDocStreamReq_EncKeyList_descriptor;
   private static final 
@@ -24860,11 +24054,6 @@ public final class Documents {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_E2EEPrepareDownloadDocResp_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_KeyChain_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_KeyChain_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_DocumentAccessMetadata_descriptor;
   private static final 
@@ -24975,93 +24164,91 @@ public final class Documents {
       "\"J\n\022UploadDocStreamReq\022\021\n\007docName\030\001 \001(\tH" +
       "\000\022\023\n\tplaintext\030\002 \001(\014H\000B\014\n\nNameOrData\"3\n\023" +
       "UploadDocStreamResp\022\r\n\005docID\030\001 \001(\t\022\r\n\005by" +
-      "tes\030\002 \001(\003\"\246\003\n\026E2EEUploadDocStreamReq\022@\n\013" +
-      "preMetaData\030\001 \001(\0132).proto.E2EEUploadDocS" +
-      "treamReq.PreMetaDataH\000\022>\n\nencDocKeys\030\002 \001" +
-      "(\0132(.proto.E2EEUploadDocStreamReq.EncKey" +
-      "ListH\000\022\024\n\ncipherText\030\003 \001(\014H\000\022B\n\014postMeta" +
-      "Data\030\004 \001(\0132*.proto.E2EEUploadDocStreamRe" +
-      "q.PostMetaDataH\000\032;\n\013PreMetaData\022\017\n\007docNa" +
-      "me\030\001 \001(\t\022\033\n\023isEncryptedByClient\030\002 \001(\010\032\'\n" +
-      "\014PostMetaData\022\027\n\017macOfCipherText\030\001 \001(\t\0325" +
-      "\n\nEncKeyList\022\'\n\nencDocKeys\030\001 \003(\0132\023.proto" +
-      ".EncryptedKeyB\023\n\021stagesOfUploading\"\303\001\n\027E" +
-      "2EEUploadDocStreamResp\022\026\n\014readyForData\030\001" +
-      " \001(\010H\000\022?\n\nencryptors\030\002 \001(\0132).proto.E2EEU" +
-      "ploadDocStreamResp.PubKeyListH\000\022\017\n\005docID" +
-      "\030\003 \001(\tH\000\032)\n\nPubKeyList\022\033\n\007pubKeys\030\001 \003(\0132" +
-      "\n.proto.KeyB\023\n\021stagesOfUploading\"%\n\024Down" +
-      "loadDocStreamReq\022\r\n\005docID\030\001 \001(\t\"9\n\025Downl" +
-      "oadDocStreamResp\022\r\n\005docID\030\001 \001(\t\022\021\n\tplain" +
-      "text\030\002 \001(\014\"*\n\031E2EEPrepareDownloadDocReq\022" +
-      "\r\n\005docID\030\001 \001(\t\"[\n\032E2EEPrepareDownloadDoc" +
-      "Resp\022=\n\026documentAccessMetadata\030\001 \001(\0132\035.p" +
-      "roto.DocumentAccessMetadata\"-\n\010KeyChain\022" +
-      "!\n\004keys\030\001 \003(\0132\023.proto.EncryptedKey\"\266\001\n\026D" +
-      "ocumentAccessMetadata\022\037\n\027isEncryptedByCl" +
-      "ientSide\030\001 \001(\010\022\025\n\risKeyChainOrg\030\002 \001(\010\022$\n" +
-      "\013docKeyChain\030\003 \001(\0132\017.proto.KeyChain\022\036\n\026u" +
-      "serAsymKeyEncryptorId\030\004 \001(\t\022\021\n\tencMACKey" +
-      "\030\005 \001(\t\022\013\n\003mac\030\006 \001(\t\")\n\030E2EEDownloadDocSt" +
-      "reamReq\022\r\n\005docID\030\001 \001(\t\"/\n\031E2EEDownloadDo" +
-      "cStreamResp\022\022\n\ncipherText\030\001 \001(\014\"\214\001\n\014Uplo" +
-      "adDocReq\022\017\n\007docName\030\001 \001(\t\022\021\n\tplaintext\030\002" +
-      " \001(\t:X\222AU\n\016*\014UploadDocReq2C\022A{\"docName\":" +
-      " \"bribeamount\", \"plaintext\": \"I paid 1M " +
-      "to Volodymyr\"}\"S\n\rUploadDocResp\022\r\n\005docID" +
-      "\030\001 \001(\t:3\222A0\n\017*\rUploadDocResp2\035\022\033{\"docID\"" +
-      ": \"bribeamount_ID\"}\"U\n\016DownloadDocReq\022\r\n" +
-      "\005docID\030\001 \001(\t:4\222A1\n\020*\016DownloadDocReq2\035\022\033{" +
-      "\"docID\": \"bribeamount_ID\"}\"\220\001\n\017DownloadD" +
-      "ocResp\022\r\n\005docID\030\001 \001(\t\022\021\n\tplaintext\030\002 \001(\t" +
-      ":[\222AX\n\020*\016DownloadDocReq2D\022B{\"docID\": \"br" +
-      "ibeamount_ID\", \"plaintext\": \"I paid 1M t" +
-      "o Volodymyr\"}\"z\n\020ShareDocumentReq\022\r\n\005doc" +
-      "ID\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t:G\222AD\n\022*\020ShareDo" +
-      "cumentReq2.\022,{\"docID\": \"bribeamount_ID\"," +
-      " \"userID\": \"FBI\"}\"S\n\021ShareDocumentResp\022\017" +
-      "\n\007success\030\001 \001(\010:-\222A*\n\023*\021ShareDocumentRes" +
-      "p2\023\022\021{\"success\": true}\"\203\001\n\022UnshareDocume" +
-      "ntReq\022\r\n\005docID\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t:N\222A" +
-      "K\n\024*\022UnshareDocumentReq23\0221{\"docID\": \"br" +
-      "ibeamount_ID\", \"userID\": \"Fox News\"}\"P\n\023" +
-      "UnshareDocumentResp\022\r\n\005count\030\001 \001(\003:*\222A\'\n" +
-      "\025*\023UnshareDocumentResp2\016\022\014{\"count\": 1}\"C" +
-      "\n\020ListDocumentsReq\022\026\n\016includeDeleted\030\001 \001" +
-      "(\010:\027\222A\024\n\022*\020ListDocumentsReq\"\327\002\n\021ListDocu" +
-      "mentsResp\0224\n\tdocuments\030\001 \003(\0132!.proto.Lis" +
-      "tDocumentsResp.Document\032\226\001\n\010Document\022\r\n\005" +
-      "docID\030\001 \001(\t\022\017\n\007docName\030\002 \001(\t\022\014\n\004size\030\003 \001" +
-      "(\004\022-\n\tcreatedAt\030\004 \001(\0132\032.google.protobuf." +
-      "Timestamp\022-\n\tdeletedAt\030\005 \001(\0132\032.google.pr" +
-      "otobuf.Timestamp:s\222Ap\n\023*\021ListDocumentsRe" +
-      "sp2Y\022W{\"documents\": [{\"docID\": \"bribeamo" +
-      "unt_ID\", \"docName\": \"bribeamount.pdf\", \"" +
-      "size\": 561}]}\"[\n\021RemoveDocumentReq\022\r\n\005do" +
-      "cID\030\001 \001(\t:7\222A4\n\023*\021RemoveDocumentReq2\035\022\033{" +
-      "\"docID\": \"bribeamount_ID\"}\"S\n\022RemoveDocu" +
-      "mentResp\022\016\n\006status\030\001 \001(\010:-\222A*\n\024*\022RemoveD" +
-      "ocumentResp2\022\022\020{\"status\": true}\"\377\001\n\027List" +
-      "DocActionHistoryReq\022\r\n\005docID\030\001 \001(\t\022\016\n\006us" +
-      "erID\030\002 \001(\t\0223\n\017actionStartTime\030\003 \001(\0132\032.go" +
-      "ogle.protobuf.Timestamp\0221\n\ractionEndTime" +
-      "\030\004 \001(\0132\032.google.protobuf.Timestamp\022\014\n\004pa" +
-      "ge\030\005 \001(\005\022\020\n\010per_page\030\006 \001(\005:=\222A:\n\031*\027ListD" +
-      "ocActionHistoryReq2\035\022\033{\"docID\": \"bribeam" +
-      "ount_ID\"}\"\312\003\n\030ListDocActionHistoryResp\022N" +
-      "\n\024DocActionHistoryList\030\001 \003(\01320.proto.Lis" +
-      "tDocActionHistoryResp.DocActionHistory\022\030" +
-      "\n\020ResultTotalCount\030\002 \001(\005\022\016\n\006Offset\030\003 \001(\005" +
-      "\032\233\001\n\020DocActionHistory\022\r\n\005docID\030\001 \001(\t\022\016\n\006" +
-      "userID\030\002 \001(\t\022\017\n\007docName\030\003 \001(\t\022.\n\nactionT" +
-      "ime\030\004 \001(\0132\032.google.protobuf.Timestamp\022\022\n" +
-      "\nactionType\030\005 \001(\t\022\023\n\013OtherUserID\030\006 \001(\t:\225" +
-      "\001\222A\221\001\n\032*\030ListDocActionHistoryResp2s\022q{\"D" +
-      "ocActionHistoryList\":[{\"userName\": \"Dona" +
-      "ld Trump\", \"userID\": \"donald.trump@white" +
-      "house.gov\", \"isAdmin\": true}]}B2\n\"com.st" +
-      "rongsalt.strongdoc.sdk.protoB\tDocuments\210" +
-      "\001\001b\006proto3"
+      "tes\030\002 \001(\003\"\267\003\n\026E2EEUploadDocStreamReq\022D\n\013" +
+      "preMetaData\030\001 \001(\0132-.proto.E2EEUploadDocS" +
+      "treamReq.PreMetaDataTypeH\000\022>\n\nencDocKeys" +
+      "\030\002 \001(\0132(.proto.E2EEUploadDocStreamReq.En" +
+      "cKeyListH\000\022\024\n\ncipherText\030\003 \001(\014H\000\022F\n\014post" +
+      "MetaData\030\004 \001(\0132..proto.E2EEUploadDocStre" +
+      "amReq.PostMetaDataTypeH\000\032?\n\017PreMetaDataT" +
+      "ype\022\017\n\007docName\030\001 \001(\t\022\033\n\023isEncryptedByCli" +
+      "ent\030\002 \001(\010\032+\n\020PostMetaDataType\022\027\n\017macOfCi" +
+      "pherText\030\001 \001(\t\0325\n\nEncKeyList\022\'\n\nencDocKe" +
+      "ys\030\001 \003(\0132\023.proto.EncryptedKeyB\024\n\022uploadR" +
+      "eqStageData\"\305\001\n\027E2EEUploadDocStreamResp\022" +
+      "\026\n\014readyForData\030\001 \001(\010H\000\022?\n\nencryptors\030\002 " +
+      "\001(\0132).proto.E2EEUploadDocStreamResp.PubK" +
+      "eyListH\000\022\017\n\005docID\030\003 \001(\tH\000\032)\n\nPubKeyList\022" +
+      "\033\n\007pubKeys\030\001 \003(\0132\n.proto.KeyB\025\n\023uploadRe" +
+      "spStageData\"%\n\024DownloadDocStreamReq\022\r\n\005d" +
+      "ocID\030\001 \001(\t\"9\n\025DownloadDocStreamResp\022\r\n\005d" +
+      "ocID\030\001 \001(\t\022\021\n\tplaintext\030\002 \001(\014\"*\n\031E2EEPre" +
+      "pareDownloadDocReq\022\r\n\005docID\030\001 \001(\t\"[\n\032E2E" +
+      "EPrepareDownloadDocResp\022=\n\026documentAcces" +
+      "sMetadata\030\001 \001(\0132\035.proto.DocumentAccessMe" +
+      "tadata\"{\n\026DocumentAccessMetadata\022\024\n\014isAc" +
+      "cessible\030\001 \001(\010\022\024\n\014isClientSide\030\002 \001(\010\022(\n\013" +
+      "docKeyChain\030\003 \003(\0132\023.proto.EncryptedKey\022\013" +
+      "\n\003mac\030\004 \001(\t\")\n\030E2EEDownloadDocStreamReq\022" +
+      "\r\n\005docID\030\001 \001(\t\"/\n\031E2EEDownloadDocStreamR" +
+      "esp\022\022\n\ncipherText\030\001 \001(\014\"\214\001\n\014UploadDocReq" +
+      "\022\017\n\007docName\030\001 \001(\t\022\021\n\tplaintext\030\002 \001(\t:X\222A" +
+      "U\n\016*\014UploadDocReq2C\022A{\"docName\": \"bribea" +
+      "mount\", \"plaintext\": \"I paid 1M to Volod" +
+      "ymyr\"}\"S\n\rUploadDocResp\022\r\n\005docID\030\001 \001(\t:3" +
+      "\222A0\n\017*\rUploadDocResp2\035\022\033{\"docID\": \"bribe" +
+      "amount_ID\"}\"U\n\016DownloadDocReq\022\r\n\005docID\030\001" +
+      " \001(\t:4\222A1\n\020*\016DownloadDocReq2\035\022\033{\"docID\":" +
+      " \"bribeamount_ID\"}\"\220\001\n\017DownloadDocResp\022\r" +
+      "\n\005docID\030\001 \001(\t\022\021\n\tplaintext\030\002 \001(\t:[\222AX\n\020*" +
+      "\016DownloadDocReq2D\022B{\"docID\": \"bribeamoun" +
+      "t_ID\", \"plaintext\": \"I paid 1M to Volody" +
+      "myr\"}\"z\n\020ShareDocumentReq\022\r\n\005docID\030\001 \001(\t" +
+      "\022\016\n\006userID\030\002 \001(\t:G\222AD\n\022*\020ShareDocumentRe" +
+      "q2.\022,{\"docID\": \"bribeamount_ID\", \"userID" +
+      "\": \"FBI\"}\"S\n\021ShareDocumentResp\022\017\n\007succes" +
+      "s\030\001 \001(\010:-\222A*\n\023*\021ShareDocumentResp2\023\022\021{\"s" +
+      "uccess\": true}\"\203\001\n\022UnshareDocumentReq\022\r\n" +
+      "\005docID\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t:N\222AK\n\024*\022Uns" +
+      "hareDocumentReq23\0221{\"docID\": \"bribeamoun" +
+      "t_ID\", \"userID\": \"Fox News\"}\"P\n\023UnshareD" +
+      "ocumentResp\022\r\n\005count\030\001 \001(\003:*\222A\'\n\025*\023Unsha" +
+      "reDocumentResp2\016\022\014{\"count\": 1}\"C\n\020ListDo" +
+      "cumentsReq\022\026\n\016includeDeleted\030\001 \001(\010:\027\222A\024\n" +
+      "\022*\020ListDocumentsReq\"\327\002\n\021ListDocumentsRes" +
+      "p\0224\n\tdocuments\030\001 \003(\0132!.proto.ListDocumen" +
+      "tsResp.Document\032\226\001\n\010Document\022\r\n\005docID\030\001 " +
+      "\001(\t\022\017\n\007docName\030\002 \001(\t\022\014\n\004size\030\003 \001(\004\022-\n\tcr" +
+      "eatedAt\030\004 \001(\0132\032.google.protobuf.Timestam" +
+      "p\022-\n\tdeletedAt\030\005 \001(\0132\032.google.protobuf.T" +
+      "imestamp:s\222Ap\n\023*\021ListDocumentsResp2Y\022W{\"" +
+      "documents\": [{\"docID\": \"bribeamount_ID\"," +
+      " \"docName\": \"bribeamount.pdf\", \"size\": 5" +
+      "61}]}\"[\n\021RemoveDocumentReq\022\r\n\005docID\030\001 \001(" +
+      "\t:7\222A4\n\023*\021RemoveDocumentReq2\035\022\033{\"docID\":" +
+      " \"bribeamount_ID\"}\"S\n\022RemoveDocumentResp" +
+      "\022\016\n\006status\030\001 \001(\010:-\222A*\n\024*\022RemoveDocumentR" +
+      "esp2\022\022\020{\"status\": true}\"\377\001\n\027ListDocActio" +
+      "nHistoryReq\022\r\n\005docID\030\001 \001(\t\022\016\n\006userID\030\002 \001" +
+      "(\t\0223\n\017actionStartTime\030\003 \001(\0132\032.google.pro" +
+      "tobuf.Timestamp\0221\n\ractionEndTime\030\004 \001(\0132\032" +
+      ".google.protobuf.Timestamp\022\014\n\004page\030\005 \001(\005" +
+      "\022\020\n\010per_page\030\006 \001(\005:=\222A:\n\031*\027ListDocAction" +
+      "HistoryReq2\035\022\033{\"docID\": \"bribeamount_ID\"" +
+      "}\"\312\003\n\030ListDocActionHistoryResp\022N\n\024DocAct" +
+      "ionHistoryList\030\001 \003(\01320.proto.ListDocActi" +
+      "onHistoryResp.DocActionHistory\022\030\n\020Result" +
+      "TotalCount\030\002 \001(\005\022\016\n\006Offset\030\003 \001(\005\032\233\001\n\020Doc" +
+      "ActionHistory\022\r\n\005docID\030\001 \001(\t\022\016\n\006userID\030\002" +
+      " \001(\t\022\017\n\007docName\030\003 \001(\t\022.\n\nactionTime\030\004 \001(" +
+      "\0132\032.google.protobuf.Timestamp\022\022\n\nactionT" +
+      "ype\030\005 \001(\t\022\023\n\013OtherUserID\030\006 \001(\t:\225\001\222A\221\001\n\032*" +
+      "\030ListDocActionHistoryResp2s\022q{\"DocAction" +
+      "HistoryList\":[{\"userName\": \"Donald Trump" +
+      "\", \"userID\": \"donald.trump@whitehouse.go" +
+      "v\", \"isAdmin\": true}]}B2\n\"com.strongsalt" +
+      ".strongdoc.sdk.protoB\tDocuments\210\001\001b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -25087,18 +24274,18 @@ public final class Documents {
     internal_static_proto_E2EEUploadDocStreamReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_E2EEUploadDocStreamReq_descriptor,
-        new java.lang.String[] { "PreMetaData", "EncDocKeys", "CipherText", "PostMetaData", "StagesOfUploading", });
-    internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_descriptor =
+        new java.lang.String[] { "PreMetaData", "EncDocKeys", "CipherText", "PostMetaData", "UploadReqStageData", });
+    internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_descriptor =
       internal_static_proto_E2EEUploadDocStreamReq_descriptor.getNestedTypes().get(0);
-    internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_fieldAccessorTable = new
+    internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_E2EEUploadDocStreamReq_PreMetaData_descriptor,
+        internal_static_proto_E2EEUploadDocStreamReq_PreMetaDataType_descriptor,
         new java.lang.String[] { "DocName", "IsEncryptedByClient", });
-    internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_descriptor =
+    internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_descriptor =
       internal_static_proto_E2EEUploadDocStreamReq_descriptor.getNestedTypes().get(1);
-    internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_fieldAccessorTable = new
+    internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_E2EEUploadDocStreamReq_PostMetaData_descriptor,
+        internal_static_proto_E2EEUploadDocStreamReq_PostMetaDataType_descriptor,
         new java.lang.String[] { "MacOfCipherText", });
     internal_static_proto_E2EEUploadDocStreamReq_EncKeyList_descriptor =
       internal_static_proto_E2EEUploadDocStreamReq_descriptor.getNestedTypes().get(2);
@@ -25111,7 +24298,7 @@ public final class Documents {
     internal_static_proto_E2EEUploadDocStreamResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_E2EEUploadDocStreamResp_descriptor,
-        new java.lang.String[] { "ReadyForData", "Encryptors", "DocID", "StagesOfUploading", });
+        new java.lang.String[] { "ReadyForData", "Encryptors", "DocID", "UploadRespStageData", });
     internal_static_proto_E2EEUploadDocStreamResp_PubKeyList_descriptor =
       internal_static_proto_E2EEUploadDocStreamResp_descriptor.getNestedTypes().get(0);
     internal_static_proto_E2EEUploadDocStreamResp_PubKeyList_fieldAccessorTable = new
@@ -25142,86 +24329,80 @@ public final class Documents {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_E2EEPrepareDownloadDocResp_descriptor,
         new java.lang.String[] { "DocumentAccessMetadata", });
-    internal_static_proto_KeyChain_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_proto_KeyChain_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_KeyChain_descriptor,
-        new java.lang.String[] { "Keys", });
     internal_static_proto_DocumentAccessMetadata_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_DocumentAccessMetadata_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_DocumentAccessMetadata_descriptor,
-        new java.lang.String[] { "IsEncryptedByClientSide", "IsKeyChainOrg", "DocKeyChain", "UserAsymKeyEncryptorId", "EncMACKey", "Mac", });
+        new java.lang.String[] { "IsAccessible", "IsClientSide", "DocKeyChain", "Mac", });
     internal_static_proto_E2EEDownloadDocStreamReq_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_proto_E2EEDownloadDocStreamReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_E2EEDownloadDocStreamReq_descriptor,
         new java.lang.String[] { "DocID", });
     internal_static_proto_E2EEDownloadDocStreamResp_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_proto_E2EEDownloadDocStreamResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_E2EEDownloadDocStreamResp_descriptor,
         new java.lang.String[] { "CipherText", });
     internal_static_proto_UploadDocReq_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_proto_UploadDocReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UploadDocReq_descriptor,
         new java.lang.String[] { "DocName", "Plaintext", });
     internal_static_proto_UploadDocResp_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_proto_UploadDocResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UploadDocResp_descriptor,
         new java.lang.String[] { "DocID", });
     internal_static_proto_DownloadDocReq_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_proto_DownloadDocReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_DownloadDocReq_descriptor,
         new java.lang.String[] { "DocID", });
     internal_static_proto_DownloadDocResp_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_proto_DownloadDocResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_DownloadDocResp_descriptor,
         new java.lang.String[] { "DocID", "Plaintext", });
     internal_static_proto_ShareDocumentReq_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_proto_ShareDocumentReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ShareDocumentReq_descriptor,
         new java.lang.String[] { "DocID", "UserID", });
     internal_static_proto_ShareDocumentResp_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_proto_ShareDocumentResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ShareDocumentResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_UnshareDocumentReq_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_UnshareDocumentReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UnshareDocumentReq_descriptor,
         new java.lang.String[] { "DocID", "UserID", });
     internal_static_proto_UnshareDocumentResp_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_proto_UnshareDocumentResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UnshareDocumentResp_descriptor,
         new java.lang.String[] { "Count", });
     internal_static_proto_ListDocumentsReq_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_proto_ListDocumentsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocumentsReq_descriptor,
         new java.lang.String[] { "IncludeDeleted", });
     internal_static_proto_ListDocumentsResp_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_proto_ListDocumentsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocumentsResp_descriptor,
@@ -25233,25 +24414,25 @@ public final class Documents {
         internal_static_proto_ListDocumentsResp_Document_descriptor,
         new java.lang.String[] { "DocID", "DocName", "Size", "CreatedAt", "DeletedAt", });
     internal_static_proto_RemoveDocumentReq_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_proto_RemoveDocumentReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveDocumentReq_descriptor,
         new java.lang.String[] { "DocID", });
     internal_static_proto_RemoveDocumentResp_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_proto_RemoveDocumentResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveDocumentResp_descriptor,
         new java.lang.String[] { "Status", });
     internal_static_proto_ListDocActionHistoryReq_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_proto_ListDocActionHistoryReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocActionHistoryReq_descriptor,
         new java.lang.String[] { "DocID", "UserID", "ActionStartTime", "ActionEndTime", "Page", "PerPage", });
     internal_static_proto_ListDocActionHistoryResp_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_proto_ListDocActionHistoryResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocActionHistoryResp_descriptor,

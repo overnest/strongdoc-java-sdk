@@ -24,6 +24,7 @@ message Key {
   string keyID = 2;
   string ownerID = 3;
   AccessType ownerType = 4;
+  int32 version = 5;
 }
 
 message EncryptedKey {

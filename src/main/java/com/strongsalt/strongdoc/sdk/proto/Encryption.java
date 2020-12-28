@@ -186,6 +186,12 @@ public final class Encryption {
      * @return The ownerType.
      */
     com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getOwnerType();
+
+    /**
+     * <code>int32 version = 5;</code>
+     * @return The version.
+     */
+    int getVersion();
   }
   /**
    * Protobuf type {@code proto.Key}
@@ -258,6 +264,11 @@ public final class Encryption {
               int rawValue = input.readEnum();
 
               ownerType_ = rawValue;
+              break;
+            }
+            case 40: {
+
+              version_ = input.readInt32();
               break;
             }
             default: {
@@ -419,6 +430,16 @@ public final class Encryption {
       return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
     }
 
+    public static final int VERSION_FIELD_NUMBER = 5;
+    private int version_;
+    /**
+     * <code>int32 version = 5;</code>
+     * @return The version.
+     */
+    public int getVersion() {
+      return version_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -445,6 +466,9 @@ public final class Encryption {
       if (ownerType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
         output.writeEnum(4, ownerType_);
       }
+      if (version_ != 0) {
+        output.writeInt32(5, version_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -466,6 +490,10 @@ public final class Encryption {
       if (ownerType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, ownerType_);
+      }
+      if (version_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, version_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -489,6 +517,8 @@ public final class Encryption {
       if (!getOwnerID()
           .equals(other.getOwnerID())) return false;
       if (ownerType_ != other.ownerType_) return false;
+      if (getVersion()
+          != other.getVersion()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -508,6 +538,8 @@ public final class Encryption {
       hash = (53 * hash) + getOwnerID().hashCode();
       hash = (37 * hash) + OWNERTYPE_FIELD_NUMBER;
       hash = (53 * hash) + ownerType_;
+      hash = (37 * hash) + VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getVersion();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -649,6 +681,8 @@ public final class Encryption {
 
         ownerType_ = 0;
 
+        version_ = 0;
+
         return this;
       }
 
@@ -679,6 +713,7 @@ public final class Encryption {
         result.keyID_ = keyID_;
         result.ownerID_ = ownerID_;
         result.ownerType_ = ownerType_;
+        result.version_ = version_;
         onBuilt();
         return result;
       }
@@ -741,6 +776,9 @@ public final class Encryption {
         }
         if (other.ownerType_ != 0) {
           setOwnerTypeValue(other.getOwnerTypeValue());
+        }
+        if (other.getVersion() != 0) {
+          setVersion(other.getVersion());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1047,6 +1085,36 @@ public final class Encryption {
       public Builder clearOwnerType() {
         
         ownerType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int version_ ;
+      /**
+       * <code>int32 version = 5;</code>
+       * @return The version.
+       */
+      public int getVersion() {
+        return version_;
+      }
+      /**
+       * <code>int32 version = 5;</code>
+       * @param value The version to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVersion(int value) {
+        
+        version_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 version = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVersion() {
+        
+        version_ = 0;
         onChanged();
         return this;
       }
@@ -5796,34 +5864,34 @@ public final class Encryption {
   static {
     java.lang.String[] descriptorData = {
       "\n\020encryption.proto\022\005proto\032,protoc-gen-sw" +
-      "agger/options/annotations.proto\"X\n\003Key\022\013" +
+      "agger/options/annotations.proto\"i\n\003Key\022\013" +
       "\n\003key\030\001 \001(\t\022\r\n\005keyID\030\002 \001(\t\022\017\n\007ownerID\030\003 " +
       "\001(\t\022$\n\townerType\030\004 \001(\0162\021.proto.AccessTyp" +
-      "e\"\247\001\n\014EncryptedKey\022\016\n\006encKey\030\001 \001(\t\022\023\n\013en" +
-      "cryptorID\030\002 \001(\t\022\030\n\020encryptorVersion\030\003 \001(" +
-      "\005\022\r\n\005keyID\030\004 \001(\t\022\022\n\nkeyVersion\030\005 \001(\005\022\017\n\007" +
-      "ownerID\030\006 \001(\t\022$\n\townerType\030\007 \001(\0162\021.proto" +
-      ".AccessType\";\n\025GetUserPrivateKeysReq:\"\222A" +
-      "\037\n\027*\025GetUserPrivateKeysReq2\004\022\002{}\"\317\001\n\026Get" +
-      "UserPrivateKeysResp\022*\n\rencryptedKeys\030\001 \003" +
-      "(\0132\023.proto.EncryptedKey:\210\001\222A\204\001\n\030*\026GetUse" +
-      "rPrivateKeysResp2h\022f{\"encryptedKeys\": [{" +
-      "\"encKey\": \"asdf\", \"encryptorID\": \"abc123" +
-      "\", \"ownerID\": \"person\", \"keyID\": \"asdf\"}" +
-      "]}\"\372\001\n\025SetUserKdfMetadataReq\022\017\n\007kdfMeta\030" +
-      "\001 \001(\t\022*\n\rencryptedKeys\030\002 \003(\0132\023.proto.Enc" +
-      "ryptedKey:\243\001\222A\237\001\n\027*\025SetUserKdfMetadataRe" +
-      "q2\203\001\022\200\001{\"kdfMeta\": \"kdfMetadata\", \"encry" +
-      "ptedKeys\": [{\"encKey\": \"asdf\", \"encrypto" +
-      "rID\": \"abc123\", \"ownerID\": \"person\", \"ke" +
-      "yID\": \"asdf\"}]}\"\242\001\n\026SetUserKdfMetadataRe" +
-      "sp\022\017\n\007success\030\001 \001(\010\022\017\n\007restart\030\002 \001(\010\022\r\n\005" +
-      "keyID\030\003 \001(\t:W\222AT\n\030*\026SetUserKdfMetadataRe" +
-      "sp28\0226{\"success\": true, \"restart\": false" +
-      ", \"keyID\": \"abc123\"}*7\n\nAccessType\022\007\n\003OR" +
-      "G\020\000\022\010\n\004USER\020\001\022\t\n\005GROUP\020\002\022\013\n\007UNKNOWN\020\023B3\n" +
-      "\"com.strongsalt.strongdoc.sdk.protoB\nEnc" +
-      "ryption\210\001\001b\006proto3"
+      "e\022\017\n\007version\030\005 \001(\005\"\247\001\n\014EncryptedKey\022\016\n\006e" +
+      "ncKey\030\001 \001(\t\022\023\n\013encryptorID\030\002 \001(\t\022\030\n\020encr" +
+      "yptorVersion\030\003 \001(\005\022\r\n\005keyID\030\004 \001(\t\022\022\n\nkey" +
+      "Version\030\005 \001(\005\022\017\n\007ownerID\030\006 \001(\t\022$\n\townerT" +
+      "ype\030\007 \001(\0162\021.proto.AccessType\";\n\025GetUserP" +
+      "rivateKeysReq:\"\222A\037\n\027*\025GetUserPrivateKeys" +
+      "Req2\004\022\002{}\"\317\001\n\026GetUserPrivateKeysResp\022*\n\r" +
+      "encryptedKeys\030\001 \003(\0132\023.proto.EncryptedKey" +
+      ":\210\001\222A\204\001\n\030*\026GetUserPrivateKeysResp2h\022f{\"e" +
+      "ncryptedKeys\": [{\"encKey\": \"asdf\", \"encr" +
+      "yptorID\": \"abc123\", \"ownerID\": \"person\"," +
+      " \"keyID\": \"asdf\"}]}\"\372\001\n\025SetUserKdfMetada" +
+      "taReq\022\017\n\007kdfMeta\030\001 \001(\t\022*\n\rencryptedKeys\030" +
+      "\002 \003(\0132\023.proto.EncryptedKey:\243\001\222A\237\001\n\027*\025Set" +
+      "UserKdfMetadataReq2\203\001\022\200\001{\"kdfMeta\": \"kdf" +
+      "Metadata\", \"encryptedKeys\": [{\"encKey\": " +
+      "\"asdf\", \"encryptorID\": \"abc123\", \"ownerI" +
+      "D\": \"person\", \"keyID\": \"asdf\"}]}\"\242\001\n\026Set" +
+      "UserKdfMetadataResp\022\017\n\007success\030\001 \001(\010\022\017\n\007" +
+      "restart\030\002 \001(\010\022\r\n\005keyID\030\003 \001(\t:W\222AT\n\030*\026Set" +
+      "UserKdfMetadataResp28\0226{\"success\": true," +
+      " \"restart\": false, \"keyID\": \"abc123\"}*7\n" +
+      "\nAccessType\022\007\n\003ORG\020\000\022\010\n\004USER\020\001\022\t\n\005GROUP\020" +
+      "\002\022\013\n\007UNKNOWN\020\023B3\n\"com.strongsalt.strongd" +
+      "oc.sdk.protoB\nEncryption\210\001\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5835,7 +5903,7 @@ public final class Encryption {
     internal_static_proto_Key_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Key_descriptor,
-        new java.lang.String[] { "Key", "KeyID", "OwnerID", "OwnerType", });
+        new java.lang.String[] { "Key", "KeyID", "OwnerID", "OwnerType", "Version", });
     internal_static_proto_EncryptedKey_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_EncryptedKey_fieldAccessorTable = new

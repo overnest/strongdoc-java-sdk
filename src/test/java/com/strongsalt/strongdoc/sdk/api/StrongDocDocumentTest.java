@@ -36,6 +36,8 @@ class StrongDocDocumentTest {
     private byte[] encryptDocCiphertext;
     private String encryptStreamDocID;
     private byte[] encryptStreamCiphertext;
+    private String e2eeUploadStreamDocID;
+
 
     private TestOrg testOrg1;
     private TestOrg testOrg2;
@@ -251,5 +253,51 @@ class StrongDocDocumentTest {
 
         assertTrue(plaintext.length > 0);
         assertTrue(Arrays.equals(docByteArray, plaintext));
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("Upload Document using Stream")
+    void e2eeUploadDocumentStream() throws Exception {
+        final File file = new File(docPath + docFilename);
+        //final File file = new File(docPath + "smallpicture.bmp");
+        docByteArray = Files.readAllBytes(file.toPath());
+        System.out.printf("Client-Side Uploading %s ...\n", docFilename);
+        UploadDocumentResponse uploadDocumentResponse = document.e2eeUploadDocumentStream(
+                client1, docFilename, new FileInputStream(file));
+        System.out.printf("The document %s has been uploaded using stream.\n", docFilename);
+        System.out.printf("  Uploaded document ID is %s\n", uploadDocumentResponse.getDocID());
+        System.out.printf("  Uploaded total of bytes is %d\n", uploadDocumentResponse.getNumBytes());
+
+        assertNotNull(uploadDocumentResponse.getDocID());
+        assertTrue(uploadDocumentResponse.getNumBytes() > 0);
+
+        e2eeUploadStreamDocID = uploadDocumentResponse.getDocID();
+        uploadStreamTotalBytes = uploadDocumentResponse.getNumBytes();
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("Download Document using Stream")
+    void e2eeDownloadDocumentStream() throws Exception {
+        System.out.printf("Client-Side Downloading document %s ...\n", e2eeUploadStreamDocID);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        InputStream inputStream = document.downloadDocumentStream(client1, e2eeUploadStreamDocID);
+
+        final byte[] buffer = new byte[10];
+        int read = 0;
+
+        while ((read = inputStream.read(buffer)) >= 0) {
+            if (read > 0) {
+                output.write(buffer, 0, read);
+                //System.out.println("downloadDocumentStream bytes=" + read);
+            }
+        }
+
+        System.out.println("The document has been downloaded using stream.");
+        System.out.printf("  Downloaded %d bytes using stream\n\n", output.size());
+
+        assertEquals(uploadStreamTotalBytes, output.size());
+        assertTrue(Arrays.equals(docByteArray, output.toByteArray()));
     }
 }

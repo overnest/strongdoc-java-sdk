@@ -357,7 +357,7 @@ service StrongDocService {
     // since REST api does not support streaming protocol
   }
 
-  rpc E2EEUploadDocumentStream(stream E2EEUploadDocStreamReq) returns (E2EEUploadDocStreamResp) {
+  rpc E2EEUploadDocumentStream(stream E2EEUploadDocStreamReq) returns (stream E2EEUploadDocStreamResp) {
     // This is not available through gRPC REST gateway,
     // since REST api does not support streaming protocol
   }
