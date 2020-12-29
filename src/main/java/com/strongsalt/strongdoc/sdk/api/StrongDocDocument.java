@@ -31,7 +31,6 @@ import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore;
 import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp;
 import com.strongsalt.strongdoc.sdk.proto.Encryption.Key;
-import com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType;
 import com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey;
 
 import io.grpc.StatusRuntimeException;
@@ -384,44 +383,6 @@ public class StrongDocDocument {
         return new UploadDocumentResponse(responseObserver.getResp().getDocID(), bytes);
     }
 
-    /*
-func decryptKeyChain(sdc client.StrongDocClient, encKeyChain []*proto.EncryptedKey) (keyBytes []byte, keyID string, keyVersion int32, err error) {
-	if len(encKeyChain) == 0 {
-		err = fmt.Errorf("Received no document key")
-		return
-	}
-	protoPriKey := encKeyChain[0]
-	// TODO: check password keyID
-	encKeyBytes, err := base64.URLEncoding.DecodeString(protoPriKey.GetEncKey())
-	if err != nil {
-		return
-	}
-	keyBytes, err = sdc.UserDecrypt(encKeyBytes)
-	if err != nil {
-		return
-	}
-	for _, protoEncKey := range encKeyChain[1:] {
-		key, err := ssc.DeserializeKey(keyBytes)
-		if err != nil {
-			return nil, "", 0, err
-		}
-		encKeyBytes, err := base64.URLEncoding.DecodeString(protoEncKey.GetEncKey())
-		if err != nil {
-			return nil, "", 0, err
-		}
-		keyBytes, err = key.Decrypt(encKeyBytes)
-		if err != nil {
-			return nil, "", 0, err
-		}
-	}
-	protoEncDocKey := encKeyChain[len(encKeyChain)-1]
-	keyID = protoEncDocKey.GetKeyID()
-	keyVersion = protoEncDocKey.GetKeyVersion()
-
-	return
-}
-    */
-
     private class DecryptedProtoKey {
         byte[] keyBytes;
         String keyID;
@@ -728,6 +689,31 @@ func decryptKeyChain(sdc client.StrongDocClient, encKeyChain []*proto.EncryptedK
 
         InputStream inputStream = new ByteArrayInputStream(plaintext);
         UploadDocumentResponse response = uploadDocumentStream(client, docName, inputStream);
+        return response.getDocID();
+    }
+
+    // ---------------------------------- E2EEUploadDocument ----------------------------------
+    // proto.UploadDocReq
+
+    /**
+     * Uploads a document to Strongdoc provided storage.
+     *
+     * @param client    The StrongDoc client used to call this API.
+     * @param docName   The name of the document to upload.
+     * @param plaintext The data of the document to upload.
+     * @return The ID of the document uploaded.
+     * @throws IOException on inputStream errors
+     * @throws RuntimeException on gRPC errors
+     * @throws InterruptedException on CountDownLatch errors
+     * @throws StrongDocServiceException on upload error
+     */
+    public String e2eeUploadDocument(final StrongDocServiceClient client,
+                                 final String docName,
+                                 final byte[] plaintext)
+            throws InterruptedException, IOException, RuntimeException, StrongDocServiceException {
+
+        InputStream inputStream = new ByteArrayInputStream(plaintext);
+        UploadDocumentResponse response = e2eeUploadDocumentStream(client, docName, inputStream);
         return response.getDocID();
     }
 
