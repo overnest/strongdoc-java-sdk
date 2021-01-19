@@ -472,12 +472,30 @@ service StrongDocService {
     };
   }
 
+  // PrepareShare a document to another user
+  //
+  // Requires Login
+  rpc PrepareShareDocument(PrepareShareDocumentReq) returns (PrepareShareDocumentResp) {
+    option (google.api.http) = {
+      post: "/v1/doc/prepareShareDocument"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
   // Share a document to another user
   //
   // Requires Login
   rpc ShareDocument(ShareDocumentReq) returns (ShareDocumentResp) {
     option (google.api.http) = {
-      post: "/v1/doc/shareDoc"
+      post: "/v1/doc/shareDocument"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
@@ -717,7 +735,7 @@ service StrongDocService {
   //Requires Login
   rpc SetNextBillingFrequency(SetNextBillingFrequencyReq) returns (SetNextBillingFrequencyResp) {
     option (google.api.http) = {
-      put: "/v1/account/billing/frequency"
+      put: "/v1/account/billing/setFrequency"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {

@@ -13,7 +13,6 @@ import "protoc-gen-swagger/options/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "encryption.proto";
 
-
 message UploadDocStreamReq {
   oneof NameOrData {
     // The name of the document to upload.
@@ -94,6 +93,8 @@ message DocumentAccessMetadata {
   repeated EncryptedKey docKeyChain = 3;
   // The MAC of the ciphertext of the document. Only used when downloading.
   string mac = 4;
+  // Whether or not this user is allowed to share this document. Only used when sharing.
+  bool isSharable = 5;
 }
 
 message E2EEDownloadDocStreamReq {
@@ -163,35 +164,82 @@ message DownloadDocResp {
   // The decrypted data of the downloaded document.
   string plaintext = 2;
 }
-
-message ShareDocumentReq {
+message PrepareShareDocumentReq {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ShareDocumentReq"
+      title: "PrepareShareDocReq"
     }
-    example: { 
-        value: '{"docID": "bribeamount_ID", "userID": "FBI"}'
+    example: {
+      value: '{"docID": "bribeamount_ID", "receiverType": "USER", "receiverIDs": ["FBI"]}'
     }
   };
 
   // The ID of the document to share.
   string docID = 1;
-  // The user ID to share it to.
-  string userID = 2;
+  // The Type of receiver.
+  AccessType receiverType = 2;
+  // The receiver IDs to share it to.
+  repeated string receiverIDs = 3;
+}
+
+message PrepareShareDocumentResp {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+      title: "PrepareShareDocResp"
+    }
+    example: {
+      value: '{"accessMetaData": {"isAccessible": true, "isClientSide": true, "docKeyChain": [{"encKey": "asdf", "encryptorID": "abc123", "ownerID": "person", "keyID": "asdf"}], "isSharable": true}, "encryptors": [{"key": "abc123", "ownerID": "person", "ownerType": "USER", "keyID": "asdf", "version": 1}], "receiversWithDoc": ["receiver1"], "unsharableReceivers": ["receiver2"]}'
+    }
+  };
+
+  // The access metadata of this document
+  DocumentAccessMetadata accessMetaData = 1;
+  // The public keys that the docKey needs to be encrypted with
+  repeated Key encryptors = 2;
+  // Receivers who have access to this document
+  repeated string receiversWithDoc = 3;
+  // Receivers who are not allowed to access this document
+  repeated string unsharableReceivers = 4;
+}
+
+message ShareDocumentReq {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: {
+        title: "ShareDocReq"
+    }
+    example: { 
+        value: '{"docID": "bribeamount_ID", "receiverType": "USER", "receiverID": "FBI", "encDocKey": {"encKey": "asdf", "encryptorID": "abc123", "ownerID": "person", "keyID": "asdf"}}'
+    }
+  };
+
+  // The ID of the document to share.
+  string docID = 1;
+  // The type of receiver
+  AccessType receiverType = 2;
+  // The receiver ID to share it to.
+  string receiverID = 3;
+  // The encrypted document key
+  EncryptedKey encDocKey = 4;
 }
   
 message ShareDocumentResp {
   option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
     json_schema: {
-        title: "ShareDocumentResp"
+        title: "ShareDocResp"
     }
     example: { 
-        value: '{"success": true}'
+        value: '{"success": true, "pubKey": {"key": "abc123", "ownerID": "person", "ownerType": "USER", "keyID": "asdf", "version": 1}, "receiverAlreadyAccessible": false, "receiverUnsharable": false}'
     }
   };
 
   // Whether the share was successful.
   bool success = 1;
+  // The latest public key
+  Key pubKey = 2;
+  // Whether receiver already has access the document
+  bool receiverAlreadyAccessible = 3;
+  // Whether receiver can be shared
+  bool receiverUnsharable = 4;
 }
   
 message UnshareDocumentReq {
@@ -200,14 +248,16 @@ message UnshareDocumentReq {
         title: "UnshareDocumentReq"
     }
     example: { 
-        value: '{"docID": "bribeamount_ID", "userID": "Fox News"}'
+        value: '{"docID": "bribeamount_ID", "receiverType": "USER", "receiverID": "Fox News"}'
     }
   };
 
   // The ID of the document to unshare.
   string docID = 1;
-  // The user ID to share it unshare.
-  string userID = 2;
+  // The type of receiver
+  AccessType receiverType = 2;
+  // The receiver ID to unshare.
+  string receiverID = 3;
 }
   
 message UnshareDocumentResp {
@@ -216,12 +266,16 @@ message UnshareDocumentResp {
         title: "UnshareDocumentResp"
     }
     example: { 
-        value: '{"count": 1}'
+        value: '{"success": true}'
     }
   };
-  
-  // The unshared document count.
-  int64 count = 1;
+
+  // Whether the unshare was successful.
+  bool success = 1;
+  // Whether the receiver was already unshared
+  bool alreadyUnshared = 2;
+  // Whether the unshare is allowed
+  bool allowed = 3;
 }
 
 message ListDocumentsReq {
@@ -230,7 +284,6 @@ message ListDocumentsReq {
         title: "ListDocumentsReq"
     }
   };
-  bool includeDeleted = 1;
 }
 
 message ListDocumentsResp {
