@@ -9075,6 +9075,16 @@ public final class Documents {
      */
     com.google.protobuf.ByteString
         getMacBytes();
+
+    /**
+     * <pre>
+     * Whether or not this user is allowed to share this document. Only used when sharing.
+     * </pre>
+     *
+     * <code>bool isSharable = 5;</code>
+     * @return The isSharable.
+     */
+    boolean getIsSharable();
   }
   /**
    * Protobuf type {@code proto.DocumentAccessMetadata}
@@ -9147,6 +9157,11 @@ public final class Documents {
               java.lang.String s = input.readStringRequireUtf8();
 
               mac_ = s;
+              break;
+            }
+            case 40: {
+
+              isSharable_ = input.readBool();
               break;
             }
             default: {
@@ -9316,6 +9331,20 @@ public final class Documents {
       }
     }
 
+    public static final int ISSHARABLE_FIELD_NUMBER = 5;
+    private boolean isSharable_;
+    /**
+     * <pre>
+     * Whether or not this user is allowed to share this document. Only used when sharing.
+     * </pre>
+     *
+     * <code>bool isSharable = 5;</code>
+     * @return The isSharable.
+     */
+    public boolean getIsSharable() {
+      return isSharable_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9342,6 +9371,9 @@ public final class Documents {
       if (!getMacBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, mac_);
       }
+      if (isSharable_ != false) {
+        output.writeBool(5, isSharable_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -9366,6 +9398,10 @@ public final class Documents {
       if (!getMacBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, mac_);
       }
+      if (isSharable_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isSharable_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9389,6 +9425,8 @@ public final class Documents {
           .equals(other.getDocKeyChainList())) return false;
       if (!getMac()
           .equals(other.getMac())) return false;
+      if (getIsSharable()
+          != other.getIsSharable()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -9412,6 +9450,9 @@ public final class Documents {
       }
       hash = (37 * hash) + MAC_FIELD_NUMBER;
       hash = (53 * hash) + getMac().hashCode();
+      hash = (37 * hash) + ISSHARABLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsSharable());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9558,6 +9599,8 @@ public final class Documents {
         }
         mac_ = "";
 
+        isSharable_ = false;
+
         return this;
       }
 
@@ -9597,6 +9640,7 @@ public final class Documents {
           result.docKeyChain_ = docKeyChainBuilder_.build();
         }
         result.mac_ = mac_;
+        result.isSharable_ = isSharable_;
         onBuilt();
         return result;
       }
@@ -9680,6 +9724,9 @@ public final class Documents {
         if (!other.getMac().isEmpty()) {
           mac_ = other.mac_;
           onChanged();
+        }
+        if (other.getIsSharable() != false) {
+          setIsSharable(other.getIsSharable());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -10217,6 +10264,48 @@ public final class Documents {
   checkByteStringIsUtf8(value);
         
         mac_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean isSharable_ ;
+      /**
+       * <pre>
+       * Whether or not this user is allowed to share this document. Only used when sharing.
+       * </pre>
+       *
+       * <code>bool isSharable = 5;</code>
+       * @return The isSharable.
+       */
+      public boolean getIsSharable() {
+        return isSharable_;
+      }
+      /**
+       * <pre>
+       * Whether or not this user is allowed to share this document. Only used when sharing.
+       * </pre>
+       *
+       * <code>bool isSharable = 5;</code>
+       * @param value The isSharable to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsSharable(boolean value) {
+        
+        isSharable_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether or not this user is allowed to share this document. Only used when sharing.
+       * </pre>
+       *
+       * <code>bool isSharable = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsSharable() {
+        
+        isSharable_ = false;
         onChanged();
         return this;
       }
@@ -14105,6 +14194,2767 @@ public final class Documents {
 
   }
 
+  public interface PrepareShareDocumentReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.PrepareShareDocumentReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * The ID of the document to share.
+     * </pre>
+     *
+     * <code>string docID = 1;</code>
+     * @return The docID.
+     */
+    java.lang.String getDocID();
+    /**
+     * <pre>
+     * The ID of the document to share.
+     * </pre>
+     *
+     * <code>string docID = 1;</code>
+     * @return The bytes for docID.
+     */
+    com.google.protobuf.ByteString
+        getDocIDBytes();
+
+    /**
+     * <pre>
+     * The Type of receiver.
+     * </pre>
+     *
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The enum numeric value on the wire for receiverType.
+     */
+    int getReceiverTypeValue();
+    /**
+     * <pre>
+     * The Type of receiver.
+     * </pre>
+     *
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The receiverType.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType();
+
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @return A list containing the receiverIDs.
+     */
+    java.util.List<java.lang.String>
+        getReceiverIDsList();
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @return The count of receiverIDs.
+     */
+    int getReceiverIDsCount();
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @param index The index of the element to return.
+     * @return The receiverIDs at the given index.
+     */
+    java.lang.String getReceiverIDs(int index);
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the receiverIDs at the given index.
+     */
+    com.google.protobuf.ByteString
+        getReceiverIDsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code proto.PrepareShareDocumentReq}
+   */
+  public  static final class PrepareShareDocumentReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.PrepareShareDocumentReq)
+      PrepareShareDocumentReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PrepareShareDocumentReq.newBuilder() to construct.
+    private PrepareShareDocumentReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PrepareShareDocumentReq() {
+      docID_ = "";
+      receiverType_ = 0;
+      receiverIDs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PrepareShareDocumentReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PrepareShareDocumentReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              docID_ = s;
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              receiverType_ = rawValue;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                receiverIDs_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              receiverIDs_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          receiverIDs_ = receiverIDs_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.class, com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.Builder.class);
+    }
+
+    public static final int DOCID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object docID_;
+    /**
+     * <pre>
+     * The ID of the document to share.
+     * </pre>
+     *
+     * <code>string docID = 1;</code>
+     * @return The docID.
+     */
+    public java.lang.String getDocID() {
+      java.lang.Object ref = docID_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        docID_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The ID of the document to share.
+     * </pre>
+     *
+     * <code>string docID = 1;</code>
+     * @return The bytes for docID.
+     */
+    public com.google.protobuf.ByteString
+        getDocIDBytes() {
+      java.lang.Object ref = docID_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        docID_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RECEIVERTYPE_FIELD_NUMBER = 2;
+    private int receiverType_;
+    /**
+     * <pre>
+     * The Type of receiver.
+     * </pre>
+     *
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The enum numeric value on the wire for receiverType.
+     */
+    public int getReceiverTypeValue() {
+      return receiverType_;
+    }
+    /**
+     * <pre>
+     * The Type of receiver.
+     * </pre>
+     *
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The receiverType.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType() {
+      @SuppressWarnings("deprecation")
+      com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType result = com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.valueOf(receiverType_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
+    }
+
+    public static final int RECEIVERIDS_FIELD_NUMBER = 3;
+    private com.google.protobuf.LazyStringList receiverIDs_;
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @return A list containing the receiverIDs.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getReceiverIDsList() {
+      return receiverIDs_;
+    }
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @return The count of receiverIDs.
+     */
+    public int getReceiverIDsCount() {
+      return receiverIDs_.size();
+    }
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @param index The index of the element to return.
+     * @return The receiverIDs at the given index.
+     */
+    public java.lang.String getReceiverIDs(int index) {
+      return receiverIDs_.get(index);
+    }
+    /**
+     * <pre>
+     * The receiver IDs to share it to.
+     * </pre>
+     *
+     * <code>repeated string receiverIDs = 3;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the receiverIDs at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getReceiverIDsBytes(int index) {
+      return receiverIDs_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDocIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, docID_);
+      }
+      if (receiverType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
+        output.writeEnum(2, receiverType_);
+      }
+      for (int i = 0; i < receiverIDs_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiverIDs_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDocIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, docID_);
+      }
+      if (receiverType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, receiverType_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < receiverIDs_.size(); i++) {
+          dataSize += computeStringSizeNoTag(receiverIDs_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getReceiverIDsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq)) {
+        return super.equals(obj);
+      }
+      com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq other = (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq) obj;
+
+      if (!getDocID()
+          .equals(other.getDocID())) return false;
+      if (receiverType_ != other.receiverType_) return false;
+      if (!getReceiverIDsList()
+          .equals(other.getReceiverIDsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DOCID_FIELD_NUMBER;
+      hash = (53 * hash) + getDocID().hashCode();
+      hash = (37 * hash) + RECEIVERTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + receiverType_;
+      if (getReceiverIDsCount() > 0) {
+        hash = (37 * hash) + RECEIVERIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getReceiverIDsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.PrepareShareDocumentReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.PrepareShareDocumentReq)
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.class, com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.Builder.class);
+      }
+
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        docID_ = "";
+
+        receiverType_ = 0;
+
+        receiverIDs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq build() {
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq result = new com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq(this);
+        int from_bitField0_ = bitField0_;
+        result.docID_ = docID_;
+        result.receiverType_ = receiverType_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          receiverIDs_ = receiverIDs_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.receiverIDs_ = receiverIDs_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance()) return this;
+        if (!other.getDocID().isEmpty()) {
+          docID_ = other.docID_;
+          onChanged();
+        }
+        if (other.receiverType_ != 0) {
+          setReceiverTypeValue(other.getReceiverTypeValue());
+        }
+        if (!other.receiverIDs_.isEmpty()) {
+          if (receiverIDs_.isEmpty()) {
+            receiverIDs_ = other.receiverIDs_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureReceiverIDsIsMutable();
+            receiverIDs_.addAll(other.receiverIDs_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object docID_ = "";
+      /**
+       * <pre>
+       * The ID of the document to share.
+       * </pre>
+       *
+       * <code>string docID = 1;</code>
+       * @return The docID.
+       */
+      public java.lang.String getDocID() {
+        java.lang.Object ref = docID_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          docID_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The ID of the document to share.
+       * </pre>
+       *
+       * <code>string docID = 1;</code>
+       * @return The bytes for docID.
+       */
+      public com.google.protobuf.ByteString
+          getDocIDBytes() {
+        java.lang.Object ref = docID_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          docID_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The ID of the document to share.
+       * </pre>
+       *
+       * <code>string docID = 1;</code>
+       * @param value The docID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDocID(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        docID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The ID of the document to share.
+       * </pre>
+       *
+       * <code>string docID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDocID() {
+        
+        docID_ = getDefaultInstance().getDocID();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The ID of the document to share.
+       * </pre>
+       *
+       * <code>string docID = 1;</code>
+       * @param value The bytes for docID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDocIDBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        docID_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int receiverType_ = 0;
+      /**
+       * <pre>
+       * The Type of receiver.
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return The enum numeric value on the wire for receiverType.
+       */
+      public int getReceiverTypeValue() {
+        return receiverType_;
+      }
+      /**
+       * <pre>
+       * The Type of receiver.
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @param value The enum numeric value on the wire for receiverType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverTypeValue(int value) {
+        receiverType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The Type of receiver.
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return The receiverType.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType() {
+        @SuppressWarnings("deprecation")
+        com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType result = com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.valueOf(receiverType_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * The Type of receiver.
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @param value The receiverType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverType(com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        receiverType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The Type of receiver.
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverType() {
+        
+        receiverType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList receiverIDs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureReceiverIDsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          receiverIDs_ = new com.google.protobuf.LazyStringArrayList(receiverIDs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @return A list containing the receiverIDs.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getReceiverIDsList() {
+        return receiverIDs_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @return The count of receiverIDs.
+       */
+      public int getReceiverIDsCount() {
+        return receiverIDs_.size();
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @param index The index of the element to return.
+       * @return The receiverIDs at the given index.
+       */
+      public java.lang.String getReceiverIDs(int index) {
+        return receiverIDs_.get(index);
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the receiverIDs at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getReceiverIDsBytes(int index) {
+        return receiverIDs_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @param index The index to set the value at.
+       * @param value The receiverIDs to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverIDs(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureReceiverIDsIsMutable();
+        receiverIDs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @param value The receiverIDs to add.
+       * @return This builder for chaining.
+       */
+      public Builder addReceiverIDs(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureReceiverIDsIsMutable();
+        receiverIDs_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @param values The receiverIDs to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllReceiverIDs(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureReceiverIDsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, receiverIDs_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverIDs() {
+        receiverIDs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The receiver IDs to share it to.
+       * </pre>
+       *
+       * <code>repeated string receiverIDs = 3;</code>
+       * @param value The bytes of the receiverIDs to add.
+       * @return This builder for chaining.
+       */
+      public Builder addReceiverIDsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureReceiverIDsIsMutable();
+        receiverIDs_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.PrepareShareDocumentReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.PrepareShareDocumentReq)
+    private static final com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq();
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PrepareShareDocumentReq>
+        PARSER = new com.google.protobuf.AbstractParser<PrepareShareDocumentReq>() {
+      @java.lang.Override
+      public PrepareShareDocumentReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PrepareShareDocumentReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PrepareShareDocumentReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PrepareShareDocumentReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PrepareShareDocumentRespOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.PrepareShareDocumentResp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * The access metadata of this document
+     * </pre>
+     *
+     * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+     * @return Whether the accessMetaData field is set.
+     */
+    boolean hasAccessMetaData();
+    /**
+     * <pre>
+     * The access metadata of this document
+     * </pre>
+     *
+     * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+     * @return The accessMetaData.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata getAccessMetaData();
+    /**
+     * <pre>
+     * The access metadata of this document
+     * </pre>
+     *
+     * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadataOrBuilder getAccessMetaDataOrBuilder();
+
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.Key> 
+        getEncryptorsList();
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.Key getEncryptors(int index);
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    int getEncryptorsCount();
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> 
+        getEncryptorsOrBuilderList();
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getEncryptorsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @return A list containing the receiversWithDoc.
+     */
+    java.util.List<java.lang.String>
+        getReceiversWithDocList();
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @return The count of receiversWithDoc.
+     */
+    int getReceiversWithDocCount();
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @param index The index of the element to return.
+     * @return The receiversWithDoc at the given index.
+     */
+    java.lang.String getReceiversWithDoc(int index);
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the receiversWithDoc at the given index.
+     */
+    com.google.protobuf.ByteString
+        getReceiversWithDocBytes(int index);
+
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @return A list containing the unsharableReceivers.
+     */
+    java.util.List<java.lang.String>
+        getUnsharableReceiversList();
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @return The count of unsharableReceivers.
+     */
+    int getUnsharableReceiversCount();
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @param index The index of the element to return.
+     * @return The unsharableReceivers at the given index.
+     */
+    java.lang.String getUnsharableReceivers(int index);
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the unsharableReceivers at the given index.
+     */
+    com.google.protobuf.ByteString
+        getUnsharableReceiversBytes(int index);
+  }
+  /**
+   * Protobuf type {@code proto.PrepareShareDocumentResp}
+   */
+  public  static final class PrepareShareDocumentResp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.PrepareShareDocumentResp)
+      PrepareShareDocumentRespOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PrepareShareDocumentResp.newBuilder() to construct.
+    private PrepareShareDocumentResp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PrepareShareDocumentResp() {
+      encryptors_ = java.util.Collections.emptyList();
+      receiversWithDoc_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      unsharableReceivers_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PrepareShareDocumentResp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PrepareShareDocumentResp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder subBuilder = null;
+              if (accessMetaData_ != null) {
+                subBuilder = accessMetaData_.toBuilder();
+              }
+              accessMetaData_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(accessMetaData_);
+                accessMetaData_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                encryptors_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.Key>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              encryptors_.add(
+                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.Key.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                receiversWithDoc_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              receiversWithDoc_.add(s);
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                unsharableReceivers_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              unsharableReceivers_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          encryptors_ = java.util.Collections.unmodifiableList(encryptors_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          receiversWithDoc_ = receiversWithDoc_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          unsharableReceivers_ = unsharableReceivers_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentResp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentResp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.class, com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.Builder.class);
+    }
+
+    public static final int ACCESSMETADATA_FIELD_NUMBER = 1;
+    private com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata accessMetaData_;
+    /**
+     * <pre>
+     * The access metadata of this document
+     * </pre>
+     *
+     * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+     * @return Whether the accessMetaData field is set.
+     */
+    public boolean hasAccessMetaData() {
+      return accessMetaData_ != null;
+    }
+    /**
+     * <pre>
+     * The access metadata of this document
+     * </pre>
+     *
+     * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+     * @return The accessMetaData.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata getAccessMetaData() {
+      return accessMetaData_ == null ? com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.getDefaultInstance() : accessMetaData_;
+    }
+    /**
+     * <pre>
+     * The access metadata of this document
+     * </pre>
+     *
+     * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadataOrBuilder getAccessMetaDataOrBuilder() {
+      return getAccessMetaData();
+    }
+
+    public static final int ENCRYPTORS_FIELD_NUMBER = 2;
+    private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.Key> encryptors_;
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.Key> getEncryptorsList() {
+      return encryptors_;
+    }
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> 
+        getEncryptorsOrBuilderList() {
+      return encryptors_;
+    }
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    public int getEncryptorsCount() {
+      return encryptors_.size();
+    }
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.Key getEncryptors(int index) {
+      return encryptors_.get(index);
+    }
+    /**
+     * <pre>
+     * The public keys that the docKey needs to be encrypted with
+     * </pre>
+     *
+     * <code>repeated .proto.Key encryptors = 2;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getEncryptorsOrBuilder(
+        int index) {
+      return encryptors_.get(index);
+    }
+
+    public static final int RECEIVERSWITHDOC_FIELD_NUMBER = 3;
+    private com.google.protobuf.LazyStringList receiversWithDoc_;
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @return A list containing the receiversWithDoc.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getReceiversWithDocList() {
+      return receiversWithDoc_;
+    }
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @return The count of receiversWithDoc.
+     */
+    public int getReceiversWithDocCount() {
+      return receiversWithDoc_.size();
+    }
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @param index The index of the element to return.
+     * @return The receiversWithDoc at the given index.
+     */
+    public java.lang.String getReceiversWithDoc(int index) {
+      return receiversWithDoc_.get(index);
+    }
+    /**
+     * <pre>
+     * Receivers who have access to this document
+     * </pre>
+     *
+     * <code>repeated string receiversWithDoc = 3;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the receiversWithDoc at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getReceiversWithDocBytes(int index) {
+      return receiversWithDoc_.getByteString(index);
+    }
+
+    public static final int UNSHARABLERECEIVERS_FIELD_NUMBER = 4;
+    private com.google.protobuf.LazyStringList unsharableReceivers_;
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @return A list containing the unsharableReceivers.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getUnsharableReceiversList() {
+      return unsharableReceivers_;
+    }
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @return The count of unsharableReceivers.
+     */
+    public int getUnsharableReceiversCount() {
+      return unsharableReceivers_.size();
+    }
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @param index The index of the element to return.
+     * @return The unsharableReceivers at the given index.
+     */
+    public java.lang.String getUnsharableReceivers(int index) {
+      return unsharableReceivers_.get(index);
+    }
+    /**
+     * <pre>
+     * Receivers who are not allowed to access this document
+     * </pre>
+     *
+     * <code>repeated string unsharableReceivers = 4;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the unsharableReceivers at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getUnsharableReceiversBytes(int index) {
+      return unsharableReceivers_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (accessMetaData_ != null) {
+        output.writeMessage(1, getAccessMetaData());
+      }
+      for (int i = 0; i < encryptors_.size(); i++) {
+        output.writeMessage(2, encryptors_.get(i));
+      }
+      for (int i = 0; i < receiversWithDoc_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiversWithDoc_.getRaw(i));
+      }
+      for (int i = 0; i < unsharableReceivers_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, unsharableReceivers_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (accessMetaData_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getAccessMetaData());
+      }
+      for (int i = 0; i < encryptors_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, encryptors_.get(i));
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < receiversWithDoc_.size(); i++) {
+          dataSize += computeStringSizeNoTag(receiversWithDoc_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getReceiversWithDocList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < unsharableReceivers_.size(); i++) {
+          dataSize += computeStringSizeNoTag(unsharableReceivers_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getUnsharableReceiversList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp)) {
+        return super.equals(obj);
+      }
+      com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp other = (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp) obj;
+
+      if (hasAccessMetaData() != other.hasAccessMetaData()) return false;
+      if (hasAccessMetaData()) {
+        if (!getAccessMetaData()
+            .equals(other.getAccessMetaData())) return false;
+      }
+      if (!getEncryptorsList()
+          .equals(other.getEncryptorsList())) return false;
+      if (!getReceiversWithDocList()
+          .equals(other.getReceiversWithDocList())) return false;
+      if (!getUnsharableReceiversList()
+          .equals(other.getUnsharableReceiversList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAccessMetaData()) {
+        hash = (37 * hash) + ACCESSMETADATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAccessMetaData().hashCode();
+      }
+      if (getEncryptorsCount() > 0) {
+        hash = (37 * hash) + ENCRYPTORS_FIELD_NUMBER;
+        hash = (53 * hash) + getEncryptorsList().hashCode();
+      }
+      if (getReceiversWithDocCount() > 0) {
+        hash = (37 * hash) + RECEIVERSWITHDOC_FIELD_NUMBER;
+        hash = (53 * hash) + getReceiversWithDocList().hashCode();
+      }
+      if (getUnsharableReceiversCount() > 0) {
+        hash = (37 * hash) + UNSHARABLERECEIVERS_FIELD_NUMBER;
+        hash = (53 * hash) + getUnsharableReceiversList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.PrepareShareDocumentResp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.PrepareShareDocumentResp)
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentRespOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentResp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentResp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.class, com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.Builder.class);
+      }
+
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getEncryptorsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (accessMetaDataBuilder_ == null) {
+          accessMetaData_ = null;
+        } else {
+          accessMetaData_ = null;
+          accessMetaDataBuilder_ = null;
+        }
+        if (encryptorsBuilder_ == null) {
+          encryptors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          encryptorsBuilder_.clear();
+        }
+        receiversWithDoc_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        unsharableReceivers_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.internal_static_proto_PrepareShareDocumentResp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp build() {
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp result = new com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp(this);
+        int from_bitField0_ = bitField0_;
+        if (accessMetaDataBuilder_ == null) {
+          result.accessMetaData_ = accessMetaData_;
+        } else {
+          result.accessMetaData_ = accessMetaDataBuilder_.build();
+        }
+        if (encryptorsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            encryptors_ = java.util.Collections.unmodifiableList(encryptors_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.encryptors_ = encryptors_;
+        } else {
+          result.encryptors_ = encryptorsBuilder_.build();
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          receiversWithDoc_ = receiversWithDoc_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.receiversWithDoc_ = receiversWithDoc_;
+        if (((bitField0_ & 0x00000004) != 0)) {
+          unsharableReceivers_ = unsharableReceivers_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        }
+        result.unsharableReceivers_ = unsharableReceivers_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance()) return this;
+        if (other.hasAccessMetaData()) {
+          mergeAccessMetaData(other.getAccessMetaData());
+        }
+        if (encryptorsBuilder_ == null) {
+          if (!other.encryptors_.isEmpty()) {
+            if (encryptors_.isEmpty()) {
+              encryptors_ = other.encryptors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureEncryptorsIsMutable();
+              encryptors_.addAll(other.encryptors_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.encryptors_.isEmpty()) {
+            if (encryptorsBuilder_.isEmpty()) {
+              encryptorsBuilder_.dispose();
+              encryptorsBuilder_ = null;
+              encryptors_ = other.encryptors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              encryptorsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEncryptorsFieldBuilder() : null;
+            } else {
+              encryptorsBuilder_.addAllMessages(other.encryptors_);
+            }
+          }
+        }
+        if (!other.receiversWithDoc_.isEmpty()) {
+          if (receiversWithDoc_.isEmpty()) {
+            receiversWithDoc_ = other.receiversWithDoc_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureReceiversWithDocIsMutable();
+            receiversWithDoc_.addAll(other.receiversWithDoc_);
+          }
+          onChanged();
+        }
+        if (!other.unsharableReceivers_.isEmpty()) {
+          if (unsharableReceivers_.isEmpty()) {
+            unsharableReceivers_ = other.unsharableReceivers_;
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            ensureUnsharableReceiversIsMutable();
+            unsharableReceivers_.addAll(other.unsharableReceivers_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata accessMetaData_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadataOrBuilder> accessMetaDataBuilder_;
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       * @return Whether the accessMetaData field is set.
+       */
+      public boolean hasAccessMetaData() {
+        return accessMetaDataBuilder_ != null || accessMetaData_ != null;
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       * @return The accessMetaData.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata getAccessMetaData() {
+        if (accessMetaDataBuilder_ == null) {
+          return accessMetaData_ == null ? com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.getDefaultInstance() : accessMetaData_;
+        } else {
+          return accessMetaDataBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      public Builder setAccessMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata value) {
+        if (accessMetaDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          accessMetaData_ = value;
+          onChanged();
+        } else {
+          accessMetaDataBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      public Builder setAccessMetaData(
+          com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder builderForValue) {
+        if (accessMetaDataBuilder_ == null) {
+          accessMetaData_ = builderForValue.build();
+          onChanged();
+        } else {
+          accessMetaDataBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      public Builder mergeAccessMetaData(com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata value) {
+        if (accessMetaDataBuilder_ == null) {
+          if (accessMetaData_ != null) {
+            accessMetaData_ =
+              com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.newBuilder(accessMetaData_).mergeFrom(value).buildPartial();
+          } else {
+            accessMetaData_ = value;
+          }
+          onChanged();
+        } else {
+          accessMetaDataBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      public Builder clearAccessMetaData() {
+        if (accessMetaDataBuilder_ == null) {
+          accessMetaData_ = null;
+          onChanged();
+        } else {
+          accessMetaData_ = null;
+          accessMetaDataBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder getAccessMetaDataBuilder() {
+        
+        onChanged();
+        return getAccessMetaDataFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadataOrBuilder getAccessMetaDataOrBuilder() {
+        if (accessMetaDataBuilder_ != null) {
+          return accessMetaDataBuilder_.getMessageOrBuilder();
+        } else {
+          return accessMetaData_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.getDefaultInstance() : accessMetaData_;
+        }
+      }
+      /**
+       * <pre>
+       * The access metadata of this document
+       * </pre>
+       *
+       * <code>.proto.DocumentAccessMetadata accessMetaData = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadataOrBuilder> 
+          getAccessMetaDataFieldBuilder() {
+        if (accessMetaDataBuilder_ == null) {
+          accessMetaDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata.Builder, com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadataOrBuilder>(
+                  getAccessMetaData(),
+                  getParentForChildren(),
+                  isClean());
+          accessMetaData_ = null;
+        }
+        return accessMetaDataBuilder_;
+      }
+
+      private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.Key> encryptors_ =
+        java.util.Collections.emptyList();
+      private void ensureEncryptorsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          encryptors_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.Key>(encryptors_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> encryptorsBuilder_;
+
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.Key> getEncryptorsList() {
+        if (encryptorsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(encryptors_);
+        } else {
+          return encryptorsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public int getEncryptorsCount() {
+        if (encryptorsBuilder_ == null) {
+          return encryptors_.size();
+        } else {
+          return encryptorsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key getEncryptors(int index) {
+        if (encryptorsBuilder_ == null) {
+          return encryptors_.get(index);
+        } else {
+          return encryptorsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder setEncryptors(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (encryptorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncryptorsIsMutable();
+          encryptors_.set(index, value);
+          onChanged();
+        } else {
+          encryptorsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder setEncryptors(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder builderForValue) {
+        if (encryptorsBuilder_ == null) {
+          ensureEncryptorsIsMutable();
+          encryptors_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          encryptorsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder addEncryptors(com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (encryptorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncryptorsIsMutable();
+          encryptors_.add(value);
+          onChanged();
+        } else {
+          encryptorsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder addEncryptors(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (encryptorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncryptorsIsMutable();
+          encryptors_.add(index, value);
+          onChanged();
+        } else {
+          encryptorsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder addEncryptors(
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder builderForValue) {
+        if (encryptorsBuilder_ == null) {
+          ensureEncryptorsIsMutable();
+          encryptors_.add(builderForValue.build());
+          onChanged();
+        } else {
+          encryptorsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder addEncryptors(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder builderForValue) {
+        if (encryptorsBuilder_ == null) {
+          ensureEncryptorsIsMutable();
+          encryptors_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          encryptorsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder addAllEncryptors(
+          java.lang.Iterable<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.Key> values) {
+        if (encryptorsBuilder_ == null) {
+          ensureEncryptorsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, encryptors_);
+          onChanged();
+        } else {
+          encryptorsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder clearEncryptors() {
+        if (encryptorsBuilder_ == null) {
+          encryptors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          encryptorsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public Builder removeEncryptors(int index) {
+        if (encryptorsBuilder_ == null) {
+          ensureEncryptorsIsMutable();
+          encryptors_.remove(index);
+          onChanged();
+        } else {
+          encryptorsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder getEncryptorsBuilder(
+          int index) {
+        return getEncryptorsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getEncryptorsOrBuilder(
+          int index) {
+        if (encryptorsBuilder_ == null) {
+          return encryptors_.get(index);  } else {
+          return encryptorsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> 
+           getEncryptorsOrBuilderList() {
+        if (encryptorsBuilder_ != null) {
+          return encryptorsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(encryptors_);
+        }
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder addEncryptorsBuilder() {
+        return getEncryptorsFieldBuilder().addBuilder(
+            com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder addEncryptorsBuilder(
+          int index) {
+        return getEncryptorsFieldBuilder().addBuilder(
+            index, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * The public keys that the docKey needs to be encrypted with
+       * </pre>
+       *
+       * <code>repeated .proto.Key encryptors = 2;</code>
+       */
+      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder> 
+           getEncryptorsBuilderList() {
+        return getEncryptorsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> 
+          getEncryptorsFieldBuilder() {
+        if (encryptorsBuilder_ == null) {
+          encryptorsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder>(
+                  encryptors_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          encryptors_ = null;
+        }
+        return encryptorsBuilder_;
+      }
+
+      private com.google.protobuf.LazyStringList receiversWithDoc_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureReceiversWithDocIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          receiversWithDoc_ = new com.google.protobuf.LazyStringArrayList(receiversWithDoc_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @return A list containing the receiversWithDoc.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getReceiversWithDocList() {
+        return receiversWithDoc_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @return The count of receiversWithDoc.
+       */
+      public int getReceiversWithDocCount() {
+        return receiversWithDoc_.size();
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @param index The index of the element to return.
+       * @return The receiversWithDoc at the given index.
+       */
+      public java.lang.String getReceiversWithDoc(int index) {
+        return receiversWithDoc_.get(index);
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the receiversWithDoc at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getReceiversWithDocBytes(int index) {
+        return receiversWithDoc_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @param index The index to set the value at.
+       * @param value The receiversWithDoc to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiversWithDoc(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureReceiversWithDocIsMutable();
+        receiversWithDoc_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @param value The receiversWithDoc to add.
+       * @return This builder for chaining.
+       */
+      public Builder addReceiversWithDoc(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureReceiversWithDocIsMutable();
+        receiversWithDoc_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @param values The receiversWithDoc to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllReceiversWithDoc(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureReceiversWithDocIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, receiversWithDoc_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiversWithDoc() {
+        receiversWithDoc_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who have access to this document
+       * </pre>
+       *
+       * <code>repeated string receiversWithDoc = 3;</code>
+       * @param value The bytes of the receiversWithDoc to add.
+       * @return This builder for chaining.
+       */
+      public Builder addReceiversWithDocBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureReceiversWithDocIsMutable();
+        receiversWithDoc_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList unsharableReceivers_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureUnsharableReceiversIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          unsharableReceivers_ = new com.google.protobuf.LazyStringArrayList(unsharableReceivers_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @return A list containing the unsharableReceivers.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getUnsharableReceiversList() {
+        return unsharableReceivers_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @return The count of unsharableReceivers.
+       */
+      public int getUnsharableReceiversCount() {
+        return unsharableReceivers_.size();
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @param index The index of the element to return.
+       * @return The unsharableReceivers at the given index.
+       */
+      public java.lang.String getUnsharableReceivers(int index) {
+        return unsharableReceivers_.get(index);
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the unsharableReceivers at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getUnsharableReceiversBytes(int index) {
+        return unsharableReceivers_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @param index The index to set the value at.
+       * @param value The unsharableReceivers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUnsharableReceivers(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureUnsharableReceiversIsMutable();
+        unsharableReceivers_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @param value The unsharableReceivers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addUnsharableReceivers(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureUnsharableReceiversIsMutable();
+        unsharableReceivers_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @param values The unsharableReceivers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllUnsharableReceivers(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureUnsharableReceiversIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, unsharableReceivers_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUnsharableReceivers() {
+        unsharableReceivers_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Receivers who are not allowed to access this document
+       * </pre>
+       *
+       * <code>repeated string unsharableReceivers = 4;</code>
+       * @param value The bytes of the unsharableReceivers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addUnsharableReceiversBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureUnsharableReceiversIsMutable();
+        unsharableReceivers_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.PrepareShareDocumentResp)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.PrepareShareDocumentResp)
+    private static final com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp();
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PrepareShareDocumentResp>
+        PARSER = new com.google.protobuf.AbstractParser<PrepareShareDocumentResp>() {
+      @java.lang.Override
+      public PrepareShareDocumentResp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PrepareShareDocumentResp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PrepareShareDocumentResp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PrepareShareDocumentResp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface ShareDocumentReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.ShareDocumentReq)
       com.google.protobuf.MessageOrBuilder {
@@ -14131,23 +16981,69 @@ public final class Documents {
 
     /**
      * <pre>
-     * The user ID to share it to.
+     * The type of receiver
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The userID.
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The enum numeric value on the wire for receiverType.
      */
-    java.lang.String getUserID();
+    int getReceiverTypeValue();
     /**
      * <pre>
-     * The user ID to share it to.
+     * The type of receiver
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The bytes for userID.
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The receiverType.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType();
+
+    /**
+     * <pre>
+     * The receiver ID to share it to.
+     * </pre>
+     *
+     * <code>string receiverID = 3;</code>
+     * @return The receiverID.
+     */
+    java.lang.String getReceiverID();
+    /**
+     * <pre>
+     * The receiver ID to share it to.
+     * </pre>
+     *
+     * <code>string receiverID = 3;</code>
+     * @return The bytes for receiverID.
      */
     com.google.protobuf.ByteString
-        getUserIDBytes();
+        getReceiverIDBytes();
+
+    /**
+     * <pre>
+     * The encrypted document key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encDocKey = 4;</code>
+     * @return Whether the encDocKey field is set.
+     */
+    boolean hasEncDocKey();
+    /**
+     * <pre>
+     * The encrypted document key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encDocKey = 4;</code>
+     * @return The encDocKey.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncDocKey();
+    /**
+     * <pre>
+     * The encrypted document key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encDocKey = 4;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncDocKeyOrBuilder();
   }
   /**
    * Protobuf type {@code proto.ShareDocumentReq}
@@ -14163,7 +17059,8 @@ public final class Documents {
     }
     private ShareDocumentReq() {
       docID_ = "";
-      userID_ = "";
+      receiverType_ = 0;
+      receiverID_ = "";
     }
 
     @java.lang.Override
@@ -14202,10 +17099,29 @@ public final class Documents {
               docID_ = s;
               break;
             }
-            case 18: {
+            case 16: {
+              int rawValue = input.readEnum();
+
+              receiverType_ = rawValue;
+              break;
+            }
+            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              userID_ = s;
+              receiverID_ = s;
+              break;
+            }
+            case 34: {
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder subBuilder = null;
+              if (encDocKey_ != null) {
+                subBuilder = encDocKey_.toBuilder();
+              }
+              encDocKey_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(encDocKey_);
+                encDocKey_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -14284,48 +17200,110 @@ public final class Documents {
       }
     }
 
-    public static final int USERID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object userID_;
+    public static final int RECEIVERTYPE_FIELD_NUMBER = 2;
+    private int receiverType_;
     /**
      * <pre>
-     * The user ID to share it to.
+     * The type of receiver
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The userID.
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The enum numeric value on the wire for receiverType.
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
+    public int getReceiverTypeValue() {
+      return receiverType_;
+    }
+    /**
+     * <pre>
+     * The type of receiver
+     * </pre>
+     *
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The receiverType.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType() {
+      @SuppressWarnings("deprecation")
+      com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType result = com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.valueOf(receiverType_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
+    }
+
+    public static final int RECEIVERID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object receiverID_;
+    /**
+     * <pre>
+     * The receiver ID to share it to.
+     * </pre>
+     *
+     * <code>string receiverID = 3;</code>
+     * @return The receiverID.
+     */
+    public java.lang.String getReceiverID() {
+      java.lang.Object ref = receiverID_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        userID_ = s;
+        receiverID_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * The user ID to share it to.
+     * The receiver ID to share it to.
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The bytes for userID.
+     * <code>string receiverID = 3;</code>
+     * @return The bytes for receiverID.
      */
     public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
+        getReceiverIDBytes() {
+      java.lang.Object ref = receiverID_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userID_ = b;
+        receiverID_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int ENCDOCKEY_FIELD_NUMBER = 4;
+    private com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey encDocKey_;
+    /**
+     * <pre>
+     * The encrypted document key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encDocKey = 4;</code>
+     * @return Whether the encDocKey field is set.
+     */
+    public boolean hasEncDocKey() {
+      return encDocKey_ != null;
+    }
+    /**
+     * <pre>
+     * The encrypted document key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encDocKey = 4;</code>
+     * @return The encDocKey.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncDocKey() {
+      return encDocKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance() : encDocKey_;
+    }
+    /**
+     * <pre>
+     * The encrypted document key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encDocKey = 4;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncDocKeyOrBuilder() {
+      return getEncDocKey();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14345,8 +17323,14 @@ public final class Documents {
       if (!getDocIDBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, docID_);
       }
-      if (!getUserIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, userID_);
+      if (receiverType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
+        output.writeEnum(2, receiverType_);
+      }
+      if (!getReceiverIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiverID_);
+      }
+      if (encDocKey_ != null) {
+        output.writeMessage(4, getEncDocKey());
       }
       unknownFields.writeTo(output);
     }
@@ -14360,8 +17344,16 @@ public final class Documents {
       if (!getDocIDBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, docID_);
       }
-      if (!getUserIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, userID_);
+      if (receiverType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, receiverType_);
+      }
+      if (!getReceiverIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, receiverID_);
+      }
+      if (encDocKey_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getEncDocKey());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -14380,8 +17372,14 @@ public final class Documents {
 
       if (!getDocID()
           .equals(other.getDocID())) return false;
-      if (!getUserID()
-          .equals(other.getUserID())) return false;
+      if (receiverType_ != other.receiverType_) return false;
+      if (!getReceiverID()
+          .equals(other.getReceiverID())) return false;
+      if (hasEncDocKey() != other.hasEncDocKey()) return false;
+      if (hasEncDocKey()) {
+        if (!getEncDocKey()
+            .equals(other.getEncDocKey())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -14395,8 +17393,14 @@ public final class Documents {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + DOCID_FIELD_NUMBER;
       hash = (53 * hash) + getDocID().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserID().hashCode();
+      hash = (37 * hash) + RECEIVERTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + receiverType_;
+      hash = (37 * hash) + RECEIVERID_FIELD_NUMBER;
+      hash = (53 * hash) + getReceiverID().hashCode();
+      if (hasEncDocKey()) {
+        hash = (37 * hash) + ENCDOCKEY_FIELD_NUMBER;
+        hash = (53 * hash) + getEncDocKey().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -14532,8 +17536,16 @@ public final class Documents {
         super.clear();
         docID_ = "";
 
-        userID_ = "";
+        receiverType_ = 0;
 
+        receiverID_ = "";
+
+        if (encDocKeyBuilder_ == null) {
+          encDocKey_ = null;
+        } else {
+          encDocKey_ = null;
+          encDocKeyBuilder_ = null;
+        }
         return this;
       }
 
@@ -14561,7 +17573,13 @@ public final class Documents {
       public com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq result = new com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq(this);
         result.docID_ = docID_;
-        result.userID_ = userID_;
+        result.receiverType_ = receiverType_;
+        result.receiverID_ = receiverID_;
+        if (encDocKeyBuilder_ == null) {
+          result.encDocKey_ = encDocKey_;
+        } else {
+          result.encDocKey_ = encDocKeyBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -14614,9 +17632,15 @@ public final class Documents {
           docID_ = other.docID_;
           onChanged();
         }
-        if (!other.getUserID().isEmpty()) {
-          userID_ = other.userID_;
+        if (other.receiverType_ != 0) {
+          setReceiverTypeValue(other.getReceiverTypeValue());
+        }
+        if (!other.getReceiverID().isEmpty()) {
+          receiverID_ = other.receiverID_;
           onChanged();
+        }
+        if (other.hasEncDocKey()) {
+          mergeEncDocKey(other.getEncDocKey());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -14743,22 +17767,94 @@ public final class Documents {
         return this;
       }
 
-      private java.lang.Object userID_ = "";
+      private int receiverType_ = 0;
       /**
        * <pre>
-       * The user ID to share it to.
+       * The type of receiver
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @return The userID.
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return The enum numeric value on the wire for receiverType.
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
+      public int getReceiverTypeValue() {
+        return receiverType_;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @param value The enum numeric value on the wire for receiverType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverTypeValue(int value) {
+        receiverType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return The receiverType.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType() {
+        @SuppressWarnings("deprecation")
+        com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType result = com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.valueOf(receiverType_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @param value The receiverType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverType(com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        receiverType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverType() {
+        
+        receiverType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object receiverID_ = "";
+      /**
+       * <pre>
+       * The receiver ID to share it to.
+       * </pre>
+       *
+       * <code>string receiverID = 3;</code>
+       * @return The receiverID.
+       */
+      public java.lang.String getReceiverID() {
+        java.lang.Object ref = receiverID_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          userID_ = s;
+          receiverID_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -14766,20 +17862,20 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The user ID to share it to.
+       * The receiver ID to share it to.
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @return The bytes for userID.
+       * <code>string receiverID = 3;</code>
+       * @return The bytes for receiverID.
        */
       public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
+          getReceiverIDBytes() {
+        java.lang.Object ref = receiverID_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userID_ = b;
+          receiverID_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -14787,56 +17883,211 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The user ID to share it to.
+       * The receiver ID to share it to.
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @param value The userID to set.
+       * <code>string receiverID = 3;</code>
+       * @param value The receiverID to set.
        * @return This builder for chaining.
        */
-      public Builder setUserID(
+      public Builder setReceiverID(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        userID_ = value;
+        receiverID_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The user ID to share it to.
+       * The receiver ID to share it to.
        * </pre>
        *
-       * <code>string userID = 2;</code>
+       * <code>string receiverID = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearUserID() {
+      public Builder clearReceiverID() {
         
-        userID_ = getDefaultInstance().getUserID();
+        receiverID_ = getDefaultInstance().getReceiverID();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The user ID to share it to.
+       * The receiver ID to share it to.
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @param value The bytes for userID to set.
+       * <code>string receiverID = 3;</code>
+       * @param value The bytes for receiverID to set.
        * @return This builder for chaining.
        */
-      public Builder setUserIDBytes(
+      public Builder setReceiverIDBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        userID_ = value;
+        receiverID_ = value;
         onChanged();
         return this;
+      }
+
+      private com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey encDocKey_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> encDocKeyBuilder_;
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       * @return Whether the encDocKey field is set.
+       */
+      public boolean hasEncDocKey() {
+        return encDocKeyBuilder_ != null || encDocKey_ != null;
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       * @return The encDocKey.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncDocKey() {
+        if (encDocKeyBuilder_ == null) {
+          return encDocKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance() : encDocKey_;
+        } else {
+          return encDocKeyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      public Builder setEncDocKey(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encDocKeyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          encDocKey_ = value;
+          onChanged();
+        } else {
+          encDocKeyBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      public Builder setEncDocKey(
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (encDocKeyBuilder_ == null) {
+          encDocKey_ = builderForValue.build();
+          onChanged();
+        } else {
+          encDocKeyBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      public Builder mergeEncDocKey(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encDocKeyBuilder_ == null) {
+          if (encDocKey_ != null) {
+            encDocKey_ =
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.newBuilder(encDocKey_).mergeFrom(value).buildPartial();
+          } else {
+            encDocKey_ = value;
+          }
+          onChanged();
+        } else {
+          encDocKeyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      public Builder clearEncDocKey() {
+        if (encDocKeyBuilder_ == null) {
+          encDocKey_ = null;
+          onChanged();
+        } else {
+          encDocKey_ = null;
+          encDocKeyBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder getEncDocKeyBuilder() {
+        
+        onChanged();
+        return getEncDocKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncDocKeyOrBuilder() {
+        if (encDocKeyBuilder_ != null) {
+          return encDocKeyBuilder_.getMessageOrBuilder();
+        } else {
+          return encDocKey_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance() : encDocKey_;
+        }
+      }
+      /**
+       * <pre>
+       * The encrypted document key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encDocKey = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+          getEncDocKeyFieldBuilder() {
+        if (encDocKeyBuilder_ == null) {
+          encDocKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder>(
+                  getEncDocKey(),
+                  getParentForChildren(),
+                  isClean());
+          encDocKey_ = null;
+        }
+        return encDocKeyBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -14904,6 +18155,53 @@ public final class Documents {
      * @return The success.
      */
     boolean getSuccess();
+
+    /**
+     * <pre>
+     * The latest public key
+     * </pre>
+     *
+     * <code>.proto.Key pubKey = 2;</code>
+     * @return Whether the pubKey field is set.
+     */
+    boolean hasPubKey();
+    /**
+     * <pre>
+     * The latest public key
+     * </pre>
+     *
+     * <code>.proto.Key pubKey = 2;</code>
+     * @return The pubKey.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.Key getPubKey();
+    /**
+     * <pre>
+     * The latest public key
+     * </pre>
+     *
+     * <code>.proto.Key pubKey = 2;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getPubKeyOrBuilder();
+
+    /**
+     * <pre>
+     * Whether receiver already has access the document
+     * </pre>
+     *
+     * <code>bool receiverAlreadyAccessible = 3;</code>
+     * @return The receiverAlreadyAccessible.
+     */
+    boolean getReceiverAlreadyAccessible();
+
+    /**
+     * <pre>
+     * Whether receiver can be shared
+     * </pre>
+     *
+     * <code>bool receiverUnsharable = 4;</code>
+     * @return The receiverUnsharable.
+     */
+    boolean getReceiverUnsharable();
   }
   /**
    * Protobuf type {@code proto.ShareDocumentResp}
@@ -14955,6 +18253,29 @@ public final class Documents {
               success_ = input.readBool();
               break;
             }
+            case 18: {
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder subBuilder = null;
+              if (pubKey_ != null) {
+                subBuilder = pubKey_.toBuilder();
+              }
+              pubKey_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.Key.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pubKey_);
+                pubKey_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 24: {
+
+              receiverAlreadyAccessible_ = input.readBool();
+              break;
+            }
+            case 32: {
+
+              receiverUnsharable_ = input.readBool();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -15001,6 +18322,69 @@ public final class Documents {
       return success_;
     }
 
+    public static final int PUBKEY_FIELD_NUMBER = 2;
+    private com.strongsalt.strongdoc.sdk.proto.Encryption.Key pubKey_;
+    /**
+     * <pre>
+     * The latest public key
+     * </pre>
+     *
+     * <code>.proto.Key pubKey = 2;</code>
+     * @return Whether the pubKey field is set.
+     */
+    public boolean hasPubKey() {
+      return pubKey_ != null;
+    }
+    /**
+     * <pre>
+     * The latest public key
+     * </pre>
+     *
+     * <code>.proto.Key pubKey = 2;</code>
+     * @return The pubKey.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.Key getPubKey() {
+      return pubKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance() : pubKey_;
+    }
+    /**
+     * <pre>
+     * The latest public key
+     * </pre>
+     *
+     * <code>.proto.Key pubKey = 2;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getPubKeyOrBuilder() {
+      return getPubKey();
+    }
+
+    public static final int RECEIVERALREADYACCESSIBLE_FIELD_NUMBER = 3;
+    private boolean receiverAlreadyAccessible_;
+    /**
+     * <pre>
+     * Whether receiver already has access the document
+     * </pre>
+     *
+     * <code>bool receiverAlreadyAccessible = 3;</code>
+     * @return The receiverAlreadyAccessible.
+     */
+    public boolean getReceiverAlreadyAccessible() {
+      return receiverAlreadyAccessible_;
+    }
+
+    public static final int RECEIVERUNSHARABLE_FIELD_NUMBER = 4;
+    private boolean receiverUnsharable_;
+    /**
+     * <pre>
+     * Whether receiver can be shared
+     * </pre>
+     *
+     * <code>bool receiverUnsharable = 4;</code>
+     * @return The receiverUnsharable.
+     */
+    public boolean getReceiverUnsharable() {
+      return receiverUnsharable_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15018,6 +18402,15 @@ public final class Documents {
       if (success_ != false) {
         output.writeBool(1, success_);
       }
+      if (pubKey_ != null) {
+        output.writeMessage(2, getPubKey());
+      }
+      if (receiverAlreadyAccessible_ != false) {
+        output.writeBool(3, receiverAlreadyAccessible_);
+      }
+      if (receiverUnsharable_ != false) {
+        output.writeBool(4, receiverUnsharable_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -15030,6 +18423,18 @@ public final class Documents {
       if (success_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, success_);
+      }
+      if (pubKey_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPubKey());
+      }
+      if (receiverAlreadyAccessible_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, receiverAlreadyAccessible_);
+      }
+      if (receiverUnsharable_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, receiverUnsharable_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -15048,6 +18453,15 @@ public final class Documents {
 
       if (getSuccess()
           != other.getSuccess()) return false;
+      if (hasPubKey() != other.hasPubKey()) return false;
+      if (hasPubKey()) {
+        if (!getPubKey()
+            .equals(other.getPubKey())) return false;
+      }
+      if (getReceiverAlreadyAccessible()
+          != other.getReceiverAlreadyAccessible()) return false;
+      if (getReceiverUnsharable()
+          != other.getReceiverUnsharable()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -15062,6 +18476,16 @@ public final class Documents {
       hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getSuccess());
+      if (hasPubKey()) {
+        hash = (37 * hash) + PUBKEY_FIELD_NUMBER;
+        hash = (53 * hash) + getPubKey().hashCode();
+      }
+      hash = (37 * hash) + RECEIVERALREADYACCESSIBLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getReceiverAlreadyAccessible());
+      hash = (37 * hash) + RECEIVERUNSHARABLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getReceiverUnsharable());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15197,6 +18621,16 @@ public final class Documents {
         super.clear();
         success_ = false;
 
+        if (pubKeyBuilder_ == null) {
+          pubKey_ = null;
+        } else {
+          pubKey_ = null;
+          pubKeyBuilder_ = null;
+        }
+        receiverAlreadyAccessible_ = false;
+
+        receiverUnsharable_ = false;
+
         return this;
       }
 
@@ -15224,6 +18658,13 @@ public final class Documents {
       public com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp result = new com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp(this);
         result.success_ = success_;
+        if (pubKeyBuilder_ == null) {
+          result.pubKey_ = pubKey_;
+        } else {
+          result.pubKey_ = pubKeyBuilder_.build();
+        }
+        result.receiverAlreadyAccessible_ = receiverAlreadyAccessible_;
+        result.receiverUnsharable_ = receiverUnsharable_;
         onBuilt();
         return result;
       }
@@ -15274,6 +18715,15 @@ public final class Documents {
         if (other == com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance()) return this;
         if (other.getSuccess() != false) {
           setSuccess(other.getSuccess());
+        }
+        if (other.hasPubKey()) {
+          mergePubKey(other.getPubKey());
+        }
+        if (other.getReceiverAlreadyAccessible() != false) {
+          setReceiverAlreadyAccessible(other.getReceiverAlreadyAccessible());
+        }
+        if (other.getReceiverUnsharable() != false) {
+          setReceiverUnsharable(other.getReceiverUnsharable());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -15342,6 +18792,245 @@ public final class Documents {
       public Builder clearSuccess() {
         
         success_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.strongsalt.strongdoc.sdk.proto.Encryption.Key pubKey_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> pubKeyBuilder_;
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       * @return Whether the pubKey field is set.
+       */
+      public boolean hasPubKey() {
+        return pubKeyBuilder_ != null || pubKey_ != null;
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       * @return The pubKey.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key getPubKey() {
+        if (pubKeyBuilder_ == null) {
+          return pubKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance() : pubKey_;
+        } else {
+          return pubKeyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      public Builder setPubKey(com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (pubKeyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pubKey_ = value;
+          onChanged();
+        } else {
+          pubKeyBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      public Builder setPubKey(
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder builderForValue) {
+        if (pubKeyBuilder_ == null) {
+          pubKey_ = builderForValue.build();
+          onChanged();
+        } else {
+          pubKeyBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      public Builder mergePubKey(com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (pubKeyBuilder_ == null) {
+          if (pubKey_ != null) {
+            pubKey_ =
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key.newBuilder(pubKey_).mergeFrom(value).buildPartial();
+          } else {
+            pubKey_ = value;
+          }
+          onChanged();
+        } else {
+          pubKeyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      public Builder clearPubKey() {
+        if (pubKeyBuilder_ == null) {
+          pubKey_ = null;
+          onChanged();
+        } else {
+          pubKey_ = null;
+          pubKeyBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder getPubKeyBuilder() {
+        
+        onChanged();
+        return getPubKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getPubKeyOrBuilder() {
+        if (pubKeyBuilder_ != null) {
+          return pubKeyBuilder_.getMessageOrBuilder();
+        } else {
+          return pubKey_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance() : pubKey_;
+        }
+      }
+      /**
+       * <pre>
+       * The latest public key
+       * </pre>
+       *
+       * <code>.proto.Key pubKey = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> 
+          getPubKeyFieldBuilder() {
+        if (pubKeyBuilder_ == null) {
+          pubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder>(
+                  getPubKey(),
+                  getParentForChildren(),
+                  isClean());
+          pubKey_ = null;
+        }
+        return pubKeyBuilder_;
+      }
+
+      private boolean receiverAlreadyAccessible_ ;
+      /**
+       * <pre>
+       * Whether receiver already has access the document
+       * </pre>
+       *
+       * <code>bool receiverAlreadyAccessible = 3;</code>
+       * @return The receiverAlreadyAccessible.
+       */
+      public boolean getReceiverAlreadyAccessible() {
+        return receiverAlreadyAccessible_;
+      }
+      /**
+       * <pre>
+       * Whether receiver already has access the document
+       * </pre>
+       *
+       * <code>bool receiverAlreadyAccessible = 3;</code>
+       * @param value The receiverAlreadyAccessible to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverAlreadyAccessible(boolean value) {
+        
+        receiverAlreadyAccessible_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether receiver already has access the document
+       * </pre>
+       *
+       * <code>bool receiverAlreadyAccessible = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverAlreadyAccessible() {
+        
+        receiverAlreadyAccessible_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean receiverUnsharable_ ;
+      /**
+       * <pre>
+       * Whether receiver can be shared
+       * </pre>
+       *
+       * <code>bool receiverUnsharable = 4;</code>
+       * @return The receiverUnsharable.
+       */
+      public boolean getReceiverUnsharable() {
+        return receiverUnsharable_;
+      }
+      /**
+       * <pre>
+       * Whether receiver can be shared
+       * </pre>
+       *
+       * <code>bool receiverUnsharable = 4;</code>
+       * @param value The receiverUnsharable to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverUnsharable(boolean value) {
+        
+        receiverUnsharable_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether receiver can be shared
+       * </pre>
+       *
+       * <code>bool receiverUnsharable = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverUnsharable() {
+        
+        receiverUnsharable_ = false;
         onChanged();
         return this;
       }
@@ -15424,23 +19113,42 @@ public final class Documents {
 
     /**
      * <pre>
-     * The user ID to share it unshare.
+     * The type of receiver
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The userID.
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The enum numeric value on the wire for receiverType.
      */
-    java.lang.String getUserID();
+    int getReceiverTypeValue();
     /**
      * <pre>
-     * The user ID to share it unshare.
+     * The type of receiver
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The bytes for userID.
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The receiverType.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType();
+
+    /**
+     * <pre>
+     * The receiver ID to unshare.
+     * </pre>
+     *
+     * <code>string receiverID = 3;</code>
+     * @return The receiverID.
+     */
+    java.lang.String getReceiverID();
+    /**
+     * <pre>
+     * The receiver ID to unshare.
+     * </pre>
+     *
+     * <code>string receiverID = 3;</code>
+     * @return The bytes for receiverID.
      */
     com.google.protobuf.ByteString
-        getUserIDBytes();
+        getReceiverIDBytes();
   }
   /**
    * Protobuf type {@code proto.UnshareDocumentReq}
@@ -15456,7 +19164,8 @@ public final class Documents {
     }
     private UnshareDocumentReq() {
       docID_ = "";
-      userID_ = "";
+      receiverType_ = 0;
+      receiverID_ = "";
     }
 
     @java.lang.Override
@@ -15495,10 +19204,16 @@ public final class Documents {
               docID_ = s;
               break;
             }
-            case 18: {
+            case 16: {
+              int rawValue = input.readEnum();
+
+              receiverType_ = rawValue;
+              break;
+            }
+            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              userID_ = s;
+              receiverID_ = s;
               break;
             }
             default: {
@@ -15577,44 +19292,71 @@ public final class Documents {
       }
     }
 
-    public static final int USERID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object userID_;
+    public static final int RECEIVERTYPE_FIELD_NUMBER = 2;
+    private int receiverType_;
     /**
      * <pre>
-     * The user ID to share it unshare.
+     * The type of receiver
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The userID.
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The enum numeric value on the wire for receiverType.
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
+    public int getReceiverTypeValue() {
+      return receiverType_;
+    }
+    /**
+     * <pre>
+     * The type of receiver
+     * </pre>
+     *
+     * <code>.proto.AccessType receiverType = 2;</code>
+     * @return The receiverType.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType() {
+      @SuppressWarnings("deprecation")
+      com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType result = com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.valueOf(receiverType_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
+    }
+
+    public static final int RECEIVERID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object receiverID_;
+    /**
+     * <pre>
+     * The receiver ID to unshare.
+     * </pre>
+     *
+     * <code>string receiverID = 3;</code>
+     * @return The receiverID.
+     */
+    public java.lang.String getReceiverID() {
+      java.lang.Object ref = receiverID_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        userID_ = s;
+        receiverID_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * The user ID to share it unshare.
+     * The receiver ID to unshare.
      * </pre>
      *
-     * <code>string userID = 2;</code>
-     * @return The bytes for userID.
+     * <code>string receiverID = 3;</code>
+     * @return The bytes for receiverID.
      */
     public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
+        getReceiverIDBytes() {
+      java.lang.Object ref = receiverID_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userID_ = b;
+        receiverID_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -15638,8 +19380,11 @@ public final class Documents {
       if (!getDocIDBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, docID_);
       }
-      if (!getUserIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, userID_);
+      if (receiverType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
+        output.writeEnum(2, receiverType_);
+      }
+      if (!getReceiverIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiverID_);
       }
       unknownFields.writeTo(output);
     }
@@ -15653,8 +19398,12 @@ public final class Documents {
       if (!getDocIDBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, docID_);
       }
-      if (!getUserIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, userID_);
+      if (receiverType_ != com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.ORG.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, receiverType_);
+      }
+      if (!getReceiverIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, receiverID_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -15673,8 +19422,9 @@ public final class Documents {
 
       if (!getDocID()
           .equals(other.getDocID())) return false;
-      if (!getUserID()
-          .equals(other.getUserID())) return false;
+      if (receiverType_ != other.receiverType_) return false;
+      if (!getReceiverID()
+          .equals(other.getReceiverID())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -15688,8 +19438,10 @@ public final class Documents {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + DOCID_FIELD_NUMBER;
       hash = (53 * hash) + getDocID().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserID().hashCode();
+      hash = (37 * hash) + RECEIVERTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + receiverType_;
+      hash = (37 * hash) + RECEIVERID_FIELD_NUMBER;
+      hash = (53 * hash) + getReceiverID().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15825,7 +19577,9 @@ public final class Documents {
         super.clear();
         docID_ = "";
 
-        userID_ = "";
+        receiverType_ = 0;
+
+        receiverID_ = "";
 
         return this;
       }
@@ -15854,7 +19608,8 @@ public final class Documents {
       public com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq result = new com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq(this);
         result.docID_ = docID_;
-        result.userID_ = userID_;
+        result.receiverType_ = receiverType_;
+        result.receiverID_ = receiverID_;
         onBuilt();
         return result;
       }
@@ -15907,8 +19662,11 @@ public final class Documents {
           docID_ = other.docID_;
           onChanged();
         }
-        if (!other.getUserID().isEmpty()) {
-          userID_ = other.userID_;
+        if (other.receiverType_ != 0) {
+          setReceiverTypeValue(other.getReceiverTypeValue());
+        }
+        if (!other.getReceiverID().isEmpty()) {
+          receiverID_ = other.receiverID_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -16036,22 +19794,94 @@ public final class Documents {
         return this;
       }
 
-      private java.lang.Object userID_ = "";
+      private int receiverType_ = 0;
       /**
        * <pre>
-       * The user ID to share it unshare.
+       * The type of receiver
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @return The userID.
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return The enum numeric value on the wire for receiverType.
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
+      public int getReceiverTypeValue() {
+        return receiverType_;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @param value The enum numeric value on the wire for receiverType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverTypeValue(int value) {
+        receiverType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return The receiverType.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType getReceiverType() {
+        @SuppressWarnings("deprecation")
+        com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType result = com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.valueOf(receiverType_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @param value The receiverType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReceiverType(com.strongsalt.strongdoc.sdk.proto.Encryption.AccessType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        receiverType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The type of receiver
+       * </pre>
+       *
+       * <code>.proto.AccessType receiverType = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReceiverType() {
+        
+        receiverType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object receiverID_ = "";
+      /**
+       * <pre>
+       * The receiver ID to unshare.
+       * </pre>
+       *
+       * <code>string receiverID = 3;</code>
+       * @return The receiverID.
+       */
+      public java.lang.String getReceiverID() {
+        java.lang.Object ref = receiverID_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          userID_ = s;
+          receiverID_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -16059,20 +19889,20 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The user ID to share it unshare.
+       * The receiver ID to unshare.
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @return The bytes for userID.
+       * <code>string receiverID = 3;</code>
+       * @return The bytes for receiverID.
        */
       public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
+          getReceiverIDBytes() {
+        java.lang.Object ref = receiverID_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userID_ = b;
+          receiverID_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -16080,54 +19910,54 @@ public final class Documents {
       }
       /**
        * <pre>
-       * The user ID to share it unshare.
+       * The receiver ID to unshare.
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @param value The userID to set.
+       * <code>string receiverID = 3;</code>
+       * @param value The receiverID to set.
        * @return This builder for chaining.
        */
-      public Builder setUserID(
+      public Builder setReceiverID(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        userID_ = value;
+        receiverID_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The user ID to share it unshare.
+       * The receiver ID to unshare.
        * </pre>
        *
-       * <code>string userID = 2;</code>
+       * <code>string receiverID = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearUserID() {
+      public Builder clearReceiverID() {
         
-        userID_ = getDefaultInstance().getUserID();
+        receiverID_ = getDefaultInstance().getReceiverID();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The user ID to share it unshare.
+       * The receiver ID to unshare.
        * </pre>
        *
-       * <code>string userID = 2;</code>
-       * @param value The bytes for userID to set.
+       * <code>string receiverID = 3;</code>
+       * @param value The bytes for receiverID to set.
        * @return This builder for chaining.
        */
-      public Builder setUserIDBytes(
+      public Builder setReceiverIDBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        userID_ = value;
+        receiverID_ = value;
         onChanged();
         return this;
       }
@@ -16190,13 +20020,33 @@ public final class Documents {
 
     /**
      * <pre>
-     * The unshared document count.
+     * Whether the unshare was successful.
      * </pre>
      *
-     * <code>int64 count = 1;</code>
-     * @return The count.
+     * <code>bool success = 1;</code>
+     * @return The success.
      */
-    long getCount();
+    boolean getSuccess();
+
+    /**
+     * <pre>
+     * Whether the receiver was already unshared
+     * </pre>
+     *
+     * <code>bool alreadyUnshared = 2;</code>
+     * @return The alreadyUnshared.
+     */
+    boolean getAlreadyUnshared();
+
+    /**
+     * <pre>
+     * Whether the unshare is allowed
+     * </pre>
+     *
+     * <code>bool allowed = 3;</code>
+     * @return The allowed.
+     */
+    boolean getAllowed();
   }
   /**
    * Protobuf type {@code proto.UnshareDocumentResp}
@@ -16245,7 +20095,17 @@ public final class Documents {
               break;
             case 8: {
 
-              count_ = input.readInt64();
+              success_ = input.readBool();
+              break;
+            }
+            case 16: {
+
+              alreadyUnshared_ = input.readBool();
+              break;
+            }
+            case 24: {
+
+              allowed_ = input.readBool();
               break;
             }
             default: {
@@ -16280,18 +20140,46 @@ public final class Documents {
               com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.class, com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.Builder.class);
     }
 
-    public static final int COUNT_FIELD_NUMBER = 1;
-    private long count_;
+    public static final int SUCCESS_FIELD_NUMBER = 1;
+    private boolean success_;
     /**
      * <pre>
-     * The unshared document count.
+     * Whether the unshare was successful.
      * </pre>
      *
-     * <code>int64 count = 1;</code>
-     * @return The count.
+     * <code>bool success = 1;</code>
+     * @return The success.
      */
-    public long getCount() {
-      return count_;
+    public boolean getSuccess() {
+      return success_;
+    }
+
+    public static final int ALREADYUNSHARED_FIELD_NUMBER = 2;
+    private boolean alreadyUnshared_;
+    /**
+     * <pre>
+     * Whether the receiver was already unshared
+     * </pre>
+     *
+     * <code>bool alreadyUnshared = 2;</code>
+     * @return The alreadyUnshared.
+     */
+    public boolean getAlreadyUnshared() {
+      return alreadyUnshared_;
+    }
+
+    public static final int ALLOWED_FIELD_NUMBER = 3;
+    private boolean allowed_;
+    /**
+     * <pre>
+     * Whether the unshare is allowed
+     * </pre>
+     *
+     * <code>bool allowed = 3;</code>
+     * @return The allowed.
+     */
+    public boolean getAllowed() {
+      return allowed_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -16308,8 +20196,14 @@ public final class Documents {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (count_ != 0L) {
-        output.writeInt64(1, count_);
+      if (success_ != false) {
+        output.writeBool(1, success_);
+      }
+      if (alreadyUnshared_ != false) {
+        output.writeBool(2, alreadyUnshared_);
+      }
+      if (allowed_ != false) {
+        output.writeBool(3, allowed_);
       }
       unknownFields.writeTo(output);
     }
@@ -16320,9 +20214,17 @@ public final class Documents {
       if (size != -1) return size;
 
       size = 0;
-      if (count_ != 0L) {
+      if (success_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, count_);
+          .computeBoolSize(1, success_);
+      }
+      if (alreadyUnshared_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, alreadyUnshared_);
+      }
+      if (allowed_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, allowed_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -16339,8 +20241,12 @@ public final class Documents {
       }
       com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp other = (com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp) obj;
 
-      if (getCount()
-          != other.getCount()) return false;
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (getAlreadyUnshared()
+          != other.getAlreadyUnshared()) return false;
+      if (getAllowed()
+          != other.getAllowed()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -16352,9 +20258,15 @@ public final class Documents {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + COUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCount());
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (37 * hash) + ALREADYUNSHARED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAlreadyUnshared());
+      hash = (37 * hash) + ALLOWED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAllowed());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -16488,7 +20400,11 @@ public final class Documents {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        count_ = 0L;
+        success_ = false;
+
+        alreadyUnshared_ = false;
+
+        allowed_ = false;
 
         return this;
       }
@@ -16516,7 +20432,9 @@ public final class Documents {
       @java.lang.Override
       public com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp result = new com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp(this);
-        result.count_ = count_;
+        result.success_ = success_;
+        result.alreadyUnshared_ = alreadyUnshared_;
+        result.allowed_ = allowed_;
         onBuilt();
         return result;
       }
@@ -16565,8 +20483,14 @@ public final class Documents {
 
       public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp other) {
         if (other == com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance()) return this;
-        if (other.getCount() != 0L) {
-          setCount(other.getCount());
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
+        }
+        if (other.getAlreadyUnshared() != false) {
+          setAlreadyUnshared(other.getAlreadyUnshared());
+        }
+        if (other.getAllowed() != false) {
+          setAllowed(other.getAllowed());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -16597,44 +20521,128 @@ public final class Documents {
         return this;
       }
 
-      private long count_ ;
+      private boolean success_ ;
       /**
        * <pre>
-       * The unshared document count.
+       * Whether the unshare was successful.
        * </pre>
        *
-       * <code>int64 count = 1;</code>
-       * @return The count.
+       * <code>bool success = 1;</code>
+       * @return The success.
        */
-      public long getCount() {
-        return count_;
+      public boolean getSuccess() {
+        return success_;
       }
       /**
        * <pre>
-       * The unshared document count.
+       * Whether the unshare was successful.
        * </pre>
        *
-       * <code>int64 count = 1;</code>
-       * @param value The count to set.
+       * <code>bool success = 1;</code>
+       * @param value The success to set.
        * @return This builder for chaining.
        */
-      public Builder setCount(long value) {
+      public Builder setSuccess(boolean value) {
         
-        count_ = value;
+        success_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The unshared document count.
+       * Whether the unshare was successful.
        * </pre>
        *
-       * <code>int64 count = 1;</code>
+       * <code>bool success = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearCount() {
+      public Builder clearSuccess() {
         
-        count_ = 0L;
+        success_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean alreadyUnshared_ ;
+      /**
+       * <pre>
+       * Whether the receiver was already unshared
+       * </pre>
+       *
+       * <code>bool alreadyUnshared = 2;</code>
+       * @return The alreadyUnshared.
+       */
+      public boolean getAlreadyUnshared() {
+        return alreadyUnshared_;
+      }
+      /**
+       * <pre>
+       * Whether the receiver was already unshared
+       * </pre>
+       *
+       * <code>bool alreadyUnshared = 2;</code>
+       * @param value The alreadyUnshared to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAlreadyUnshared(boolean value) {
+        
+        alreadyUnshared_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether the receiver was already unshared
+       * </pre>
+       *
+       * <code>bool alreadyUnshared = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAlreadyUnshared() {
+        
+        alreadyUnshared_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean allowed_ ;
+      /**
+       * <pre>
+       * Whether the unshare is allowed
+       * </pre>
+       *
+       * <code>bool allowed = 3;</code>
+       * @return The allowed.
+       */
+      public boolean getAllowed() {
+        return allowed_;
+      }
+      /**
+       * <pre>
+       * Whether the unshare is allowed
+       * </pre>
+       *
+       * <code>bool allowed = 3;</code>
+       * @param value The allowed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAllowed(boolean value) {
+        
+        allowed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether the unshare is allowed
+       * </pre>
+       *
+       * <code>bool allowed = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAllowed() {
+        
+        allowed_ = false;
         onChanged();
         return this;
       }
@@ -16694,12 +20702,6 @@ public final class Documents {
   public interface ListDocumentsReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.ListDocumentsReq)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>bool includeDeleted = 1;</code>
-     * @return The includeDeleted.
-     */
-    boolean getIncludeDeleted();
   }
   /**
    * Protobuf type {@code proto.ListDocumentsReq}
@@ -16746,11 +20748,6 @@ public final class Documents {
             case 0:
               done = true;
               break;
-            case 8: {
-
-              includeDeleted_ = input.readBool();
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -16783,16 +20780,6 @@ public final class Documents {
               com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.class, com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.Builder.class);
     }
 
-    public static final int INCLUDEDELETED_FIELD_NUMBER = 1;
-    private boolean includeDeleted_;
-    /**
-     * <code>bool includeDeleted = 1;</code>
-     * @return The includeDeleted.
-     */
-    public boolean getIncludeDeleted() {
-      return includeDeleted_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -16807,9 +20794,6 @@ public final class Documents {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (includeDeleted_ != false) {
-        output.writeBool(1, includeDeleted_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -16819,10 +20803,6 @@ public final class Documents {
       if (size != -1) return size;
 
       size = 0;
-      if (includeDeleted_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, includeDeleted_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -16838,8 +20818,6 @@ public final class Documents {
       }
       com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq other = (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq) obj;
 
-      if (getIncludeDeleted()
-          != other.getIncludeDeleted()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -16851,9 +20829,6 @@ public final class Documents {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + INCLUDEDELETED_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIncludeDeleted());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -16987,8 +20962,6 @@ public final class Documents {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        includeDeleted_ = false;
-
         return this;
       }
 
@@ -17015,7 +20988,6 @@ public final class Documents {
       @java.lang.Override
       public com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq result = new com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq(this);
-        result.includeDeleted_ = includeDeleted_;
         onBuilt();
         return result;
       }
@@ -17064,9 +21036,6 @@ public final class Documents {
 
       public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq other) {
         if (other == com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.getDefaultInstance()) return this;
-        if (other.getIncludeDeleted() != false) {
-          setIncludeDeleted(other.getIncludeDeleted());
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -17093,36 +21062,6 @@ public final class Documents {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private boolean includeDeleted_ ;
-      /**
-       * <code>bool includeDeleted = 1;</code>
-       * @return The includeDeleted.
-       */
-      public boolean getIncludeDeleted() {
-        return includeDeleted_;
-      }
-      /**
-       * <code>bool includeDeleted = 1;</code>
-       * @param value The includeDeleted to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIncludeDeleted(boolean value) {
-        
-        includeDeleted_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool includeDeleted = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIncludeDeleted() {
-        
-        includeDeleted_ = false;
-        onChanged();
         return this;
       }
       @java.lang.Override
@@ -24090,6 +28029,16 @@ public final class Documents {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_DownloadDocResp_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_PrepareShareDocumentReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_PrepareShareDocumentReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_PrepareShareDocumentResp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_PrepareShareDocumentResp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_ShareDocumentReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -24186,69 +28135,103 @@ public final class Documents {
       "pareDownloadDocReq\022\r\n\005docID\030\001 \001(\t\"[\n\032E2E" +
       "EPrepareDownloadDocResp\022=\n\026documentAcces" +
       "sMetadata\030\001 \001(\0132\035.proto.DocumentAccessMe" +
-      "tadata\"{\n\026DocumentAccessMetadata\022\024\n\014isAc" +
-      "cessible\030\001 \001(\010\022\024\n\014isClientSide\030\002 \001(\010\022(\n\013" +
-      "docKeyChain\030\003 \003(\0132\023.proto.EncryptedKey\022\013" +
-      "\n\003mac\030\004 \001(\t\")\n\030E2EEDownloadDocStreamReq\022" +
-      "\r\n\005docID\030\001 \001(\t\"/\n\031E2EEDownloadDocStreamR" +
-      "esp\022\022\n\ncipherText\030\001 \001(\014\"\214\001\n\014UploadDocReq" +
-      "\022\017\n\007docName\030\001 \001(\t\022\021\n\tplaintext\030\002 \001(\t:X\222A" +
-      "U\n\016*\014UploadDocReq2C\022A{\"docName\": \"bribea" +
-      "mount\", \"plaintext\": \"I paid 1M to Volod" +
-      "ymyr\"}\"S\n\rUploadDocResp\022\r\n\005docID\030\001 \001(\t:3" +
-      "\222A0\n\017*\rUploadDocResp2\035\022\033{\"docID\": \"bribe" +
-      "amount_ID\"}\"U\n\016DownloadDocReq\022\r\n\005docID\030\001" +
-      " \001(\t:4\222A1\n\020*\016DownloadDocReq2\035\022\033{\"docID\":" +
-      " \"bribeamount_ID\"}\"\220\001\n\017DownloadDocResp\022\r" +
-      "\n\005docID\030\001 \001(\t\022\021\n\tplaintext\030\002 \001(\t:[\222AX\n\020*" +
-      "\016DownloadDocReq2D\022B{\"docID\": \"bribeamoun" +
-      "t_ID\", \"plaintext\": \"I paid 1M to Volody" +
-      "myr\"}\"z\n\020ShareDocumentReq\022\r\n\005docID\030\001 \001(\t" +
-      "\022\016\n\006userID\030\002 \001(\t:G\222AD\n\022*\020ShareDocumentRe" +
-      "q2.\022,{\"docID\": \"bribeamount_ID\", \"userID" +
-      "\": \"FBI\"}\"S\n\021ShareDocumentResp\022\017\n\007succes" +
-      "s\030\001 \001(\010:-\222A*\n\023*\021ShareDocumentResp2\023\022\021{\"s" +
-      "uccess\": true}\"\203\001\n\022UnshareDocumentReq\022\r\n" +
-      "\005docID\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t:N\222AK\n\024*\022Uns" +
-      "hareDocumentReq23\0221{\"docID\": \"bribeamoun" +
-      "t_ID\", \"userID\": \"Fox News\"}\"P\n\023UnshareD" +
-      "ocumentResp\022\r\n\005count\030\001 \001(\003:*\222A\'\n\025*\023Unsha" +
-      "reDocumentResp2\016\022\014{\"count\": 1}\"C\n\020ListDo" +
-      "cumentsReq\022\026\n\016includeDeleted\030\001 \001(\010:\027\222A\024\n" +
-      "\022*\020ListDocumentsReq\"\327\002\n\021ListDocumentsRes" +
-      "p\0224\n\tdocuments\030\001 \003(\0132!.proto.ListDocumen" +
-      "tsResp.Document\032\226\001\n\010Document\022\r\n\005docID\030\001 " +
-      "\001(\t\022\017\n\007docName\030\002 \001(\t\022\014\n\004size\030\003 \001(\004\022-\n\tcr" +
-      "eatedAt\030\004 \001(\0132\032.google.protobuf.Timestam" +
-      "p\022-\n\tdeletedAt\030\005 \001(\0132\032.google.protobuf.T" +
-      "imestamp:s\222Ap\n\023*\021ListDocumentsResp2Y\022W{\"" +
-      "documents\": [{\"docID\": \"bribeamount_ID\"," +
-      " \"docName\": \"bribeamount.pdf\", \"size\": 5" +
-      "61}]}\"[\n\021RemoveDocumentReq\022\r\n\005docID\030\001 \001(" +
-      "\t:7\222A4\n\023*\021RemoveDocumentReq2\035\022\033{\"docID\":" +
-      " \"bribeamount_ID\"}\"S\n\022RemoveDocumentResp" +
-      "\022\016\n\006status\030\001 \001(\010:-\222A*\n\024*\022RemoveDocumentR" +
-      "esp2\022\022\020{\"status\": true}\"\377\001\n\027ListDocActio" +
-      "nHistoryReq\022\r\n\005docID\030\001 \001(\t\022\016\n\006userID\030\002 \001" +
-      "(\t\0223\n\017actionStartTime\030\003 \001(\0132\032.google.pro" +
-      "tobuf.Timestamp\0221\n\ractionEndTime\030\004 \001(\0132\032" +
-      ".google.protobuf.Timestamp\022\014\n\004page\030\005 \001(\005" +
-      "\022\020\n\010per_page\030\006 \001(\005:=\222A:\n\031*\027ListDocAction" +
-      "HistoryReq2\035\022\033{\"docID\": \"bribeamount_ID\"" +
-      "}\"\312\003\n\030ListDocActionHistoryResp\022N\n\024DocAct" +
-      "ionHistoryList\030\001 \003(\01320.proto.ListDocActi" +
-      "onHistoryResp.DocActionHistory\022\030\n\020Result" +
-      "TotalCount\030\002 \001(\005\022\016\n\006Offset\030\003 \001(\005\032\233\001\n\020Doc" +
-      "ActionHistory\022\r\n\005docID\030\001 \001(\t\022\016\n\006userID\030\002" +
-      " \001(\t\022\017\n\007docName\030\003 \001(\t\022.\n\nactionTime\030\004 \001(" +
-      "\0132\032.google.protobuf.Timestamp\022\022\n\nactionT" +
-      "ype\030\005 \001(\t\022\023\n\013OtherUserID\030\006 \001(\t:\225\001\222A\221\001\n\032*" +
-      "\030ListDocActionHistoryResp2s\022q{\"DocAction" +
-      "HistoryList\":[{\"userName\": \"Donald Trump" +
-      "\", \"userID\": \"donald.trump@whitehouse.go" +
-      "v\", \"isAdmin\": true}]}B2\n\"com.strongsalt" +
-      ".strongdoc.sdk.protoB\tDocuments\210\001\001b\006prot" +
-      "o3"
+      "tadata\"\217\001\n\026DocumentAccessMetadata\022\024\n\014isA" +
+      "ccessible\030\001 \001(\010\022\024\n\014isClientSide\030\002 \001(\010\022(\n" +
+      "\013docKeyChain\030\003 \003(\0132\023.proto.EncryptedKey\022" +
+      "\013\n\003mac\030\004 \001(\t\022\022\n\nisSharable\030\005 \001(\010\")\n\030E2EE" +
+      "DownloadDocStreamReq\022\r\n\005docID\030\001 \001(\t\"/\n\031E" +
+      "2EEDownloadDocStreamResp\022\022\n\ncipherText\030\001" +
+      " \001(\014\"\214\001\n\014UploadDocReq\022\017\n\007docName\030\001 \001(\t\022\021" +
+      "\n\tplaintext\030\002 \001(\t:X\222AU\n\016*\014UploadDocReq2C" +
+      "\022A{\"docName\": \"bribeamount\", \"plaintext\"" +
+      ": \"I paid 1M to Volodymyr\"}\"S\n\rUploadDoc" +
+      "Resp\022\r\n\005docID\030\001 \001(\t:3\222A0\n\017*\rUploadDocRes" +
+      "p2\035\022\033{\"docID\": \"bribeamount_ID\"}\"U\n\016Down" +
+      "loadDocReq\022\r\n\005docID\030\001 \001(\t:4\222A1\n\020*\016Downlo" +
+      "adDocReq2\035\022\033{\"docID\": \"bribeamount_ID\"}\"" +
+      "\220\001\n\017DownloadDocResp\022\r\n\005docID\030\001 \001(\t\022\021\n\tpl" +
+      "aintext\030\002 \001(\t:[\222AX\n\020*\016DownloadDocReq2D\022B" +
+      "{\"docID\": \"bribeamount_ID\", \"plaintext\":" +
+      " \"I paid 1M to Volodymyr\"}\"\320\001\n\027PrepareSh" +
+      "areDocumentReq\022\r\n\005docID\030\001 \001(\t\022\'\n\014receive" +
+      "rType\030\002 \001(\0162\021.proto.AccessType\022\023\n\013receiv" +
+      "erIDs\030\003 \003(\t:h\222Ae\n\024*\022PrepareShareDocReq2M" +
+      "\022K{\"docID\": \"bribeamount_ID\", \"receiverT" +
+      "ype\": \"USER\", \"receiverIDs\": [\"FBI\"]}\"\271\004" +
+      "\n\030PrepareShareDocumentResp\0225\n\016accessMeta" +
+      "Data\030\001 \001(\0132\035.proto.DocumentAccessMetadat" +
+      "a\022\036\n\nencryptors\030\002 \003(\0132\n.proto.Key\022\030\n\020rec" +
+      "eiversWithDoc\030\003 \003(\t\022\033\n\023unsharableReceive" +
+      "rs\030\004 \003(\t:\216\003\222A\212\003\n\025*\023PrepareShareDocResp2\360" +
+      "\002\022\355\002{\"accessMetaData\": {\"isAccessible\": " +
+      "true, \"isClientSide\": true, \"docKeyChain" +
+      "\": [{\"encKey\": \"asdf\", \"encryptorID\": \"a" +
+      "bc123\", \"ownerID\": \"person\", \"keyID\": \"a" +
+      "sdf\"}], \"isSharable\": true}, \"encryptors" +
+      "\": [{\"key\": \"abc123\", \"ownerID\": \"person" +
+      "\", \"ownerType\": \"USER\", \"keyID\": \"asdf\"," +
+      " \"version\": 1}], \"receiversWithDoc\": [\"r" +
+      "eceiver1\"], \"unsharableReceivers\": [\"rec" +
+      "eiver2\"]}\"\312\002\n\020ShareDocumentReq\022\r\n\005docID\030" +
+      "\001 \001(\t\022\'\n\014receiverType\030\002 \001(\0162\021.proto.Acce" +
+      "ssType\022\022\n\nreceiverID\030\003 \001(\t\022&\n\tencDocKey\030" +
+      "\004 \001(\0132\023.proto.EncryptedKey:\301\001\222A\275\001\n\r*\013Sha" +
+      "reDocReq2\253\001\022\250\001{\"docID\": \"bribeamount_ID\"" +
+      ", \"receiverType\": \"USER\", \"receiverID\": " +
+      "\"FBI\", \"encDocKey\": {\"encKey\": \"asdf\", \"" +
+      "encryptorID\": \"abc123\", \"ownerID\": \"pers" +
+      "on\", \"keyID\": \"asdf\"}}\"\324\002\n\021ShareDocument" +
+      "Resp\022\017\n\007success\030\001 \001(\010\022\032\n\006pubKey\030\002 \001(\0132\n." +
+      "proto.Key\022!\n\031receiverAlreadyAccessible\030\003" +
+      " \001(\010\022\032\n\022receiverUnsharable\030\004 \001(\010:\322\001\222A\316\001\n" +
+      "\016*\014ShareDocResp2\273\001\022\270\001{\"success\": true, \"" +
+      "pubKey\": {\"key\": \"abc123\", \"ownerID\": \"p" +
+      "erson\", \"ownerType\": \"USER\", \"keyID\": \"a" +
+      "sdf\", \"version\": 1}, \"receiverAlreadyAcc" +
+      "essible\": false, \"receiverUnsharable\": f" +
+      "alse}\"\314\001\n\022UnshareDocumentReq\022\r\n\005docID\030\001 " +
+      "\001(\t\022\'\n\014receiverType\030\002 \001(\0162\021.proto.Access" +
+      "Type\022\022\n\nreceiverID\030\003 \001(\t:j\222Ag\n\024*\022Unshare" +
+      "DocumentReq2O\022M{\"docID\": \"bribeamount_ID" +
+      "\", \"receiverType\": \"USER\", \"receiverID\":" +
+      " \"Fox News\"}\"\201\001\n\023UnshareDocumentResp\022\017\n\007" +
+      "success\030\001 \001(\010\022\027\n\017alreadyUnshared\030\002 \001(\010\022\017" +
+      "\n\007allowed\030\003 \001(\010:/\222A,\n\025*\023UnshareDocumentR" +
+      "esp2\023\022\021{\"success\": true}\"+\n\020ListDocument" +
+      "sReq:\027\222A\024\n\022*\020ListDocumentsReq\"\327\002\n\021ListDo" +
+      "cumentsResp\0224\n\tdocuments\030\001 \003(\0132!.proto.L" +
+      "istDocumentsResp.Document\032\226\001\n\010Document\022\r" +
+      "\n\005docID\030\001 \001(\t\022\017\n\007docName\030\002 \001(\t\022\014\n\004size\030\003" +
+      " \001(\004\022-\n\tcreatedAt\030\004 \001(\0132\032.google.protobu" +
+      "f.Timestamp\022-\n\tdeletedAt\030\005 \001(\0132\032.google." +
+      "protobuf.Timestamp:s\222Ap\n\023*\021ListDocuments" +
+      "Resp2Y\022W{\"documents\": [{\"docID\": \"bribea" +
+      "mount_ID\", \"docName\": \"bribeamount.pdf\"," +
+      " \"size\": 561}]}\"[\n\021RemoveDocumentReq\022\r\n\005" +
+      "docID\030\001 \001(\t:7\222A4\n\023*\021RemoveDocumentReq2\035\022" +
+      "\033{\"docID\": \"bribeamount_ID\"}\"S\n\022RemoveDo" +
+      "cumentResp\022\016\n\006status\030\001 \001(\010:-\222A*\n\024*\022Remov" +
+      "eDocumentResp2\022\022\020{\"status\": true}\"\377\001\n\027Li" +
+      "stDocActionHistoryReq\022\r\n\005docID\030\001 \001(\t\022\016\n\006" +
+      "userID\030\002 \001(\t\0223\n\017actionStartTime\030\003 \001(\0132\032." +
+      "google.protobuf.Timestamp\0221\n\ractionEndTi" +
+      "me\030\004 \001(\0132\032.google.protobuf.Timestamp\022\014\n\004" +
+      "page\030\005 \001(\005\022\020\n\010per_page\030\006 \001(\005:=\222A:\n\031*\027Lis" +
+      "tDocActionHistoryReq2\035\022\033{\"docID\": \"bribe" +
+      "amount_ID\"}\"\312\003\n\030ListDocActionHistoryResp" +
+      "\022N\n\024DocActionHistoryList\030\001 \003(\01320.proto.L" +
+      "istDocActionHistoryResp.DocActionHistory" +
+      "\022\030\n\020ResultTotalCount\030\002 \001(\005\022\016\n\006Offset\030\003 \001" +
+      "(\005\032\233\001\n\020DocActionHistory\022\r\n\005docID\030\001 \001(\t\022\016" +
+      "\n\006userID\030\002 \001(\t\022\017\n\007docName\030\003 \001(\t\022.\n\nactio" +
+      "nTime\030\004 \001(\0132\032.google.protobuf.Timestamp\022" +
+      "\022\n\nactionType\030\005 \001(\t\022\023\n\013OtherUserID\030\006 \001(\t" +
+      ":\225\001\222A\221\001\n\032*\030ListDocActionHistoryResp2s\022q{" +
+      "\"DocActionHistoryList\":[{\"userName\": \"Do" +
+      "nald Trump\", \"userID\": \"donald.trump@whi" +
+      "tehouse.gov\", \"isAdmin\": true}]}B2\n\"com." +
+      "strongsalt.strongdoc.sdk.protoB\tDocument" +
+      "s\210\001\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -24334,7 +28317,7 @@ public final class Documents {
     internal_static_proto_DocumentAccessMetadata_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_DocumentAccessMetadata_descriptor,
-        new java.lang.String[] { "IsAccessible", "IsClientSide", "DocKeyChain", "Mac", });
+        new java.lang.String[] { "IsAccessible", "IsClientSide", "DocKeyChain", "Mac", "IsSharable", });
     internal_static_proto_E2EEDownloadDocStreamReq_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_proto_E2EEDownloadDocStreamReq_fieldAccessorTable = new
@@ -24371,38 +28354,50 @@ public final class Documents {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_DownloadDocResp_descriptor,
         new java.lang.String[] { "DocID", "Plaintext", });
-    internal_static_proto_ShareDocumentReq_descriptor =
+    internal_static_proto_PrepareShareDocumentReq_descriptor =
       getDescriptor().getMessageTypes().get(15);
+    internal_static_proto_PrepareShareDocumentReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_PrepareShareDocumentReq_descriptor,
+        new java.lang.String[] { "DocID", "ReceiverType", "ReceiverIDs", });
+    internal_static_proto_PrepareShareDocumentResp_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_proto_PrepareShareDocumentResp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_PrepareShareDocumentResp_descriptor,
+        new java.lang.String[] { "AccessMetaData", "Encryptors", "ReceiversWithDoc", "UnsharableReceivers", });
+    internal_static_proto_ShareDocumentReq_descriptor =
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_ShareDocumentReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ShareDocumentReq_descriptor,
-        new java.lang.String[] { "DocID", "UserID", });
+        new java.lang.String[] { "DocID", "ReceiverType", "ReceiverID", "EncDocKey", });
     internal_static_proto_ShareDocumentResp_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_proto_ShareDocumentResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ShareDocumentResp_descriptor,
-        new java.lang.String[] { "Success", });
+        new java.lang.String[] { "Success", "PubKey", "ReceiverAlreadyAccessible", "ReceiverUnsharable", });
     internal_static_proto_UnshareDocumentReq_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_proto_UnshareDocumentReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UnshareDocumentReq_descriptor,
-        new java.lang.String[] { "DocID", "UserID", });
+        new java.lang.String[] { "DocID", "ReceiverType", "ReceiverID", });
     internal_static_proto_UnshareDocumentResp_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_proto_UnshareDocumentResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UnshareDocumentResp_descriptor,
-        new java.lang.String[] { "Count", });
+        new java.lang.String[] { "Success", "AlreadyUnshared", "Allowed", });
     internal_static_proto_ListDocumentsReq_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_proto_ListDocumentsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocumentsReq_descriptor,
-        new java.lang.String[] { "IncludeDeleted", });
+        new java.lang.String[] { });
     internal_static_proto_ListDocumentsResp_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_proto_ListDocumentsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocumentsResp_descriptor,
@@ -24414,25 +28409,25 @@ public final class Documents {
         internal_static_proto_ListDocumentsResp_Document_descriptor,
         new java.lang.String[] { "DocID", "DocName", "Size", "CreatedAt", "DeletedAt", });
     internal_static_proto_RemoveDocumentReq_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_proto_RemoveDocumentReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveDocumentReq_descriptor,
         new java.lang.String[] { "DocID", });
     internal_static_proto_RemoveDocumentResp_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_proto_RemoveDocumentResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveDocumentResp_descriptor,
         new java.lang.String[] { "Status", });
     internal_static_proto_ListDocActionHistoryReq_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_proto_ListDocActionHistoryReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocActionHistoryReq_descriptor,
         new java.lang.String[] { "DocID", "UserID", "ActionStartTime", "ActionEndTime", "Page", "PerPage", });
     internal_static_proto_ListDocActionHistoryResp_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_proto_ListDocActionHistoryResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListDocActionHistoryResp_descriptor,

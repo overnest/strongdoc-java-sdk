@@ -864,6 +864,37 @@ public final class StrongDocServiceGrpc {
     return getDecryptDocumentMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq,
+      com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> getPrepareShareDocumentMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "PrepareShareDocument",
+      requestType = com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.class,
+      responseType = com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq,
+      com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> getPrepareShareDocumentMethod() {
+    io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq, com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> getPrepareShareDocumentMethod;
+    if ((getPrepareShareDocumentMethod = StrongDocServiceGrpc.getPrepareShareDocumentMethod) == null) {
+      synchronized (StrongDocServiceGrpc.class) {
+        if ((getPrepareShareDocumentMethod = StrongDocServiceGrpc.getPrepareShareDocumentMethod) == null) {
+          StrongDocServiceGrpc.getPrepareShareDocumentMethod = getPrepareShareDocumentMethod =
+              io.grpc.MethodDescriptor.<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq, com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "PrepareShareDocument"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance()))
+              .setSchemaDescriptor(new StrongDocServiceMethodDescriptorSupplier("PrepareShareDocument"))
+              .build();
+        }
+      }
+    }
+    return getPrepareShareDocumentMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq,
       com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp> getShareDocumentMethod;
 
@@ -2031,6 +2062,17 @@ public final class StrongDocServiceGrpc {
 
     /**
      * <pre>
+     * PrepareShare a document to another user
+     * Requires Login
+     * </pre>
+     */
+    public void prepareShareDocument(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq request,
+        io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> responseObserver) {
+      asyncUnimplementedUnaryCall(getPrepareShareDocumentMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Share a document to another user
      * Requires Login
      * </pre>
@@ -2519,6 +2561,13 @@ public final class StrongDocServiceGrpc {
                 com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq,
                 com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp>(
                   this, METHODID_DECRYPT_DOCUMENT)))
+          .addMethod(
+            getPrepareShareDocumentMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq,
+                com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp>(
+                  this, METHODID_PREPARE_SHARE_DOCUMENT)))
           .addMethod(
             getShareDocumentMethod(),
             asyncUnaryCall(
@@ -3055,6 +3104,18 @@ public final class StrongDocServiceGrpc {
         io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getDecryptDocumentMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * PrepareShare a document to another user
+     * Requires Login
+     * </pre>
+     */
+    public void prepareShareDocument(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq request,
+        io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getPrepareShareDocumentMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -3665,6 +3726,17 @@ public final class StrongDocServiceGrpc {
 
     /**
      * <pre>
+     * PrepareShare a document to another user
+     * Requires Login
+     * </pre>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp prepareShareDocument(com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq request) {
+      return blockingUnaryCall(
+          getChannel(), getPrepareShareDocumentMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Share a document to another user
      * Requires Login
      * </pre>
@@ -4241,6 +4313,18 @@ public final class StrongDocServiceGrpc {
 
     /**
      * <pre>
+     * PrepareShare a document to another user
+     * Requires Login
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> prepareShareDocument(
+        com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getPrepareShareDocumentMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Share a document to another user
      * Requires Login
      * </pre>
@@ -4588,36 +4672,37 @@ public final class StrongDocServiceGrpc {
   private static final int METHODID_DOWNLOAD_DOCUMENT = 20;
   private static final int METHODID_ENCRYPT_DOCUMENT = 21;
   private static final int METHODID_DECRYPT_DOCUMENT = 22;
-  private static final int METHODID_SHARE_DOCUMENT = 23;
-  private static final int METHODID_UNSHARE_DOCUMENT = 24;
-  private static final int METHODID_LIST_DOC_ACTION_HISTORY = 25;
-  private static final int METHODID_LOGIN = 26;
-  private static final int METHODID_PREPARE_LOGIN = 27;
-  private static final int METHODID_SRP_INIT = 28;
-  private static final int METHODID_SRP_PROOF = 29;
-  private static final int METHODID_LOGOUT = 30;
-  private static final int METHODID_SEARCH = 31;
-  private static final int METHODID_ADD_SHARABLE_ORG = 32;
-  private static final int METHODID_REMOVE_SHARABLE_ORG = 33;
-  private static final int METHODID_SET_MULTI_LEVEL_SHARING = 34;
-  private static final int METHODID_SET_ACCOUNT_INFO = 35;
-  private static final int METHODID_GET_BILLING_DETAILS = 36;
-  private static final int METHODID_GET_BILLING_FREQUENCY_LIST = 37;
-  private static final int METHODID_SET_NEXT_BILLING_FREQUENCY = 38;
-  private static final int METHODID_GET_LARGE_TRAFFIC = 39;
-  private static final int METHODID_GET_ACCOUNT_INFO = 40;
-  private static final int METHODID_GET_USER_INFO = 41;
-  private static final int METHODID_CHANGE_USER_PASSWORD = 42;
-  private static final int METHODID_SET_USER_INFO = 43;
-  private static final int METHODID_LIST_CREDIT_CARDS = 44;
-  private static final int METHODID_ADD_PAYMENT_METHOD = 45;
-  private static final int METHODID_SET_DEFAULT_PAYMENT_METHOD = 46;
-  private static final int METHODID_REMOVE_PAYMENT_METHOD = 47;
-  private static final int METHODID_LIST_PAYMENTS = 48;
-  private static final int METHODID_UPLOAD_DOCUMENT_STREAM = 49;
-  private static final int METHODID_E2EEUPLOAD_DOCUMENT_STREAM = 50;
-  private static final int METHODID_ENCRYPT_DOCUMENT_STREAM = 51;
-  private static final int METHODID_DECRYPT_DOCUMENT_STREAM = 52;
+  private static final int METHODID_PREPARE_SHARE_DOCUMENT = 23;
+  private static final int METHODID_SHARE_DOCUMENT = 24;
+  private static final int METHODID_UNSHARE_DOCUMENT = 25;
+  private static final int METHODID_LIST_DOC_ACTION_HISTORY = 26;
+  private static final int METHODID_LOGIN = 27;
+  private static final int METHODID_PREPARE_LOGIN = 28;
+  private static final int METHODID_SRP_INIT = 29;
+  private static final int METHODID_SRP_PROOF = 30;
+  private static final int METHODID_LOGOUT = 31;
+  private static final int METHODID_SEARCH = 32;
+  private static final int METHODID_ADD_SHARABLE_ORG = 33;
+  private static final int METHODID_REMOVE_SHARABLE_ORG = 34;
+  private static final int METHODID_SET_MULTI_LEVEL_SHARING = 35;
+  private static final int METHODID_SET_ACCOUNT_INFO = 36;
+  private static final int METHODID_GET_BILLING_DETAILS = 37;
+  private static final int METHODID_GET_BILLING_FREQUENCY_LIST = 38;
+  private static final int METHODID_SET_NEXT_BILLING_FREQUENCY = 39;
+  private static final int METHODID_GET_LARGE_TRAFFIC = 40;
+  private static final int METHODID_GET_ACCOUNT_INFO = 41;
+  private static final int METHODID_GET_USER_INFO = 42;
+  private static final int METHODID_CHANGE_USER_PASSWORD = 43;
+  private static final int METHODID_SET_USER_INFO = 44;
+  private static final int METHODID_LIST_CREDIT_CARDS = 45;
+  private static final int METHODID_ADD_PAYMENT_METHOD = 46;
+  private static final int METHODID_SET_DEFAULT_PAYMENT_METHOD = 47;
+  private static final int METHODID_REMOVE_PAYMENT_METHOD = 48;
+  private static final int METHODID_LIST_PAYMENTS = 49;
+  private static final int METHODID_UPLOAD_DOCUMENT_STREAM = 50;
+  private static final int METHODID_E2EEUPLOAD_DOCUMENT_STREAM = 51;
+  private static final int METHODID_ENCRYPT_DOCUMENT_STREAM = 52;
+  private static final int METHODID_DECRYPT_DOCUMENT_STREAM = 53;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -4727,6 +4812,10 @@ public final class StrongDocServiceGrpc {
         case METHODID_DECRYPT_DOCUMENT:
           serviceImpl.decryptDocument((com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq) request,
               (io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp>) responseObserver);
+          break;
+        case METHODID_PREPARE_SHARE_DOCUMENT:
+          serviceImpl.prepareShareDocument((com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq) request,
+              (io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp>) responseObserver);
           break;
         case METHODID_SHARE_DOCUMENT:
           serviceImpl.shareDocument((com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq) request,
@@ -4932,6 +5021,7 @@ public final class StrongDocServiceGrpc {
               .addMethod(getEncryptDocumentMethod())
               .addMethod(getDecryptDocumentStreamMethod())
               .addMethod(getDecryptDocumentMethod())
+              .addMethod(getPrepareShareDocumentMethod())
               .addMethod(getShareDocumentMethod())
               .addMethod(getUnshareDocumentMethod())
               .addMethod(getListDocActionHistoryMethod())

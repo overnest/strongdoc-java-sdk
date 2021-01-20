@@ -1,10 +1,7 @@
 package com.strongsalt.strongdoc.sdk.api;
 
 import com.google.common.io.ByteStreams;
-import com.strongsalt.strongdoc.sdk.api.responses.DocumentInfo;
-import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentStreamResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
+import com.strongsalt.strongdoc.sdk.api.responses.*;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import org.junit.jupiter.api.*;
 
@@ -50,7 +47,10 @@ class StrongDocDocumentTest {
         client1 = StrongDocTestSetupAndTearDown.initClient();
         client2 = StrongDocTestSetupAndTearDown.initClient();
 
-        TestData registerOrgRes = StrongDocTestSetupAndTearDown.registerOrgAndUser(client1, 2, 1);
+        TestData registerOrgRes = StrongDocTestSetupAndTearDown.initData(2, 1);
+        StrongDocTestSetupAndTearDown.hardRemoveOrgs(registerOrgRes.testOrgs);
+        StrongDocTestSetupAndTearDown.registerOrgAndUser(client1, registerOrgRes);
+
         testOrg1 = registerOrgRes.testOrgs[0];
         testOrg1Admin = registerOrgRes.testUsers[0][0];
         testOrg2 = registerOrgRes.testOrgs[1];
@@ -73,7 +73,6 @@ class StrongDocDocumentTest {
     @AfterAll
     @DisplayName("Hard Remove organizations")
     void tearDown() throws Exception {
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(new TestOrg[]{testOrg1, testOrg2});
         client1.shutdown();
         client2.shutdown();
     }
@@ -153,7 +152,8 @@ class StrongDocDocumentTest {
     @Order(5)
     @DisplayName("Share Document")
     void shareDocument() throws Exception {
-        final boolean success = document.shareDocument(client1, uploadDocID, testOrg2Admin.userEmail);
+        ShareDocumentResponse resp = document.bulkShareDocWithUsers(client1, uploadDocID, Arrays.asList(testOrg2Admin.userEmail));
+        boolean success = resp.getSharedReceivers().contains(testOrg2Admin.userEmail);
         System.out.printf("Shared doc successfully? %b\n\n", success);
 
         assertTrue(success);
@@ -163,10 +163,13 @@ class StrongDocDocumentTest {
     @Order(6)
     @DisplayName("Unshare Document")
     void unshareDocument() throws Exception {
-        final long count = document.unshareDocument(client1, uploadDocID, testOrg2Admin.userEmail);
-        System.out.printf("Unshared doc successfully? %b\n\n", count > 0);
+        final UnshareDocumentResponse resp = document.unshareDocumentWithUser(client1, uploadDocID, testOrg2Admin.userEmail);
+        System.out.printf("Unshared doc successfully? %b\n\n", resp.getSuccess());
 
-        assertTrue(count > 0);
+        assertTrue(resp.getSuccess());
+        assertTrue(resp.getAllowed());
+        assertTrue(!resp.getAlreadyUnshared());
+
     }
 
     @Test

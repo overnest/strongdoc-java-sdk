@@ -10,29 +10,19 @@ import com.strongsalt.crypto.exception.StrongSaltKeyException;
 import com.strongsalt.crypto.key.StrongSaltKey;
 import com.strongsalt.crypto.key.midstream.Decryptor;
 import com.strongsalt.crypto.key.midstream.Encryptor;
-import com.strongsalt.strongdoc.sdk.api.responses.DocumentInfo;
-import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.EncryptDocumentStreamResponse;
-import com.strongsalt.strongdoc.sdk.api.responses.UploadDocumentResponse;
+import com.strongsalt.strongdoc.sdk.api.responses.*;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Documents;
-import com.strongsalt.strongdoc.sdk.proto.Documents.DocumentAccessMetadata;
-import com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp;
-import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp;
-import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq;
-import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp;
-import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp;
-import com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp;
+import com.strongsalt.strongdoc.sdk.proto.Documents.*;
 import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.EncKeyList;
 import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.PostMetaDataType;
 import com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.UploadRespStageDataCase;
 import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore;
-import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp;
-import com.strongsalt.strongdoc.sdk.proto.Encryption.Key;
+import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey;
-
+import com.strongsalt.strongdoc.sdk.proto.Encryption.Key;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
@@ -738,52 +728,159 @@ public class StrongDocDocument {
 
     // ---------------------------------- ShareDocument ----------------------------------
 
+    public ShareDocumentResponse bulkShareDocWithUsers(final StrongDocServiceClient client,
+                                                       final String docID,
+                                                       final List<String> receiverIDs) throws StatusRuntimeException, StrongSaltKeyException {
+        return bulkShareDoc(client, docID, receiverIDs, Encryption.AccessType.USER);
+    }
+
+    public ShareDocumentResponse bulkShareDocWithOrgs(final StrongDocServiceClient client,
+                                                      final String docID,
+                                                      final List<String> receiverIDs) throws StatusRuntimeException, StrongSaltKeyException {
+        return bulkShareDoc(client, docID, receiverIDs, Encryption.AccessType.ORG);
+    }
+
+
     /**
-     * Shares a document to another user.
+     * Shares a document to another org or user.
      *
-     * @param client The StrongDoc client used to call this API.
-     * @param docID  The ID of the document to share.
-     * @param userID The user ID to share it to.
-     * @return Whether the operation was successful.
+     * @param client       The StrongDoc client used to call this API.
+     * @param docID        The ID of the document to share.
+     * @param receiverIDs  The receiver IDs to share it to.
+     * @param receiverType The receiver Type
+     * @return ShareDocumentResponse
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public Boolean shareDocument(final StrongDocServiceClient client,
-                                 final String docID,
-                                 final String userID)
-            throws StatusRuntimeException {
+    public ShareDocumentResponse bulkShareDoc(final StrongDocServiceClient client,
+                                              final String docID,
+                                              final List<String> receiverIDs,
+                                              Encryption.AccessType receiverType) throws StatusRuntimeException, StrongSaltKeyException {
+        final Documents.PrepareShareDocumentReq.Builder prepareShareBuilder = Documents.PrepareShareDocumentReq.newBuilder();
+        prepareShareBuilder.setDocID(docID);
+        prepareShareBuilder.setReceiverType(receiverType);
+        prepareShareBuilder.addAllReceiverIDs(receiverIDs);
 
-        final Documents.ShareDocumentReq req = Documents.ShareDocumentReq.newBuilder()
-                .setDocID(docID)
-                .setUserID(userID)
-                .build();
-        final Documents.ShareDocumentResp res = client.getBlockingStub().shareDocument(req);
-        return res.getSuccess();
+        final Documents.PrepareShareDocumentResp prepareShareRes = client.getBlockingStub()
+                .prepareShareDocument(prepareShareBuilder.build());
+
+        // user has no access to the doc or cannot share the document
+        DocumentAccessMetadata accessMetadata = prepareShareRes.getAccessMetaData();
+        ShareDocumentResponse res = new ShareDocumentResponse(accessMetadata.getIsAccessible(), accessMetadata.getIsSharable());
+        if (!accessMetadata.getIsAccessible() || !accessMetadata.getIsSharable()) {
+            return res;
+        }
+        // receivers who already have access, no need to share
+        for (String alreadySharedReceiver : prepareShareRes.getReceiversWithDocList()) {
+            res.addAlreadyAccessibleReceivers(alreadySharedReceiver);
+        }
+        // receivers who cannot be shared with this doc
+        for (String unsharableReciever : prepareShareRes.getUnsharableReceiversList()) {
+            res.addUnsharableReceiver(unsharableReciever);
+        }
+        // the document is encrypted on client side
+        if (accessMetadata.getIsClientSide()) {
+            StrongDocDocument.DecryptedProtoKey decryptedProtoKey = decryptKeyChain(client, accessMetadata.getDocKeyChainList());
+            byte[] docKeyBytes = decryptedProtoKey.keyBytes;
+            String keyID = decryptedProtoKey.keyID;
+            int keyVersion = decryptedProtoKey.keyVersion;
+
+            for (Key encryptor : prepareShareRes.getEncryptorsList()) {
+
+                while (true) {
+                    byte[] keyBytes = Base64.getUrlDecoder().decode(encryptor.getKey());
+                    StrongSaltKey pubKey = StrongSaltKey.Deserialize(keyBytes);
+
+                    byte[] encDocKeyBytes = pubKey.encrypt(docKeyBytes);
+                    Documents.ShareDocumentReq shareDocumentReq = Documents.ShareDocumentReq.newBuilder()
+                            .setDocID(docID)
+                            .setReceiverType(receiverType)
+                            .setReceiverID(encryptor.getOwnerID())
+                            .setEncDocKey(EncryptedKey.newBuilder()
+                                    .setEncryptorID(encryptor.getKeyID())
+                                    .setEncKey(Base64.getUrlEncoder().encodeToString(encDocKeyBytes))
+                                    .setEncryptorVersion(encryptor.getVersion())
+                                    .setKeyID(keyID)
+                                    .setKeyVersion(keyVersion)
+                                    .build())
+                            .build();
+                    final Documents.ShareDocumentResp shareDocRes = client.getBlockingStub()
+                            .shareDocument(shareDocumentReq);
+                    if (shareDocRes.getPubKey() != null && shareDocRes.getPubKey().getKey().length() > 0) {
+                        System.out.println(shareDocRes);
+                        encryptor = shareDocRes.getPubKey();
+                    } else {
+                        if (shareDocRes.getSuccess()) {
+                            res.addSharedReceivers(encryptor.getOwnerID());
+                        } else if (shareDocRes.getReceiverUnsharable()) {
+                            res.addUnsharableReceiver(encryptor.getOwnerID());
+                        } else if (shareDocRes.getReceiverAlreadyAccessible()) {
+                            res.addAlreadyAccessibleReceivers(encryptor.getOwnerID());
+                        }
+                        break;
+                    }
+                }
+            }
+        } else {
+            // the document is encrypted on server side
+            for (String receiverID : receiverIDs) {
+                Documents.ShareDocumentReq shareDocumentReq = Documents.ShareDocumentReq.newBuilder()
+                        .setDocID(docID)
+                        .setReceiverType(receiverType)
+                        .setReceiverID(receiverID)
+                        .build();
+                final Documents.ShareDocumentResp shareDocRes = client.getBlockingStub()
+                        .shareDocument(shareDocumentReq);
+                if (shareDocRes.getReceiverUnsharable()) {
+                    res.addUnsharableReceiver(receiverID);
+                } else if (shareDocRes.getReceiverAlreadyAccessible()) {
+                    res.addAlreadyAccessibleReceivers(receiverID);
+                } else if (shareDocRes.getSuccess()) {
+                    res.addSharedReceivers(receiverID);
+                }
+            }
+        }
+        return res;
     }
 
     // ---------------------------------- UnshareDocument ----------------------------------
 
+    public UnshareDocumentResponse unshareDocumentWithUser(final StrongDocServiceClient client,
+                                                           final String docID,
+                                                           final String receiverID) {
+        return unshareDocument(client, docID, receiverID, Encryption.AccessType.USER);
+    }
+
+    public UnshareDocumentResponse unshareDocumentWithOrg(final StrongDocServiceClient client,
+                                                          final String docID,
+                                                          final String receiverID) {
+        return unshareDocument(client, docID, receiverID, Encryption.AccessType.ORG);
+    }
+
     /**
      * Unshares a document that had previously been shared to a user.
      *
-     * @param client The StrongDoc client used to call this API.
-     * @param docID  The ID of the document to unshare.
-     * @param userID The user ID to unshare it to.
-     * @return The unshared document count.
+     * @param client       The StrongDoc client used to call this API.
+     * @param docID        The ID of the document to unshare.
+     * @param receiverID   The receiver ID to unshare it to.
+     * @param receiverType The receiver Type
+     * @return UnshareDocumentResponse
      * @throws StatusRuntimeException on gRPC errors
      * @see StatusRuntimeException io.grpc
      */
-    public long unshareDocument(final StrongDocServiceClient client,
-                                final String docID,
-                                final String userID)
+    public UnshareDocumentResponse unshareDocument(final StrongDocServiceClient client,
+                                                   final String docID,
+                                                   final String receiverID,
+                                                   final Encryption.AccessType receiverType)
             throws StatusRuntimeException {
 
         final Documents.UnshareDocumentReq req = Documents.UnshareDocumentReq.newBuilder()
                 .setDocID(docID)
-                .setUserID(userID)
+                .setReceiverID(receiverID)
+                .setReceiverType(receiverType)
                 .build();
         final Documents.UnshareDocumentResp res = client.getBlockingStub().unshareDocument(req);
-        return res.getCount();
+        return new UnshareDocumentResponse(res.getSuccess(), res.getAllowed(), res.getAlreadyUnshared());
     }
 
     // ---------------------------------- ListDocuments ----------------------------------

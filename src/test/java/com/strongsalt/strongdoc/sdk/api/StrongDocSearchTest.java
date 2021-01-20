@@ -29,7 +29,10 @@ class StrongDocSearchTest {
     void setUp() throws Exception {
         client = StrongDocTestSetupAndTearDown.initClient();
 
-        TestData testData = StrongDocTestSetupAndTearDown.registerOrgAndUser(client, 1, 1);
+        TestData testData = StrongDocTestSetupAndTearDown.initData(1, 1);
+        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
+        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
+
         testOrg = testData.testOrgs[0];
         testOrgAdmin = testData.testUsers[0][0];
 
@@ -40,7 +43,6 @@ class StrongDocSearchTest {
     @AfterAll
     @DisplayName("Hard Remove organizations")
     void tearDown() throws Exception {
-        StrongDocTestSetupAndTearDown.hardRemoveOrg(testOrg);
         client.shutdown();
     }
 

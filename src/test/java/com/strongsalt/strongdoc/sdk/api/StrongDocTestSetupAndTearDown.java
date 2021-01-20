@@ -20,7 +20,10 @@ public class StrongDocTestSetupAndTearDown {
     }
 
     // initialize test data
-    public static TestData initData(int numOfOrgs, int numOfUsers) {
+    public static TestData initData(int numOfOrgs, int numOfUsers) throws Exception {
+        if (numOfOrgs <= 0 || numOfUsers <= 0) {
+            throw new Exception("numOfOrgs or numOfUsers invalid");
+        }
         TestOrg[] testOrgs = new TestOrg[numOfOrgs];
         TestUser[][] testUsers = new TestUser[numOfOrgs][numOfUsers];
 
@@ -47,14 +50,12 @@ public class StrongDocTestSetupAndTearDown {
     }
 
     // register org and user(s)
-    public static TestData registerOrgAndUser(StrongDocServiceClient client, int numOfOrgs, int numOfUsers) throws Exception {
+    public static void registerOrgAndUser(StrongDocServiceClient client, TestData data) throws Exception {
         final StrongDocAccount account = new StrongDocAccount();
-        if (numOfOrgs <= 0 || numOfUsers <= 0) {
-            throw new Exception("numOfOrgs or numOfUsers invalid");
-        }
-        TestData data = initData(numOfOrgs, numOfUsers);
         TestOrg testOrgs[] = data.testOrgs;
         TestUser testUsers[][] = data.testUsers;
+        int numOfOrgs = testOrgs.length;
+        int numOfUsers = testUsers[0].length;
         for (int i = 0; i < numOfOrgs; i++) {
             // register org and admin
             RegisterOrganizationResponse registerOrgResp = account.registerOrganization(
@@ -62,9 +63,10 @@ public class StrongDocTestSetupAndTearDown {
                     testOrgs[i].orgName, testOrgs[i].orgEmail, testOrgs[i].orgAddr,
                     testUsers[i][0].userName, testUsers[i][0].password, testUsers[i][0].userEmail,
                     new String[]{}, false, SOURCE, SOURCE_DATA);
+            testOrgs[i].orgID = registerOrgResp.getOrgID();
             testUsers[i][0].userID = registerOrgResp.getUserID();
         }
-        if (numOfUsers == 1) return data;
+        if (numOfUsers == 1) return;
         for (int i = 0; i < numOfOrgs; i++) {
             boolean loginRes = account.login(client, testOrgs[i].orgName, testUsers[i][0].userEmail, testUsers[i][0].password);
             assertTrue(loginRes);
@@ -82,7 +84,7 @@ public class StrongDocTestSetupAndTearDown {
             assertTrue(status.contains("successfully"));
 
         }
-        return data;
+        return;
     }
 
     // hard remove organizations
