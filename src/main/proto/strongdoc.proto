@@ -199,6 +199,24 @@ service StrongDocService {
     };
   }
 
+  // Sets the user's authentication metadata
+  //
+  // Requires Login
+  rpc SetUserAuthMetadata(SetUserAuthMetadataReq) returns (SetUserAuthMetadataResp) {
+    option (google.api.http) = {
+      post: "/v1/document/setUserAuthMetadata"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKeyAuth";
+          value: {};
+        }
+      };
+    };
+  }
+
   // rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp) {
   //   option (google.api.http) = {
   //     post: "/v1/account/getuserinfo"
@@ -556,6 +574,16 @@ service StrongDocService {
   rpc PrepareLogin(PrepareLoginReq) returns (PrepareLoginResp) {
     option (google.api.http) = {
       post: "/v1/auth/prepareLogin"
+      body: "*"
+    };
+  }
+
+  // Obtain the metadata needed to attempt to authenticate with a specified user
+  //
+  // Requires Login
+  rpc PrepareAuth(PrepareAuthReq) returns (PrepareAuthResp) {
+    option (google.api.http) = {
+      post: "/v1/auth/prepareAuth"
       body: "*"
     };
   }
