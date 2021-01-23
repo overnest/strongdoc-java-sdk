@@ -24,20 +24,18 @@ class StrongDocBillingTest {
     @BeforeAll
     @DisplayName("Register organization and admin")
     void setUp() throws Exception {
-        client = StrongDocTestSetupAndTearDown.initClient();
-
-        TestData testData = StrongDocTestSetupAndTearDown.initData(1, 1);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
-
+        TestData testData = StrongDocTestSetup.preTest(1, 1);
+        testData.doRegistration();
         testOrg = testData.testOrgs[0];
         testOrgAdmin = testData.testUsers[0][0];
 
+        // init client
+        client = StrongDocTestSetup.initClient();
         client.login(testOrg.orgName, testOrgAdmin.userEmail, testOrgAdmin.password);
     }
 
     @AfterAll
-    @DisplayName("Hard Remove organizations")
+    @DisplayName("Test tear down")
     void tearDown() throws Exception {
         client.shutdown();
     }

@@ -44,12 +44,11 @@ class StrongDocDocumentTest {
     @BeforeAll
     @DisplayName("Register organization and obtain token")
     void setUp() throws Exception {
-        client1 = StrongDocTestSetupAndTearDown.initClient();
-        client2 = StrongDocTestSetupAndTearDown.initClient();
+        TestData registerOrgRes = StrongDocTestSetup.preTest(2, 1);
+        registerOrgRes.doRegistration();
 
-        TestData registerOrgRes = StrongDocTestSetupAndTearDown.initData(2, 1);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(registerOrgRes.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client1, registerOrgRes);
+        client1 = StrongDocTestSetup.initClient();
+        client2 = StrongDocTestSetup.initClient();
 
         testOrg1 = registerOrgRes.testOrgs[0];
         testOrg1Admin = registerOrgRes.testUsers[0][0];
@@ -71,7 +70,7 @@ class StrongDocDocumentTest {
     }
 
     @AfterAll
-    @DisplayName("Hard Remove organizations")
+    @DisplayName("Test tear down")
     void tearDown() throws Exception {
         client1.shutdown();
         client2.shutdown();

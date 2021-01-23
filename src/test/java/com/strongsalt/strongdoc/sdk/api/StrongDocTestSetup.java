@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * - hard remove organization
  */
 
-public class StrongDocTestSetupAndTearDown {
+public class StrongDocTestSetup {
     // init StrongDocServiceClient
     public static StrongDocServiceClient initClient() throws Exception {
         return StrongDocServiceClient.createStrongDocServiceClient(location);
     }
 
     // initialize test data
-    public static TestData initData(int numOfOrgs, int numOfUsers) throws Exception {
+    public static TestData preTest(int numOfOrgs, int numOfUsers) throws Exception {
         if (numOfOrgs <= 0 || numOfUsers <= 0) {
             throw new Exception("numOfOrgs or numOfUsers invalid");
         }
@@ -42,6 +42,8 @@ public class StrongDocTestSetupAndTearDown {
                         .build();
             }
         }
+        // hard remove organizations before testing
+        StrongDocTestSetup.hardRemoveOrgs(testOrgs);
 
         return new TestData.Builder()
                 .setTestOrgs(testOrgs)
@@ -68,8 +70,7 @@ public class StrongDocTestSetupAndTearDown {
         }
         if (numOfUsers == 1) return;
         for (int i = 0; i < numOfOrgs; i++) {
-            boolean loginRes = account.login(client, testOrgs[i].orgName, testUsers[i][0].userEmail, testUsers[i][0].password);
-            assertTrue(loginRes);
+            account.login(client, testOrgs[i].orgName, testUsers[i][0].userEmail, testUsers[i][0].password);
             for (int j = 1; j < numOfUsers; j++) {
                 boolean inviteUserRes = account.InviteUser(client, testUsers[i][j].userEmail, 120);
                 assertTrue(inviteUserRes);
@@ -88,7 +89,7 @@ public class StrongDocTestSetupAndTearDown {
     }
 
     // hard remove organizations
-    public static void hardRemoveOrgs(TestOrg[] testOrgs) throws Exception {
+    private static void hardRemoveOrgs(TestOrg[] testOrgs) throws Exception {
         InternalServiceManager manager = InternalServiceManager.getInstance();
         String token = manager.superUserLogin();
         for (TestOrg testOrg : testOrgs) {
@@ -96,10 +97,5 @@ public class StrongDocTestSetupAndTearDown {
         }
         manager.superUserLogout(token);
         InternalServiceManager.shutDownService();
-    }
-
-    // hard remove one organization
-    public static void hardRemoveOrg(TestOrg testOrg) throws Exception {
-        hardRemoveOrgs(new TestOrg[]{testOrg});
     }
 }

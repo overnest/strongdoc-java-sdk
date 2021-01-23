@@ -12,8 +12,10 @@ import com.strongsalt.crypto.key.StrongSaltKey;
 import com.strongsalt.crypto.pake.srp.SRP;
 import com.strongsalt.crypto.pake.srp.SRPClient;
 import com.strongsalt.crypto.pake.srp.SRPSession;
+import com.strongsalt.crypto.pake.srp.Verifier;
 import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Account;
+import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import com.strongsalt.strongdoc.sdk.proto.StrongDocServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.StatusRuntimeException;
@@ -26,7 +28,9 @@ import io.netty.handler.ssl.SslContextBuilder;
 import javax.net.ssl.SSLException;
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -88,9 +92,10 @@ public class StrongDocServiceClient {
     }
 
     private final ServiceLocation location;
-    private String authToken = null;
-    private StrongSaltKey passwordKey = null;
-    private String passwordKeyID = null;
+    private String authToken;
+    private StrongSaltKey passwordKey;
+    private String passwordKeyID;
+    private String userID;
     private final ManagedChannel channel;
     private final StrongDocServiceGrpc.StrongDocServiceBlockingStub blockingStub;
     private final StrongDocServiceGrpc.StrongDocServiceStub asyncStub;
@@ -219,72 +224,47 @@ public class StrongDocServiceClient {
         return builder.build();
     }
 
-
-    /**
-     * Verifies the user and organization identity, and returns whether login is successful.
-     *
-     * @param userIDorEmail The login userID or email
-     * @param password      The login user password
-     * @param orgID         The login organization ID
-     * @return whether login is successful
-     * @throws StrongDocServiceException on StrongDocServiceException errors
-     */
-    public boolean login(final String orgID, final String userIDorEmail, final String password)
-            throws StrongDocServiceException {
-        // prepare login
-        final Account.PrepareLoginReq prepareLoginReq = Account.PrepareLoginReq.newBuilder()
-                .setEmailOrUserID(userIDorEmail)
-                .setOrgID(orgID)
-                .build();
-        Account.PrepareLoginResp prepareLoginResp = getBlockingStubNoAuth().prepareLogin(prepareLoginReq);
-
-        switch (prepareLoginResp.getLoginType()) {
-            case SRP:
-                return loginSRP(orgID, prepareLoginResp.getUserID(), password, prepareLoginResp.getLoginVersion());
+    private AuthSession newAuthSession(Account.PrepareAuthResp prepareAuthResp, Account.AuthPurpose authPurpose,
+                                       String userID, String orgID, String password) throws StrongDocServiceException {
+        switch (prepareAuthResp.getAuthType()) {
+            case AUTH_SRP:
+                return authSRP(userID, password, orgID, prepareAuthResp.getAuthVersion(), authPurpose);
         }
-        Account.LoginReq loginReq = Account.LoginReq.newBuilder()
-                .setOrgID(orgID)
-                .setUserID(userIDorEmail)
-                .setPassword(password)
-                .build();
-        Account.LoginResp loginResp = getBlockingStubNoAuth().login(loginReq);
-        this.authToken = loginResp.getToken();
-        this.passwordKeyID = loginResp.getKeyID();
-        byte[] kdfMetaBytes = Base64.getUrlDecoder().decode(loginResp.getKdfMeta());
-        try {
-            StrongSaltKDF kdf = StrongSaltKDF.Deserialize(kdfMetaBytes);
-            this.passwordKey = kdf.GenerateKey(password.getBytes());
-        } catch (StrongSaltKeyException | StrongSaltKdfException e) {
-            throw new StrongDocServiceException("Fail to generate passwordKey", e);
-        }
-        return true;
+        throw new StrongDocServiceException("Unsupported authentication type: " + prepareAuthResp.getAuthType());
     }
 
-    private boolean loginSRP(String orgID, String serverUserID, String password, int SRPVersion) throws StrongDocServiceException {
+    public AuthSession NewAuthSession(String password) throws StrongDocServiceException {
+        Account.PrepareAuthResp res = getBlockingStubNoAuth().prepareAuth(Account.PrepareAuthReq.newBuilder().build());
+        return newAuthSession(res, Account.AuthPurpose.AUTH_PERSISTENT, this.userID, "", password);
+    }
+
+    private AuthSession authSRP(String userID, String password, String orgID,
+                                int version, Account.AuthPurpose authPurpose) throws StrongDocServiceException {
         // srp init
         SRPClient srpClient = null;
         final Account.SrpInitReq.Builder srpInitReqBuilder = Account.SrpInitReq.newBuilder();
         try {
-            SRPSession srpSession = SRP.Deserialize(SRPVersion).getSession();
-            srpClient = srpSession.newClient(serverUserID.getBytes(), password.getBytes());
+            SRPSession srpSession = SRP.Deserialize(version).getSession();
+            srpClient = srpSession.newClient(userID.getBytes(), password.getBytes());
             String creds = srpClient.credentials();
+            srpInitReqBuilder.setAuthPurpose(authPurpose);
             srpInitReqBuilder.setClientCreds(creds);
-            srpInitReqBuilder.setUserID(serverUserID);
+            srpInitReqBuilder.setUserID(userID);
             srpInitReqBuilder.setOrgID(orgID);
         } catch (StrongSaltSRPException e) {
             throw new StrongDocServiceException("Fail to init SRP client", e);
         }
         Account.SrpInitResp srpInitResp = getBlockingStubNoAuth().srpInit(srpInitReqBuilder.build());
         String respCreds = srpInitResp.getServerCreds();
-        String loginID = srpInitResp.getLoginID();
+        String authID = srpInitResp.getAuthID();
 
         // srp proof
         Account.SrpProofReq.Builder srpProofReqBuilder = Account.SrpProofReq.newBuilder();
         try {
             String proof = srpClient.generate(respCreds);
             srpProofReqBuilder.setClientProof(proof);
-            srpProofReqBuilder.setLoginID(loginID);
-            srpProofReqBuilder.setUserID(serverUserID);
+            srpProofReqBuilder.setAuthID(authID);
+            srpProofReqBuilder.setUserID(userID);
         } catch (StrongSaltSRPException e) {
             throw new StrongDocServiceException("Fail to generate client proof", e);
         }
@@ -298,17 +278,47 @@ public class StrongDocServiceClient {
         } catch (StrongSaltSRPException e) {
             throw new StrongDocServiceException("Fail to validate server proof", e);
         }
-        Account.LoginResp loginResp = srpProofResp.getLoginResponse();
+        return new AuthSession(authID, Account.AuthType.AUTH_SRP, version, srpProofResp.getLoginResponse(), srpClient);
+    }
+
+    /**
+     * Verifies the user and organization identity, and returns whether login is successful.
+     *
+     * @param userIDorEmail The login userID or email
+     * @param password      The login user password
+     * @param orgID         The login organization ID
+     * @return void
+     * @throws StrongDocServiceException on StrongDocServiceException errors
+     */
+    public void login(final String orgID, final String userIDorEmail, final String password)
+            throws StrongDocServiceException {
+        // prepare login
+        final Account.PrepareLoginReq prepareLoginReq = Account.PrepareLoginReq.newBuilder()
+                .setEmailOrUserID(userIDorEmail)
+                .setOrgID(orgID)
+                .build();
+        Account.PrepareLoginResp prepareLoginResp = getBlockingStubNoAuth().prepareLogin(prepareLoginReq);
+
+        AuthSession authSession = newAuthSession(prepareLoginResp.getPrepareAuthResp(), Account.AuthPurpose.AUTH_LOGIN,
+                prepareLoginResp.getUserID(), orgID, password);
+
+        if (authSession.getLoginResp() == null) {
+            throw new StrongDocServiceException("Login err: [Received nil login response]");
+        }
+
+        Account.LoginResp loginResp = authSession.getLoginResp();
         this.authToken = loginResp.getToken();
         this.passwordKeyID = loginResp.getKeyID();
+        this.userID = prepareLoginResp.getUserID();
+
         byte[] kdfMetaBytes = Base64.getUrlDecoder().decode(loginResp.getKdfMeta());
         try {
             StrongSaltKDF kdf = StrongSaltKDF.Deserialize(kdfMetaBytes);
             this.passwordKey = kdf.GenerateKey(password.getBytes());
+            this.passwordKeyID = loginResp.getKeyID();
         } catch (StrongSaltKeyException | StrongSaltKdfException e) {
             throw new StrongDocServiceException("Fail to generate passwordKey", e);
         }
-        return srpProofResp.getSuccess();
     }
 
     /**
@@ -320,7 +330,117 @@ public class StrongDocServiceClient {
      */
     public String logout() throws StatusRuntimeException {
         final Account.LogoutReq req = Account.LogoutReq.newBuilder().build();
-        return getBlockingStub().logout(req).getStatus();
+        Account.LogoutResp resp = getBlockingStub().logout(req);
+        this.passwordKeyID = "";
+        this.passwordKey = null;
+        return resp.getStatus();
+    }
+
+    public void changePassword(String oldPassword, String newPassword) throws StrongDocServiceException {
+        AuthSession authSession = NewAuthSession(oldPassword);
+        Account.SetUserAuthMetadataReq.Builder setAuthReqBuilder = Account.SetUserAuthMetadataReq.newBuilder();
+
+        setAuthReqBuilder.setAuthID(authSession.getAuthID());
+        setAuthReqBuilder.setNewAuthType(authSession.getAuthType());
+        setAuthReqBuilder.setNewAuthVersion(authSession.getAuthVersion());
+
+        switch (authSession.getAuthType()) {
+            case AUTH_SRP:
+                try {
+                    SRPSession srpSession = SRP.ONE.getSession();
+                    Verifier newSrpVerifier = srpSession.verifier(this.userID.getBytes(), newPassword.getBytes());
+                    String newSrpVerifierString = newSrpVerifier.encode()[1];
+                    String authSrpVerifierStr = authSession.PrepareDataForAuth(newSrpVerifierString.getBytes());
+
+                    setAuthReqBuilder.setSrpVerifier(authSrpVerifierStr);
+                } catch (StrongSaltKeyException | StrongSaltSRPException e) {
+                    throw new StrongDocServiceException("SRP Error: " + e);
+                }
+                break;
+            default:
+                throw new StrongDocServiceException("Unsupported Authentication Type: " + authSession.getAuthType());
+        }
+
+        StrongSaltKey newPasswordKey = null;
+        try {
+            StrongSaltKDF newKdf = StrongSaltKDF.GenerateKDF(StrongSaltKDF.KDFType.ARGON2, StrongSaltKey.KeyType.SECRETBOX);
+            byte[] newKdfMetaBytes = newKdf.serialize();
+            newPasswordKey = newKdf.GenerateKey(newPassword.getBytes());
+
+            String authKdfMetaStr = authSession.PrepareDataForAuth(newKdfMetaBytes);
+
+            setAuthReqBuilder.setKdfMeta(authKdfMetaStr);
+        } catch (StrongSaltKdfException | StrongSaltKeyException | StrongSaltSRPException e) {
+            throw new StrongDocServiceException("GenerateAuthKDF Error: " + e);
+        }
+
+        boolean done = false;
+        int attempts = 0;
+        int maxAttempts = 5;
+
+        while (!done) {
+            if (attempts >= maxAttempts) {
+                throw new StrongDocServiceException("ChangePassword Error: max attempts exceeded.");
+            }
+            attempts++;
+
+            Encryption.GetUserPrivateKeysReq keysReq = Encryption.GetUserPrivateKeysReq.newBuilder().build();
+            Encryption.GetUserPrivateKeysResp keysResp = getBlockingStub().getUserPrivateKeys(keysReq);
+
+            List<Encryption.EncryptedKey> oldEncKeys = keysResp.getEncryptedKeysList();
+            List<Encryption.EncryptedKey> newEncKeys = new ArrayList<>();
+
+            for (int i = 0; i < oldEncKeys.size(); i++) {
+                Encryption.EncryptedKey oldEncKey = oldEncKeys.get(i);
+
+                if (!oldEncKey.getEncryptorID().equals(this.getUserKeyID())) {
+                    throw new StrongDocServiceException("ChangePassword Error: User information out of date. User must log out and log back in again before continuing.");
+                }
+                try {
+                    byte[] keyBytes = this.UserDecryptBase64(oldEncKey.getEncKey());
+                    byte[] newEncKeyBytes = newPasswordKey.encrypt(keyBytes);
+                    String authEncKeyStr = authSession.PrepareDataForAuth(newEncKeyBytes);
+
+                    Encryption.EncryptedKey newEncKey = Encryption.EncryptedKey.newBuilder()
+                            .setEncKey(authEncKeyStr)
+                            .setKeyID(oldEncKey.getKeyID())
+                            .setKeyVersion(oldEncKey.getKeyVersion())
+                            .setOwnerID(oldEncKey.getOwnerID())
+                            .setOwnerType(oldEncKey.getOwnerType())
+                            .build();
+
+                    newEncKeys.add(newEncKey);
+                } catch (StrongSaltKeyException | StrongSaltSRPException e) {
+                    throw new StrongDocServiceException("Encryption Error: " + e);
+                }
+
+            }
+            setAuthReqBuilder.addAllEncryptedKeys(newEncKeys);
+
+            Account.SetUserAuthMetadataResp setAuthResp = getBlockingStub().setUserAuthMetadata(setAuthReqBuilder.build());
+
+            done = !setAuthResp.getRestart();
+        }
+    }
+
+    public String getUserKeyID() {
+        return this.passwordKeyID;
+    }
+
+    public byte[] UserEncrypt(byte[] plaintext) throws StrongSaltKeyException {
+        return this.passwordKey.encrypt(plaintext);
+    }
+
+    public String UserEncryptBase64(byte[] plaintext) throws StrongSaltKeyException {
+        return this.passwordKey.encryptBase64(plaintext);
+    }
+
+    public byte[] UserDecrypt(byte[] ciphertext) throws StrongSaltKeyException {
+        return this.passwordKey.decrypt(ciphertext);
+    }
+
+    public byte[] UserDecryptBase64(String ciphertext) throws StrongSaltKeyException {
+        return this.passwordKey.decryptBase64(ciphertext);
     }
 
 

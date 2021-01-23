@@ -15,29 +15,29 @@ public final class Account {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
-   * Protobuf enum {@code proto.LoginType}
+   * Protobuf enum {@code proto.AuthType}
    */
-  public enum LoginType
+  public enum AuthType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>NONE = 0;</code>
+     * <code>AUTH_NONE = 0;</code>
      */
-    NONE(0),
+    AUTH_NONE(0),
     /**
-     * <code>SRP = 1;</code>
+     * <code>AUTH_SRP = 1;</code>
      */
-    SRP(1),
+    AUTH_SRP(1),
     UNRECOGNIZED(-1),
     ;
 
     /**
-     * <code>NONE = 0;</code>
+     * <code>AUTH_NONE = 0;</code>
      */
-    public static final int NONE_VALUE = 0;
+    public static final int AUTH_NONE_VALUE = 0;
     /**
-     * <code>SRP = 1;</code>
+     * <code>AUTH_SRP = 1;</code>
      */
-    public static final int SRP_VALUE = 1;
+    public static final int AUTH_SRP_VALUE = 1;
 
 
     public final int getNumber() {
@@ -54,7 +54,7 @@ public final class Account {
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
-    public static LoginType valueOf(int value) {
+    public static AuthType valueOf(int value) {
       return forNumber(value);
     }
 
@@ -62,23 +62,23 @@ public final class Account {
      * @param value The numeric wire value of the corresponding enum entry.
      * @return The enum associated with the given numeric wire value.
      */
-    public static LoginType forNumber(int value) {
+    public static AuthType forNumber(int value) {
       switch (value) {
-        case 0: return NONE;
-        case 1: return SRP;
+        case 0: return AUTH_NONE;
+        case 1: return AUTH_SRP;
         default: return null;
       }
     }
 
-    public static com.google.protobuf.Internal.EnumLiteMap<LoginType>
+    public static com.google.protobuf.Internal.EnumLiteMap<AuthType>
         internalGetValueMap() {
       return internalValueMap;
     }
     private static final com.google.protobuf.Internal.EnumLiteMap<
-        LoginType> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<LoginType>() {
-            public LoginType findValueByNumber(int number) {
-              return LoginType.forNumber(number);
+        AuthType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<AuthType>() {
+            public AuthType findValueByNumber(int number) {
+              return AuthType.forNumber(number);
             }
           };
 
@@ -95,9 +95,9 @@ public final class Account {
       return com.strongsalt.strongdoc.sdk.proto.Account.getDescriptor().getEnumTypes().get(0);
     }
 
-    private static final LoginType[] VALUES = values();
+    private static final AuthType[] VALUES = values();
 
-    public static LoginType valueOf(
+    public static AuthType valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
         throw new java.lang.IllegalArgumentException(
@@ -111,49 +111,162 @@ public final class Account {
 
     private final int value;
 
-    private LoginType(int value) {
+    private AuthType(int value) {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:proto.LoginType)
+    // @@protoc_insertion_point(enum_scope:proto.AuthType)
   }
 
-  public interface RegisterLoginDataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.RegisterLoginData)
+  /**
+   * Protobuf enum {@code proto.AuthPurpose}
+   */
+  public enum AuthPurpose
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>NO_PURPOSE = 0;</code>
+     */
+    NO_PURPOSE(0),
+    /**
+     * <code>AUTH_LOGIN = 1;</code>
+     */
+    AUTH_LOGIN(1),
+    /**
+     * <code>AUTH_PERSISTENT = 2;</code>
+     */
+    AUTH_PERSISTENT(2),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>NO_PURPOSE = 0;</code>
+     */
+    public static final int NO_PURPOSE_VALUE = 0;
+    /**
+     * <code>AUTH_LOGIN = 1;</code>
+     */
+    public static final int AUTH_LOGIN_VALUE = 1;
+    /**
+     * <code>AUTH_PERSISTENT = 2;</code>
+     */
+    public static final int AUTH_PERSISTENT_VALUE = 2;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static AuthPurpose valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static AuthPurpose forNumber(int value) {
+      switch (value) {
+        case 0: return NO_PURPOSE;
+        case 1: return AUTH_LOGIN;
+        case 2: return AUTH_PERSISTENT;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<AuthPurpose>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        AuthPurpose> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<AuthPurpose>() {
+            public AuthPurpose findValueByNumber(int number) {
+              return AuthPurpose.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final AuthPurpose[] VALUES = values();
+
+    public static AuthPurpose valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private AuthPurpose(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:proto.AuthPurpose)
+  }
+
+  public interface RegisterAuthDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.RegisterAuthData)
       com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
-     * The type of login the user will use
+     * The type of authentication the user will use
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 1;</code>
-     * @return The enum numeric value on the wire for loginType.
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The enum numeric value on the wire for authType.
      */
-    int getLoginTypeValue();
+    int getAuthTypeValue();
     /**
      * <pre>
-     * The type of login the user will use
+     * The type of authentication the user will use
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 1;</code>
-     * @return The loginType.
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The authType.
      */
-    com.strongsalt.strongdoc.sdk.proto.Account.LoginType getLoginType();
+    com.strongsalt.strongdoc.sdk.proto.Account.AuthType getAuthType();
 
     /**
      * <pre>
-     * Which version of the specified login type the user will use
+     * Which version of the specified authentication type the user will use
      * </pre>
      *
-     * <code>int32 loginVersion = 2;</code>
-     * @return The loginVersion.
+     * <code>int32 authVersion = 2;</code>
+     * @return The authVersion.
      */
-    int getLoginVersion();
+    int getAuthVersion();
 
     /**
      * <pre>
-     * If using the SRP login type: the user's srp verifier string
+     * If using the SRP authentication type: the user's srp verifier string
      * </pre>
      *
      * <code>string srpVerifier = 3;</code>
@@ -162,7 +275,7 @@ public final class Account {
     java.lang.String getSrpVerifier();
     /**
      * <pre>
-     * If using the SRP login type: the user's srp verifier string
+     * If using the SRP authentication type: the user's srp verifier string
      * </pre>
      *
      * <code>string srpVerifier = 3;</code>
@@ -172,19 +285,19 @@ public final class Account {
         getSrpVerifierBytes();
   }
   /**
-   * Protobuf type {@code proto.RegisterLoginData}
+   * Protobuf type {@code proto.RegisterAuthData}
    */
-  public  static final class RegisterLoginData extends
+  public  static final class RegisterAuthData extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.RegisterLoginData)
-      RegisterLoginDataOrBuilder {
+      // @@protoc_insertion_point(message_implements:proto.RegisterAuthData)
+      RegisterAuthDataOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use RegisterLoginData.newBuilder() to construct.
-    private RegisterLoginData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use RegisterAuthData.newBuilder() to construct.
+    private RegisterAuthData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private RegisterLoginData() {
-      loginType_ = 0;
+    private RegisterAuthData() {
+      authType_ = 0;
       srpVerifier_ = "";
     }
 
@@ -192,7 +305,7 @@ public final class Account {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new RegisterLoginData();
+      return new RegisterAuthData();
     }
 
     @java.lang.Override
@@ -200,7 +313,7 @@ public final class Account {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private RegisterLoginData(
+    private RegisterAuthData(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -221,12 +334,12 @@ public final class Account {
             case 8: {
               int rawValue = input.readEnum();
 
-              loginType_ = rawValue;
+              authType_ = rawValue;
               break;
             }
             case 16: {
 
-              loginVersion_ = input.readInt32();
+              authVersion_ = input.readInt32();
               break;
             }
             case 26: {
@@ -256,63 +369,63 @@ public final class Account {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterLoginData_descriptor;
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterAuthData_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterLoginData_fieldAccessorTable
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterAuthData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.class, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder.class);
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.class, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder.class);
     }
 
-    public static final int LOGINTYPE_FIELD_NUMBER = 1;
-    private int loginType_;
+    public static final int AUTHTYPE_FIELD_NUMBER = 1;
+    private int authType_;
     /**
      * <pre>
-     * The type of login the user will use
+     * The type of authentication the user will use
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 1;</code>
-     * @return The enum numeric value on the wire for loginType.
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The enum numeric value on the wire for authType.
      */
-    public int getLoginTypeValue() {
-      return loginType_;
+    public int getAuthTypeValue() {
+      return authType_;
     }
     /**
      * <pre>
-     * The type of login the user will use
+     * The type of authentication the user will use
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 1;</code>
-     * @return The loginType.
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The authType.
      */
-    public com.strongsalt.strongdoc.sdk.proto.Account.LoginType getLoginType() {
+    public com.strongsalt.strongdoc.sdk.proto.Account.AuthType getAuthType() {
       @SuppressWarnings("deprecation")
-      com.strongsalt.strongdoc.sdk.proto.Account.LoginType result = com.strongsalt.strongdoc.sdk.proto.Account.LoginType.valueOf(loginType_);
-      return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.LoginType.UNRECOGNIZED : result;
+      com.strongsalt.strongdoc.sdk.proto.Account.AuthType result = com.strongsalt.strongdoc.sdk.proto.Account.AuthType.valueOf(authType_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthType.UNRECOGNIZED : result;
     }
 
-    public static final int LOGINVERSION_FIELD_NUMBER = 2;
-    private int loginVersion_;
+    public static final int AUTHVERSION_FIELD_NUMBER = 2;
+    private int authVersion_;
     /**
      * <pre>
-     * Which version of the specified login type the user will use
+     * Which version of the specified authentication type the user will use
      * </pre>
      *
-     * <code>int32 loginVersion = 2;</code>
-     * @return The loginVersion.
+     * <code>int32 authVersion = 2;</code>
+     * @return The authVersion.
      */
-    public int getLoginVersion() {
-      return loginVersion_;
+    public int getAuthVersion() {
+      return authVersion_;
     }
 
     public static final int SRPVERIFIER_FIELD_NUMBER = 3;
     private volatile java.lang.Object srpVerifier_;
     /**
      * <pre>
-     * If using the SRP login type: the user's srp verifier string
+     * If using the SRP authentication type: the user's srp verifier string
      * </pre>
      *
      * <code>string srpVerifier = 3;</code>
@@ -332,7 +445,7 @@ public final class Account {
     }
     /**
      * <pre>
-     * If using the SRP login type: the user's srp verifier string
+     * If using the SRP authentication type: the user's srp verifier string
      * </pre>
      *
      * <code>string srpVerifier = 3;</code>
@@ -366,11 +479,11 @@ public final class Account {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (loginType_ != com.strongsalt.strongdoc.sdk.proto.Account.LoginType.NONE.getNumber()) {
-        output.writeEnum(1, loginType_);
+      if (authType_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthType.AUTH_NONE.getNumber()) {
+        output.writeEnum(1, authType_);
       }
-      if (loginVersion_ != 0) {
-        output.writeInt32(2, loginVersion_);
+      if (authVersion_ != 0) {
+        output.writeInt32(2, authVersion_);
       }
       if (!getSrpVerifierBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, srpVerifier_);
@@ -384,13 +497,13 @@ public final class Account {
       if (size != -1) return size;
 
       size = 0;
-      if (loginType_ != com.strongsalt.strongdoc.sdk.proto.Account.LoginType.NONE.getNumber()) {
+      if (authType_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthType.AUTH_NONE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, loginType_);
+          .computeEnumSize(1, authType_);
       }
-      if (loginVersion_ != 0) {
+      if (authVersion_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, loginVersion_);
+          .computeInt32Size(2, authVersion_);
       }
       if (!getSrpVerifierBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, srpVerifier_);
@@ -405,14 +518,14 @@ public final class Account {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData)) {
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData)) {
         return super.equals(obj);
       }
-      com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData other = (com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData) obj;
+      com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData other = (com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData) obj;
 
-      if (loginType_ != other.loginType_) return false;
-      if (getLoginVersion()
-          != other.getLoginVersion()) return false;
+      if (authType_ != other.authType_) return false;
+      if (getAuthVersion()
+          != other.getAuthVersion()) return false;
       if (!getSrpVerifier()
           .equals(other.getSrpVerifier())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -426,10 +539,10 @@ public final class Account {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + LOGINTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + loginType_;
-      hash = (37 * hash) + LOGINVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + getLoginVersion();
+      hash = (37 * hash) + AUTHTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + authType_;
+      hash = (37 * hash) + AUTHVERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getAuthVersion();
       hash = (37 * hash) + SRPVERIFIER_FIELD_NUMBER;
       hash = (53 * hash) + getSrpVerifier().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -437,69 +550,69 @@ public final class Account {
       return hash;
     }
 
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(byte[] data)
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(java.io.InputStream input)
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseDelimitedFrom(java.io.InputStream input)
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseDelimitedFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parseFrom(
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -512,7 +625,7 @@ public final class Account {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData prototype) {
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -528,26 +641,26 @@ public final class Account {
       return builder;
     }
     /**
-     * Protobuf type {@code proto.RegisterLoginData}
+     * Protobuf type {@code proto.RegisterAuthData}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.RegisterLoginData)
-        com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder {
+        // @@protoc_insertion_point(builder_implements:proto.RegisterAuthData)
+        com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterLoginData_descriptor;
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterAuthData_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterLoginData_fieldAccessorTable
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterAuthData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.class, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder.class);
+                com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.class, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder.class);
       }
 
-      // Construct using com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.newBuilder()
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -565,9 +678,9 @@ public final class Account {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        loginType_ = 0;
+        authType_ = 0;
 
-        loginVersion_ = 0;
+        authVersion_ = 0;
 
         srpVerifier_ = "";
 
@@ -577,17 +690,17 @@ public final class Account {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterLoginData_descriptor;
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_RegisterAuthData_descriptor;
       }
 
       @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getDefaultInstanceForType() {
-        return com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance();
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData build() {
-        com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData result = buildPartial();
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData build() {
+        com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -595,10 +708,10 @@ public final class Account {
       }
 
       @java.lang.Override
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData buildPartial() {
-        com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData result = new com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData(this);
-        result.loginType_ = loginType_;
-        result.loginVersion_ = loginVersion_;
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData result = new com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData(this);
+        result.authType_ = authType_;
+        result.authVersion_ = authVersion_;
         result.srpVerifier_ = srpVerifier_;
         onBuilt();
         return result;
@@ -638,21 +751,21 @@ public final class Account {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData) {
-          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData)other);
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData other) {
-        if (other == com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance()) return this;
-        if (other.loginType_ != 0) {
-          setLoginTypeValue(other.getLoginTypeValue());
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance()) return this;
+        if (other.authType_ != 0) {
+          setAuthTypeValue(other.getAuthTypeValue());
         }
-        if (other.getLoginVersion() != 0) {
-          setLoginVersion(other.getLoginVersion());
+        if (other.getAuthVersion() != 0) {
+          setAuthVersion(other.getAuthVersion());
         }
         if (!other.getSrpVerifier().isEmpty()) {
           srpVerifier_ = other.srpVerifier_;
@@ -673,11 +786,11 @@ public final class Account {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData parsedMessage = null;
+        com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData) e.getUnfinishedMessage();
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -687,116 +800,116 @@ public final class Account {
         return this;
       }
 
-      private int loginType_ = 0;
+      private int authType_ = 0;
       /**
        * <pre>
-       * The type of login the user will use
+       * The type of authentication the user will use
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 1;</code>
-       * @return The enum numeric value on the wire for loginType.
+       * <code>.proto.AuthType authType = 1;</code>
+       * @return The enum numeric value on the wire for authType.
        */
-      public int getLoginTypeValue() {
-        return loginType_;
+      public int getAuthTypeValue() {
+        return authType_;
       }
       /**
        * <pre>
-       * The type of login the user will use
+       * The type of authentication the user will use
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 1;</code>
-       * @param value The enum numeric value on the wire for loginType to set.
+       * <code>.proto.AuthType authType = 1;</code>
+       * @param value The enum numeric value on the wire for authType to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginTypeValue(int value) {
-        loginType_ = value;
+      public Builder setAuthTypeValue(int value) {
+        authType_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The type of login the user will use
+       * The type of authentication the user will use
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 1;</code>
-       * @return The loginType.
+       * <code>.proto.AuthType authType = 1;</code>
+       * @return The authType.
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.LoginType getLoginType() {
+      public com.strongsalt.strongdoc.sdk.proto.Account.AuthType getAuthType() {
         @SuppressWarnings("deprecation")
-        com.strongsalt.strongdoc.sdk.proto.Account.LoginType result = com.strongsalt.strongdoc.sdk.proto.Account.LoginType.valueOf(loginType_);
-        return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.LoginType.UNRECOGNIZED : result;
+        com.strongsalt.strongdoc.sdk.proto.Account.AuthType result = com.strongsalt.strongdoc.sdk.proto.Account.AuthType.valueOf(authType_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthType.UNRECOGNIZED : result;
       }
       /**
        * <pre>
-       * The type of login the user will use
+       * The type of authentication the user will use
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 1;</code>
-       * @param value The loginType to set.
+       * <code>.proto.AuthType authType = 1;</code>
+       * @param value The authType to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginType(com.strongsalt.strongdoc.sdk.proto.Account.LoginType value) {
+      public Builder setAuthType(com.strongsalt.strongdoc.sdk.proto.Account.AuthType value) {
         if (value == null) {
           throw new NullPointerException();
         }
         
-        loginType_ = value.getNumber();
+        authType_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The type of login the user will use
+       * The type of authentication the user will use
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 1;</code>
+       * <code>.proto.AuthType authType = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearLoginType() {
+      public Builder clearAuthType() {
         
-        loginType_ = 0;
+        authType_ = 0;
         onChanged();
         return this;
       }
 
-      private int loginVersion_ ;
+      private int authVersion_ ;
       /**
        * <pre>
-       * Which version of the specified login type the user will use
+       * Which version of the specified authentication type the user will use
        * </pre>
        *
-       * <code>int32 loginVersion = 2;</code>
-       * @return The loginVersion.
+       * <code>int32 authVersion = 2;</code>
+       * @return The authVersion.
        */
-      public int getLoginVersion() {
-        return loginVersion_;
+      public int getAuthVersion() {
+        return authVersion_;
       }
       /**
        * <pre>
-       * Which version of the specified login type the user will use
+       * Which version of the specified authentication type the user will use
        * </pre>
        *
-       * <code>int32 loginVersion = 2;</code>
-       * @param value The loginVersion to set.
+       * <code>int32 authVersion = 2;</code>
+       * @param value The authVersion to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginVersion(int value) {
+      public Builder setAuthVersion(int value) {
         
-        loginVersion_ = value;
+        authVersion_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * Which version of the specified login type the user will use
+       * Which version of the specified authentication type the user will use
        * </pre>
        *
-       * <code>int32 loginVersion = 2;</code>
+       * <code>int32 authVersion = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearLoginVersion() {
+      public Builder clearAuthVersion() {
         
-        loginVersion_ = 0;
+        authVersion_ = 0;
         onChanged();
         return this;
       }
@@ -804,7 +917,7 @@ public final class Account {
       private java.lang.Object srpVerifier_ = "";
       /**
        * <pre>
-       * If using the SRP login type: the user's srp verifier string
+       * If using the SRP authentication type: the user's srp verifier string
        * </pre>
        *
        * <code>string srpVerifier = 3;</code>
@@ -824,7 +937,7 @@ public final class Account {
       }
       /**
        * <pre>
-       * If using the SRP login type: the user's srp verifier string
+       * If using the SRP authentication type: the user's srp verifier string
        * </pre>
        *
        * <code>string srpVerifier = 3;</code>
@@ -845,7 +958,7 @@ public final class Account {
       }
       /**
        * <pre>
-       * If using the SRP login type: the user's srp verifier string
+       * If using the SRP authentication type: the user's srp verifier string
        * </pre>
        *
        * <code>string srpVerifier = 3;</code>
@@ -864,7 +977,7 @@ public final class Account {
       }
       /**
        * <pre>
-       * If using the SRP login type: the user's srp verifier string
+       * If using the SRP authentication type: the user's srp verifier string
        * </pre>
        *
        * <code>string srpVerifier = 3;</code>
@@ -878,7 +991,7 @@ public final class Account {
       }
       /**
        * <pre>
-       * If using the SRP login type: the user's srp verifier string
+       * If using the SRP authentication type: the user's srp verifier string
        * </pre>
        *
        * <code>string srpVerifier = 3;</code>
@@ -909,41 +1022,41 @@ public final class Account {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:proto.RegisterLoginData)
+      // @@protoc_insertion_point(builder_scope:proto.RegisterAuthData)
     }
 
-    // @@protoc_insertion_point(class_scope:proto.RegisterLoginData)
-    private static final com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:proto.RegisterAuthData)
+    private static final com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData();
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData();
     }
 
-    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getDefaultInstance() {
+    public static com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<RegisterLoginData>
-        PARSER = new com.google.protobuf.AbstractParser<RegisterLoginData>() {
+    private static final com.google.protobuf.Parser<RegisterAuthData>
+        PARSER = new com.google.protobuf.AbstractParser<RegisterAuthData>() {
       @java.lang.Override
-      public RegisterLoginData parsePartialFrom(
+      public RegisterAuthData parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RegisterLoginData(input, extensionRegistry);
+        return new RegisterAuthData(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<RegisterLoginData> parser() {
+    public static com.google.protobuf.Parser<RegisterAuthData> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<RegisterLoginData> getParserForType() {
+    public com.google.protobuf.Parser<RegisterAuthData> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getDefaultInstanceForType() {
+    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1299,30 +1412,30 @@ public final class Account {
 
     /**
      * <pre>
-     * Data needed to establish how the admin user will log in
+     * Data needed to establish how the admin user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
-     * @return Whether the adminLoginData field is set.
+     * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
+     * @return Whether the adminAuthData field is set.
      */
-    boolean hasAdminLoginData();
+    boolean hasAdminAuthData();
     /**
      * <pre>
-     * Data needed to establish how the admin user will log in
+     * Data needed to establish how the admin user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
-     * @return The adminLoginData.
+     * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
+     * @return The adminAuthData.
      */
-    com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getAdminLoginData();
+    com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getAdminAuthData();
     /**
      * <pre>
-     * Data needed to establish how the admin user will log in
+     * Data needed to establish how the admin user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+     * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
      */
-    com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder getAdminLoginDataOrBuilder();
+    com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder getAdminAuthDataOrBuilder();
   }
   /**
    * Protobuf type {@code proto.RegisterOrganizationReq}
@@ -1484,14 +1597,14 @@ public final class Account {
               break;
             }
             case 138: {
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder subBuilder = null;
-              if (adminLoginData_ != null) {
-                subBuilder = adminLoginData_.toBuilder();
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder subBuilder = null;
+              if (adminAuthData_ != null) {
+                subBuilder = adminAuthData_.toBuilder();
               }
-              adminLoginData_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.parser(), extensionRegistry);
+              adminAuthData_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(adminLoginData_);
-                adminLoginData_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(adminAuthData_);
+                adminAuthData_ = subBuilder.buildPartial();
               }
 
               break;
@@ -2225,39 +2338,39 @@ public final class Account {
       }
     }
 
-    public static final int ADMINLOGINDATA_FIELD_NUMBER = 17;
-    private com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData adminLoginData_;
+    public static final int ADMINAUTHDATA_FIELD_NUMBER = 17;
+    private com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData adminAuthData_;
     /**
      * <pre>
-     * Data needed to establish how the admin user will log in
+     * Data needed to establish how the admin user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
-     * @return Whether the adminLoginData field is set.
+     * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
+     * @return Whether the adminAuthData field is set.
      */
-    public boolean hasAdminLoginData() {
-      return adminLoginData_ != null;
+    public boolean hasAdminAuthData() {
+      return adminAuthData_ != null;
     }
     /**
      * <pre>
-     * Data needed to establish how the admin user will log in
+     * Data needed to establish how the admin user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
-     * @return The adminLoginData.
+     * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
+     * @return The adminAuthData.
      */
-    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getAdminLoginData() {
-      return adminLoginData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance() : adminLoginData_;
+    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getAdminAuthData() {
+      return adminAuthData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance() : adminAuthData_;
     }
     /**
      * <pre>
-     * Data needed to establish how the admin user will log in
+     * Data needed to establish how the admin user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+     * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
      */
-    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder getAdminLoginDataOrBuilder() {
-      return getAdminLoginData();
+    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder getAdminAuthDataOrBuilder() {
+      return getAdminAuthData();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2322,8 +2435,8 @@ public final class Account {
       if (!getEncOrgPriKeyBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 16, encOrgPriKey_);
       }
-      if (adminLoginData_ != null) {
-        output.writeMessage(17, getAdminLoginData());
+      if (adminAuthData_ != null) {
+        output.writeMessage(17, getAdminAuthData());
       }
       unknownFields.writeTo(output);
     }
@@ -2388,9 +2501,9 @@ public final class Account {
       if (!getEncOrgPriKeyBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, encOrgPriKey_);
       }
-      if (adminLoginData_ != null) {
+      if (adminAuthData_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, getAdminLoginData());
+          .computeMessageSize(17, getAdminAuthData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2439,10 +2552,10 @@ public final class Account {
           .equals(other.getOrgPubKey())) return false;
       if (!getEncOrgPriKey()
           .equals(other.getEncOrgPriKey())) return false;
-      if (hasAdminLoginData() != other.hasAdminLoginData()) return false;
-      if (hasAdminLoginData()) {
-        if (!getAdminLoginData()
-            .equals(other.getAdminLoginData())) return false;
+      if (hasAdminAuthData() != other.hasAdminAuthData()) return false;
+      if (hasAdminAuthData()) {
+        if (!getAdminAuthData()
+            .equals(other.getAdminAuthData())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -2490,9 +2603,9 @@ public final class Account {
       hash = (53 * hash) + getOrgPubKey().hashCode();
       hash = (37 * hash) + ENCORGPRIKEY_FIELD_NUMBER;
       hash = (53 * hash) + getEncOrgPriKey().hashCode();
-      if (hasAdminLoginData()) {
-        hash = (37 * hash) + ADMINLOGINDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getAdminLoginData().hashCode();
+      if (hasAdminAuthData()) {
+        hash = (37 * hash) + ADMINAUTHDATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAdminAuthData().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2659,11 +2772,11 @@ public final class Account {
 
         encOrgPriKey_ = "";
 
-        if (adminLoginDataBuilder_ == null) {
-          adminLoginData_ = null;
+        if (adminAuthDataBuilder_ == null) {
+          adminAuthData_ = null;
         } else {
-          adminLoginData_ = null;
-          adminLoginDataBuilder_ = null;
+          adminAuthData_ = null;
+          adminAuthDataBuilder_ = null;
         }
         return this;
       }
@@ -2712,10 +2825,10 @@ public final class Account {
         result.encUserPriKey_ = encUserPriKey_;
         result.orgPubKey_ = orgPubKey_;
         result.encOrgPriKey_ = encOrgPriKey_;
-        if (adminLoginDataBuilder_ == null) {
-          result.adminLoginData_ = adminLoginData_;
+        if (adminAuthDataBuilder_ == null) {
+          result.adminAuthData_ = adminAuthData_;
         } else {
-          result.adminLoginData_ = adminLoginDataBuilder_.build();
+          result.adminAuthData_ = adminAuthDataBuilder_.build();
         }
         onBuilt();
         return result;
@@ -2834,8 +2947,8 @@ public final class Account {
           encOrgPriKey_ = other.encOrgPriKey_;
           onChanged();
         }
-        if (other.hasAdminLoginData()) {
-          mergeAdminLoginData(other.getAdminLoginData());
+        if (other.hasAdminAuthData()) {
+          mergeAdminAuthData(other.getAdminAuthData());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4430,159 +4543,159 @@ public final class Account {
         return this;
       }
 
-      private com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData adminLoginData_;
+      private com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData adminAuthData_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder> adminLoginDataBuilder_;
+          com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder> adminAuthDataBuilder_;
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
-       * @return Whether the adminLoginData field is set.
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
+       * @return Whether the adminAuthData field is set.
        */
-      public boolean hasAdminLoginData() {
-        return adminLoginDataBuilder_ != null || adminLoginData_ != null;
+      public boolean hasAdminAuthData() {
+        return adminAuthDataBuilder_ != null || adminAuthData_ != null;
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
-       * @return The adminLoginData.
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
+       * @return The adminAuthData.
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getAdminLoginData() {
-        if (adminLoginDataBuilder_ == null) {
-          return adminLoginData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance() : adminLoginData_;
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getAdminAuthData() {
+        if (adminAuthDataBuilder_ == null) {
+          return adminAuthData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance() : adminAuthData_;
         } else {
-          return adminLoginDataBuilder_.getMessage();
+          return adminAuthDataBuilder_.getMessage();
         }
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
-      public Builder setAdminLoginData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData value) {
-        if (adminLoginDataBuilder_ == null) {
+      public Builder setAdminAuthData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData value) {
+        if (adminAuthDataBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          adminLoginData_ = value;
+          adminAuthData_ = value;
           onChanged();
         } else {
-          adminLoginDataBuilder_.setMessage(value);
+          adminAuthDataBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
-      public Builder setAdminLoginData(
-          com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder builderForValue) {
-        if (adminLoginDataBuilder_ == null) {
-          adminLoginData_ = builderForValue.build();
+      public Builder setAdminAuthData(
+          com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder builderForValue) {
+        if (adminAuthDataBuilder_ == null) {
+          adminAuthData_ = builderForValue.build();
           onChanged();
         } else {
-          adminLoginDataBuilder_.setMessage(builderForValue.build());
+          adminAuthDataBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
-      public Builder mergeAdminLoginData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData value) {
-        if (adminLoginDataBuilder_ == null) {
-          if (adminLoginData_ != null) {
-            adminLoginData_ =
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.newBuilder(adminLoginData_).mergeFrom(value).buildPartial();
+      public Builder mergeAdminAuthData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData value) {
+        if (adminAuthDataBuilder_ == null) {
+          if (adminAuthData_ != null) {
+            adminAuthData_ =
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.newBuilder(adminAuthData_).mergeFrom(value).buildPartial();
           } else {
-            adminLoginData_ = value;
+            adminAuthData_ = value;
           }
           onChanged();
         } else {
-          adminLoginDataBuilder_.mergeFrom(value);
+          adminAuthDataBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
-      public Builder clearAdminLoginData() {
-        if (adminLoginDataBuilder_ == null) {
-          adminLoginData_ = null;
+      public Builder clearAdminAuthData() {
+        if (adminAuthDataBuilder_ == null) {
+          adminAuthData_ = null;
           onChanged();
         } else {
-          adminLoginData_ = null;
-          adminLoginDataBuilder_ = null;
+          adminAuthData_ = null;
+          adminAuthDataBuilder_ = null;
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder getAdminLoginDataBuilder() {
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder getAdminAuthDataBuilder() {
         
         onChanged();
-        return getAdminLoginDataFieldBuilder().getBuilder();
+        return getAdminAuthDataFieldBuilder().getBuilder();
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder getAdminLoginDataOrBuilder() {
-        if (adminLoginDataBuilder_ != null) {
-          return adminLoginDataBuilder_.getMessageOrBuilder();
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder getAdminAuthDataOrBuilder() {
+        if (adminAuthDataBuilder_ != null) {
+          return adminAuthDataBuilder_.getMessageOrBuilder();
         } else {
-          return adminLoginData_ == null ?
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance() : adminLoginData_;
+          return adminAuthData_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance() : adminAuthData_;
         }
       }
       /**
        * <pre>
-       * Data needed to establish how the admin user will log in
+       * Data needed to establish how the admin user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData adminLoginData = 17;</code>
+       * <code>.proto.RegisterAuthData adminAuthData = 17;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder> 
-          getAdminLoginDataFieldBuilder() {
-        if (adminLoginDataBuilder_ == null) {
-          adminLoginDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder>(
-                  getAdminLoginData(),
+          com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder> 
+          getAdminAuthDataFieldBuilder() {
+        if (adminAuthDataBuilder_ == null) {
+          adminAuthDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder>(
+                  getAdminAuthData(),
                   getParentForChildren(),
                   isClean());
-          adminLoginData_ = null;
+          adminAuthData_ = null;
         }
-        return adminLoginDataBuilder_;
+        return adminAuthDataBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5718,30 +5831,30 @@ public final class Account {
 
     /**
      * <pre>
-     * Data needed to establish how the user will log in
+     * Data needed to establish how the user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData loginData = 9;</code>
-     * @return Whether the loginData field is set.
+     * <code>.proto.RegisterAuthData authData = 9;</code>
+     * @return Whether the authData field is set.
      */
-    boolean hasLoginData();
+    boolean hasAuthData();
     /**
      * <pre>
-     * Data needed to establish how the user will log in
+     * Data needed to establish how the user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData loginData = 9;</code>
-     * @return The loginData.
+     * <code>.proto.RegisterAuthData authData = 9;</code>
+     * @return The authData.
      */
-    com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getLoginData();
+    com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getAuthData();
     /**
      * <pre>
-     * Data needed to establish how the user will log in
+     * Data needed to establish how the user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData loginData = 9;</code>
+     * <code>.proto.RegisterAuthData authData = 9;</code>
      */
-    com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder getLoginDataOrBuilder();
+    com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder getAuthDataOrBuilder();
   }
   /**
    * Protobuf type {@code proto.RegisterUserReq}
@@ -5845,14 +5958,14 @@ public final class Account {
               break;
             }
             case 74: {
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder subBuilder = null;
-              if (loginData_ != null) {
-                subBuilder = loginData_.toBuilder();
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder subBuilder = null;
+              if (authData_ != null) {
+                subBuilder = authData_.toBuilder();
               }
-              loginData_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.parser(), extensionRegistry);
+              authData_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(loginData_);
-                loginData_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(authData_);
+                authData_ = subBuilder.buildPartial();
               }
 
               break;
@@ -6177,39 +6290,39 @@ public final class Account {
       }
     }
 
-    public static final int LOGINDATA_FIELD_NUMBER = 9;
-    private com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData loginData_;
+    public static final int AUTHDATA_FIELD_NUMBER = 9;
+    private com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData authData_;
     /**
      * <pre>
-     * Data needed to establish how the user will log in
+     * Data needed to establish how the user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData loginData = 9;</code>
-     * @return Whether the loginData field is set.
+     * <code>.proto.RegisterAuthData authData = 9;</code>
+     * @return Whether the authData field is set.
      */
-    public boolean hasLoginData() {
-      return loginData_ != null;
+    public boolean hasAuthData() {
+      return authData_ != null;
     }
     /**
      * <pre>
-     * Data needed to establish how the user will log in
+     * Data needed to establish how the user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData loginData = 9;</code>
-     * @return The loginData.
+     * <code>.proto.RegisterAuthData authData = 9;</code>
+     * @return The authData.
      */
-    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getLoginData() {
-      return loginData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance() : loginData_;
+    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getAuthData() {
+      return authData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance() : authData_;
     }
     /**
      * <pre>
-     * Data needed to establish how the user will log in
+     * Data needed to establish how the user will authenticate
      * </pre>
      *
-     * <code>.proto.RegisterLoginData loginData = 9;</code>
+     * <code>.proto.RegisterAuthData authData = 9;</code>
      */
-    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder getLoginDataOrBuilder() {
-      return getLoginData();
+    public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder getAuthDataOrBuilder() {
+      return getAuthData();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6250,8 +6363,8 @@ public final class Account {
       if (!getPasswordBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 8, password_);
       }
-      if (loginData_ != null) {
-        output.writeMessage(9, getLoginData());
+      if (authData_ != null) {
+        output.writeMessage(9, getAuthData());
       }
       unknownFields.writeTo(output);
     }
@@ -6286,9 +6399,9 @@ public final class Account {
       if (!getPasswordBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, password_);
       }
-      if (loginData_ != null) {
+      if (authData_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, getLoginData());
+          .computeMessageSize(9, getAuthData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6321,10 +6434,10 @@ public final class Account {
           .equals(other.getUserName())) return false;
       if (!getPassword()
           .equals(other.getPassword())) return false;
-      if (hasLoginData() != other.hasLoginData()) return false;
-      if (hasLoginData()) {
-        if (!getLoginData()
-            .equals(other.getLoginData())) return false;
+      if (hasAuthData() != other.hasAuthData()) return false;
+      if (hasAuthData()) {
+        if (!getAuthData()
+            .equals(other.getAuthData())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -6353,9 +6466,9 @@ public final class Account {
       hash = (53 * hash) + getUserName().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
       hash = (53 * hash) + getPassword().hashCode();
-      if (hasLoginData()) {
-        hash = (37 * hash) + LOGINDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getLoginData().hashCode();
+      if (hasAuthData()) {
+        hash = (37 * hash) + AUTHDATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAuthData().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -6506,11 +6619,11 @@ public final class Account {
 
         password_ = "";
 
-        if (loginDataBuilder_ == null) {
-          loginData_ = null;
+        if (authDataBuilder_ == null) {
+          authData_ = null;
         } else {
-          loginData_ = null;
-          loginDataBuilder_ = null;
+          authData_ = null;
+          authDataBuilder_ = null;
         }
         return this;
       }
@@ -6546,10 +6659,10 @@ public final class Account {
         result.encUserPriKey_ = encUserPriKey_;
         result.userName_ = userName_;
         result.password_ = password_;
-        if (loginDataBuilder_ == null) {
-          result.loginData_ = loginData_;
+        if (authDataBuilder_ == null) {
+          result.authData_ = authData_;
         } else {
-          result.loginData_ = loginDataBuilder_.build();
+          result.authData_ = authDataBuilder_.build();
         }
         onBuilt();
         return result;
@@ -6631,8 +6744,8 @@ public final class Account {
           password_ = other.password_;
           onChanged();
         }
-        if (other.hasLoginData()) {
-          mergeLoginData(other.getLoginData());
+        if (other.hasAuthData()) {
+          mergeAuthData(other.getAuthData());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7271,159 +7384,159 @@ public final class Account {
         return this;
       }
 
-      private com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData loginData_;
+      private com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData authData_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder> loginDataBuilder_;
+          com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder> authDataBuilder_;
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
-       * @return Whether the loginData field is set.
+       * <code>.proto.RegisterAuthData authData = 9;</code>
+       * @return Whether the authData field is set.
        */
-      public boolean hasLoginData() {
-        return loginDataBuilder_ != null || loginData_ != null;
+      public boolean hasAuthData() {
+        return authDataBuilder_ != null || authData_ != null;
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
-       * @return The loginData.
+       * <code>.proto.RegisterAuthData authData = 9;</code>
+       * @return The authData.
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData getLoginData() {
-        if (loginDataBuilder_ == null) {
-          return loginData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance() : loginData_;
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData getAuthData() {
+        if (authDataBuilder_ == null) {
+          return authData_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance() : authData_;
         } else {
-          return loginDataBuilder_.getMessage();
+          return authDataBuilder_.getMessage();
         }
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
-      public Builder setLoginData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData value) {
-        if (loginDataBuilder_ == null) {
+      public Builder setAuthData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData value) {
+        if (authDataBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          loginData_ = value;
+          authData_ = value;
           onChanged();
         } else {
-          loginDataBuilder_.setMessage(value);
+          authDataBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
-      public Builder setLoginData(
-          com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder builderForValue) {
-        if (loginDataBuilder_ == null) {
-          loginData_ = builderForValue.build();
+      public Builder setAuthData(
+          com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder builderForValue) {
+        if (authDataBuilder_ == null) {
+          authData_ = builderForValue.build();
           onChanged();
         } else {
-          loginDataBuilder_.setMessage(builderForValue.build());
+          authDataBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
-      public Builder mergeLoginData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData value) {
-        if (loginDataBuilder_ == null) {
-          if (loginData_ != null) {
-            loginData_ =
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.newBuilder(loginData_).mergeFrom(value).buildPartial();
+      public Builder mergeAuthData(com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData value) {
+        if (authDataBuilder_ == null) {
+          if (authData_ != null) {
+            authData_ =
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.newBuilder(authData_).mergeFrom(value).buildPartial();
           } else {
-            loginData_ = value;
+            authData_ = value;
           }
           onChanged();
         } else {
-          loginDataBuilder_.mergeFrom(value);
+          authDataBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
-      public Builder clearLoginData() {
-        if (loginDataBuilder_ == null) {
-          loginData_ = null;
+      public Builder clearAuthData() {
+        if (authDataBuilder_ == null) {
+          authData_ = null;
           onChanged();
         } else {
-          loginData_ = null;
-          loginDataBuilder_ = null;
+          authData_ = null;
+          authDataBuilder_ = null;
         }
 
         return this;
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder getLoginDataBuilder() {
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder getAuthDataBuilder() {
         
         onChanged();
-        return getLoginDataFieldBuilder().getBuilder();
+        return getAuthDataFieldBuilder().getBuilder();
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
-      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder getLoginDataOrBuilder() {
-        if (loginDataBuilder_ != null) {
-          return loginDataBuilder_.getMessageOrBuilder();
+      public com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder getAuthDataOrBuilder() {
+        if (authDataBuilder_ != null) {
+          return authDataBuilder_.getMessageOrBuilder();
         } else {
-          return loginData_ == null ?
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.getDefaultInstance() : loginData_;
+          return authData_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.getDefaultInstance() : authData_;
         }
       }
       /**
        * <pre>
-       * Data needed to establish how the user will log in
+       * Data needed to establish how the user will authenticate
        * </pre>
        *
-       * <code>.proto.RegisterLoginData loginData = 9;</code>
+       * <code>.proto.RegisterAuthData authData = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder> 
-          getLoginDataFieldBuilder() {
-        if (loginDataBuilder_ == null) {
-          loginDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterLoginDataOrBuilder>(
-                  getLoginData(),
+          com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder> 
+          getAuthDataFieldBuilder() {
+        if (authDataBuilder_ == null) {
+          authDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthData.Builder, com.strongsalt.strongdoc.sdk.proto.Account.RegisterAuthDataOrBuilder>(
+                  getAuthData(),
                   getParentForChildren(),
                   isClean());
-          loginData_ = null;
+          authData_ = null;
         }
-        return loginDataBuilder_;
+        return authDataBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -10018,40 +10131,54 @@ public final class Account {
      * encrypted user private key
      * </pre>
      *
-     * <code>string encUserPriKey = 3;</code>
-     * @return The encUserPriKey.
+     * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+     * @return Whether the encUserPriKey field is set.
      */
-    java.lang.String getEncUserPriKey();
+    boolean hasEncUserPriKey();
     /**
      * <pre>
      * encrypted user private key
      * </pre>
      *
-     * <code>string encUserPriKey = 3;</code>
-     * @return The bytes for encUserPriKey.
+     * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+     * @return The encUserPriKey.
      */
-    com.google.protobuf.ByteString
-        getEncUserPriKeyBytes();
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncUserPriKey();
+    /**
+     * <pre>
+     * encrypted user private key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncUserPriKeyOrBuilder();
 
     /**
      * <pre>
      * public key of new user
      * </pre>
      *
-     * <code>string newUserPubKey = 4;</code>
-     * @return The newUserPubKey.
+     * <code>.proto.Key newUserPubKey = 4;</code>
+     * @return Whether the newUserPubKey field is set.
      */
-    java.lang.String getNewUserPubKey();
+    boolean hasNewUserPubKey();
     /**
      * <pre>
      * public key of new user
      * </pre>
      *
-     * <code>string newUserPubKey = 4;</code>
-     * @return The bytes for newUserPubKey.
+     * <code>.proto.Key newUserPubKey = 4;</code>
+     * @return The newUserPubKey.
      */
-    com.google.protobuf.ByteString
-        getNewUserPubKeyBytes();
+    com.strongsalt.strongdoc.sdk.proto.Encryption.Key getNewUserPubKey();
+    /**
+     * <pre>
+     * public key of new user
+     * </pre>
+     *
+     * <code>.proto.Key newUserPubKey = 4;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getNewUserPubKeyOrBuilder();
   }
   /**
    * Protobuf type {@code proto.PreparePromoteUserResp}
@@ -10066,8 +10193,6 @@ public final class Account {
       super(builder);
     }
     private PreparePromoteUserResp() {
-      encUserPriKey_ = "";
-      newUserPubKey_ = "";
     }
 
     @java.lang.Override
@@ -10119,15 +10244,29 @@ public final class Account {
               break;
             }
             case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder subBuilder = null;
+              if (encUserPriKey_ != null) {
+                subBuilder = encUserPriKey_.toBuilder();
+              }
+              encUserPriKey_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(encUserPriKey_);
+                encUserPriKey_ = subBuilder.buildPartial();
+              }
 
-              encUserPriKey_ = s;
               break;
             }
             case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder subBuilder = null;
+              if (newUserPubKey_ != null) {
+                subBuilder = newUserPubKey_.toBuilder();
+              }
+              newUserPubKey_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.Key.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(newUserPubKey_);
+                newUserPubKey_ = subBuilder.buildPartial();
+              }
 
-              newUserPubKey_ = s;
               break;
             }
             default: {
@@ -10212,91 +10351,73 @@ public final class Account {
     }
 
     public static final int ENCUSERPRIKEY_FIELD_NUMBER = 3;
-    private volatile java.lang.Object encUserPriKey_;
+    private com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey encUserPriKey_;
     /**
      * <pre>
      * encrypted user private key
      * </pre>
      *
-     * <code>string encUserPriKey = 3;</code>
-     * @return The encUserPriKey.
+     * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+     * @return Whether the encUserPriKey field is set.
      */
-    public java.lang.String getEncUserPriKey() {
-      java.lang.Object ref = encUserPriKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        encUserPriKey_ = s;
-        return s;
-      }
+    public boolean hasEncUserPriKey() {
+      return encUserPriKey_ != null;
     }
     /**
      * <pre>
      * encrypted user private key
      * </pre>
      *
-     * <code>string encUserPriKey = 3;</code>
-     * @return The bytes for encUserPriKey.
+     * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+     * @return The encUserPriKey.
      */
-    public com.google.protobuf.ByteString
-        getEncUserPriKeyBytes() {
-      java.lang.Object ref = encUserPriKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        encUserPriKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncUserPriKey() {
+      return encUserPriKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance() : encUserPriKey_;
+    }
+    /**
+     * <pre>
+     * encrypted user private key
+     * </pre>
+     *
+     * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncUserPriKeyOrBuilder() {
+      return getEncUserPriKey();
     }
 
     public static final int NEWUSERPUBKEY_FIELD_NUMBER = 4;
-    private volatile java.lang.Object newUserPubKey_;
+    private com.strongsalt.strongdoc.sdk.proto.Encryption.Key newUserPubKey_;
     /**
      * <pre>
      * public key of new user
      * </pre>
      *
-     * <code>string newUserPubKey = 4;</code>
-     * @return The newUserPubKey.
+     * <code>.proto.Key newUserPubKey = 4;</code>
+     * @return Whether the newUserPubKey field is set.
      */
-    public java.lang.String getNewUserPubKey() {
-      java.lang.Object ref = newUserPubKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        newUserPubKey_ = s;
-        return s;
-      }
+    public boolean hasNewUserPubKey() {
+      return newUserPubKey_ != null;
     }
     /**
      * <pre>
      * public key of new user
      * </pre>
      *
-     * <code>string newUserPubKey = 4;</code>
-     * @return The bytes for newUserPubKey.
+     * <code>.proto.Key newUserPubKey = 4;</code>
+     * @return The newUserPubKey.
      */
-    public com.google.protobuf.ByteString
-        getNewUserPubKeyBytes() {
-      java.lang.Object ref = newUserPubKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        newUserPubKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.Key getNewUserPubKey() {
+      return newUserPubKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance() : newUserPubKey_;
+    }
+    /**
+     * <pre>
+     * public key of new user
+     * </pre>
+     *
+     * <code>.proto.Key newUserPubKey = 4;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getNewUserPubKeyOrBuilder() {
+      return getNewUserPubKey();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -10319,11 +10440,11 @@ public final class Account {
       if (encOrgKey_ != null) {
         output.writeMessage(2, getEncOrgKey());
       }
-      if (!getEncUserPriKeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, encUserPriKey_);
+      if (encUserPriKey_ != null) {
+        output.writeMessage(3, getEncUserPriKey());
       }
-      if (!getNewUserPubKeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, newUserPubKey_);
+      if (newUserPubKey_ != null) {
+        output.writeMessage(4, getNewUserPubKey());
       }
       unknownFields.writeTo(output);
     }
@@ -10342,11 +10463,13 @@ public final class Account {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getEncOrgKey());
       }
-      if (!getEncUserPriKeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, encUserPriKey_);
+      if (encUserPriKey_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getEncUserPriKey());
       }
-      if (!getNewUserPubKeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, newUserPubKey_);
+      if (newUserPubKey_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getNewUserPubKey());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10370,10 +10493,16 @@ public final class Account {
         if (!getEncOrgKey()
             .equals(other.getEncOrgKey())) return false;
       }
-      if (!getEncUserPriKey()
-          .equals(other.getEncUserPriKey())) return false;
-      if (!getNewUserPubKey()
-          .equals(other.getNewUserPubKey())) return false;
+      if (hasEncUserPriKey() != other.hasEncUserPriKey()) return false;
+      if (hasEncUserPriKey()) {
+        if (!getEncUserPriKey()
+            .equals(other.getEncUserPriKey())) return false;
+      }
+      if (hasNewUserPubKey() != other.hasNewUserPubKey()) return false;
+      if (hasNewUserPubKey()) {
+        if (!getNewUserPubKey()
+            .equals(other.getNewUserPubKey())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -10392,10 +10521,14 @@ public final class Account {
         hash = (37 * hash) + ENCORGKEY_FIELD_NUMBER;
         hash = (53 * hash) + getEncOrgKey().hashCode();
       }
-      hash = (37 * hash) + ENCUSERPRIKEY_FIELD_NUMBER;
-      hash = (53 * hash) + getEncUserPriKey().hashCode();
-      hash = (37 * hash) + NEWUSERPUBKEY_FIELD_NUMBER;
-      hash = (53 * hash) + getNewUserPubKey().hashCode();
+      if (hasEncUserPriKey()) {
+        hash = (37 * hash) + ENCUSERPRIKEY_FIELD_NUMBER;
+        hash = (53 * hash) + getEncUserPriKey().hashCode();
+      }
+      if (hasNewUserPubKey()) {
+        hash = (37 * hash) + NEWUSERPUBKEY_FIELD_NUMBER;
+        hash = (53 * hash) + getNewUserPubKey().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10537,10 +10670,18 @@ public final class Account {
           encOrgKey_ = null;
           encOrgKeyBuilder_ = null;
         }
-        encUserPriKey_ = "";
-
-        newUserPubKey_ = "";
-
+        if (encUserPriKeyBuilder_ == null) {
+          encUserPriKey_ = null;
+        } else {
+          encUserPriKey_ = null;
+          encUserPriKeyBuilder_ = null;
+        }
+        if (newUserPubKeyBuilder_ == null) {
+          newUserPubKey_ = null;
+        } else {
+          newUserPubKey_ = null;
+          newUserPubKeyBuilder_ = null;
+        }
         return this;
       }
 
@@ -10573,8 +10714,16 @@ public final class Account {
         } else {
           result.encOrgKey_ = encOrgKeyBuilder_.build();
         }
-        result.encUserPriKey_ = encUserPriKey_;
-        result.newUserPubKey_ = newUserPubKey_;
+        if (encUserPriKeyBuilder_ == null) {
+          result.encUserPriKey_ = encUserPriKey_;
+        } else {
+          result.encUserPriKey_ = encUserPriKeyBuilder_.build();
+        }
+        if (newUserPubKeyBuilder_ == null) {
+          result.newUserPubKey_ = newUserPubKey_;
+        } else {
+          result.newUserPubKey_ = newUserPubKeyBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -10629,13 +10778,11 @@ public final class Account {
         if (other.hasEncOrgKey()) {
           mergeEncOrgKey(other.getEncOrgKey());
         }
-        if (!other.getEncUserPriKey().isEmpty()) {
-          encUserPriKey_ = other.encUserPriKey_;
-          onChanged();
+        if (other.hasEncUserPriKey()) {
+          mergeEncUserPriKey(other.getEncUserPriKey());
         }
-        if (!other.getNewUserPubKey().isEmpty()) {
-          newUserPubKey_ = other.newUserPubKey_;
-          onChanged();
+        if (other.hasNewUserPubKey()) {
+          mergeNewUserPubKey(other.getNewUserPubKey());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -10863,25 +11010,33 @@ public final class Account {
         return encOrgKeyBuilder_;
       }
 
-      private java.lang.Object encUserPriKey_ = "";
+      private com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey encUserPriKey_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> encUserPriKeyBuilder_;
       /**
        * <pre>
        * encrypted user private key
        * </pre>
        *
-       * <code>string encUserPriKey = 3;</code>
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+       * @return Whether the encUserPriKey field is set.
+       */
+      public boolean hasEncUserPriKey() {
+        return encUserPriKeyBuilder_ != null || encUserPriKey_ != null;
+      }
+      /**
+       * <pre>
+       * encrypted user private key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
        * @return The encUserPriKey.
        */
-      public java.lang.String getEncUserPriKey() {
-        java.lang.Object ref = encUserPriKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          encUserPriKey_ = s;
-          return s;
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncUserPriKey() {
+        if (encUserPriKeyBuilder_ == null) {
+          return encUserPriKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance() : encUserPriKey_;
         } else {
-          return (java.lang.String) ref;
+          return encUserPriKeyBuilder_.getMessage();
         }
       }
       /**
@@ -10889,39 +11044,37 @@ public final class Account {
        * encrypted user private key
        * </pre>
        *
-       * <code>string encUserPriKey = 3;</code>
-       * @return The bytes for encUserPriKey.
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
        */
-      public com.google.protobuf.ByteString
-          getEncUserPriKeyBytes() {
-        java.lang.Object ref = encUserPriKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          encUserPriKey_ = b;
-          return b;
+      public Builder setEncUserPriKey(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encUserPriKeyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          encUserPriKey_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          encUserPriKeyBuilder_.setMessage(value);
         }
+
+        return this;
       }
       /**
        * <pre>
        * encrypted user private key
        * </pre>
        *
-       * <code>string encUserPriKey = 3;</code>
-       * @param value The encUserPriKey to set.
-       * @return This builder for chaining.
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
        */
       public Builder setEncUserPriKey(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        encUserPriKey_ = value;
-        onChanged();
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (encUserPriKeyBuilder_ == null) {
+          encUserPriKey_ = builderForValue.build();
+          onChanged();
+        } else {
+          encUserPriKeyBuilder_.setMessage(builderForValue.build());
+        }
+
         return this;
       }
       /**
@@ -10929,13 +11082,39 @@ public final class Account {
        * encrypted user private key
        * </pre>
        *
-       * <code>string encUserPriKey = 3;</code>
-       * @return This builder for chaining.
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+       */
+      public Builder mergeEncUserPriKey(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encUserPriKeyBuilder_ == null) {
+          if (encUserPriKey_ != null) {
+            encUserPriKey_ =
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.newBuilder(encUserPriKey_).mergeFrom(value).buildPartial();
+          } else {
+            encUserPriKey_ = value;
+          }
+          onChanged();
+        } else {
+          encUserPriKeyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * encrypted user private key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
        */
       public Builder clearEncUserPriKey() {
-        
-        encUserPriKey_ = getDefaultInstance().getEncUserPriKey();
-        onChanged();
+        if (encUserPriKeyBuilder_ == null) {
+          encUserPriKey_ = null;
+          onChanged();
+        } else {
+          encUserPriKey_ = null;
+          encUserPriKeyBuilder_ = null;
+        }
+
         return this;
       }
       /**
@@ -10943,41 +11122,76 @@ public final class Account {
        * encrypted user private key
        * </pre>
        *
-       * <code>string encUserPriKey = 3;</code>
-       * @param value The bytes for encUserPriKey to set.
-       * @return This builder for chaining.
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
        */
-      public Builder setEncUserPriKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder getEncUserPriKeyBuilder() {
         
-        encUserPriKey_ = value;
         onChanged();
-        return this;
+        return getEncUserPriKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * encrypted user private key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncUserPriKeyOrBuilder() {
+        if (encUserPriKeyBuilder_ != null) {
+          return encUserPriKeyBuilder_.getMessageOrBuilder();
+        } else {
+          return encUserPriKey_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance() : encUserPriKey_;
+        }
+      }
+      /**
+       * <pre>
+       * encrypted user private key
+       * </pre>
+       *
+       * <code>.proto.EncryptedKey encUserPriKey = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+          getEncUserPriKeyFieldBuilder() {
+        if (encUserPriKeyBuilder_ == null) {
+          encUserPriKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder>(
+                  getEncUserPriKey(),
+                  getParentForChildren(),
+                  isClean());
+          encUserPriKey_ = null;
+        }
+        return encUserPriKeyBuilder_;
       }
 
-      private java.lang.Object newUserPubKey_ = "";
+      private com.strongsalt.strongdoc.sdk.proto.Encryption.Key newUserPubKey_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> newUserPubKeyBuilder_;
       /**
        * <pre>
        * public key of new user
        * </pre>
        *
-       * <code>string newUserPubKey = 4;</code>
+       * <code>.proto.Key newUserPubKey = 4;</code>
+       * @return Whether the newUserPubKey field is set.
+       */
+      public boolean hasNewUserPubKey() {
+        return newUserPubKeyBuilder_ != null || newUserPubKey_ != null;
+      }
+      /**
+       * <pre>
+       * public key of new user
+       * </pre>
+       *
+       * <code>.proto.Key newUserPubKey = 4;</code>
        * @return The newUserPubKey.
        */
-      public java.lang.String getNewUserPubKey() {
-        java.lang.Object ref = newUserPubKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          newUserPubKey_ = s;
-          return s;
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key getNewUserPubKey() {
+        if (newUserPubKeyBuilder_ == null) {
+          return newUserPubKey_ == null ? com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance() : newUserPubKey_;
         } else {
-          return (java.lang.String) ref;
+          return newUserPubKeyBuilder_.getMessage();
         }
       }
       /**
@@ -10985,39 +11199,37 @@ public final class Account {
        * public key of new user
        * </pre>
        *
-       * <code>string newUserPubKey = 4;</code>
-       * @return The bytes for newUserPubKey.
+       * <code>.proto.Key newUserPubKey = 4;</code>
        */
-      public com.google.protobuf.ByteString
-          getNewUserPubKeyBytes() {
-        java.lang.Object ref = newUserPubKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          newUserPubKey_ = b;
-          return b;
+      public Builder setNewUserPubKey(com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (newUserPubKeyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          newUserPubKey_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          newUserPubKeyBuilder_.setMessage(value);
         }
+
+        return this;
       }
       /**
        * <pre>
        * public key of new user
        * </pre>
        *
-       * <code>string newUserPubKey = 4;</code>
-       * @param value The newUserPubKey to set.
-       * @return This builder for chaining.
+       * <code>.proto.Key newUserPubKey = 4;</code>
        */
       public Builder setNewUserPubKey(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        newUserPubKey_ = value;
-        onChanged();
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder builderForValue) {
+        if (newUserPubKeyBuilder_ == null) {
+          newUserPubKey_ = builderForValue.build();
+          onChanged();
+        } else {
+          newUserPubKeyBuilder_.setMessage(builderForValue.build());
+        }
+
         return this;
       }
       /**
@@ -11025,13 +11237,39 @@ public final class Account {
        * public key of new user
        * </pre>
        *
-       * <code>string newUserPubKey = 4;</code>
-       * @return This builder for chaining.
+       * <code>.proto.Key newUserPubKey = 4;</code>
+       */
+      public Builder mergeNewUserPubKey(com.strongsalt.strongdoc.sdk.proto.Encryption.Key value) {
+        if (newUserPubKeyBuilder_ == null) {
+          if (newUserPubKey_ != null) {
+            newUserPubKey_ =
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key.newBuilder(newUserPubKey_).mergeFrom(value).buildPartial();
+          } else {
+            newUserPubKey_ = value;
+          }
+          onChanged();
+        } else {
+          newUserPubKeyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * public key of new user
+       * </pre>
+       *
+       * <code>.proto.Key newUserPubKey = 4;</code>
        */
       public Builder clearNewUserPubKey() {
-        
-        newUserPubKey_ = getDefaultInstance().getNewUserPubKey();
-        onChanged();
+        if (newUserPubKeyBuilder_ == null) {
+          newUserPubKey_ = null;
+          onChanged();
+        } else {
+          newUserPubKey_ = null;
+          newUserPubKeyBuilder_ = null;
+        }
+
         return this;
       }
       /**
@@ -11039,20 +11277,47 @@ public final class Account {
        * public key of new user
        * </pre>
        *
-       * <code>string newUserPubKey = 4;</code>
-       * @param value The bytes for newUserPubKey to set.
-       * @return This builder for chaining.
+       * <code>.proto.Key newUserPubKey = 4;</code>
        */
-      public Builder setNewUserPubKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder getNewUserPubKeyBuilder() {
         
-        newUserPubKey_ = value;
         onChanged();
-        return this;
+        return getNewUserPubKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * public key of new user
+       * </pre>
+       *
+       * <code>.proto.Key newUserPubKey = 4;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder getNewUserPubKeyOrBuilder() {
+        if (newUserPubKeyBuilder_ != null) {
+          return newUserPubKeyBuilder_.getMessageOrBuilder();
+        } else {
+          return newUserPubKey_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key.getDefaultInstance() : newUserPubKey_;
+        }
+      }
+      /**
+       * <pre>
+       * public key of new user
+       * </pre>
+       *
+       * <code>.proto.Key newUserPubKey = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder> 
+          getNewUserPubKeyFieldBuilder() {
+        if (newUserPubKeyBuilder_ == null) {
+          newUserPubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.Key, com.strongsalt.strongdoc.sdk.proto.Encryption.Key.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.KeyOrBuilder>(
+                  getNewUserPubKey(),
+                  getParentForChildren(),
+                  isClean());
+          newUserPubKey_ = null;
+        }
+        return newUserPubKeyBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -14302,32 +14567,30 @@ public final class Account {
 
     /**
      * <pre>
-     * The type of login the user uses
+     * The user's authentication metadata
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 2;</code>
-     * @return The enum numeric value on the wire for loginType.
+     * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+     * @return Whether the prepareAuthResp field is set.
      */
-    int getLoginTypeValue();
+    boolean hasPrepareAuthResp();
     /**
      * <pre>
-     * The type of login the user uses
+     * The user's authentication metadata
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 2;</code>
-     * @return The loginType.
+     * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+     * @return The prepareAuthResp.
      */
-    com.strongsalt.strongdoc.sdk.proto.Account.LoginType getLoginType();
-
+    com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp getPrepareAuthResp();
     /**
      * <pre>
-     * Which version of the login type the user uses
+     * The user's authentication metadata
      * </pre>
      *
-     * <code>int32 loginVersion = 3;</code>
-     * @return The loginVersion.
+     * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
      */
-    int getLoginVersion();
+    com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder getPrepareAuthRespOrBuilder();
   }
   /**
    * Protobuf type {@code proto.PrepareLoginResp}
@@ -14343,7 +14606,6 @@ public final class Account {
     }
     private PrepareLoginResp() {
       userID_ = "";
-      loginType_ = 0;
     }
 
     @java.lang.Override
@@ -14382,15 +14644,17 @@ public final class Account {
               userID_ = s;
               break;
             }
-            case 16: {
-              int rawValue = input.readEnum();
+            case 18: {
+              com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder subBuilder = null;
+              if (prepareAuthResp_ != null) {
+                subBuilder = prepareAuthResp_.toBuilder();
+              }
+              prepareAuthResp_ = input.readMessage(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(prepareAuthResp_);
+                prepareAuthResp_ = subBuilder.buildPartial();
+              }
 
-              loginType_ = rawValue;
-              break;
-            }
-            case 24: {
-
-              loginVersion_ = input.readInt32();
               break;
             }
             default: {
@@ -14469,45 +14733,39 @@ public final class Account {
       }
     }
 
-    public static final int LOGINTYPE_FIELD_NUMBER = 2;
-    private int loginType_;
+    public static final int PREPAREAUTHRESP_FIELD_NUMBER = 2;
+    private com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp prepareAuthResp_;
     /**
      * <pre>
-     * The type of login the user uses
+     * The user's authentication metadata
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 2;</code>
-     * @return The enum numeric value on the wire for loginType.
+     * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+     * @return Whether the prepareAuthResp field is set.
      */
-    public int getLoginTypeValue() {
-      return loginType_;
+    public boolean hasPrepareAuthResp() {
+      return prepareAuthResp_ != null;
     }
     /**
      * <pre>
-     * The type of login the user uses
+     * The user's authentication metadata
      * </pre>
      *
-     * <code>.proto.LoginType loginType = 2;</code>
-     * @return The loginType.
+     * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+     * @return The prepareAuthResp.
      */
-    public com.strongsalt.strongdoc.sdk.proto.Account.LoginType getLoginType() {
-      @SuppressWarnings("deprecation")
-      com.strongsalt.strongdoc.sdk.proto.Account.LoginType result = com.strongsalt.strongdoc.sdk.proto.Account.LoginType.valueOf(loginType_);
-      return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.LoginType.UNRECOGNIZED : result;
+    public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp getPrepareAuthResp() {
+      return prepareAuthResp_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance() : prepareAuthResp_;
     }
-
-    public static final int LOGINVERSION_FIELD_NUMBER = 3;
-    private int loginVersion_;
     /**
      * <pre>
-     * Which version of the login type the user uses
+     * The user's authentication metadata
      * </pre>
      *
-     * <code>int32 loginVersion = 3;</code>
-     * @return The loginVersion.
+     * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
      */
-    public int getLoginVersion() {
-      return loginVersion_;
+    public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder getPrepareAuthRespOrBuilder() {
+      return getPrepareAuthResp();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14527,11 +14785,8 @@ public final class Account {
       if (!getUserIDBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userID_);
       }
-      if (loginType_ != com.strongsalt.strongdoc.sdk.proto.Account.LoginType.NONE.getNumber()) {
-        output.writeEnum(2, loginType_);
-      }
-      if (loginVersion_ != 0) {
-        output.writeInt32(3, loginVersion_);
+      if (prepareAuthResp_ != null) {
+        output.writeMessage(2, getPrepareAuthResp());
       }
       unknownFields.writeTo(output);
     }
@@ -14545,13 +14800,9 @@ public final class Account {
       if (!getUserIDBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userID_);
       }
-      if (loginType_ != com.strongsalt.strongdoc.sdk.proto.Account.LoginType.NONE.getNumber()) {
+      if (prepareAuthResp_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, loginType_);
-      }
-      if (loginVersion_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, loginVersion_);
+          .computeMessageSize(2, getPrepareAuthResp());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -14570,9 +14821,11 @@ public final class Account {
 
       if (!getUserID()
           .equals(other.getUserID())) return false;
-      if (loginType_ != other.loginType_) return false;
-      if (getLoginVersion()
-          != other.getLoginVersion()) return false;
+      if (hasPrepareAuthResp() != other.hasPrepareAuthResp()) return false;
+      if (hasPrepareAuthResp()) {
+        if (!getPrepareAuthResp()
+            .equals(other.getPrepareAuthResp())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -14586,10 +14839,10 @@ public final class Account {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + USERID_FIELD_NUMBER;
       hash = (53 * hash) + getUserID().hashCode();
-      hash = (37 * hash) + LOGINTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + loginType_;
-      hash = (37 * hash) + LOGINVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + getLoginVersion();
+      if (hasPrepareAuthResp()) {
+        hash = (37 * hash) + PREPAREAUTHRESP_FIELD_NUMBER;
+        hash = (53 * hash) + getPrepareAuthResp().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -14725,10 +14978,12 @@ public final class Account {
         super.clear();
         userID_ = "";
 
-        loginType_ = 0;
-
-        loginVersion_ = 0;
-
+        if (prepareAuthRespBuilder_ == null) {
+          prepareAuthResp_ = null;
+        } else {
+          prepareAuthResp_ = null;
+          prepareAuthRespBuilder_ = null;
+        }
         return this;
       }
 
@@ -14756,8 +15011,11 @@ public final class Account {
       public com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp result = new com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp(this);
         result.userID_ = userID_;
-        result.loginType_ = loginType_;
-        result.loginVersion_ = loginVersion_;
+        if (prepareAuthRespBuilder_ == null) {
+          result.prepareAuthResp_ = prepareAuthResp_;
+        } else {
+          result.prepareAuthResp_ = prepareAuthRespBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -14810,11 +15068,8 @@ public final class Account {
           userID_ = other.userID_;
           onChanged();
         }
-        if (other.loginType_ != 0) {
-          setLoginTypeValue(other.getLoginTypeValue());
-        }
-        if (other.getLoginVersion() != 0) {
-          setLoginVersion(other.getLoginVersion());
+        if (other.hasPrepareAuthResp()) {
+          mergePrepareAuthResp(other.getPrepareAuthResp());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -14941,118 +15196,159 @@ public final class Account {
         return this;
       }
 
-      private int loginType_ = 0;
+      private com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp prepareAuthResp_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder> prepareAuthRespBuilder_;
       /**
        * <pre>
-       * The type of login the user uses
+       * The user's authentication metadata
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 2;</code>
-       * @return The enum numeric value on the wire for loginType.
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       * @return Whether the prepareAuthResp field is set.
        */
-      public int getLoginTypeValue() {
-        return loginType_;
+      public boolean hasPrepareAuthResp() {
+        return prepareAuthRespBuilder_ != null || prepareAuthResp_ != null;
       }
       /**
        * <pre>
-       * The type of login the user uses
+       * The user's authentication metadata
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 2;</code>
-       * @param value The enum numeric value on the wire for loginType to set.
-       * @return This builder for chaining.
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       * @return The prepareAuthResp.
        */
-      public Builder setLoginTypeValue(int value) {
-        loginType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The type of login the user uses
-       * </pre>
-       *
-       * <code>.proto.LoginType loginType = 2;</code>
-       * @return The loginType.
-       */
-      public com.strongsalt.strongdoc.sdk.proto.Account.LoginType getLoginType() {
-        @SuppressWarnings("deprecation")
-        com.strongsalt.strongdoc.sdk.proto.Account.LoginType result = com.strongsalt.strongdoc.sdk.proto.Account.LoginType.valueOf(loginType_);
-        return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.LoginType.UNRECOGNIZED : result;
-      }
-      /**
-       * <pre>
-       * The type of login the user uses
-       * </pre>
-       *
-       * <code>.proto.LoginType loginType = 2;</code>
-       * @param value The loginType to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLoginType(com.strongsalt.strongdoc.sdk.proto.Account.LoginType value) {
-        if (value == null) {
-          throw new NullPointerException();
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp getPrepareAuthResp() {
+        if (prepareAuthRespBuilder_ == null) {
+          return prepareAuthResp_ == null ? com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance() : prepareAuthResp_;
+        } else {
+          return prepareAuthRespBuilder_.getMessage();
         }
-        
-        loginType_ = value.getNumber();
-        onChanged();
-        return this;
       }
       /**
        * <pre>
-       * The type of login the user uses
+       * The user's authentication metadata
        * </pre>
        *
-       * <code>.proto.LoginType loginType = 2;</code>
-       * @return This builder for chaining.
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
        */
-      public Builder clearLoginType() {
-        
-        loginType_ = 0;
-        onChanged();
-        return this;
-      }
+      public Builder setPrepareAuthResp(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp value) {
+        if (prepareAuthRespBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          prepareAuthResp_ = value;
+          onChanged();
+        } else {
+          prepareAuthRespBuilder_.setMessage(value);
+        }
 
-      private int loginVersion_ ;
-      /**
-       * <pre>
-       * Which version of the login type the user uses
-       * </pre>
-       *
-       * <code>int32 loginVersion = 3;</code>
-       * @return The loginVersion.
-       */
-      public int getLoginVersion() {
-        return loginVersion_;
-      }
-      /**
-       * <pre>
-       * Which version of the login type the user uses
-       * </pre>
-       *
-       * <code>int32 loginVersion = 3;</code>
-       * @param value The loginVersion to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLoginVersion(int value) {
-        
-        loginVersion_ = value;
-        onChanged();
         return this;
       }
       /**
        * <pre>
-       * Which version of the login type the user uses
+       * The user's authentication metadata
        * </pre>
        *
-       * <code>int32 loginVersion = 3;</code>
-       * @return This builder for chaining.
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
        */
-      public Builder clearLoginVersion() {
-        
-        loginVersion_ = 0;
-        onChanged();
+      public Builder setPrepareAuthResp(
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder builderForValue) {
+        if (prepareAuthRespBuilder_ == null) {
+          prepareAuthResp_ = builderForValue.build();
+          onChanged();
+        } else {
+          prepareAuthRespBuilder_.setMessage(builderForValue.build());
+        }
+
         return this;
+      }
+      /**
+       * <pre>
+       * The user's authentication metadata
+       * </pre>
+       *
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       */
+      public Builder mergePrepareAuthResp(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp value) {
+        if (prepareAuthRespBuilder_ == null) {
+          if (prepareAuthResp_ != null) {
+            prepareAuthResp_ =
+              com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.newBuilder(prepareAuthResp_).mergeFrom(value).buildPartial();
+          } else {
+            prepareAuthResp_ = value;
+          }
+          onChanged();
+        } else {
+          prepareAuthRespBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The user's authentication metadata
+       * </pre>
+       *
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       */
+      public Builder clearPrepareAuthResp() {
+        if (prepareAuthRespBuilder_ == null) {
+          prepareAuthResp_ = null;
+          onChanged();
+        } else {
+          prepareAuthResp_ = null;
+          prepareAuthRespBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * The user's authentication metadata
+       * </pre>
+       *
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder getPrepareAuthRespBuilder() {
+        
+        onChanged();
+        return getPrepareAuthRespFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * The user's authentication metadata
+       * </pre>
+       *
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder getPrepareAuthRespOrBuilder() {
+        if (prepareAuthRespBuilder_ != null) {
+          return prepareAuthRespBuilder_.getMessageOrBuilder();
+        } else {
+          return prepareAuthResp_ == null ?
+              com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance() : prepareAuthResp_;
+        }
+      }
+      /**
+       * <pre>
+       * The user's authentication metadata
+       * </pre>
+       *
+       * <code>.proto.PrepareAuthResp prepareAuthResp = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder> 
+          getPrepareAuthRespFieldBuilder() {
+        if (prepareAuthRespBuilder_ == null) {
+          prepareAuthRespBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder>(
+                  getPrepareAuthResp(),
+                  getParentForChildren(),
+                  isClean());
+          prepareAuthResp_ = null;
+        }
+        return prepareAuthRespBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -15102,6 +15398,1071 @@ public final class Account {
 
     @java.lang.Override
     public com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PrepareAuthReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.PrepareAuthReq)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code proto.PrepareAuthReq}
+   */
+  public  static final class PrepareAuthReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.PrepareAuthReq)
+      PrepareAuthReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PrepareAuthReq.newBuilder() to construct.
+    private PrepareAuthReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PrepareAuthReq() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PrepareAuthReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PrepareAuthReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.class, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq)) {
+        return super.equals(obj);
+      }
+      com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq other = (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.PrepareAuthReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.PrepareAuthReq)
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.class, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.Builder.class);
+      }
+
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq build() {
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq result = new com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.PrepareAuthReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.PrepareAuthReq)
+    private static final com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq();
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PrepareAuthReq>
+        PARSER = new com.google.protobuf.AbstractParser<PrepareAuthReq>() {
+      @java.lang.Override
+      public PrepareAuthReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PrepareAuthReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PrepareAuthReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PrepareAuthReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PrepareAuthRespOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.PrepareAuthResp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * The type of authentication the user uses
+     * </pre>
+     *
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The enum numeric value on the wire for authType.
+     */
+    int getAuthTypeValue();
+    /**
+     * <pre>
+     * The type of authentication the user uses
+     * </pre>
+     *
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The authType.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Account.AuthType getAuthType();
+
+    /**
+     * <pre>
+     * Which version of the authentication type the user uses
+     * </pre>
+     *
+     * <code>int32 authVersion = 2;</code>
+     * @return The authVersion.
+     */
+    int getAuthVersion();
+  }
+  /**
+   * Protobuf type {@code proto.PrepareAuthResp}
+   */
+  public  static final class PrepareAuthResp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.PrepareAuthResp)
+      PrepareAuthRespOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PrepareAuthResp.newBuilder() to construct.
+    private PrepareAuthResp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PrepareAuthResp() {
+      authType_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PrepareAuthResp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PrepareAuthResp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              int rawValue = input.readEnum();
+
+              authType_ = rawValue;
+              break;
+            }
+            case 16: {
+
+              authVersion_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthResp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthResp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.class, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder.class);
+    }
+
+    public static final int AUTHTYPE_FIELD_NUMBER = 1;
+    private int authType_;
+    /**
+     * <pre>
+     * The type of authentication the user uses
+     * </pre>
+     *
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The enum numeric value on the wire for authType.
+     */
+    public int getAuthTypeValue() {
+      return authType_;
+    }
+    /**
+     * <pre>
+     * The type of authentication the user uses
+     * </pre>
+     *
+     * <code>.proto.AuthType authType = 1;</code>
+     * @return The authType.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Account.AuthType getAuthType() {
+      @SuppressWarnings("deprecation")
+      com.strongsalt.strongdoc.sdk.proto.Account.AuthType result = com.strongsalt.strongdoc.sdk.proto.Account.AuthType.valueOf(authType_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthType.UNRECOGNIZED : result;
+    }
+
+    public static final int AUTHVERSION_FIELD_NUMBER = 2;
+    private int authVersion_;
+    /**
+     * <pre>
+     * Which version of the authentication type the user uses
+     * </pre>
+     *
+     * <code>int32 authVersion = 2;</code>
+     * @return The authVersion.
+     */
+    public int getAuthVersion() {
+      return authVersion_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (authType_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthType.AUTH_NONE.getNumber()) {
+        output.writeEnum(1, authType_);
+      }
+      if (authVersion_ != 0) {
+        output.writeInt32(2, authVersion_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (authType_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthType.AUTH_NONE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, authType_);
+      }
+      if (authVersion_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, authVersion_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp)) {
+        return super.equals(obj);
+      }
+      com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp other = (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp) obj;
+
+      if (authType_ != other.authType_) return false;
+      if (getAuthVersion()
+          != other.getAuthVersion()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + AUTHTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + authType_;
+      hash = (37 * hash) + AUTHVERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getAuthVersion();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.PrepareAuthResp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.PrepareAuthResp)
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthRespOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthResp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthResp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.class, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.Builder.class);
+      }
+
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        authType_ = 0;
+
+        authVersion_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_PrepareAuthResp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp build() {
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp result = new com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp(this);
+        result.authType_ = authType_;
+        result.authVersion_ = authVersion_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance()) return this;
+        if (other.authType_ != 0) {
+          setAuthTypeValue(other.getAuthTypeValue());
+        }
+        if (other.getAuthVersion() != 0) {
+          setAuthVersion(other.getAuthVersion());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int authType_ = 0;
+      /**
+       * <pre>
+       * The type of authentication the user uses
+       * </pre>
+       *
+       * <code>.proto.AuthType authType = 1;</code>
+       * @return The enum numeric value on the wire for authType.
+       */
+      public int getAuthTypeValue() {
+        return authType_;
+      }
+      /**
+       * <pre>
+       * The type of authentication the user uses
+       * </pre>
+       *
+       * <code>.proto.AuthType authType = 1;</code>
+       * @param value The enum numeric value on the wire for authType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthTypeValue(int value) {
+        authType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The type of authentication the user uses
+       * </pre>
+       *
+       * <code>.proto.AuthType authType = 1;</code>
+       * @return The authType.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Account.AuthType getAuthType() {
+        @SuppressWarnings("deprecation")
+        com.strongsalt.strongdoc.sdk.proto.Account.AuthType result = com.strongsalt.strongdoc.sdk.proto.Account.AuthType.valueOf(authType_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * The type of authentication the user uses
+       * </pre>
+       *
+       * <code>.proto.AuthType authType = 1;</code>
+       * @param value The authType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthType(com.strongsalt.strongdoc.sdk.proto.Account.AuthType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        authType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The type of authentication the user uses
+       * </pre>
+       *
+       * <code>.proto.AuthType authType = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAuthType() {
+        
+        authType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int authVersion_ ;
+      /**
+       * <pre>
+       * Which version of the authentication type the user uses
+       * </pre>
+       *
+       * <code>int32 authVersion = 2;</code>
+       * @return The authVersion.
+       */
+      public int getAuthVersion() {
+        return authVersion_;
+      }
+      /**
+       * <pre>
+       * Which version of the authentication type the user uses
+       * </pre>
+       *
+       * <code>int32 authVersion = 2;</code>
+       * @param value The authVersion to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthVersion(int value) {
+        
+        authVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Which version of the authentication type the user uses
+       * </pre>
+       *
+       * <code>int32 authVersion = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAuthVersion() {
+        
+        authVersion_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.PrepareAuthResp)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.PrepareAuthResp)
+    private static final com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp();
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PrepareAuthResp>
+        PARSER = new com.google.protobuf.AbstractParser<PrepareAuthResp>() {
+      @java.lang.Override
+      public PrepareAuthResp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PrepareAuthResp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PrepareAuthResp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PrepareAuthResp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -17110,6 +18471,17 @@ public final class Account {
      */
     com.google.protobuf.ByteString
         getClientCredsBytes();
+
+    /**
+     * <code>.proto.AuthPurpose authPurpose = 4;</code>
+     * @return The enum numeric value on the wire for authPurpose.
+     */
+    int getAuthPurposeValue();
+    /**
+     * <code>.proto.AuthPurpose authPurpose = 4;</code>
+     * @return The authPurpose.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose getAuthPurpose();
   }
   /**
    * Protobuf type {@code proto.SrpInitReq}
@@ -17127,6 +18499,7 @@ public final class Account {
       userID_ = "";
       orgID_ = "";
       clientCreds_ = "";
+      authPurpose_ = 0;
     }
 
     @java.lang.Override
@@ -17175,6 +18548,12 @@ public final class Account {
               java.lang.String s = input.readStringRequireUtf8();
 
               clientCreds_ = s;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              authPurpose_ = rawValue;
               break;
             }
             default: {
@@ -17341,6 +18720,25 @@ public final class Account {
       }
     }
 
+    public static final int AUTHPURPOSE_FIELD_NUMBER = 4;
+    private int authPurpose_;
+    /**
+     * <code>.proto.AuthPurpose authPurpose = 4;</code>
+     * @return The enum numeric value on the wire for authPurpose.
+     */
+    public int getAuthPurposeValue() {
+      return authPurpose_;
+    }
+    /**
+     * <code>.proto.AuthPurpose authPurpose = 4;</code>
+     * @return The authPurpose.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose getAuthPurpose() {
+      @SuppressWarnings("deprecation")
+      com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose result = com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose.valueOf(authPurpose_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -17364,6 +18762,9 @@ public final class Account {
       if (!getClientCredsBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, clientCreds_);
       }
+      if (authPurpose_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose.NO_PURPOSE.getNumber()) {
+        output.writeEnum(4, authPurpose_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -17381,6 +18782,10 @@ public final class Account {
       }
       if (!getClientCredsBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, clientCreds_);
+      }
+      if (authPurpose_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose.NO_PURPOSE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, authPurpose_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -17403,6 +18808,7 @@ public final class Account {
           .equals(other.getOrgID())) return false;
       if (!getClientCreds()
           .equals(other.getClientCreds())) return false;
+      if (authPurpose_ != other.authPurpose_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -17420,6 +18826,8 @@ public final class Account {
       hash = (53 * hash) + getOrgID().hashCode();
       hash = (37 * hash) + CLIENTCREDS_FIELD_NUMBER;
       hash = (53 * hash) + getClientCreds().hashCode();
+      hash = (37 * hash) + AUTHPURPOSE_FIELD_NUMBER;
+      hash = (53 * hash) + authPurpose_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -17559,6 +18967,8 @@ public final class Account {
 
         clientCreds_ = "";
 
+        authPurpose_ = 0;
+
         return this;
       }
 
@@ -17588,6 +18998,7 @@ public final class Account {
         result.userID_ = userID_;
         result.orgID_ = orgID_;
         result.clientCreds_ = clientCreds_;
+        result.authPurpose_ = authPurpose_;
         onBuilt();
         return result;
       }
@@ -17647,6 +19058,9 @@ public final class Account {
         if (!other.getClientCreds().isEmpty()) {
           clientCreds_ = other.clientCreds_;
           onChanged();
+        }
+        if (other.authPurpose_ != 0) {
+          setAuthPurposeValue(other.getAuthPurposeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -17964,6 +19378,58 @@ public final class Account {
         onChanged();
         return this;
       }
+
+      private int authPurpose_ = 0;
+      /**
+       * <code>.proto.AuthPurpose authPurpose = 4;</code>
+       * @return The enum numeric value on the wire for authPurpose.
+       */
+      public int getAuthPurposeValue() {
+        return authPurpose_;
+      }
+      /**
+       * <code>.proto.AuthPurpose authPurpose = 4;</code>
+       * @param value The enum numeric value on the wire for authPurpose to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthPurposeValue(int value) {
+        authPurpose_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.proto.AuthPurpose authPurpose = 4;</code>
+       * @return The authPurpose.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose getAuthPurpose() {
+        @SuppressWarnings("deprecation")
+        com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose result = com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose.valueOf(authPurpose_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.proto.AuthPurpose authPurpose = 4;</code>
+       * @param value The authPurpose to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthPurpose(com.strongsalt.strongdoc.sdk.proto.Account.AuthPurpose value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        authPurpose_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.proto.AuthPurpose authPurpose = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAuthPurpose() {
+        
+        authPurpose_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -18023,23 +19489,23 @@ public final class Account {
 
     /**
      * <pre>
-     * The loginID of this attempted login, which needs to be given in the next step
+     * The authID of this attempted authentication, which needs to be given in the next step
      * </pre>
      *
-     * <code>string loginID = 1;</code>
-     * @return The loginID.
+     * <code>string authID = 1;</code>
+     * @return The authID.
      */
-    java.lang.String getLoginID();
+    java.lang.String getAuthID();
     /**
      * <pre>
-     * The loginID of this attempted login, which needs to be given in the next step
+     * The authID of this attempted authentication, which needs to be given in the next step
      * </pre>
      *
-     * <code>string loginID = 1;</code>
-     * @return The bytes for loginID.
+     * <code>string authID = 1;</code>
+     * @return The bytes for authID.
      */
     com.google.protobuf.ByteString
-        getLoginIDBytes();
+        getAuthIDBytes();
 
     /**
      * <pre>
@@ -18074,7 +19540,7 @@ public final class Account {
       super(builder);
     }
     private SrpInitResp() {
-      loginID_ = "";
+      authID_ = "";
       serverCreds_ = "";
     }
 
@@ -18111,7 +19577,7 @@ public final class Account {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              loginID_ = s;
+              authID_ = s;
               break;
             }
             case 18: {
@@ -18152,44 +19618,44 @@ public final class Account {
               com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.class, com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.Builder.class);
     }
 
-    public static final int LOGINID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object loginID_;
+    public static final int AUTHID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object authID_;
     /**
      * <pre>
-     * The loginID of this attempted login, which needs to be given in the next step
+     * The authID of this attempted authentication, which needs to be given in the next step
      * </pre>
      *
-     * <code>string loginID = 1;</code>
-     * @return The loginID.
+     * <code>string authID = 1;</code>
+     * @return The authID.
      */
-    public java.lang.String getLoginID() {
-      java.lang.Object ref = loginID_;
+    public java.lang.String getAuthID() {
+      java.lang.Object ref = authID_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        loginID_ = s;
+        authID_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * The loginID of this attempted login, which needs to be given in the next step
+     * The authID of this attempted authentication, which needs to be given in the next step
      * </pre>
      *
-     * <code>string loginID = 1;</code>
-     * @return The bytes for loginID.
+     * <code>string authID = 1;</code>
+     * @return The bytes for authID.
      */
     public com.google.protobuf.ByteString
-        getLoginIDBytes() {
-      java.lang.Object ref = loginID_;
+        getAuthIDBytes() {
+      java.lang.Object ref = authID_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        loginID_ = b;
+        authID_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -18254,8 +19720,8 @@ public final class Account {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getLoginIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, loginID_);
+      if (!getAuthIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, authID_);
       }
       if (!getServerCredsBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, serverCreds_);
@@ -18269,8 +19735,8 @@ public final class Account {
       if (size != -1) return size;
 
       size = 0;
-      if (!getLoginIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, loginID_);
+      if (!getAuthIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, authID_);
       }
       if (!getServerCredsBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, serverCreds_);
@@ -18290,8 +19756,8 @@ public final class Account {
       }
       com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp other = (com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp) obj;
 
-      if (!getLoginID()
-          .equals(other.getLoginID())) return false;
+      if (!getAuthID()
+          .equals(other.getAuthID())) return false;
       if (!getServerCreds()
           .equals(other.getServerCreds())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -18305,8 +19771,8 @@ public final class Account {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + LOGINID_FIELD_NUMBER;
-      hash = (53 * hash) + getLoginID().hashCode();
+      hash = (37 * hash) + AUTHID_FIELD_NUMBER;
+      hash = (53 * hash) + getAuthID().hashCode();
       hash = (37 * hash) + SERVERCREDS_FIELD_NUMBER;
       hash = (53 * hash) + getServerCreds().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -18442,7 +19908,7 @@ public final class Account {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        loginID_ = "";
+        authID_ = "";
 
         serverCreds_ = "";
 
@@ -18472,7 +19938,7 @@ public final class Account {
       @java.lang.Override
       public com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp result = new com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp(this);
-        result.loginID_ = loginID_;
+        result.authID_ = authID_;
         result.serverCreds_ = serverCreds_;
         onBuilt();
         return result;
@@ -18522,8 +19988,8 @@ public final class Account {
 
       public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp other) {
         if (other == com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance()) return this;
-        if (!other.getLoginID().isEmpty()) {
-          loginID_ = other.loginID_;
+        if (!other.getAuthID().isEmpty()) {
+          authID_ = other.authID_;
           onChanged();
         }
         if (!other.getServerCreds().isEmpty()) {
@@ -18559,22 +20025,22 @@ public final class Account {
         return this;
       }
 
-      private java.lang.Object loginID_ = "";
+      private java.lang.Object authID_ = "";
       /**
        * <pre>
-       * The loginID of this attempted login, which needs to be given in the next step
+       * The authID of this attempted authentication, which needs to be given in the next step
        * </pre>
        *
-       * <code>string loginID = 1;</code>
-       * @return The loginID.
+       * <code>string authID = 1;</code>
+       * @return The authID.
        */
-      public java.lang.String getLoginID() {
-        java.lang.Object ref = loginID_;
+      public java.lang.String getAuthID() {
+        java.lang.Object ref = authID_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          loginID_ = s;
+          authID_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -18582,20 +20048,20 @@ public final class Account {
       }
       /**
        * <pre>
-       * The loginID of this attempted login, which needs to be given in the next step
+       * The authID of this attempted authentication, which needs to be given in the next step
        * </pre>
        *
-       * <code>string loginID = 1;</code>
-       * @return The bytes for loginID.
+       * <code>string authID = 1;</code>
+       * @return The bytes for authID.
        */
       public com.google.protobuf.ByteString
-          getLoginIDBytes() {
-        java.lang.Object ref = loginID_;
+          getAuthIDBytes() {
+        java.lang.Object ref = authID_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          loginID_ = b;
+          authID_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -18603,54 +20069,54 @@ public final class Account {
       }
       /**
        * <pre>
-       * The loginID of this attempted login, which needs to be given in the next step
+       * The authID of this attempted authentication, which needs to be given in the next step
        * </pre>
        *
-       * <code>string loginID = 1;</code>
-       * @param value The loginID to set.
+       * <code>string authID = 1;</code>
+       * @param value The authID to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginID(
+      public Builder setAuthID(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        loginID_ = value;
+        authID_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The loginID of this attempted login, which needs to be given in the next step
+       * The authID of this attempted authentication, which needs to be given in the next step
        * </pre>
        *
-       * <code>string loginID = 1;</code>
+       * <code>string authID = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearLoginID() {
+      public Builder clearAuthID() {
         
-        loginID_ = getDefaultInstance().getLoginID();
+        authID_ = getDefaultInstance().getAuthID();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The loginID of this attempted login, which needs to be given in the next step
+       * The authID of this attempted authentication, which needs to be given in the next step
        * </pre>
        *
-       * <code>string loginID = 1;</code>
-       * @param value The bytes for loginID to set.
+       * <code>string authID = 1;</code>
+       * @param value The bytes for authID to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginIDBytes(
+      public Builder setAuthIDBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        loginID_ = value;
+        authID_ = value;
         onChanged();
         return this;
       }
@@ -18829,23 +20295,23 @@ public final class Account {
 
     /**
      * <pre>
-     * The loginID received from the SrpInit step
+     * The authID received from the SrpInit step
      * </pre>
      *
-     * <code>string loginID = 2;</code>
-     * @return The loginID.
+     * <code>string authID = 2;</code>
+     * @return The authID.
      */
-    java.lang.String getLoginID();
+    java.lang.String getAuthID();
     /**
      * <pre>
-     * The loginID received from the SrpInit step
+     * The authID received from the SrpInit step
      * </pre>
      *
-     * <code>string loginID = 2;</code>
-     * @return The bytes for loginID.
+     * <code>string authID = 2;</code>
+     * @return The bytes for authID.
      */
     com.google.protobuf.ByteString
-        getLoginIDBytes();
+        getAuthIDBytes();
 
     /**
      * <pre>
@@ -18881,7 +20347,7 @@ public final class Account {
     }
     private SrpProofReq() {
       userID_ = "";
-      loginID_ = "";
+      authID_ = "";
       clientProof_ = "";
     }
 
@@ -18924,7 +20390,7 @@ public final class Account {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              loginID_ = s;
+              authID_ = s;
               break;
             }
             case 26: {
@@ -19009,44 +20475,44 @@ public final class Account {
       }
     }
 
-    public static final int LOGINID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object loginID_;
+    public static final int AUTHID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object authID_;
     /**
      * <pre>
-     * The loginID received from the SrpInit step
+     * The authID received from the SrpInit step
      * </pre>
      *
-     * <code>string loginID = 2;</code>
-     * @return The loginID.
+     * <code>string authID = 2;</code>
+     * @return The authID.
      */
-    public java.lang.String getLoginID() {
-      java.lang.Object ref = loginID_;
+    public java.lang.String getAuthID() {
+      java.lang.Object ref = authID_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        loginID_ = s;
+        authID_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * The loginID received from the SrpInit step
+     * The authID received from the SrpInit step
      * </pre>
      *
-     * <code>string loginID = 2;</code>
-     * @return The bytes for loginID.
+     * <code>string authID = 2;</code>
+     * @return The bytes for authID.
      */
     public com.google.protobuf.ByteString
-        getLoginIDBytes() {
-      java.lang.Object ref = loginID_;
+        getAuthIDBytes() {
+      java.lang.Object ref = authID_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        loginID_ = b;
+        authID_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -19114,8 +20580,8 @@ public final class Account {
       if (!getUserIDBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userID_);
       }
-      if (!getLoginIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, loginID_);
+      if (!getAuthIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, authID_);
       }
       if (!getClientProofBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, clientProof_);
@@ -19132,8 +20598,8 @@ public final class Account {
       if (!getUserIDBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userID_);
       }
-      if (!getLoginIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, loginID_);
+      if (!getAuthIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, authID_);
       }
       if (!getClientProofBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, clientProof_);
@@ -19155,8 +20621,8 @@ public final class Account {
 
       if (!getUserID()
           .equals(other.getUserID())) return false;
-      if (!getLoginID()
-          .equals(other.getLoginID())) return false;
+      if (!getAuthID()
+          .equals(other.getAuthID())) return false;
       if (!getClientProof()
           .equals(other.getClientProof())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -19172,8 +20638,8 @@ public final class Account {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + USERID_FIELD_NUMBER;
       hash = (53 * hash) + getUserID().hashCode();
-      hash = (37 * hash) + LOGINID_FIELD_NUMBER;
-      hash = (53 * hash) + getLoginID().hashCode();
+      hash = (37 * hash) + AUTHID_FIELD_NUMBER;
+      hash = (53 * hash) + getAuthID().hashCode();
       hash = (37 * hash) + CLIENTPROOF_FIELD_NUMBER;
       hash = (53 * hash) + getClientProof().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -19311,7 +20777,7 @@ public final class Account {
         super.clear();
         userID_ = "";
 
-        loginID_ = "";
+        authID_ = "";
 
         clientProof_ = "";
 
@@ -19342,7 +20808,7 @@ public final class Account {
       public com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq buildPartial() {
         com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq result = new com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq(this);
         result.userID_ = userID_;
-        result.loginID_ = loginID_;
+        result.authID_ = authID_;
         result.clientProof_ = clientProof_;
         onBuilt();
         return result;
@@ -19396,8 +20862,8 @@ public final class Account {
           userID_ = other.userID_;
           onChanged();
         }
-        if (!other.getLoginID().isEmpty()) {
-          loginID_ = other.loginID_;
+        if (!other.getAuthID().isEmpty()) {
+          authID_ = other.authID_;
           onChanged();
         }
         if (!other.getClientProof().isEmpty()) {
@@ -19529,22 +20995,22 @@ public final class Account {
         return this;
       }
 
-      private java.lang.Object loginID_ = "";
+      private java.lang.Object authID_ = "";
       /**
        * <pre>
-       * The loginID received from the SrpInit step
+       * The authID received from the SrpInit step
        * </pre>
        *
-       * <code>string loginID = 2;</code>
-       * @return The loginID.
+       * <code>string authID = 2;</code>
+       * @return The authID.
        */
-      public java.lang.String getLoginID() {
-        java.lang.Object ref = loginID_;
+      public java.lang.String getAuthID() {
+        java.lang.Object ref = authID_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          loginID_ = s;
+          authID_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -19552,20 +21018,20 @@ public final class Account {
       }
       /**
        * <pre>
-       * The loginID received from the SrpInit step
+       * The authID received from the SrpInit step
        * </pre>
        *
-       * <code>string loginID = 2;</code>
-       * @return The bytes for loginID.
+       * <code>string authID = 2;</code>
+       * @return The bytes for authID.
        */
       public com.google.protobuf.ByteString
-          getLoginIDBytes() {
-        java.lang.Object ref = loginID_;
+          getAuthIDBytes() {
+        java.lang.Object ref = authID_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          loginID_ = b;
+          authID_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -19573,54 +21039,54 @@ public final class Account {
       }
       /**
        * <pre>
-       * The loginID received from the SrpInit step
+       * The authID received from the SrpInit step
        * </pre>
        *
-       * <code>string loginID = 2;</code>
-       * @param value The loginID to set.
+       * <code>string authID = 2;</code>
+       * @param value The authID to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginID(
+      public Builder setAuthID(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        loginID_ = value;
+        authID_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The loginID received from the SrpInit step
+       * The authID received from the SrpInit step
        * </pre>
        *
-       * <code>string loginID = 2;</code>
+       * <code>string authID = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearLoginID() {
+      public Builder clearAuthID() {
         
-        loginID_ = getDefaultInstance().getLoginID();
+        authID_ = getDefaultInstance().getAuthID();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * The loginID received from the SrpInit step
+       * The authID received from the SrpInit step
        * </pre>
        *
-       * <code>string loginID = 2;</code>
-       * @param value The bytes for loginID to set.
+       * <code>string authID = 2;</code>
+       * @param value The bytes for authID to set.
        * @return This builder for chaining.
        */
-      public Builder setLoginIDBytes(
+      public Builder setAuthIDBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        loginID_ = value;
+        authID_ = value;
         onChanged();
         return this;
       }
@@ -44349,11 +45815,2344 @@ public final class Account {
 
   }
 
+  public interface SetUserAuthMetadataReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.SetUserAuthMetadataReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string authID = 1;</code>
+     * @return The authID.
+     */
+    java.lang.String getAuthID();
+    /**
+     * <code>string authID = 1;</code>
+     * @return The bytes for authID.
+     */
+    com.google.protobuf.ByteString
+        getAuthIDBytes();
+
+    /**
+     * <code>.proto.AuthType newAuthType = 2;</code>
+     * @return The enum numeric value on the wire for newAuthType.
+     */
+    int getNewAuthTypeValue();
+    /**
+     * <code>.proto.AuthType newAuthType = 2;</code>
+     * @return The newAuthType.
+     */
+    com.strongsalt.strongdoc.sdk.proto.Account.AuthType getNewAuthType();
+
+    /**
+     * <code>int32 newAuthVersion = 3;</code>
+     * @return The newAuthVersion.
+     */
+    int getNewAuthVersion();
+
+    /**
+     * <code>string srpVerifier = 4;</code>
+     * @return The srpVerifier.
+     */
+    java.lang.String getSrpVerifier();
+    /**
+     * <code>string srpVerifier = 4;</code>
+     * @return The bytes for srpVerifier.
+     */
+    com.google.protobuf.ByteString
+        getSrpVerifierBytes();
+
+    /**
+     * <pre>
+     * new kdfMeta data
+     * </pre>
+     *
+     * <code>string kdfMeta = 5;</code>
+     * @return The kdfMeta.
+     */
+    java.lang.String getKdfMeta();
+    /**
+     * <pre>
+     * new kdfMeta data
+     * </pre>
+     *
+     * <code>string kdfMeta = 5;</code>
+     * @return The bytes for kdfMeta.
+     */
+    com.google.protobuf.ByteString
+        getKdfMetaBytes();
+
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> 
+        getEncryptedKeysList();
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncryptedKeys(int index);
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    int getEncryptedKeysCount();
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+        getEncryptedKeysOrBuilderList();
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncryptedKeysOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code proto.SetUserAuthMetadataReq}
+   */
+  public  static final class SetUserAuthMetadataReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.SetUserAuthMetadataReq)
+      SetUserAuthMetadataReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SetUserAuthMetadataReq.newBuilder() to construct.
+    private SetUserAuthMetadataReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SetUserAuthMetadataReq() {
+      authID_ = "";
+      newAuthType_ = 0;
+      srpVerifier_ = "";
+      kdfMeta_ = "";
+      encryptedKeys_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SetUserAuthMetadataReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SetUserAuthMetadataReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              authID_ = s;
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              newAuthType_ = rawValue;
+              break;
+            }
+            case 24: {
+
+              newAuthVersion_ = input.readInt32();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              srpVerifier_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              kdfMeta_ = s;
+              break;
+            }
+            case 50: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                encryptedKeys_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              encryptedKeys_.add(
+                  input.readMessage(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          encryptedKeys_ = java.util.Collections.unmodifiableList(encryptedKeys_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.class, com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.Builder.class);
+    }
+
+    public static final int AUTHID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object authID_;
+    /**
+     * <code>string authID = 1;</code>
+     * @return The authID.
+     */
+    public java.lang.String getAuthID() {
+      java.lang.Object ref = authID_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        authID_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string authID = 1;</code>
+     * @return The bytes for authID.
+     */
+    public com.google.protobuf.ByteString
+        getAuthIDBytes() {
+      java.lang.Object ref = authID_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        authID_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NEWAUTHTYPE_FIELD_NUMBER = 2;
+    private int newAuthType_;
+    /**
+     * <code>.proto.AuthType newAuthType = 2;</code>
+     * @return The enum numeric value on the wire for newAuthType.
+     */
+    public int getNewAuthTypeValue() {
+      return newAuthType_;
+    }
+    /**
+     * <code>.proto.AuthType newAuthType = 2;</code>
+     * @return The newAuthType.
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Account.AuthType getNewAuthType() {
+      @SuppressWarnings("deprecation")
+      com.strongsalt.strongdoc.sdk.proto.Account.AuthType result = com.strongsalt.strongdoc.sdk.proto.Account.AuthType.valueOf(newAuthType_);
+      return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthType.UNRECOGNIZED : result;
+    }
+
+    public static final int NEWAUTHVERSION_FIELD_NUMBER = 3;
+    private int newAuthVersion_;
+    /**
+     * <code>int32 newAuthVersion = 3;</code>
+     * @return The newAuthVersion.
+     */
+    public int getNewAuthVersion() {
+      return newAuthVersion_;
+    }
+
+    public static final int SRPVERIFIER_FIELD_NUMBER = 4;
+    private volatile java.lang.Object srpVerifier_;
+    /**
+     * <code>string srpVerifier = 4;</code>
+     * @return The srpVerifier.
+     */
+    public java.lang.String getSrpVerifier() {
+      java.lang.Object ref = srpVerifier_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        srpVerifier_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string srpVerifier = 4;</code>
+     * @return The bytes for srpVerifier.
+     */
+    public com.google.protobuf.ByteString
+        getSrpVerifierBytes() {
+      java.lang.Object ref = srpVerifier_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        srpVerifier_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int KDFMETA_FIELD_NUMBER = 5;
+    private volatile java.lang.Object kdfMeta_;
+    /**
+     * <pre>
+     * new kdfMeta data
+     * </pre>
+     *
+     * <code>string kdfMeta = 5;</code>
+     * @return The kdfMeta.
+     */
+    public java.lang.String getKdfMeta() {
+      java.lang.Object ref = kdfMeta_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        kdfMeta_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * new kdfMeta data
+     * </pre>
+     *
+     * <code>string kdfMeta = 5;</code>
+     * @return The bytes for kdfMeta.
+     */
+    public com.google.protobuf.ByteString
+        getKdfMetaBytes() {
+      java.lang.Object ref = kdfMeta_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        kdfMeta_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ENCRYPTEDKEYS_FIELD_NUMBER = 6;
+    private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> encryptedKeys_;
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> getEncryptedKeysList() {
+      return encryptedKeys_;
+    }
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+        getEncryptedKeysOrBuilderList() {
+      return encryptedKeys_;
+    }
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    public int getEncryptedKeysCount() {
+      return encryptedKeys_.size();
+    }
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncryptedKeys(int index) {
+      return encryptedKeys_.get(index);
+    }
+    /**
+     * <pre>
+     * List of re-encrypted asymmetric keys with the new passwordKey,
+     * </pre>
+     *
+     * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncryptedKeysOrBuilder(
+        int index) {
+      return encryptedKeys_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getAuthIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, authID_);
+      }
+      if (newAuthType_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthType.AUTH_NONE.getNumber()) {
+        output.writeEnum(2, newAuthType_);
+      }
+      if (newAuthVersion_ != 0) {
+        output.writeInt32(3, newAuthVersion_);
+      }
+      if (!getSrpVerifierBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, srpVerifier_);
+      }
+      if (!getKdfMetaBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, kdfMeta_);
+      }
+      for (int i = 0; i < encryptedKeys_.size(); i++) {
+        output.writeMessage(6, encryptedKeys_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getAuthIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, authID_);
+      }
+      if (newAuthType_ != com.strongsalt.strongdoc.sdk.proto.Account.AuthType.AUTH_NONE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, newAuthType_);
+      }
+      if (newAuthVersion_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, newAuthVersion_);
+      }
+      if (!getSrpVerifierBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, srpVerifier_);
+      }
+      if (!getKdfMetaBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, kdfMeta_);
+      }
+      for (int i = 0; i < encryptedKeys_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, encryptedKeys_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq)) {
+        return super.equals(obj);
+      }
+      com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq other = (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq) obj;
+
+      if (!getAuthID()
+          .equals(other.getAuthID())) return false;
+      if (newAuthType_ != other.newAuthType_) return false;
+      if (getNewAuthVersion()
+          != other.getNewAuthVersion()) return false;
+      if (!getSrpVerifier()
+          .equals(other.getSrpVerifier())) return false;
+      if (!getKdfMeta()
+          .equals(other.getKdfMeta())) return false;
+      if (!getEncryptedKeysList()
+          .equals(other.getEncryptedKeysList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + AUTHID_FIELD_NUMBER;
+      hash = (53 * hash) + getAuthID().hashCode();
+      hash = (37 * hash) + NEWAUTHTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + newAuthType_;
+      hash = (37 * hash) + NEWAUTHVERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getNewAuthVersion();
+      hash = (37 * hash) + SRPVERIFIER_FIELD_NUMBER;
+      hash = (53 * hash) + getSrpVerifier().hashCode();
+      hash = (37 * hash) + KDFMETA_FIELD_NUMBER;
+      hash = (53 * hash) + getKdfMeta().hashCode();
+      if (getEncryptedKeysCount() > 0) {
+        hash = (37 * hash) + ENCRYPTEDKEYS_FIELD_NUMBER;
+        hash = (53 * hash) + getEncryptedKeysList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.SetUserAuthMetadataReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.SetUserAuthMetadataReq)
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.class, com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.Builder.class);
+      }
+
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getEncryptedKeysFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        authID_ = "";
+
+        newAuthType_ = 0;
+
+        newAuthVersion_ = 0;
+
+        srpVerifier_ = "";
+
+        kdfMeta_ = "";
+
+        if (encryptedKeysBuilder_ == null) {
+          encryptedKeys_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          encryptedKeysBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq build() {
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq result = new com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq(this);
+        int from_bitField0_ = bitField0_;
+        result.authID_ = authID_;
+        result.newAuthType_ = newAuthType_;
+        result.newAuthVersion_ = newAuthVersion_;
+        result.srpVerifier_ = srpVerifier_;
+        result.kdfMeta_ = kdfMeta_;
+        if (encryptedKeysBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            encryptedKeys_ = java.util.Collections.unmodifiableList(encryptedKeys_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.encryptedKeys_ = encryptedKeys_;
+        } else {
+          result.encryptedKeys_ = encryptedKeysBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.getDefaultInstance()) return this;
+        if (!other.getAuthID().isEmpty()) {
+          authID_ = other.authID_;
+          onChanged();
+        }
+        if (other.newAuthType_ != 0) {
+          setNewAuthTypeValue(other.getNewAuthTypeValue());
+        }
+        if (other.getNewAuthVersion() != 0) {
+          setNewAuthVersion(other.getNewAuthVersion());
+        }
+        if (!other.getSrpVerifier().isEmpty()) {
+          srpVerifier_ = other.srpVerifier_;
+          onChanged();
+        }
+        if (!other.getKdfMeta().isEmpty()) {
+          kdfMeta_ = other.kdfMeta_;
+          onChanged();
+        }
+        if (encryptedKeysBuilder_ == null) {
+          if (!other.encryptedKeys_.isEmpty()) {
+            if (encryptedKeys_.isEmpty()) {
+              encryptedKeys_ = other.encryptedKeys_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureEncryptedKeysIsMutable();
+              encryptedKeys_.addAll(other.encryptedKeys_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.encryptedKeys_.isEmpty()) {
+            if (encryptedKeysBuilder_.isEmpty()) {
+              encryptedKeysBuilder_.dispose();
+              encryptedKeysBuilder_ = null;
+              encryptedKeys_ = other.encryptedKeys_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              encryptedKeysBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEncryptedKeysFieldBuilder() : null;
+            } else {
+              encryptedKeysBuilder_.addAllMessages(other.encryptedKeys_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object authID_ = "";
+      /**
+       * <code>string authID = 1;</code>
+       * @return The authID.
+       */
+      public java.lang.String getAuthID() {
+        java.lang.Object ref = authID_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          authID_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string authID = 1;</code>
+       * @return The bytes for authID.
+       */
+      public com.google.protobuf.ByteString
+          getAuthIDBytes() {
+        java.lang.Object ref = authID_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          authID_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string authID = 1;</code>
+       * @param value The authID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthID(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        authID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string authID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAuthID() {
+        
+        authID_ = getDefaultInstance().getAuthID();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string authID = 1;</code>
+       * @param value The bytes for authID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAuthIDBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        authID_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int newAuthType_ = 0;
+      /**
+       * <code>.proto.AuthType newAuthType = 2;</code>
+       * @return The enum numeric value on the wire for newAuthType.
+       */
+      public int getNewAuthTypeValue() {
+        return newAuthType_;
+      }
+      /**
+       * <code>.proto.AuthType newAuthType = 2;</code>
+       * @param value The enum numeric value on the wire for newAuthType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewAuthTypeValue(int value) {
+        newAuthType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.proto.AuthType newAuthType = 2;</code>
+       * @return The newAuthType.
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Account.AuthType getNewAuthType() {
+        @SuppressWarnings("deprecation")
+        com.strongsalt.strongdoc.sdk.proto.Account.AuthType result = com.strongsalt.strongdoc.sdk.proto.Account.AuthType.valueOf(newAuthType_);
+        return result == null ? com.strongsalt.strongdoc.sdk.proto.Account.AuthType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.proto.AuthType newAuthType = 2;</code>
+       * @param value The newAuthType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewAuthType(com.strongsalt.strongdoc.sdk.proto.Account.AuthType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        newAuthType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.proto.AuthType newAuthType = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNewAuthType() {
+        
+        newAuthType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int newAuthVersion_ ;
+      /**
+       * <code>int32 newAuthVersion = 3;</code>
+       * @return The newAuthVersion.
+       */
+      public int getNewAuthVersion() {
+        return newAuthVersion_;
+      }
+      /**
+       * <code>int32 newAuthVersion = 3;</code>
+       * @param value The newAuthVersion to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewAuthVersion(int value) {
+        
+        newAuthVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 newAuthVersion = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNewAuthVersion() {
+        
+        newAuthVersion_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object srpVerifier_ = "";
+      /**
+       * <code>string srpVerifier = 4;</code>
+       * @return The srpVerifier.
+       */
+      public java.lang.String getSrpVerifier() {
+        java.lang.Object ref = srpVerifier_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          srpVerifier_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string srpVerifier = 4;</code>
+       * @return The bytes for srpVerifier.
+       */
+      public com.google.protobuf.ByteString
+          getSrpVerifierBytes() {
+        java.lang.Object ref = srpVerifier_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          srpVerifier_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string srpVerifier = 4;</code>
+       * @param value The srpVerifier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSrpVerifier(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        srpVerifier_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string srpVerifier = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSrpVerifier() {
+        
+        srpVerifier_ = getDefaultInstance().getSrpVerifier();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string srpVerifier = 4;</code>
+       * @param value The bytes for srpVerifier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSrpVerifierBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        srpVerifier_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object kdfMeta_ = "";
+      /**
+       * <pre>
+       * new kdfMeta data
+       * </pre>
+       *
+       * <code>string kdfMeta = 5;</code>
+       * @return The kdfMeta.
+       */
+      public java.lang.String getKdfMeta() {
+        java.lang.Object ref = kdfMeta_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          kdfMeta_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * new kdfMeta data
+       * </pre>
+       *
+       * <code>string kdfMeta = 5;</code>
+       * @return The bytes for kdfMeta.
+       */
+      public com.google.protobuf.ByteString
+          getKdfMetaBytes() {
+        java.lang.Object ref = kdfMeta_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          kdfMeta_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * new kdfMeta data
+       * </pre>
+       *
+       * <code>string kdfMeta = 5;</code>
+       * @param value The kdfMeta to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKdfMeta(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        kdfMeta_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * new kdfMeta data
+       * </pre>
+       *
+       * <code>string kdfMeta = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearKdfMeta() {
+        
+        kdfMeta_ = getDefaultInstance().getKdfMeta();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * new kdfMeta data
+       * </pre>
+       *
+       * <code>string kdfMeta = 5;</code>
+       * @param value The bytes for kdfMeta to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKdfMetaBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        kdfMeta_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> encryptedKeys_ =
+        java.util.Collections.emptyList();
+      private void ensureEncryptedKeysIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          encryptedKeys_ = new java.util.ArrayList<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey>(encryptedKeys_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> encryptedKeysBuilder_;
+
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> getEncryptedKeysList() {
+        if (encryptedKeysBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(encryptedKeys_);
+        } else {
+          return encryptedKeysBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public int getEncryptedKeysCount() {
+        if (encryptedKeysBuilder_ == null) {
+          return encryptedKeys_.size();
+        } else {
+          return encryptedKeysBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey getEncryptedKeys(int index) {
+        if (encryptedKeysBuilder_ == null) {
+          return encryptedKeys_.get(index);
+        } else {
+          return encryptedKeysBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder setEncryptedKeys(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encryptedKeysBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.set(index, value);
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder setEncryptedKeys(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (encryptedKeysBuilder_ == null) {
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder addEncryptedKeys(com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encryptedKeysBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.add(value);
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder addEncryptedKeys(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey value) {
+        if (encryptedKeysBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.add(index, value);
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder addEncryptedKeys(
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (encryptedKeysBuilder_ == null) {
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.add(builderForValue.build());
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder addEncryptedKeys(
+          int index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder builderForValue) {
+        if (encryptedKeysBuilder_ == null) {
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder addAllEncryptedKeys(
+          java.lang.Iterable<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey> values) {
+        if (encryptedKeysBuilder_ == null) {
+          ensureEncryptedKeysIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, encryptedKeys_);
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder clearEncryptedKeys() {
+        if (encryptedKeysBuilder_ == null) {
+          encryptedKeys_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public Builder removeEncryptedKeys(int index) {
+        if (encryptedKeysBuilder_ == null) {
+          ensureEncryptedKeysIsMutable();
+          encryptedKeys_.remove(index);
+          onChanged();
+        } else {
+          encryptedKeysBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder getEncryptedKeysBuilder(
+          int index) {
+        return getEncryptedKeysFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder getEncryptedKeysOrBuilder(
+          int index) {
+        if (encryptedKeysBuilder_ == null) {
+          return encryptedKeys_.get(index);  } else {
+          return encryptedKeysBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public java.util.List<? extends com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+           getEncryptedKeysOrBuilderList() {
+        if (encryptedKeysBuilder_ != null) {
+          return encryptedKeysBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(encryptedKeys_);
+        }
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder addEncryptedKeysBuilder() {
+        return getEncryptedKeysFieldBuilder().addBuilder(
+            com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder addEncryptedKeysBuilder(
+          int index) {
+        return getEncryptedKeysFieldBuilder().addBuilder(
+            index, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * List of re-encrypted asymmetric keys with the new passwordKey,
+       * </pre>
+       *
+       * <code>repeated .proto.EncryptedKey encryptedKeys = 6;</code>
+       */
+      public java.util.List<com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder> 
+           getEncryptedKeysBuilderList() {
+        return getEncryptedKeysFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder> 
+          getEncryptedKeysFieldBuilder() {
+        if (encryptedKeysBuilder_ == null) {
+          encryptedKeysBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKey.Builder, com.strongsalt.strongdoc.sdk.proto.Encryption.EncryptedKeyOrBuilder>(
+                  encryptedKeys_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          encryptedKeys_ = null;
+        }
+        return encryptedKeysBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.SetUserAuthMetadataReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.SetUserAuthMetadataReq)
+    private static final com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq();
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetUserAuthMetadataReq>
+        PARSER = new com.google.protobuf.AbstractParser<SetUserAuthMetadataReq>() {
+      @java.lang.Override
+      public SetUserAuthMetadataReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SetUserAuthMetadataReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetUserAuthMetadataReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetUserAuthMetadataReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetUserAuthMetadataRespOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.SetUserAuthMetadataResp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Whether or not the operation was successful
+     * </pre>
+     *
+     * <code>bool success = 1;</code>
+     * @return The success.
+     */
+    boolean getSuccess();
+
+    /**
+     * <pre>
+     * Whether or not the operation needs restart
+     * </pre>
+     *
+     * <code>bool restart = 2;</code>
+     * @return The restart.
+     */
+    boolean getRestart();
+
+    /**
+     * <pre>
+     * The keyID of the new passwordKey
+     * </pre>
+     *
+     * <code>string keyID = 3;</code>
+     * @return The keyID.
+     */
+    java.lang.String getKeyID();
+    /**
+     * <pre>
+     * The keyID of the new passwordKey
+     * </pre>
+     *
+     * <code>string keyID = 3;</code>
+     * @return The bytes for keyID.
+     */
+    com.google.protobuf.ByteString
+        getKeyIDBytes();
+  }
+  /**
+   * Protobuf type {@code proto.SetUserAuthMetadataResp}
+   */
+  public  static final class SetUserAuthMetadataResp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.SetUserAuthMetadataResp)
+      SetUserAuthMetadataRespOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SetUserAuthMetadataResp.newBuilder() to construct.
+    private SetUserAuthMetadataResp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SetUserAuthMetadataResp() {
+      keyID_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SetUserAuthMetadataResp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SetUserAuthMetadataResp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              success_ = input.readBool();
+              break;
+            }
+            case 16: {
+
+              restart_ = input.readBool();
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              keyID_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataResp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataResp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.class, com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.Builder.class);
+    }
+
+    public static final int SUCCESS_FIELD_NUMBER = 1;
+    private boolean success_;
+    /**
+     * <pre>
+     * Whether or not the operation was successful
+     * </pre>
+     *
+     * <code>bool success = 1;</code>
+     * @return The success.
+     */
+    public boolean getSuccess() {
+      return success_;
+    }
+
+    public static final int RESTART_FIELD_NUMBER = 2;
+    private boolean restart_;
+    /**
+     * <pre>
+     * Whether or not the operation needs restart
+     * </pre>
+     *
+     * <code>bool restart = 2;</code>
+     * @return The restart.
+     */
+    public boolean getRestart() {
+      return restart_;
+    }
+
+    public static final int KEYID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object keyID_;
+    /**
+     * <pre>
+     * The keyID of the new passwordKey
+     * </pre>
+     *
+     * <code>string keyID = 3;</code>
+     * @return The keyID.
+     */
+    public java.lang.String getKeyID() {
+      java.lang.Object ref = keyID_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        keyID_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The keyID of the new passwordKey
+     * </pre>
+     *
+     * <code>string keyID = 3;</code>
+     * @return The bytes for keyID.
+     */
+    public com.google.protobuf.ByteString
+        getKeyIDBytes() {
+      java.lang.Object ref = keyID_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        keyID_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (success_ != false) {
+        output.writeBool(1, success_);
+      }
+      if (restart_ != false) {
+        output.writeBool(2, restart_);
+      }
+      if (!getKeyIDBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, keyID_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (success_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, success_);
+      }
+      if (restart_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, restart_);
+      }
+      if (!getKeyIDBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, keyID_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp)) {
+        return super.equals(obj);
+      }
+      com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp other = (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp) obj;
+
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (getRestart()
+          != other.getRestart()) return false;
+      if (!getKeyID()
+          .equals(other.getKeyID())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (37 * hash) + RESTART_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRestart());
+      hash = (37 * hash) + KEYID_FIELD_NUMBER;
+      hash = (53 * hash) + getKeyID().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.SetUserAuthMetadataResp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.SetUserAuthMetadataResp)
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataRespOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataResp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataResp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.class, com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.Builder.class);
+      }
+
+      // Construct using com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        success_ = false;
+
+        restart_ = false;
+
+        keyID_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.internal_static_proto_SetUserAuthMetadataResp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp getDefaultInstanceForType() {
+        return com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp build() {
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp buildPartial() {
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp result = new com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp(this);
+        result.success_ = success_;
+        result.restart_ = restart_;
+        result.keyID_ = keyID_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp) {
+          return mergeFrom((com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp other) {
+        if (other == com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance()) return this;
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
+        }
+        if (other.getRestart() != false) {
+          setRestart(other.getRestart());
+        }
+        if (!other.getKeyID().isEmpty()) {
+          keyID_ = other.keyID_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private boolean success_ ;
+      /**
+       * <pre>
+       * Whether or not the operation was successful
+       * </pre>
+       *
+       * <code>bool success = 1;</code>
+       * @return The success.
+       */
+      public boolean getSuccess() {
+        return success_;
+      }
+      /**
+       * <pre>
+       * Whether or not the operation was successful
+       * </pre>
+       *
+       * <code>bool success = 1;</code>
+       * @param value The success to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSuccess(boolean value) {
+        
+        success_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether or not the operation was successful
+       * </pre>
+       *
+       * <code>bool success = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSuccess() {
+        
+        success_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean restart_ ;
+      /**
+       * <pre>
+       * Whether or not the operation needs restart
+       * </pre>
+       *
+       * <code>bool restart = 2;</code>
+       * @return The restart.
+       */
+      public boolean getRestart() {
+        return restart_;
+      }
+      /**
+       * <pre>
+       * Whether or not the operation needs restart
+       * </pre>
+       *
+       * <code>bool restart = 2;</code>
+       * @param value The restart to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRestart(boolean value) {
+        
+        restart_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Whether or not the operation needs restart
+       * </pre>
+       *
+       * <code>bool restart = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRestart() {
+        
+        restart_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object keyID_ = "";
+      /**
+       * <pre>
+       * The keyID of the new passwordKey
+       * </pre>
+       *
+       * <code>string keyID = 3;</code>
+       * @return The keyID.
+       */
+      public java.lang.String getKeyID() {
+        java.lang.Object ref = keyID_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          keyID_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The keyID of the new passwordKey
+       * </pre>
+       *
+       * <code>string keyID = 3;</code>
+       * @return The bytes for keyID.
+       */
+      public com.google.protobuf.ByteString
+          getKeyIDBytes() {
+        java.lang.Object ref = keyID_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          keyID_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The keyID of the new passwordKey
+       * </pre>
+       *
+       * <code>string keyID = 3;</code>
+       * @param value The keyID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKeyID(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        keyID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The keyID of the new passwordKey
+       * </pre>
+       *
+       * <code>string keyID = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearKeyID() {
+        
+        keyID_ = getDefaultInstance().getKeyID();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The keyID of the new passwordKey
+       * </pre>
+       *
+       * <code>string keyID = 3;</code>
+       * @param value The bytes for keyID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKeyIDBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        keyID_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.SetUserAuthMetadataResp)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.SetUserAuthMetadataResp)
+    private static final com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp();
+    }
+
+    public static com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetUserAuthMetadataResp>
+        PARSER = new com.google.protobuf.AbstractParser<SetUserAuthMetadataResp>() {
+      @java.lang.Override
+      public SetUserAuthMetadataResp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SetUserAuthMetadataResp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetUserAuthMetadataResp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetUserAuthMetadataResp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_RegisterLoginData_descriptor;
+    internal_static_proto_RegisterAuthData_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_RegisterLoginData_fieldAccessorTable;
+      internal_static_proto_RegisterAuthData_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_RegisterOrganizationReq_descriptor;
   private static final 
@@ -44424,6 +48223,16 @@ public final class Account {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_PrepareLoginResp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_PrepareAuthReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_PrepareAuthReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_PrepareAuthResp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_PrepareAuthResp_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_LoginReq_descriptor;
   private static final 
@@ -44619,6 +48428,16 @@ public final class Account {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_RevokeInvitationResp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_SetUserAuthMetadataReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_SetUserAuthMetadataReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_SetUserAuthMetadataResp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_SetUserAuthMetadataResp_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -44631,232 +48450,254 @@ public final class Account {
       "\n\016accounts.proto\022\005proto\032,protoc-gen-swag" +
       "ger/options/annotations.proto\032\037google/pr" +
       "otobuf/timestamp.proto\032\020encryption.proto" +
-      "\"c\n\021RegisterLoginData\022#\n\tloginType\030\001 \001(\016" +
-      "2\020.proto.LoginType\022\024\n\014loginVersion\030\002 \001(\005" +
-      "\022\023\n\013srpVerifier\030\003 \001(\t\"\207\010\n\027RegisterOrgani" +
-      "zationReq\022\017\n\007orgName\030\001 \001(\t\022\020\n\010orgEmail\030\002" +
-      " \001(\t\022\017\n\007orgAddr\030\003 \001(\t\022\020\n\010userName\030\004 \001(\t\022" +
-      "\020\n\010password\030\005 \001(\t\022\022\n\nadminEmail\030\006 \001(\t\022\024\n" +
-      "\014sharableOrgs\030\007 \003(\t\022\027\n\017multiLevelShare\030\010" +
-      " \001(\010\022\016\n\006source\030\t \001(\t\022\022\n\nsourceData\030\n \001(\t" +
-      "\022\014\n\004pmID\030\013 \001(\t\022\023\n\013kdfMetadata\030\014 \001(\t\022\022\n\nu" +
-      "serPubKey\030\r \001(\t\022\025\n\rencUserPriKey\030\016 \001(\t\022\021" +
-      "\n\torgPubKey\030\017 \001(\t\022\024\n\014encOrgPriKey\030\020 \001(\t\022" +
-      "0\n\016adminLoginData\030\021 \001(\0132\030.proto.Register" +
-      "LoginData:\203\005\222A\377\004\n\031*\027RegisterOrganization" +
-      "Req2\341\004\022\336\004{\"orgName\": \"WhiteHouse\", \"orgE" +
-      "mail\": \"email@company.com\", \"orgAddr\": \"" +
-      "1600 Pennsylvania Ave NW, Washington, DC" +
-      " 20500\", \"userName\": \"Donald Trump\", \"pa" +
-      "ssword\": \"ukrainismyfriend\", \"adminEmail" +
-      "\": \"donald.trump@whitehouse.gov\", \"shara" +
-      "bleOrgs\": [\"cnn\", \"fbi\", \"democrats\"], \"" +
-      "multiLevelShare\": true, \"source\": \"\", \"s" +
-      "ourceData\": \"{\\\"registrationToken\\\": \\\"a" +
-      "bcd1234\\\"}\", \"kdfMetadata\":\"serialized k" +
-      "df\", \"userPubKey\": \"userPubKey\", \"encUse" +
-      "rPriKey\": \"encUserPriKey\", \"orgPubKey\":\"" +
-      "orgPubKey\", \"encOrgPriKey\":\"encOrgPriKey" +
-      "\", \"adminLoginData\": {\"loginType\": \"SRP\"" +
-      ", \"loginVersion\": 1, \"srpVerifier\": \"nee" +
-      "dedIfTypeSRP\"}}\"\264\001\n\030RegisterOrganization" +
-      "Resp\022\r\n\005orgID\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t\022\024\n\014c" +
-      "lientSecret\030\003 \001(\t:c\222A`\n\032*\030RegisterOrgani" +
-      "zationResp2B\022@{\"orgID\": \"WhiteHouse\", \"u" +
-      "serID\": \"donald.trump@whitehouse.gov\"}\"\265" +
-      "\004\n\017RegisterUserReq\022\026\n\016invitationCode\030\001 \001" +
-      "(\t\022\r\n\005orgID\030\002 \001(\t\022\r\n\005email\030\003 \001(\t\022\023\n\013kdfM" +
-      "etadata\030\004 \001(\t\022\022\n\nuserPubKey\030\005 \001(\t\022\025\n\renc" +
-      "UserPriKey\030\006 \001(\t\022\020\n\010userName\030\007 \001(\t\022\020\n\010pa" +
-      "ssword\030\010 \001(\t\022+\n\tloginData\030\t \001(\0132\030.proto." +
-      "RegisterLoginData:\332\002\222A\326\002\n\021*\017RegisterUser" +
-      "Req2\300\002\022\275\002{\"invitationCode\": \"abc123\", \"o" +
-      "rgID\": \"orgid123\", \"email\": \"mike.pence@" +
-      "whitehouse.gov\", \"kdfMetadata\": \"kdfMeta" +
-      "data\", \"userPubKey\": \"dfdabddfaj\", \"encU" +
-      "serPriKey\": \"abdfjalsd\", \"userName\": \"Mi" +
-      "ke Pence\", \"userPassword\": \"password\", \"" +
-      "loginData\": {\"loginType\": \"SRP\", \"loginV" +
-      "ersion\": 1, \"srpVerifier\": \"neededIfType" +
-      "SRP\"}}\"\224\001\n\020RegisterUserResp\022\017\n\007success\030\001" +
-      " \001(\010\022\016\n\006userID\030\002 \001(\t\022\r\n\005orgID\030\003 \001(\t:P\222AM" +
-      "\n\022*\020RegisterUserResp27\0225{\"success\": true" +
-      ", \"userID\": \"account@strongsalt.com\"}\"a\n" +
-      "\rRemoveUserReq\022\016\n\006userID\030\001 \001(\t:@\222A=\n\017*\rR" +
-      "emoveUserReq2*\022({\"userID\": \"donal.trump@" +
-      "whitehouse.gov\"}\"F\n\016RemoveUserResp\022\r\n\005co" +
-      "unt\030\001 \001(\003:%\222A\"\n\020*\016RemoveUserResp2\016\022\014{\"co" +
-      "unt\": 1}\"q\n\025PreparePromoteUserReq\022\016\n\006use" +
-      "rID\030\001 \001(\t:H\222AE\n\027*\025PreparePromoteUserReq2" +
-      "*\022({\"userID\": \"donald.duck@whitehouse.go" +
-      "v\"}\"\231\002\n\026PreparePromoteUserResp\022\017\n\007succes" +
-      "s\030\001 \001(\010\022&\n\tencOrgKey\030\002 \001(\0132\023.proto.Encry" +
-      "ptedKey\022\025\n\rencUserPriKey\030\003 \001(\t\022\025\n\rnewUse" +
-      "rPubKey\030\004 \001(\t:\227\001\222A\223\001\n\030*\026PreparePromoteUs" +
-      "erResp2w\022u{\"success\": true, \"encOrgPriKe" +
-      "y\": \"encOrgPriKey\", \"encUserPriKey\": \"en" +
-      "cUserPriKey\", \"newUserPubKey\": \"newUserP" +
-      "ubKey\"}\"\271\001\n\016PromoteUserReq\022)\n\014encryptedK" +
-      "ey\030\001 \001(\0132\023.proto.EncryptedKey:|\222Ay\n\020*\016Pr" +
-      "omoteUserReq2e\022c{\"encryptedKey\": {\"encKe" +
-      "y\": \"asdf\", \"encryptorID\": \"abc123\", \"ow" +
-      "nerID\": \"person\", \"keyID\": \"asdf\"}}\"b\n\017P" +
-      "romoteUserResp\022\017\n\007success\030\001 \001(\010\022\021\n\tstart" +
-      "Over\030\002 \001(\010:+\222A(\n\021*\017PromoteUserResp2\023\022\021{\"" +
-      "success\": true}\"b\n\rDemoteUserReq\022\016\n\006user" +
-      "ID\030\001 \001(\t:A\222A>\n\017*\rDemoteUserReq2+\022){\"user" +
-      "ID\": \"donald.trump@whitehouse.gov\"}\"M\n\016D" +
-      "emoteUserResp\022\017\n\007success\030\001 \001(\010:*\222A\'\n\020*\016D" +
-      "emoteUserResp2\023\022\021{\"success\": true}\"\214\001\n\017P" +
-      "repareLoginReq\022\025\n\remailOrUserID\030\001 \001(\t\022\r\n" +
-      "\005orgID\030\002 \001(\t:S\222AP\n\021*\017PrepareLoginReq2;\0229" +
-      "{\"emailOrUserID\": \"user@website.com\", \"o" +
-      "rgID\": \"OrgCorp\"}\"\266\001\n\020PrepareLoginResp\022\016" +
-      "\n\006userID\030\001 \001(\t\022#\n\tloginType\030\002 \001(\0162\020.prot" +
-      "o.LoginType\022\024\n\014loginVersion\030\003 \001(\005:W\222AT\n\022" +
-      "*\020PrepareLoginResp2>\022<{\"userID\": \"user12" +
-      "3\", \"loginType\": \"SRP\", \"loginVersion\": " +
-      "1}\"\260\001\n\010LoginReq\022\016\n\006userID\030\001 \001(\t\022\020\n\010passw" +
-      "ord\030\002 \001(\t\022\r\n\005orgID\030\003 \001(\t:s\222Ap\n\n*\010LoginRe" +
-      "q2b\022`{\"userID\": \"donald.trump@whitehouse" +
-      ".gov\", \"password\": \"ukrainismyfriend\", \"" +
-      "orgID\": \"WhiteHouse\"}\"\215\001\n\tLoginResp\022\r\n\005t" +
-      "oken\030\001 \001(\t\022\017\n\007kdfMeta\030\002 \001(\t\022\r\n\005keyID\030\003 \001" +
-      "(\t:Q\222AN\n\013*\tLoginResp2?\022={\"token\": \"blahb" +
-      "lahblah\", \"kdfMeta\": \"serializedKdfMetaD" +
-      "ata\"}\"\250\001\n\nSrpInitReq\022\016\n\006userID\030\001 \001(\t\022\r\n\005" +
-      "orgID\030\002 \001(\t\022\023\n\013clientCreds\030\003 \001(\t:f\222Ac\n\014*" +
-      "\nSrpInitReq2S\022Q{\"userID\": \"user123\", \"or" +
-      "gID\": \"OrgCorp\", \"clientCreds\": \"srpGene" +
-      "ratedString123\"}\"\210\001\n\013SrpInitResp\022\017\n\007logi" +
-      "nID\030\001 \001(\t\022\023\n\013serverCreds\030\002 \001(\t:S\222AP\n\r*\013S" +
-      "rpInitResp2?\022={\"loginID\": \"abc123\", \"ser" +
-      "verCreds\": \"srpGeneratedString123\"}\"\252\001\n\013" +
-      "SrpProofReq\022\016\n\006userID\030\001 \001(\t\022\017\n\007loginID\030\002" +
-      " \001(\t\022\023\n\013clientProof\030\003 \001(\t:e\222Ab\n\r*\013SrpPro" +
-      "ofReq2Q\022O{\"userID\": \"user123\", \"loginID\"" +
-      ": \"abc123\", \"clientProof\": \"srpGenerated" +
-      "String\"}\"\200\002\n\014SrpProofResp\022\017\n\007success\030\001 \001" +
-      "(\010\022\023\n\013serverProof\030\002 \001(\t\022\'\n\rloginResponse" +
-      "\030\003 \001(\0132\020.proto.LoginResp:\240\001\222A\234\001\n\016*\014SrpPr" +
-      "oofResp2\211\001\022\206\001{\"success\": true, \"serverPr" +
-      "oof\": \"srpGeneratedString123\", \"loginRes" +
-      "ponse\": {\"token\": \"abc123\", \"kdfMeta\": \"" +
-      "a1b2c3\", \"keyID\": \"12345\"}}\"\035\n\tLogoutReq" +
-      ":\020\222A\r\n\013*\tLogoutReq\"H\n\nLogoutResp\022\016\n\006stat" +
-      "us\030\001 \001(\t:*\222A\'\n\014*\nLogoutResp2\027\022\025{\"status\"" +
-      ": \"you OUT\"}\"#\n\014ListUsersReq:\023\222A\020\n\016*\014Lis" +
-      "tUsersReq\"\374\001\n\rListUsersResp\022.\n\010orgUsers\030" +
-      "\001 \003(\0132\034.proto.ListUsersResp.OrgUser\032<\n\007O" +
-      "rgUser\022\020\n\010userName\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t" +
-      "\022\017\n\007isAdmin\030\003 \001(\010:}\222Az\n\017*\rListUsersResp2" +
-      "g\022e{\"orgUsers\":[{\"userName\": \"Donald Tru" +
-      "mp\", \"userID\": \"donald.trump@whitehouse." +
-      "gov\", \"isAdmin\": true}]}\"W\n\025RemoveOrgani" +
-      "zationReq\022\r\n\005force\030\001 \001(\010:/\222A,\n\027*\025RemoveO" +
-      "rganizationReq2\021\022\017{\"force\": true}\"\204\001\n\026Re" +
-      "moveOrganizationResp\022\017\n\007success\030\001 \001(\010\022\021\n" +
-      "\tpostponed\030\002 \001(\010:F\222AC\n\030*\026RemoveOrganizat" +
-      "ionResp2\'\022%{\"success\": true, \"postponed\"" +
-      ": false}\"Y\n\021AddSharableOrgReq\022\020\n\010newOrgI" +
-      "D\030\001 \001(\t:2\222A/\n\023*\021AddSharableOrgReq2\030\022\026{\"n" +
-      "ewOrgID\": \"string\"}\"U\n\022AddSharableOrgRes" +
-      "p\022\017\n\007success\030\001 \001(\010:.\222A+\n\024*\022AddSharableOr" +
-      "gResp2\023\022\021{\"success\": true}\"e\n\024RemoveShar" +
-      "ableOrgReq\022\023\n\013removeOrgID\030\001 \001(\t:8\222A5\n\026*\024" +
-      "RemoveSharableOrgReq2\033\022\031{\"removeOrgID\": " +
-      "\"string\"}\"[\n\025RemoveSharableOrgResp\022\017\n\007su" +
-      "ccess\030\001 \001(\010:1\222A.\n\027*\025RemoveSharableOrgRes" +
-      "p2\023\022\021{\"success\": true}\"]\n\027SetMultiLevelS" +
-      "haringReq\022\016\n\006enable\030\001 \001(\010:2\222A/\n\031*\027SetMul" +
-      "tiLevelSharingReq2\022\022\020{\"enable\": true}\"a\n" +
-      "\030SetMultiLevelSharingResp\022\017\n\007success\030\001 \001" +
-      "(\010:4\222A1\n\032*\030SetMultiLevelSharingResp2\023\022\021{" +
-      "\"success\": true}\"\234\001\n\021SetAccountInfoReq\022\020" +
-      "\n\010orgEmail\030\001 \001(\t\022\022\n\norgAddress\030\002 \001(\t:a\222A" +
-      "^\n\023*\021SetAccountInfoReq2G\022E{\"orgEmail\": \"" +
-      "newEmail@orgwebsite.com\", \"orgAddress\": " +
-      "\"1234 Org St.\"}\"U\n\022SetAccountInfoResp\022\017\n" +
-      "\007success\030\001 \001(\010:.\222A+\n\024*\022SetAccountInfoRes" +
-      "p2\023\022\021{\"success\": true}\"\200\001\n\016SetUserInfoRe" +
-      "q\022\014\n\004name\030\001 \001(\t\022\r\n\005email\030\002 \001(\t:Q\222AN\n\020*\016S" +
-      "etUserInfoReq2:\0228{\"name\": \"User Person\"," +
-      " \"email\": \"newEmail@website.com\"}\"O\n\017Set" +
-      "UserInfoResp\022\017\n\007success\030\001 \001(\010:+\222A(\n\021*\017Se" +
-      "tUserInfoResp2\023\022\021{\"success\": true}\"\245\001\n\025C" +
-      "hangeUserPasswordReq\022\023\n\013oldPassword\030\001 \001(" +
-      "\t\022\023\n\013newPassword\030\002 \001(\t:b\222A_\n\027*\025ChangeUse" +
-      "rPasswordReq2D\022B{\"oldPassword\": \"oldPass" +
-      "word123\", \"newPassword\": \"newPassword123" +
-      "\"}\"]\n\026ChangeUserPasswordResp\022\017\n\007success\030" +
-      "\001 \001(\010:2\222A/\n\030*\026ChangeUserPasswordResp2\023\022\021" +
-      "{\"success\": true}\"q\n\014Subscription\022\014\n\004typ" +
-      "e\030\001 \001(\t\022\016\n\006status\030\002 \001(\t:C\222A@\n\016*\014Subscrip" +
-      "tion2.\022,{\"type\":\"Credit Card\",\"status\":\"" +
-      "Subscribed\"}\"\365\002\n\007Payment\022,\n\010billedAt\030\001 \001" +
-      "(\0132\032.google.protobuf.Timestamp\022/\n\013period" +
-      "Start\030\002 \001(\0132\032.google.protobuf.Timestamp\022" +
-      "-\n\tperiodEnd\030\003 \001(\0132\032.google.protobuf.Tim" +
-      "estamp\022\016\n\006amount\030\004 \001(\001\022\016\n\006status\030\005 \001(\t:\273" +
-      "\001\222A\267\001\n\t*\007Payment2\251\001\022\246\001{\"billedAt\": \"2020" +
-      "-02-01T12:30:15.123Z\", \"periodStart\": \"2" +
-      "020-01-01T00:00:00.000Z\", \"periodEnd\": \"" +
-      "2020-02-01T00:00:00.000Z\", \"amount\": 52." +
-      "16, \"status\": \"No Payment\" }\"\023\n\021GetAccou" +
-      "ntInfoReq\"\234\005\n\022GetAccountInfoResp\022\r\n\005orgI" +
-      "D\030\001 \001(\t\022\020\n\010orgEmail\030\002 \001(\t\022)\n\014subscriptio" +
-      "n\030\003 \001(\0132\023.proto.Subscription\022 \n\010payments" +
-      "\030\004 \003(\0132\016.proto.Payment\022\022\n\norgAddress\030\005 \001" +
-      "(\t\022\027\n\017multiLevelShare\030\006 \001(\010\022\024\n\014sharableO" +
-      "rgs\030\007 \003(\t:\324\003\222A\320\003\n\024*\022GetAccountInfoResp2\267" +
-      "\003\022\264\003{\"orgID\": \"thisOrganization\", \"orgEm" +
-      "ail\": \"email@company.com\", \"subscription" +
-      "\":{\"type\":\"Credit Card\",\"status\":\"Subscr" +
-      "ibed\"}, \"payments\":[{\"billedAt\": \"2020-0" +
-      "2-01T12:30:15.123Z\", \"periodStart\": \"202" +
-      "0-01-01T00:00:00.000Z\", \"periodEnd\": \"20" +
-      "20-02-01T00:00:00.000Z\", \"amount\": 52.16" +
-      ", \"status\": \"Payment Success\" }], \"orgAd" +
-      "dress\": \"1600 Pennsylvania Ave NW, Washi" +
-      "ngton, DC 20500\", \"multiLevelShare\": tru" +
-      "e, \"sharableOrgs\": [\"cnn\", \"democrats\"]}" +
-      "\"\020\n\016GetUserInfoReq\"\363\002\n\017GetUserInfoResp\022\016" +
-      "\n\006userID\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010userNam" +
-      "e\030\003 \001(\t\022\r\n\005orgID\030\004 \001(\t\022\017\n\007isAdmin\030\005 \001(\010\022" +
-      "\037\n\007keyse2e\030\006 \001(\0132\016.proto.KeysE2e:\355\001\222A\351\001\n" +
-      "\021*\017GetUserInfoResp2\323\001\022\320\001{\"userID\": \"user" +
-      "ID\", \"email\": \"email\", \"userName\": \"user" +
-      "Name\", \"orgID\": \"orgID\",\"keyse2e\":{\"orgP" +
-      "ubKey\":\"orgPubKey\",\"orgEncPrivKey\":\"orgE" +
-      "ncPrivKey\",\"userPubKey\":\"userPubKey\",\"us" +
-      "erEncPrivKey\":\"userEncPrivKey\"}}\"_\n\007Keys" +
-      "E2e\022\021\n\torgPubKey\030\001 \001(\t\022\025\n\rorgEncPrivKey\030" +
-      "\002 \001(\t\022\022\n\nuserPubKey\030\003 \001(\t\022\026\n\016userEncPriv" +
-      "Key\030\004 \001(\t\"{\n\nInvitation\022\r\n\005email\030\001 \001(\t\022." +
-      "\n\nexpireTime\030\002 \001(\0132\032.google.protobuf.Tim" +
-      "estamp\022.\n\ncreateTime\030\003 \001(\0132\032.google.prot" +
-      "obuf.Timestamp\"\201\001\n\rInviteUserReq\022\r\n\005emai" +
-      "l\030\001 \001(\t\022\022\n\nexpireTime\030\002 \001(\003:M\222AJ\n\017*\rInvi" +
-      "teUserReq27\0225{\"email\": \"account@strongsa" +
-      "lt.com\", \"expireTime\": 10}\"M\n\016InviteUser" +
-      "Resp\022\017\n\007success\030\001 \001(\010:*\222A\'\n\020*\016InviteUser" +
-      "Resp2\023\022\021{\"success\": true}\"_\n\022ListInvitat" +
-      "ionsReq\022\025\n\rmaxInvitation\030\001 \001(\003:2\222A/\n\024*\022L" +
-      "istInvitationsReq2\027\022\025{\"maxInvitation\": 1" +
-      "0}\"\311\001\n\023ListInvitationsResp\022&\n\013invitation" +
-      "s\030\001 \003(\0132\021.proto.Invitation:\211\001\222A\205\001\n\025*\023Lis" +
-      "tInvitationsResp2l\022j{\"invitations\": [{\"e" +
-      "mail\":\"example@email.com\", \"expireTime\":" +
-      "10, \"invitedAt\": \"2020-02-01T12:30:15.12" +
-      "3Z\"}]}\"h\n\023RevokeInvitationReq\022\r\n\005email\030\001" +
-      " \001(\t:B\222A?\n\026*\024RevokeInvitationsReq2%\022#{\"e" +
-      "mail\": \"account@strongsalt.com\"}\"\215\001\n\024Rev" +
-      "okeInvitationResp\022\017\n\007success\030\001 \001(\010\022\027\n\017co" +
-      "deAlreadyUsed\030\002 \001(\010:K\222AH\n\027*\025RevokeInvita" +
-      "tionsResp2-\022+{\"success\": true, \"codeAlre" +
-      "adyUsed\": false}*\036\n\tLoginType\022\010\n\004NONE\020\000\022" +
-      "\007\n\003SRP\020\001B0\n\"com.strongsalt.strongdoc.sdk" +
-      ".protoB\007Account\210\001\001b\006proto3"
+      "\"_\n\020RegisterAuthData\022!\n\010authType\030\001 \001(\0162\017" +
+      ".proto.AuthType\022\023\n\013authVersion\030\002 \001(\005\022\023\n\013" +
+      "srpVerifier\030\003 \001(\t\"\205\010\n\027RegisterOrganizati" +
+      "onReq\022\017\n\007orgName\030\001 \001(\t\022\020\n\010orgEmail\030\002 \001(\t" +
+      "\022\017\n\007orgAddr\030\003 \001(\t\022\020\n\010userName\030\004 \001(\t\022\020\n\010p" +
+      "assword\030\005 \001(\t\022\022\n\nadminEmail\030\006 \001(\t\022\024\n\014sha" +
+      "rableOrgs\030\007 \003(\t\022\027\n\017multiLevelShare\030\010 \001(\010" +
+      "\022\016\n\006source\030\t \001(\t\022\022\n\nsourceData\030\n \001(\t\022\014\n\004" +
+      "pmID\030\013 \001(\t\022\023\n\013kdfMetadata\030\014 \001(\t\022\022\n\nuserP" +
+      "ubKey\030\r \001(\t\022\025\n\rencUserPriKey\030\016 \001(\t\022\021\n\tor" +
+      "gPubKey\030\017 \001(\t\022\024\n\014encOrgPriKey\030\020 \001(\t\022.\n\ra" +
+      "dminAuthData\030\021 \001(\0132\027.proto.RegisterAuthD" +
+      "ata:\203\005\222A\377\004\n\031*\027RegisterOrganizationReq2\341\004" +
+      "\022\336\004{\"orgName\": \"WhiteHouse\", \"orgEmail\":" +
+      " \"email@company.com\", \"orgAddr\": \"1600 P" +
+      "ennsylvania Ave NW, Washington, DC 20500" +
+      "\", \"userName\": \"Donald Trump\", \"password" +
+      "\": \"ukrainismyfriend\", \"adminEmail\": \"do" +
+      "nald.trump@whitehouse.gov\", \"sharableOrg" +
+      "s\": [\"cnn\", \"fbi\", \"democrats\"], \"multiL" +
+      "evelShare\": true, \"source\": \"\", \"sourceD" +
+      "ata\": \"{\\\"registrationToken\\\": \\\"abcd123" +
+      "4\\\"}\", \"kdfMetadata\":\"serialized kdf\", \"" +
+      "userPubKey\": \"userPubKey\", \"encUserPriKe" +
+      "y\": \"encUserPriKey\", \"orgPubKey\":\"orgPub" +
+      "Key\", \"encOrgPriKey\":\"encOrgPriKey\", \"ad" +
+      "minLoginData\": {\"loginType\": \"SRP\", \"log" +
+      "inVersion\": 1, \"srpVerifier\": \"neededIfT" +
+      "ypeSRP\"}}\"\264\001\n\030RegisterOrganizationResp\022\r" +
+      "\n\005orgID\030\001 \001(\t\022\016\n\006userID\030\002 \001(\t\022\024\n\014clientS" +
+      "ecret\030\003 \001(\t:c\222A`\n\032*\030RegisterOrganization" +
+      "Resp2B\022@{\"orgID\": \"WhiteHouse\", \"userID\"" +
+      ": \"donald.trump@whitehouse.gov\"}\"\263\004\n\017Reg" +
+      "isterUserReq\022\026\n\016invitationCode\030\001 \001(\t\022\r\n\005" +
+      "orgID\030\002 \001(\t\022\r\n\005email\030\003 \001(\t\022\023\n\013kdfMetadat" +
+      "a\030\004 \001(\t\022\022\n\nuserPubKey\030\005 \001(\t\022\025\n\rencUserPr" +
+      "iKey\030\006 \001(\t\022\020\n\010userName\030\007 \001(\t\022\020\n\010password" +
+      "\030\010 \001(\t\022)\n\010authData\030\t \001(\0132\027.proto.Registe" +
+      "rAuthData:\332\002\222A\326\002\n\021*\017RegisterUserReq2\300\002\022\275" +
+      "\002{\"invitationCode\": \"abc123\", \"orgID\": \"" +
+      "orgid123\", \"email\": \"mike.pence@whitehou" +
+      "se.gov\", \"kdfMetadata\": \"kdfMetadata\", \"" +
+      "userPubKey\": \"dfdabddfaj\", \"encUserPriKe" +
+      "y\": \"abdfjalsd\", \"userName\": \"Mike Pence" +
+      "\", \"userPassword\": \"password\", \"loginDat" +
+      "a\": {\"loginType\": \"SRP\", \"loginVersion\":" +
+      " 1, \"srpVerifier\": \"neededIfTypeSRP\"}}\"\224" +
+      "\001\n\020RegisterUserResp\022\017\n\007success\030\001 \001(\010\022\016\n\006" +
+      "userID\030\002 \001(\t\022\r\n\005orgID\030\003 \001(\t:P\222AM\n\022*\020Regi" +
+      "sterUserResp27\0225{\"success\": true, \"userI" +
+      "D\": \"account@strongsalt.com\"}\"a\n\rRemoveU" +
+      "serReq\022\016\n\006userID\030\001 \001(\t:@\222A=\n\017*\rRemoveUse" +
+      "rReq2*\022({\"userID\": \"donal.trump@whitehou" +
+      "se.gov\"}\"F\n\016RemoveUserResp\022\r\n\005count\030\001 \001(" +
+      "\003:%\222A\"\n\020*\016RemoveUserResp2\016\022\014{\"count\": 1}" +
+      "\"q\n\025PreparePromoteUserReq\022\016\n\006userID\030\001 \001(" +
+      "\t:H\222AE\n\027*\025PreparePromoteUserReq2*\022({\"use" +
+      "rID\": \"donald.duck@whitehouse.gov\"}\"\272\002\n\026" +
+      "PreparePromoteUserResp\022\017\n\007success\030\001 \001(\010\022" +
+      "&\n\tencOrgKey\030\002 \001(\0132\023.proto.EncryptedKey\022" +
+      "*\n\rencUserPriKey\030\003 \001(\0132\023.proto.Encrypted" +
+      "Key\022!\n\rnewUserPubKey\030\004 \001(\0132\n.proto.Key:\227" +
+      "\001\222A\223\001\n\030*\026PreparePromoteUserResp2w\022u{\"suc" +
+      "cess\": true, \"encOrgPriKey\": \"encOrgPriK" +
+      "ey\", \"encUserPriKey\": \"encUserPriKey\", \"" +
+      "newUserPubKey\": \"newUserPubKey\"}\"\271\001\n\016Pro" +
+      "moteUserReq\022)\n\014encryptedKey\030\001 \001(\0132\023.prot" +
+      "o.EncryptedKey:|\222Ay\n\020*\016PromoteUserReq2e\022" +
+      "c{\"encryptedKey\": {\"encKey\": \"asdf\", \"en" +
+      "cryptorID\": \"abc123\", \"ownerID\": \"person" +
+      "\", \"keyID\": \"asdf\"}}\"b\n\017PromoteUserResp\022" +
+      "\017\n\007success\030\001 \001(\010\022\021\n\tstartOver\030\002 \001(\010:+\222A(" +
+      "\n\021*\017PromoteUserResp2\023\022\021{\"success\": true}" +
+      "\"b\n\rDemoteUserReq\022\016\n\006userID\030\001 \001(\t:A\222A>\n\017" +
+      "*\rDemoteUserReq2+\022){\"userID\": \"donald.tr" +
+      "ump@whitehouse.gov\"}\"M\n\016DemoteUserResp\022\017" +
+      "\n\007success\030\001 \001(\010:*\222A\'\n\020*\016DemoteUserResp2\023" +
+      "\022\021{\"success\": true}\"\214\001\n\017PrepareLoginReq\022" +
+      "\025\n\remailOrUserID\030\001 \001(\t\022\r\n\005orgID\030\002 \001(\t:S\222" +
+      "AP\n\021*\017PrepareLoginReq2;\0229{\"emailOrUserID" +
+      "\": \"user@website.com\", \"orgID\": \"OrgCorp" +
+      "\"}\"\277\001\n\020PrepareLoginResp\022\016\n\006userID\030\001 \001(\t\022" +
+      "/\n\017prepareAuthResp\030\002 \001(\0132\026.proto.Prepare" +
+      "AuthResp:j\222Ag\n\022*\020PrepareLoginResp2Q\022O{\"u" +
+      "serID\": \"user123\", \"prepareAuthResp\": {\"" +
+      "authType\": \"SRP\", \"authVersion\": 1}}\"-\n\016" +
+      "PrepareAuthReq:\033\222A\030\n\020*\016PrepareAuthReq2\004\022" +
+      "\002{}\"\212\001\n\017PrepareAuthResp\022!\n\010authType\030\001 \001(" +
+      "\0162\017.proto.AuthType\022\023\n\013authVersion\030\002 \001(\005:" +
+      "?\222A<\n\021*\017PrepareAuthResp2\'\022%{\"authType\": " +
+      "\"SRP\", \"authVersion\": 1}\"\260\001\n\010LoginReq\022\016\n" +
+      "\006userID\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\r\n\005orgID" +
+      "\030\003 \001(\t:s\222Ap\n\n*\010LoginReq2b\022`{\"userID\": \"d" +
+      "onald.trump@whitehouse.gov\", \"password\":" +
+      " \"ukrainismyfriend\", \"orgID\": \"WhiteHous" +
+      "e\"}\"\215\001\n\tLoginResp\022\r\n\005token\030\001 \001(\t\022\017\n\007kdfM" +
+      "eta\030\002 \001(\t\022\r\n\005keyID\030\003 \001(\t:Q\222AN\n\013*\tLoginRe" +
+      "sp2?\022={\"token\": \"blahblahblah\", \"kdfMeta" +
+      "\": \"serializedKdfMetaData\"}\"\321\001\n\nSrpInitR" +
+      "eq\022\016\n\006userID\030\001 \001(\t\022\r\n\005orgID\030\002 \001(\t\022\023\n\013cli" +
+      "entCreds\030\003 \001(\t\022\'\n\013authPurpose\030\004 \001(\0162\022.pr" +
+      "oto.AuthPurpose:f\222Ac\n\014*\nSrpInitReq2S\022Q{\"" +
+      "userID\": \"user123\", \"orgID\": \"OrgCorp\", " +
+      "\"clientCreds\": \"srpGeneratedString123\"}\"" +
+      "\207\001\n\013SrpInitResp\022\016\n\006authID\030\001 \001(\t\022\023\n\013serve" +
+      "rCreds\030\002 \001(\t:S\222AP\n\r*\013SrpInitResp2?\022={\"lo" +
+      "ginID\": \"abc123\", \"serverCreds\": \"srpGen" +
+      "eratedString123\"}\"\250\001\n\013SrpProofReq\022\016\n\006use" +
+      "rID\030\001 \001(\t\022\016\n\006authID\030\002 \001(\t\022\023\n\013clientProof" +
+      "\030\003 \001(\t:d\222Aa\n\r*\013SrpProofReq2P\022N{\"userID\":" +
+      " \"user123\", \"authID\": \"abc123\", \"clientP" +
+      "roof\": \"srpGeneratedString\"}\"\200\002\n\014SrpProo" +
+      "fResp\022\017\n\007success\030\001 \001(\010\022\023\n\013serverProof\030\002 " +
+      "\001(\t\022\'\n\rloginResponse\030\003 \001(\0132\020.proto.Login" +
+      "Resp:\240\001\222A\234\001\n\016*\014SrpProofResp2\211\001\022\206\001{\"succe" +
+      "ss\": true, \"serverProof\": \"srpGeneratedS" +
+      "tring123\", \"loginResponse\": {\"token\": \"a" +
+      "bc123\", \"kdfMeta\": \"a1b2c3\", \"keyID\": \"1" +
+      "2345\"}}\"\035\n\tLogoutReq:\020\222A\r\n\013*\tLogoutReq\"H" +
+      "\n\nLogoutResp\022\016\n\006status\030\001 \001(\t:*\222A\'\n\014*\nLog" +
+      "outResp2\027\022\025{\"status\": \"you OUT\"}\"#\n\014List" +
+      "UsersReq:\023\222A\020\n\016*\014ListUsersReq\"\374\001\n\rListUs" +
+      "ersResp\022.\n\010orgUsers\030\001 \003(\0132\034.proto.ListUs" +
+      "ersResp.OrgUser\032<\n\007OrgUser\022\020\n\010userName\030\001" +
+      " \001(\t\022\016\n\006userID\030\002 \001(\t\022\017\n\007isAdmin\030\003 \001(\010:}\222" +
+      "Az\n\017*\rListUsersResp2g\022e{\"orgUsers\":[{\"us" +
+      "erName\": \"Donald Trump\", \"userID\": \"dona" +
+      "ld.trump@whitehouse.gov\", \"isAdmin\": tru" +
+      "e}]}\"W\n\025RemoveOrganizationReq\022\r\n\005force\030\001" +
+      " \001(\010:/\222A,\n\027*\025RemoveOrganizationReq2\021\022\017{\"" +
+      "force\": true}\"\204\001\n\026RemoveOrganizationResp" +
+      "\022\017\n\007success\030\001 \001(\010\022\021\n\tpostponed\030\002 \001(\010:F\222A" +
+      "C\n\030*\026RemoveOrganizationResp2\'\022%{\"success" +
+      "\": true, \"postponed\": false}\"Y\n\021AddShara" +
+      "bleOrgReq\022\020\n\010newOrgID\030\001 \001(\t:2\222A/\n\023*\021AddS" +
+      "harableOrgReq2\030\022\026{\"newOrgID\": \"string\"}\"" +
+      "U\n\022AddSharableOrgResp\022\017\n\007success\030\001 \001(\010:." +
+      "\222A+\n\024*\022AddSharableOrgResp2\023\022\021{\"success\":" +
+      " true}\"e\n\024RemoveSharableOrgReq\022\023\n\013remove" +
+      "OrgID\030\001 \001(\t:8\222A5\n\026*\024RemoveSharableOrgReq" +
+      "2\033\022\031{\"removeOrgID\": \"string\"}\"[\n\025RemoveS" +
+      "harableOrgResp\022\017\n\007success\030\001 \001(\010:1\222A.\n\027*\025" +
+      "RemoveSharableOrgResp2\023\022\021{\"success\": tru" +
+      "e}\"]\n\027SetMultiLevelSharingReq\022\016\n\006enable\030" +
+      "\001 \001(\010:2\222A/\n\031*\027SetMultiLevelSharingReq2\022\022" +
+      "\020{\"enable\": true}\"a\n\030SetMultiLevelSharin" +
+      "gResp\022\017\n\007success\030\001 \001(\010:4\222A1\n\032*\030SetMultiL" +
+      "evelSharingResp2\023\022\021{\"success\": true}\"\234\001\n" +
+      "\021SetAccountInfoReq\022\020\n\010orgEmail\030\001 \001(\t\022\022\n\n" +
+      "orgAddress\030\002 \001(\t:a\222A^\n\023*\021SetAccountInfoR" +
+      "eq2G\022E{\"orgEmail\": \"newEmail@orgwebsite." +
+      "com\", \"orgAddress\": \"1234 Org St.\"}\"U\n\022S" +
+      "etAccountInfoResp\022\017\n\007success\030\001 \001(\010:.\222A+\n" +
+      "\024*\022SetAccountInfoResp2\023\022\021{\"success\": tru" +
+      "e}\"\200\001\n\016SetUserInfoReq\022\014\n\004name\030\001 \001(\t\022\r\n\005e" +
+      "mail\030\002 \001(\t:Q\222AN\n\020*\016SetUserInfoReq2:\0228{\"n" +
+      "ame\": \"User Person\", \"email\": \"newEmail@" +
+      "website.com\"}\"O\n\017SetUserInfoResp\022\017\n\007succ" +
+      "ess\030\001 \001(\010:+\222A(\n\021*\017SetUserInfoResp2\023\022\021{\"s" +
+      "uccess\": true}\"\245\001\n\025ChangeUserPasswordReq" +
+      "\022\023\n\013oldPassword\030\001 \001(\t\022\023\n\013newPassword\030\002 \001" +
+      "(\t:b\222A_\n\027*\025ChangeUserPasswordReq2D\022B{\"ol" +
+      "dPassword\": \"oldPassword123\", \"newPasswo" +
+      "rd\": \"newPassword123\"}\"]\n\026ChangeUserPass" +
+      "wordResp\022\017\n\007success\030\001 \001(\010:2\222A/\n\030*\026Change" +
+      "UserPasswordResp2\023\022\021{\"success\": true}\"q\n" +
+      "\014Subscription\022\014\n\004type\030\001 \001(\t\022\016\n\006status\030\002 " +
+      "\001(\t:C\222A@\n\016*\014Subscription2.\022,{\"type\":\"Cre" +
+      "dit Card\",\"status\":\"Subscribed\"}\"\365\002\n\007Pay" +
+      "ment\022,\n\010billedAt\030\001 \001(\0132\032.google.protobuf" +
+      ".Timestamp\022/\n\013periodStart\030\002 \001(\0132\032.google" +
+      ".protobuf.Timestamp\022-\n\tperiodEnd\030\003 \001(\0132\032" +
+      ".google.protobuf.Timestamp\022\016\n\006amount\030\004 \001" +
+      "(\001\022\016\n\006status\030\005 \001(\t:\273\001\222A\267\001\n\t*\007Payment2\251\001\022" +
+      "\246\001{\"billedAt\": \"2020-02-01T12:30:15.123Z" +
+      "\", \"periodStart\": \"2020-01-01T00:00:00.0" +
+      "00Z\", \"periodEnd\": \"2020-02-01T00:00:00." +
+      "000Z\", \"amount\": 52.16, \"status\": \"No Pa" +
+      "yment\" }\"\023\n\021GetAccountInfoReq\"\234\005\n\022GetAcc" +
+      "ountInfoResp\022\r\n\005orgID\030\001 \001(\t\022\020\n\010orgEmail\030" +
+      "\002 \001(\t\022)\n\014subscription\030\003 \001(\0132\023.proto.Subs" +
+      "cription\022 \n\010payments\030\004 \003(\0132\016.proto.Payme" +
+      "nt\022\022\n\norgAddress\030\005 \001(\t\022\027\n\017multiLevelShar" +
+      "e\030\006 \001(\010\022\024\n\014sharableOrgs\030\007 \003(\t:\324\003\222A\320\003\n\024*\022" +
+      "GetAccountInfoResp2\267\003\022\264\003{\"orgID\": \"thisO" +
+      "rganization\", \"orgEmail\": \"email@company" +
+      ".com\", \"subscription\":{\"type\":\"Credit Ca" +
+      "rd\",\"status\":\"Subscribed\"}, \"payments\":[" +
+      "{\"billedAt\": \"2020-02-01T12:30:15.123Z\"," +
+      " \"periodStart\": \"2020-01-01T00:00:00.000" +
+      "Z\", \"periodEnd\": \"2020-02-01T00:00:00.00" +
+      "0Z\", \"amount\": 52.16, \"status\": \"Payment" +
+      " Success\" }], \"orgAddress\": \"1600 Pennsy" +
+      "lvania Ave NW, Washington, DC 20500\", \"m" +
+      "ultiLevelShare\": true, \"sharableOrgs\": [" +
+      "\"cnn\", \"democrats\"]}\"\020\n\016GetUserInfoReq\"\363" +
+      "\002\n\017GetUserInfoResp\022\016\n\006userID\030\001 \001(\t\022\r\n\005em" +
+      "ail\030\002 \001(\t\022\020\n\010userName\030\003 \001(\t\022\r\n\005orgID\030\004 \001" +
+      "(\t\022\017\n\007isAdmin\030\005 \001(\010\022\037\n\007keyse2e\030\006 \001(\0132\016.p" +
+      "roto.KeysE2e:\355\001\222A\351\001\n\021*\017GetUserInfoResp2\323" +
+      "\001\022\320\001{\"userID\": \"userID\", \"email\": \"email" +
+      "\", \"userName\": \"userName\", \"orgID\": \"org" +
+      "ID\",\"keyse2e\":{\"orgPubKey\":\"orgPubKey\",\"" +
+      "orgEncPrivKey\":\"orgEncPrivKey\",\"userPubK" +
+      "ey\":\"userPubKey\",\"userEncPrivKey\":\"userE" +
+      "ncPrivKey\"}}\"_\n\007KeysE2e\022\021\n\torgPubKey\030\001 \001" +
+      "(\t\022\025\n\rorgEncPrivKey\030\002 \001(\t\022\022\n\nuserPubKey\030" +
+      "\003 \001(\t\022\026\n\016userEncPrivKey\030\004 \001(\t\"{\n\nInvitat" +
+      "ion\022\r\n\005email\030\001 \001(\t\022.\n\nexpireTime\030\002 \001(\0132\032" +
+      ".google.protobuf.Timestamp\022.\n\ncreateTime" +
+      "\030\003 \001(\0132\032.google.protobuf.Timestamp\"\201\001\n\rI" +
+      "nviteUserReq\022\r\n\005email\030\001 \001(\t\022\022\n\nexpireTim" +
+      "e\030\002 \001(\003:M\222AJ\n\017*\rInviteUserReq27\0225{\"email" +
+      "\": \"account@strongsalt.com\", \"expireTime" +
+      "\": 10}\"M\n\016InviteUserResp\022\017\n\007success\030\001 \001(" +
+      "\010:*\222A\'\n\020*\016InviteUserResp2\023\022\021{\"success\": " +
+      "true}\"_\n\022ListInvitationsReq\022\025\n\rmaxInvita" +
+      "tion\030\001 \001(\003:2\222A/\n\024*\022ListInvitationsReq2\027\022" +
+      "\025{\"maxInvitation\": 10}\"\311\001\n\023ListInvitatio" +
+      "nsResp\022&\n\013invitations\030\001 \003(\0132\021.proto.Invi" +
+      "tation:\211\001\222A\205\001\n\025*\023ListInvitationsResp2l\022j" +
+      "{\"invitations\": [{\"email\":\"example@email" +
+      ".com\", \"expireTime\":10, \"invitedAt\": \"20" +
+      "20-02-01T12:30:15.123Z\"}]}\"h\n\023RevokeInvi" +
+      "tationReq\022\r\n\005email\030\001 \001(\t:B\222A?\n\026*\024RevokeI" +
+      "nvitationsReq2%\022#{\"email\": \"account@stro" +
+      "ngsalt.com\"}\"\215\001\n\024RevokeInvitationResp\022\017\n" +
+      "\007success\030\001 \001(\010\022\027\n\017codeAlreadyUsed\030\002 \001(\010:" +
+      "K\222AH\n\027*\025RevokeInvitationsResp2-\022+{\"succe" +
+      "ss\": true, \"codeAlreadyUsed\": false}\"\363\002\n" +
+      "\026SetUserAuthMetadataReq\022\016\n\006authID\030\001 \001(\t\022" +
+      "$\n\013newAuthType\030\002 \001(\0162\017.proto.AuthType\022\026\n" +
+      "\016newAuthVersion\030\003 \001(\005\022\023\n\013srpVerifier\030\004 \001" +
+      "(\t\022\017\n\007kdfMeta\030\005 \001(\t\022*\n\rencryptedKeys\030\006 \003" +
+      "(\0132\023.proto.EncryptedKey:\270\001\222A\264\001\n\030*\026SetUse" +
+      "rAuthMetadataReq2\227\001\022\224\001{\"authID\": \"abcd12" +
+      "\", \"kdfMeta\": \"kdfMetadata\", \"encryptedK" +
+      "eys\": [{\"encKey\": \"asdf\", \"encryptorID\":" +
+      " \"abc123\", \"ownerID\": \"person\", \"keyID\":" +
+      " \"asdf\"}]}\"\244\001\n\027SetUserAuthMetadataResp\022\017" +
+      "\n\007success\030\001 \001(\010\022\017\n\007restart\030\002 \001(\010\022\r\n\005keyI" +
+      "D\030\003 \001(\t:X\222AU\n\031*\027SetUserAuthMetadataResp2" +
+      "8\0226{\"success\": true, \"restart\": false, \"" +
+      "keyID\": \"abc123\"}*\'\n\010AuthType\022\r\n\tAUTH_NO" +
+      "NE\020\000\022\014\n\010AUTH_SRP\020\001*B\n\013AuthPurpose\022\016\n\nNO_" +
+      "PURPOSE\020\000\022\016\n\nAUTH_LOGIN\020\001\022\023\n\017AUTH_PERSIS" +
+      "TENT\020\002B0\n\"com.strongsalt.strongdoc.sdk.p" +
+      "rotoB\007Account\210\001\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -44865,18 +48706,18 @@ public final class Account {
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.strongsalt.strongdoc.sdk.proto.Encryption.getDescriptor(),
         });
-    internal_static_proto_RegisterLoginData_descriptor =
+    internal_static_proto_RegisterAuthData_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_proto_RegisterLoginData_fieldAccessorTable = new
+    internal_static_proto_RegisterAuthData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_RegisterLoginData_descriptor,
-        new java.lang.String[] { "LoginType", "LoginVersion", "SrpVerifier", });
+        internal_static_proto_RegisterAuthData_descriptor,
+        new java.lang.String[] { "AuthType", "AuthVersion", "SrpVerifier", });
     internal_static_proto_RegisterOrganizationReq_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_RegisterOrganizationReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RegisterOrganizationReq_descriptor,
-        new java.lang.String[] { "OrgName", "OrgEmail", "OrgAddr", "UserName", "Password", "AdminEmail", "SharableOrgs", "MultiLevelShare", "Source", "SourceData", "PmID", "KdfMetadata", "UserPubKey", "EncUserPriKey", "OrgPubKey", "EncOrgPriKey", "AdminLoginData", });
+        new java.lang.String[] { "OrgName", "OrgEmail", "OrgAddr", "UserName", "Password", "AdminEmail", "SharableOrgs", "MultiLevelShare", "Source", "SourceData", "PmID", "KdfMetadata", "UserPubKey", "EncUserPriKey", "OrgPubKey", "EncOrgPriKey", "AdminAuthData", });
     internal_static_proto_RegisterOrganizationResp_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_proto_RegisterOrganizationResp_fieldAccessorTable = new
@@ -44888,7 +48729,7 @@ public final class Account {
     internal_static_proto_RegisterUserReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RegisterUserReq_descriptor,
-        new java.lang.String[] { "InvitationCode", "OrgID", "Email", "KdfMetadata", "UserPubKey", "EncUserPriKey", "UserName", "Password", "LoginData", });
+        new java.lang.String[] { "InvitationCode", "OrgID", "Email", "KdfMetadata", "UserPubKey", "EncUserPriKey", "UserName", "Password", "AuthData", });
     internal_static_proto_RegisterUserResp_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_proto_RegisterUserResp_fieldAccessorTable = new
@@ -44954,63 +48795,75 @@ public final class Account {
     internal_static_proto_PrepareLoginResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PrepareLoginResp_descriptor,
-        new java.lang.String[] { "UserID", "LoginType", "LoginVersion", });
-    internal_static_proto_LoginReq_descriptor =
+        new java.lang.String[] { "UserID", "PrepareAuthResp", });
+    internal_static_proto_PrepareAuthReq_descriptor =
       getDescriptor().getMessageTypes().get(15);
+    internal_static_proto_PrepareAuthReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_PrepareAuthReq_descriptor,
+        new java.lang.String[] { });
+    internal_static_proto_PrepareAuthResp_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_proto_PrepareAuthResp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_PrepareAuthResp_descriptor,
+        new java.lang.String[] { "AuthType", "AuthVersion", });
+    internal_static_proto_LoginReq_descriptor =
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_LoginReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_LoginReq_descriptor,
         new java.lang.String[] { "UserID", "Password", "OrgID", });
     internal_static_proto_LoginResp_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_proto_LoginResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_LoginResp_descriptor,
         new java.lang.String[] { "Token", "KdfMeta", "KeyID", });
     internal_static_proto_SrpInitReq_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_proto_SrpInitReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SrpInitReq_descriptor,
-        new java.lang.String[] { "UserID", "OrgID", "ClientCreds", });
+        new java.lang.String[] { "UserID", "OrgID", "ClientCreds", "AuthPurpose", });
     internal_static_proto_SrpInitResp_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_proto_SrpInitResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SrpInitResp_descriptor,
-        new java.lang.String[] { "LoginID", "ServerCreds", });
+        new java.lang.String[] { "AuthID", "ServerCreds", });
     internal_static_proto_SrpProofReq_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_proto_SrpProofReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SrpProofReq_descriptor,
-        new java.lang.String[] { "UserID", "LoginID", "ClientProof", });
+        new java.lang.String[] { "UserID", "AuthID", "ClientProof", });
     internal_static_proto_SrpProofResp_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_proto_SrpProofResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SrpProofResp_descriptor,
         new java.lang.String[] { "Success", "ServerProof", "LoginResponse", });
     internal_static_proto_LogoutReq_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_proto_LogoutReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_LogoutReq_descriptor,
         new java.lang.String[] { });
     internal_static_proto_LogoutResp_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_proto_LogoutResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_LogoutResp_descriptor,
         new java.lang.String[] { "Status", });
     internal_static_proto_ListUsersReq_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_proto_ListUsersReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListUsersReq_descriptor,
         new java.lang.String[] { });
     internal_static_proto_ListUsersResp_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_proto_ListUsersResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListUsersResp_descriptor,
@@ -45022,173 +48875,185 @@ public final class Account {
         internal_static_proto_ListUsersResp_OrgUser_descriptor,
         new java.lang.String[] { "UserName", "UserID", "IsAdmin", });
     internal_static_proto_RemoveOrganizationReq_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_proto_RemoveOrganizationReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveOrganizationReq_descriptor,
         new java.lang.String[] { "Force", });
     internal_static_proto_RemoveOrganizationResp_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_proto_RemoveOrganizationResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveOrganizationResp_descriptor,
         new java.lang.String[] { "Success", "Postponed", });
     internal_static_proto_AddSharableOrgReq_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_proto_AddSharableOrgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_AddSharableOrgReq_descriptor,
         new java.lang.String[] { "NewOrgID", });
     internal_static_proto_AddSharableOrgResp_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_proto_AddSharableOrgResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_AddSharableOrgResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_RemoveSharableOrgReq_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_proto_RemoveSharableOrgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveSharableOrgReq_descriptor,
         new java.lang.String[] { "RemoveOrgID", });
     internal_static_proto_RemoveSharableOrgResp_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_proto_RemoveSharableOrgResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RemoveSharableOrgResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_SetMultiLevelSharingReq_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_proto_SetMultiLevelSharingReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SetMultiLevelSharingReq_descriptor,
         new java.lang.String[] { "Enable", });
     internal_static_proto_SetMultiLevelSharingResp_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_proto_SetMultiLevelSharingResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SetMultiLevelSharingResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_SetAccountInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_proto_SetAccountInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SetAccountInfoReq_descriptor,
         new java.lang.String[] { "OrgEmail", "OrgAddress", });
     internal_static_proto_SetAccountInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_proto_SetAccountInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SetAccountInfoResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_SetUserInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_proto_SetUserInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SetUserInfoReq_descriptor,
         new java.lang.String[] { "Name", "Email", });
     internal_static_proto_SetUserInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_proto_SetUserInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_SetUserInfoResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_ChangeUserPasswordReq_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_proto_ChangeUserPasswordReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ChangeUserPasswordReq_descriptor,
         new java.lang.String[] { "OldPassword", "NewPassword", });
     internal_static_proto_ChangeUserPasswordResp_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_proto_ChangeUserPasswordResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ChangeUserPasswordResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_Subscription_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_proto_Subscription_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Subscription_descriptor,
         new java.lang.String[] { "Type", "Status", });
     internal_static_proto_Payment_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_proto_Payment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Payment_descriptor,
         new java.lang.String[] { "BilledAt", "PeriodStart", "PeriodEnd", "Amount", "Status", });
     internal_static_proto_GetAccountInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_proto_GetAccountInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_GetAccountInfoReq_descriptor,
         new java.lang.String[] { });
     internal_static_proto_GetAccountInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_proto_GetAccountInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_GetAccountInfoResp_descriptor,
         new java.lang.String[] { "OrgID", "OrgEmail", "Subscription", "Payments", "OrgAddress", "MultiLevelShare", "SharableOrgs", });
     internal_static_proto_GetUserInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_proto_GetUserInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_GetUserInfoReq_descriptor,
         new java.lang.String[] { });
     internal_static_proto_GetUserInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_proto_GetUserInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_GetUserInfoResp_descriptor,
         new java.lang.String[] { "UserID", "Email", "UserName", "OrgID", "IsAdmin", "Keyse2E", });
     internal_static_proto_KeysE2e_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_proto_KeysE2e_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_KeysE2e_descriptor,
         new java.lang.String[] { "OrgPubKey", "OrgEncPrivKey", "UserPubKey", "UserEncPrivKey", });
     internal_static_proto_Invitation_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_proto_Invitation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Invitation_descriptor,
         new java.lang.String[] { "Email", "ExpireTime", "CreateTime", });
     internal_static_proto_InviteUserReq_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_proto_InviteUserReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_InviteUserReq_descriptor,
         new java.lang.String[] { "Email", "ExpireTime", });
     internal_static_proto_InviteUserResp_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_proto_InviteUserResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_InviteUserResp_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_ListInvitationsReq_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_proto_ListInvitationsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListInvitationsReq_descriptor,
         new java.lang.String[] { "MaxInvitation", });
     internal_static_proto_ListInvitationsResp_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_proto_ListInvitationsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ListInvitationsResp_descriptor,
         new java.lang.String[] { "Invitations", });
     internal_static_proto_RevokeInvitationReq_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_proto_RevokeInvitationReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RevokeInvitationReq_descriptor,
         new java.lang.String[] { "Email", });
     internal_static_proto_RevokeInvitationResp_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_proto_RevokeInvitationResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RevokeInvitationResp_descriptor,
         new java.lang.String[] { "Success", "CodeAlreadyUsed", });
+    internal_static_proto_SetUserAuthMetadataReq_descriptor =
+      getDescriptor().getMessageTypes().get(55);
+    internal_static_proto_SetUserAuthMetadataReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_SetUserAuthMetadataReq_descriptor,
+        new java.lang.String[] { "AuthID", "NewAuthType", "NewAuthVersion", "SrpVerifier", "KdfMeta", "EncryptedKeys", });
+    internal_static_proto_SetUserAuthMetadataResp_descriptor =
+      getDescriptor().getMessageTypes().get(56);
+    internal_static_proto_SetUserAuthMetadataResp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_SetUserAuthMetadataResp_descriptor,
+        new java.lang.String[] { "Success", "Restart", "KeyID", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(grpc.gateway.protoc_gen_swagger.options.Annotations.openapiv2Schema);

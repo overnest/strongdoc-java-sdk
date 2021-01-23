@@ -306,6 +306,37 @@ public final class StrongDocServiceGrpc {
     return getSetUserKdfMetadataMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq,
+      com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> getSetUserAuthMetadataMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetUserAuthMetadata",
+      requestType = com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.class,
+      responseType = com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq,
+      com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> getSetUserAuthMetadataMethod() {
+    io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq, com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> getSetUserAuthMetadataMethod;
+    if ((getSetUserAuthMetadataMethod = StrongDocServiceGrpc.getSetUserAuthMetadataMethod) == null) {
+      synchronized (StrongDocServiceGrpc.class) {
+        if ((getSetUserAuthMetadataMethod = StrongDocServiceGrpc.getSetUserAuthMetadataMethod) == null) {
+          StrongDocServiceGrpc.getSetUserAuthMetadataMethod = getSetUserAuthMetadataMethod =
+              io.grpc.MethodDescriptor.<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq, com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetUserAuthMetadata"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance()))
+              .setSchemaDescriptor(new StrongDocServiceMethodDescriptorSupplier("SetUserAuthMetadata"))
+              .build();
+        }
+      }
+    }
+    return getSetUserAuthMetadataMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq,
       com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp> getListUsersMethod;
 
@@ -1048,6 +1079,37 @@ public final class StrongDocServiceGrpc {
       }
     }
     return getPrepareLoginMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq,
+      com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> getPrepareAuthMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "PrepareAuth",
+      requestType = com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.class,
+      responseType = com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq,
+      com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> getPrepareAuthMethod() {
+    io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> getPrepareAuthMethod;
+    if ((getPrepareAuthMethod = StrongDocServiceGrpc.getPrepareAuthMethod) == null) {
+      synchronized (StrongDocServiceGrpc.class) {
+        if ((getPrepareAuthMethod = StrongDocServiceGrpc.getPrepareAuthMethod) == null) {
+          StrongDocServiceGrpc.getPrepareAuthMethod = getPrepareAuthMethod =
+              io.grpc.MethodDescriptor.<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq, com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "PrepareAuth"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance()))
+              .setSchemaDescriptor(new StrongDocServiceMethodDescriptorSupplier("PrepareAuth"))
+              .build();
+        }
+      }
+    }
+    return getPrepareAuthMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq,
@@ -1855,6 +1917,17 @@ public final class StrongDocServiceGrpc {
 
     /**
      * <pre>
+     * Sets the user's authentication metadata
+     * Requires Login
+     * </pre>
+     */
+    public void setUserAuthMetadata(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request,
+        io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> responseObserver) {
+      asyncUnimplementedUnaryCall(getSetUserAuthMetadataMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * List the users of the organization
      * Requires Login
      * </pre>
@@ -2121,6 +2194,17 @@ public final class StrongDocServiceGrpc {
     public void prepareLogin(com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request,
         io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp> responseObserver) {
       asyncUnimplementedUnaryCall(getPrepareLoginMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Obtain the metadata needed to attempt to authenticate with a specified user
+     * Requires Login
+     * </pre>
+     */
+    public void prepareAuth(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request,
+        io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> responseObserver) {
+      asyncUnimplementedUnaryCall(getPrepareAuthMethod(), responseObserver);
     }
 
     /**
@@ -2436,6 +2520,13 @@ public final class StrongDocServiceGrpc {
                 com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp>(
                   this, METHODID_SET_USER_KDF_METADATA)))
           .addMethod(
+            getSetUserAuthMetadataMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq,
+                com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp>(
+                  this, METHODID_SET_USER_AUTH_METADATA)))
+          .addMethod(
             getListUsersMethod(),
             asyncUnaryCall(
               new MethodHandlers<
@@ -2603,6 +2694,13 @@ public final class StrongDocServiceGrpc {
                 com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq,
                 com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp>(
                   this, METHODID_PREPARE_LOGIN)))
+          .addMethod(
+            getPrepareAuthMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq,
+                com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp>(
+                  this, METHODID_PREPARE_AUTH)))
           .addMethod(
             getSrpInitMethod(),
             asyncUnaryCall(
@@ -2879,6 +2977,18 @@ public final class StrongDocServiceGrpc {
         io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getSetUserKdfMetadataMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Sets the user's authentication metadata
+     * Requires Login
+     * </pre>
+     */
+    public void setUserAuthMetadata(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request,
+        io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSetUserAuthMetadataMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -3173,6 +3283,18 @@ public final class StrongDocServiceGrpc {
         io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getPrepareLoginMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Obtain the metadata needed to attempt to authenticate with a specified user
+     * Requires Login
+     * </pre>
+     */
+    public void prepareAuth(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request,
+        io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getPrepareAuthMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -3564,6 +3686,17 @@ public final class StrongDocServiceGrpc {
 
     /**
      * <pre>
+     * Sets the user's authentication metadata
+     * Requires Login
+     * </pre>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp setUserAuthMetadata(com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request) {
+      return blockingUnaryCall(
+          getChannel(), getSetUserAuthMetadataMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * List the users of the organization
      * Requires Login
      * </pre>
@@ -3785,6 +3918,17 @@ public final class StrongDocServiceGrpc {
     public com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp prepareLogin(com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request) {
       return blockingUnaryCall(
           getChannel(), getPrepareLoginMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Obtain the metadata needed to attempt to authenticate with a specified user
+     * Requires Login
+     * </pre>
+     */
+    public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp prepareAuth(com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request) {
+      return blockingUnaryCall(
+          getChannel(), getPrepareAuthMethod(), getCallOptions(), request);
     }
 
     /**
@@ -4164,6 +4308,18 @@ public final class StrongDocServiceGrpc {
 
     /**
      * <pre>
+     * Sets the user's authentication metadata
+     * Requires Login
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> setUserAuthMetadata(
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSetUserAuthMetadataMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * List the users of the organization
      * Requires Login
      * </pre>
@@ -4378,6 +4534,18 @@ public final class StrongDocServiceGrpc {
         com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request) {
       return futureUnaryCall(
           getChannel().newCall(getPrepareLoginMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Obtain the metadata needed to attempt to authenticate with a specified user
+     * Requires Login
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> prepareAuth(
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getPrepareAuthMethod(), getCallOptions()), request);
     }
 
     /**
@@ -4658,51 +4826,53 @@ public final class StrongDocServiceGrpc {
   private static final int METHODID_REGISTER_USER = 6;
   private static final int METHODID_GET_USER_PRIVATE_KEYS = 7;
   private static final int METHODID_SET_USER_KDF_METADATA = 8;
-  private static final int METHODID_LIST_USERS = 9;
-  private static final int METHODID_REMOVE_USER = 10;
-  private static final int METHODID_PREPARE_PROMOTE_USER = 11;
-  private static final int METHODID_PROMOTE_USER = 12;
-  private static final int METHODID_DEMOTE_USER = 13;
-  private static final int METHODID_LIST_DOCUMENTS = 14;
-  private static final int METHODID_REMOVE_DOCUMENT = 15;
-  private static final int METHODID_E2EEPREPARE_DOWNLOAD_DOCUMENT = 16;
-  private static final int METHODID_E2EEDOWNLOAD_DOCUMENT_STREAM = 17;
-  private static final int METHODID_UPLOAD_DOCUMENT = 18;
-  private static final int METHODID_DOWNLOAD_DOCUMENT_STREAM = 19;
-  private static final int METHODID_DOWNLOAD_DOCUMENT = 20;
-  private static final int METHODID_ENCRYPT_DOCUMENT = 21;
-  private static final int METHODID_DECRYPT_DOCUMENT = 22;
-  private static final int METHODID_PREPARE_SHARE_DOCUMENT = 23;
-  private static final int METHODID_SHARE_DOCUMENT = 24;
-  private static final int METHODID_UNSHARE_DOCUMENT = 25;
-  private static final int METHODID_LIST_DOC_ACTION_HISTORY = 26;
-  private static final int METHODID_LOGIN = 27;
-  private static final int METHODID_PREPARE_LOGIN = 28;
-  private static final int METHODID_SRP_INIT = 29;
-  private static final int METHODID_SRP_PROOF = 30;
-  private static final int METHODID_LOGOUT = 31;
-  private static final int METHODID_SEARCH = 32;
-  private static final int METHODID_ADD_SHARABLE_ORG = 33;
-  private static final int METHODID_REMOVE_SHARABLE_ORG = 34;
-  private static final int METHODID_SET_MULTI_LEVEL_SHARING = 35;
-  private static final int METHODID_SET_ACCOUNT_INFO = 36;
-  private static final int METHODID_GET_BILLING_DETAILS = 37;
-  private static final int METHODID_GET_BILLING_FREQUENCY_LIST = 38;
-  private static final int METHODID_SET_NEXT_BILLING_FREQUENCY = 39;
-  private static final int METHODID_GET_LARGE_TRAFFIC = 40;
-  private static final int METHODID_GET_ACCOUNT_INFO = 41;
-  private static final int METHODID_GET_USER_INFO = 42;
-  private static final int METHODID_CHANGE_USER_PASSWORD = 43;
-  private static final int METHODID_SET_USER_INFO = 44;
-  private static final int METHODID_LIST_CREDIT_CARDS = 45;
-  private static final int METHODID_ADD_PAYMENT_METHOD = 46;
-  private static final int METHODID_SET_DEFAULT_PAYMENT_METHOD = 47;
-  private static final int METHODID_REMOVE_PAYMENT_METHOD = 48;
-  private static final int METHODID_LIST_PAYMENTS = 49;
-  private static final int METHODID_UPLOAD_DOCUMENT_STREAM = 50;
-  private static final int METHODID_E2EEUPLOAD_DOCUMENT_STREAM = 51;
-  private static final int METHODID_ENCRYPT_DOCUMENT_STREAM = 52;
-  private static final int METHODID_DECRYPT_DOCUMENT_STREAM = 53;
+  private static final int METHODID_SET_USER_AUTH_METADATA = 9;
+  private static final int METHODID_LIST_USERS = 10;
+  private static final int METHODID_REMOVE_USER = 11;
+  private static final int METHODID_PREPARE_PROMOTE_USER = 12;
+  private static final int METHODID_PROMOTE_USER = 13;
+  private static final int METHODID_DEMOTE_USER = 14;
+  private static final int METHODID_LIST_DOCUMENTS = 15;
+  private static final int METHODID_REMOVE_DOCUMENT = 16;
+  private static final int METHODID_E2EEPREPARE_DOWNLOAD_DOCUMENT = 17;
+  private static final int METHODID_E2EEDOWNLOAD_DOCUMENT_STREAM = 18;
+  private static final int METHODID_UPLOAD_DOCUMENT = 19;
+  private static final int METHODID_DOWNLOAD_DOCUMENT_STREAM = 20;
+  private static final int METHODID_DOWNLOAD_DOCUMENT = 21;
+  private static final int METHODID_ENCRYPT_DOCUMENT = 22;
+  private static final int METHODID_DECRYPT_DOCUMENT = 23;
+  private static final int METHODID_PREPARE_SHARE_DOCUMENT = 24;
+  private static final int METHODID_SHARE_DOCUMENT = 25;
+  private static final int METHODID_UNSHARE_DOCUMENT = 26;
+  private static final int METHODID_LIST_DOC_ACTION_HISTORY = 27;
+  private static final int METHODID_LOGIN = 28;
+  private static final int METHODID_PREPARE_LOGIN = 29;
+  private static final int METHODID_PREPARE_AUTH = 30;
+  private static final int METHODID_SRP_INIT = 31;
+  private static final int METHODID_SRP_PROOF = 32;
+  private static final int METHODID_LOGOUT = 33;
+  private static final int METHODID_SEARCH = 34;
+  private static final int METHODID_ADD_SHARABLE_ORG = 35;
+  private static final int METHODID_REMOVE_SHARABLE_ORG = 36;
+  private static final int METHODID_SET_MULTI_LEVEL_SHARING = 37;
+  private static final int METHODID_SET_ACCOUNT_INFO = 38;
+  private static final int METHODID_GET_BILLING_DETAILS = 39;
+  private static final int METHODID_GET_BILLING_FREQUENCY_LIST = 40;
+  private static final int METHODID_SET_NEXT_BILLING_FREQUENCY = 41;
+  private static final int METHODID_GET_LARGE_TRAFFIC = 42;
+  private static final int METHODID_GET_ACCOUNT_INFO = 43;
+  private static final int METHODID_GET_USER_INFO = 44;
+  private static final int METHODID_CHANGE_USER_PASSWORD = 45;
+  private static final int METHODID_SET_USER_INFO = 46;
+  private static final int METHODID_LIST_CREDIT_CARDS = 47;
+  private static final int METHODID_ADD_PAYMENT_METHOD = 48;
+  private static final int METHODID_SET_DEFAULT_PAYMENT_METHOD = 49;
+  private static final int METHODID_REMOVE_PAYMENT_METHOD = 50;
+  private static final int METHODID_LIST_PAYMENTS = 51;
+  private static final int METHODID_UPLOAD_DOCUMENT_STREAM = 52;
+  private static final int METHODID_E2EEUPLOAD_DOCUMENT_STREAM = 53;
+  private static final int METHODID_ENCRYPT_DOCUMENT_STREAM = 54;
+  private static final int METHODID_DECRYPT_DOCUMENT_STREAM = 55;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -4756,6 +4926,10 @@ public final class StrongDocServiceGrpc {
         case METHODID_SET_USER_KDF_METADATA:
           serviceImpl.setUserKdfMetadata((com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataReq) request,
               (io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp>) responseObserver);
+          break;
+        case METHODID_SET_USER_AUTH_METADATA:
+          serviceImpl.setUserAuthMetadata((com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq) request,
+              (io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp>) responseObserver);
           break;
         case METHODID_LIST_USERS:
           serviceImpl.listUsers((com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq) request,
@@ -4836,6 +5010,10 @@ public final class StrongDocServiceGrpc {
         case METHODID_PREPARE_LOGIN:
           serviceImpl.prepareLogin((com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq) request,
               (io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp>) responseObserver);
+          break;
+        case METHODID_PREPARE_AUTH:
+          serviceImpl.prepareAuth((com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq) request,
+              (io.grpc.stub.StreamObserver<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp>) responseObserver);
           break;
         case METHODID_SRP_INIT:
           serviceImpl.srpInit((com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq) request,
@@ -5003,6 +5181,7 @@ public final class StrongDocServiceGrpc {
               .addMethod(getRegisterUserMethod())
               .addMethod(getGetUserPrivateKeysMethod())
               .addMethod(getSetUserKdfMetadataMethod())
+              .addMethod(getSetUserAuthMetadataMethod())
               .addMethod(getListUsersMethod())
               .addMethod(getRemoveUserMethod())
               .addMethod(getPreparePromoteUserMethod())
@@ -5027,6 +5206,7 @@ public final class StrongDocServiceGrpc {
               .addMethod(getListDocActionHistoryMethod())
               .addMethod(getLoginMethod())
               .addMethod(getPrepareLoginMethod())
+              .addMethod(getPrepareAuthMethod())
               .addMethod(getSrpInitMethod())
               .addMethod(getSrpProofMethod())
               .addMethod(getLogoutMethod())

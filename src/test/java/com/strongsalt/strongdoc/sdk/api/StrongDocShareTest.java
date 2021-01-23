@@ -29,7 +29,7 @@ public class StrongDocShareTest {
     @DisplayName("Test Setup")
     void setUp() throws Exception {
         // init client
-        client = StrongDocTestSetupAndTearDown.initClient();
+        client = StrongDocTestSetup.initClient();
         // test document
         final Path resourceDirectory = Paths.get("src", "test", "resources", "testDocuments");
         String docPath = resourceDirectory.toFile().getAbsolutePath() + "/";
@@ -49,13 +49,10 @@ public class StrongDocShareTest {
     @DisplayName("share server-encrypted document, multiLevelShare disabled")
     void testShare1() throws Exception {
         // set up
-        TestData testData = StrongDocTestSetupAndTearDown.initData(3, 3);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
+        TestData testData = StrongDocTestSetup.preTest(3, 3);
+        testData.doRegistration();
         // test
         testShareWithoutMultiLevelShare(testData, false);
-        // tear down
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
     }
 
     @Test
@@ -63,13 +60,10 @@ public class StrongDocShareTest {
     @DisplayName("share client-encrypted document, multiLevelShare disabled")
     void testShare2() throws Exception {
         // set up
-        TestData testData = StrongDocTestSetupAndTearDown.initData(3, 3);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
+        TestData testData = StrongDocTestSetup.preTest(3, 3);
+        testData.doRegistration();
         // test
         testShareWithoutMultiLevelShare(testData, true);
-        // tear down
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
     }
 
 
@@ -78,13 +72,10 @@ public class StrongDocShareTest {
     @DisplayName("share server-encrypted document, multiLevelShare enabled")
     void testShare3() throws Exception {
         // set up
-        TestData testData = StrongDocTestSetupAndTearDown.initData(3, 4);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
+        TestData testData = StrongDocTestSetup.preTest(3, 4);
+        testData.doRegistration();
         // test
         testShareWithMultiLevelShare(testData, false);
-        // tear down
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
     }
 
     @Test
@@ -92,13 +83,10 @@ public class StrongDocShareTest {
     @DisplayName("share client-encrypted document, multiLevelShare enabled")
     void testShare4() throws Exception {
         // set up
-        TestData testData = StrongDocTestSetupAndTearDown.initData(3, 4);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
+        TestData testData = StrongDocTestSetup.preTest(3, 4);
+        testData.doRegistration();
         // test
         testShareWithMultiLevelShare(testData, true);
-        // tear down
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
     }
 
     @Test
@@ -106,28 +94,20 @@ public class StrongDocShareTest {
     @DisplayName("check search api after sharing/unsharing")
     void testShareSearch1() throws Exception {
         // set up
-        TestData testData = StrongDocTestSetupAndTearDown.initData(3, 4);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
-
+        TestData testData = StrongDocTestSetup.preTest(3, 4);
+        testData.doRegistration();
         // test
         testShareAndSearch(testData, false);
-        // tear down
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
     }
 
     @Order(6)
     @DisplayName("check search api after sharing/unsharing")
     void testShareSearch2() throws Exception {
         // set up
-        TestData testData = StrongDocTestSetupAndTearDown.initData(3, 4);
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
-        StrongDocTestSetupAndTearDown.registerOrgAndUser(client, testData);
-
+        TestData testData = StrongDocTestSetup.preTest(3, 4);
+        testData.doRegistration();
         // test
         testShareAndSearch(testData, true);
-        // tear down
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(testData.testOrgs);
     }
 
     void testShareAndSearch(TestData testData, boolean e2e) throws Exception {
@@ -367,8 +347,7 @@ public class StrongDocShareTest {
 
     // set multilevel sharing
     void enableMultiLevelSharing(TestOrg userOrg, TestUser user) throws Exception {
-        boolean loginRes = account.login(client, userOrg.orgID, user.userID, user.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, userOrg.orgID, user.userID, user.password);
         boolean succ = account.setMultiLevelSharing(client, true);
         Assertions.assertTrue(succ);
         account.logout(client);
@@ -377,8 +356,7 @@ public class StrongDocShareTest {
 
     //  add sharable org
     void addSharableOrg(TestOrg userOrg, TestUser user, TestOrg addOrg) throws Exception {
-        boolean loginRes = account.login(client, userOrg.orgID, user.userID, user.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, userOrg.orgID, user.userID, user.password);
         boolean succ = account.addSharableOrg(client, addOrg.orgID);
         Assertions.assertTrue(succ);
         account.logout(client);
@@ -387,8 +365,7 @@ public class StrongDocShareTest {
 
     // upload document, return docID
     String uploadDocument(TestOrg testOrg, TestUser uploader, boolean e2e) throws Exception {
-        boolean loginRes = account.login(client, testOrg.orgID, uploader.userID, uploader.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, testOrg.orgID, uploader.userID, uploader.password);
         String docID = "";
         if (e2e) {
             docID = document.e2eeUploadDocument(client, docFilename, docByteArray);
@@ -402,40 +379,35 @@ public class StrongDocShareTest {
     }
 
     ShareDocumentResponse shareWithUser(String docID, TestOrg org, TestUser from, TestUser to) throws Exception {
-        boolean loginRes = account.login(client, org.orgID, from.userID, from.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, org.orgID, from.userID, from.password);
         ShareDocumentResponse resp = document.bulkShareDocWithUsers(client, docID, Arrays.asList(to.userEmail));
         account.logout(client);
         return resp;
     }
 
     UnshareDocumentResponse unshareWithUser(String docID, TestOrg org, TestUser from, TestUser to) throws Exception {
-        boolean loginRes = account.login(client, org.orgID, from.userID, from.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, org.orgID, from.userID, from.password);
         UnshareDocumentResponse resp = document.unshareDocumentWithUser(client, docID, to.userEmail);
         account.logout(client);
         return resp;
     }
 
     UnshareDocumentResponse unshareWithOrg(String docID, TestOrg org, TestUser from, TestOrg to) throws Exception {
-        boolean loginRes = account.login(client, org.orgID, from.userID, from.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, org.orgID, from.userID, from.password);
         UnshareDocumentResponse resp = document.unshareDocumentWithOrg(client, docID, to.orgID);
         account.logout(client);
         return resp;
     }
 
     ShareDocumentResponse shareWithOrg(String docID, TestOrg org, TestUser from, TestOrg to) throws Exception {
-        boolean loginRes = account.login(client, org.orgID, from.userID, from.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, org.orgID, from.userID, from.password);
         ShareDocumentResponse resp = document.bulkShareDocWithOrgs(client, docID, Arrays.asList(to.orgID));
         account.logout(client);
         return resp;
     }
 
     boolean checkDocumentAccess(String docID, TestOrg org, TestUser user) throws Exception {
-        boolean loginRes = account.login(client, org.orgID, user.userID, user.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, org.orgID, user.userID, user.password);
         ArrayList<DocumentInfo> docs = document.listDocuments(client);
         boolean found = false;
         for (DocumentInfo doc : docs) {
@@ -449,8 +421,7 @@ public class StrongDocShareTest {
     }
 
     List<SearchDocumentResult> search(TestOrg org, TestUser user, String query) throws Exception {
-        boolean loginRes = account.login(client, org.orgID, user.userID, user.password);
-        Assertions.assertTrue(loginRes);
+        account.login(client, org.orgID, user.userID, user.password);
         SearchDocumentResponse resp = search.runSearch(client, query);
         account.logout(client);
         return resp.getHitsList();

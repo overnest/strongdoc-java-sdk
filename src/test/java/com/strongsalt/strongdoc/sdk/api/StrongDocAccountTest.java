@@ -27,23 +27,23 @@ class StrongDocAccountTest {
     @BeforeAll
     @DisplayName("Test Setup")
     void setUp() throws Exception {
-        // initialize client and testData
-        client = StrongDocTestSetupAndTearDown.initClient();
-        TestData testData = StrongDocTestSetupAndTearDown.initData(2, 2);
+        TestData testData = StrongDocTestSetup.preTest(2, 2);
         testOrg1 = testData.testOrgs[0];
         testOrg2 = testData.testOrgs[1];
         testUsersInOrg1 = testData.testUsers[0];
         testUsersInOrg2 = testData.testUsers[1];
 
+        // initialize client and testData
+        client = StrongDocTestSetup.initClient();
         // initialize StrongDocAccount
         account = new StrongDocAccount();
     }
 
+
     @AfterAll
-    @DisplayName("Hard Remove organizations")
+    @DisplayName("Test tear down")
     void tearDown() throws Exception {
-        // hard remove registered org
-        StrongDocTestSetupAndTearDown.hardRemoveOrgs(new TestOrg[]{testOrg1, testOrg2});
+        client.shutdown();
     }
 
     @Test
@@ -73,8 +73,7 @@ class StrongDocAccountTest {
     @Order(2)
     @DisplayName("testOrg1 admin login")
     void adminLogin() throws Exception {
-        boolean loginRes = account.login(client, testOrg1.orgName, testUsersInOrg1[0].userEmail, testUsersInOrg1[0].password);
-        assertTrue(loginRes);
+        account.login(client, testOrg1.orgName, testUsersInOrg1[0].userEmail, testUsersInOrg1[0].password);
     }
 
     @Test
@@ -265,6 +264,15 @@ class StrongDocAccountTest {
 
     @Test
     @Order(18)
+    @DisplayName("Change password")
+    void changePassword() throws Exception {
+        final String newPassword = "NewPassword";
+        account.changeUserPassword(client, testUsersInOrg1[0].password, newPassword);
+        account.login(client, testOrg1.orgName, testUsersInOrg1[0].userEmail, newPassword);
+    }
+
+    @Test
+    @Order(19)
     @DisplayName("testOrg1 admin logout")
     void logout() throws Exception {
         String status = account.logout(client);

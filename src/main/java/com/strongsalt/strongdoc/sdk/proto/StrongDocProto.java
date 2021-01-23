@@ -1130,6 +1130,19 @@ public final class StrongDocProto {
 
       /**
        * <pre>
+       * Sets the user's authentication metadata
+       * Requires Login
+       * </pre>
+       *
+       * <code>rpc SetUserAuthMetadata(.proto.SetUserAuthMetadataReq) returns (.proto.SetUserAuthMetadataResp) { ... }</code>
+       */
+      public abstract void setUserAuthMetadata(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request,
+          com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> done);
+
+      /**
+       * <pre>
        * List the users of the organization
        * Requires Login
        * </pre>
@@ -1443,6 +1456,19 @@ public final class StrongDocProto {
           com.google.protobuf.RpcController controller,
           com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp> done);
+
+      /**
+       * <pre>
+       * Obtain the metadata needed to attempt to authenticate with a specified user
+       * Requires Login
+       * </pre>
+       *
+       * <code>rpc PrepareAuth(.proto.PrepareAuthReq) returns (.proto.PrepareAuthResp) { ... }</code>
+       */
+      public abstract void prepareAuth(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request,
+          com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> done);
 
       /**
        * <pre>
@@ -1811,6 +1837,14 @@ public final class StrongDocProto {
         }
 
         @java.lang.Override
+        public  void setUserAuthMetadata(
+            com.google.protobuf.RpcController controller,
+            com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request,
+            com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> done) {
+          impl.setUserAuthMetadata(controller, request, done);
+        }
+
+        @java.lang.Override
         public  void listUsers(
             com.google.protobuf.RpcController controller,
             com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq request,
@@ -2000,6 +2034,14 @@ public final class StrongDocProto {
             com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request,
             com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp> done) {
           impl.prepareLogin(controller, request, done);
+        }
+
+        @java.lang.Override
+        public  void prepareAuth(
+            com.google.protobuf.RpcController controller,
+            com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request,
+            com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> done) {
+          impl.prepareAuth(controller, request, done);
         }
 
         @java.lang.Override
@@ -2211,94 +2253,98 @@ public final class StrongDocProto {
             case 8:
               return impl.setUserKdfMetadata(controller, (com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataReq)request);
             case 9:
-              return impl.listUsers(controller, (com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq)request);
+              return impl.setUserAuthMetadata(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq)request);
             case 10:
-              return impl.removeUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq)request);
+              return impl.listUsers(controller, (com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq)request);
             case 11:
-              return impl.preparePromoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq)request);
+              return impl.removeUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq)request);
             case 12:
-              return impl.promoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq)request);
+              return impl.preparePromoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq)request);
             case 13:
-              return impl.demoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq)request);
+              return impl.promoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq)request);
             case 14:
-              return impl.listDocuments(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq)request);
+              return impl.demoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq)request);
             case 15:
-              return impl.removeDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq)request);
+              return impl.listDocuments(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq)request);
             case 16:
-              return impl.uploadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq)request);
+              return impl.removeDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq)request);
             case 17:
-              return impl.e2EEUploadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq)request);
+              return impl.uploadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq)request);
             case 18:
-              return impl.e2EEPrepareDownloadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq)request);
+              return impl.e2EEUploadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq)request);
             case 19:
-              return impl.e2EEDownloadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq)request);
+              return impl.e2EEPrepareDownloadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq)request);
             case 20:
-              return impl.uploadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq)request);
+              return impl.e2EEDownloadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq)request);
             case 21:
-              return impl.downloadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq)request);
+              return impl.uploadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq)request);
             case 22:
-              return impl.downloadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq)request);
+              return impl.downloadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq)request);
             case 23:
-              return impl.encryptDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq)request);
+              return impl.downloadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq)request);
             case 24:
-              return impl.encryptDocument(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq)request);
+              return impl.encryptDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq)request);
             case 25:
-              return impl.decryptDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq)request);
+              return impl.encryptDocument(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq)request);
             case 26:
-              return impl.decryptDocument(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq)request);
+              return impl.decryptDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq)request);
             case 27:
-              return impl.prepareShareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq)request);
+              return impl.decryptDocument(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq)request);
             case 28:
-              return impl.shareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq)request);
+              return impl.prepareShareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq)request);
             case 29:
-              return impl.unshareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq)request);
+              return impl.shareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq)request);
             case 30:
-              return impl.listDocActionHistory(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq)request);
+              return impl.unshareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq)request);
             case 31:
-              return impl.login(controller, (com.strongsalt.strongdoc.sdk.proto.Account.LoginReq)request);
+              return impl.listDocActionHistory(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq)request);
             case 32:
-              return impl.prepareLogin(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq)request);
+              return impl.login(controller, (com.strongsalt.strongdoc.sdk.proto.Account.LoginReq)request);
             case 33:
-              return impl.srpInit(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq)request);
+              return impl.prepareLogin(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq)request);
             case 34:
-              return impl.srpProof(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq)request);
+              return impl.prepareAuth(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq)request);
             case 35:
-              return impl.logout(controller, (com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq)request);
+              return impl.srpInit(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq)request);
             case 36:
-              return impl.search(controller, (com.strongsalt.strongdoc.sdk.proto.Search.SearchReq)request);
+              return impl.srpProof(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq)request);
             case 37:
-              return impl.addSharableOrg(controller, (com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq)request);
+              return impl.logout(controller, (com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq)request);
             case 38:
-              return impl.removeSharableOrg(controller, (com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq)request);
+              return impl.search(controller, (com.strongsalt.strongdoc.sdk.proto.Search.SearchReq)request);
             case 39:
-              return impl.setMultiLevelSharing(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq)request);
+              return impl.addSharableOrg(controller, (com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq)request);
             case 40:
-              return impl.setAccountInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq)request);
+              return impl.removeSharableOrg(controller, (com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq)request);
             case 41:
-              return impl.getBillingDetails(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq)request);
+              return impl.setMultiLevelSharing(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq)request);
             case 42:
-              return impl.getBillingFrequencyList(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq)request);
+              return impl.setAccountInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq)request);
             case 43:
-              return impl.setNextBillingFrequency(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq)request);
+              return impl.getBillingDetails(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq)request);
             case 44:
-              return impl.getLargeTraffic(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq)request);
+              return impl.getBillingFrequencyList(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq)request);
             case 45:
-              return impl.getAccountInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq)request);
+              return impl.setNextBillingFrequency(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq)request);
             case 46:
-              return impl.getUserInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq)request);
+              return impl.getLargeTraffic(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq)request);
             case 47:
-              return impl.changeUserPassword(controller, (com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq)request);
+              return impl.getAccountInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq)request);
             case 48:
-              return impl.setUserInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq)request);
+              return impl.getUserInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq)request);
             case 49:
-              return impl.listCreditCards(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq)request);
+              return impl.changeUserPassword(controller, (com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq)request);
             case 50:
-              return impl.addPaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq)request);
+              return impl.setUserInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq)request);
             case 51:
-              return impl.setDefaultPaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq)request);
+              return impl.listCreditCards(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq)request);
             case 52:
-              return impl.removePaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq)request);
+              return impl.addPaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq)request);
             case 53:
+              return impl.setDefaultPaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq)request);
+            case 54:
+              return impl.removePaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq)request);
+            case 55:
               return impl.listPayments(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsReq)request);
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -2333,94 +2379,98 @@ public final class StrongDocProto {
             case 8:
               return com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataReq.getDefaultInstance();
             case 9:
-              return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.getDefaultInstance();
             case 10:
-              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq.getDefaultInstance();
             case 11:
-              return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq.getDefaultInstance();
             case 12:
-              return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq.getDefaultInstance();
             case 13:
-              return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq.getDefaultInstance();
             case 14:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq.getDefaultInstance();
             case 15:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.getDefaultInstance();
             case 16:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq.getDefaultInstance();
             case 17:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq.getDefaultInstance();
             case 18:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.getDefaultInstance();
             case 19:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq.getDefaultInstance();
             case 20:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq.getDefaultInstance();
             case 21:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq.getDefaultInstance();
             case 22:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq.getDefaultInstance();
             case 23:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq.getDefaultInstance();
             case 24:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq.getDefaultInstance();
             case 25:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq.getDefaultInstance();
             case 26:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq.getDefaultInstance();
             case 27:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq.getDefaultInstance();
             case 28:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance();
             case 29:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq.getDefaultInstance();
             case 30:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq.getDefaultInstance();
             case 31:
-              return com.strongsalt.strongdoc.sdk.proto.Account.LoginReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq.getDefaultInstance();
             case 32:
-              return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.LoginReq.getDefaultInstance();
             case 33:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq.getDefaultInstance();
             case 34:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.getDefaultInstance();
             case 35:
-              return com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq.getDefaultInstance();
             case 36:
-              return com.strongsalt.strongdoc.sdk.proto.Search.SearchReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq.getDefaultInstance();
             case 37:
-              return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq.getDefaultInstance();
             case 38:
-              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Search.SearchReq.getDefaultInstance();
             case 39:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq.getDefaultInstance();
             case 40:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq.getDefaultInstance();
             case 41:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq.getDefaultInstance();
             case 42:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq.getDefaultInstance();
             case 43:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq.getDefaultInstance();
             case 44:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq.getDefaultInstance();
             case 45:
-              return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq.getDefaultInstance();
             case 46:
-              return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq.getDefaultInstance();
             case 47:
-              return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq.getDefaultInstance();
             case 48:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq.getDefaultInstance();
             case 49:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq.getDefaultInstance();
             case 50:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq.getDefaultInstance();
             case 51:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq.getDefaultInstance();
             case 52:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq.getDefaultInstance();
             case 53:
+              return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq.getDefaultInstance();
+            case 54:
+              return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq.getDefaultInstance();
+            case 55:
               return com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsReq.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -2455,94 +2505,98 @@ public final class StrongDocProto {
             case 8:
               return com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp.getDefaultInstance();
             case 9:
-              return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance();
             case 10:
-              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp.getDefaultInstance();
             case 11:
-              return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp.getDefaultInstance();
             case 12:
-              return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp.getDefaultInstance();
             case 13:
-              return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp.getDefaultInstance();
             case 14:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp.getDefaultInstance();
             case 15:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp.getDefaultInstance();
             case 16:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp.getDefaultInstance();
             case 17:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp.getDefaultInstance();
             case 18:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance();
             case 19:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp.getDefaultInstance();
             case 20:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp.getDefaultInstance();
             case 21:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp.getDefaultInstance();
             case 22:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp.getDefaultInstance();
             case 23:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp.getDefaultInstance();
             case 24:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp.getDefaultInstance();
             case 25:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp.getDefaultInstance();
             case 26:
-              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp.getDefaultInstance();
             case 27:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp.getDefaultInstance();
             case 28:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance();
             case 29:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance();
             case 30:
-              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance();
             case 31:
-              return com.strongsalt.strongdoc.sdk.proto.Account.LoginResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp.getDefaultInstance();
             case 32:
-              return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.LoginResp.getDefaultInstance();
             case 33:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance();
             case 34:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance();
             case 35:
-              return com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance();
             case 36:
-              return com.strongsalt.strongdoc.sdk.proto.Search.SearchResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp.getDefaultInstance();
             case 37:
-              return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp.getDefaultInstance();
             case 38:
-              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Search.SearchResp.getDefaultInstance();
             case 39:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp.getDefaultInstance();
             case 40:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp.getDefaultInstance();
             case 41:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp.getDefaultInstance();
             case 42:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp.getDefaultInstance();
             case 43:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp.getDefaultInstance();
             case 44:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp.getDefaultInstance();
             case 45:
-              return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp.getDefaultInstance();
             case 46:
-              return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp.getDefaultInstance();
             case 47:
-              return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp.getDefaultInstance();
             case 48:
-              return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp.getDefaultInstance();
             case 49:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp.getDefaultInstance();
             case 50:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp.getDefaultInstance();
             case 51:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp.getDefaultInstance();
             case 52:
-              return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp.getDefaultInstance();
+              return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp.getDefaultInstance();
             case 53:
+              return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp.getDefaultInstance();
+            case 54:
+              return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp.getDefaultInstance();
+            case 55:
               return com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -2673,6 +2727,19 @@ public final class StrongDocProto {
         com.google.protobuf.RpcController controller,
         com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataReq request,
         com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp> done);
+
+    /**
+     * <pre>
+     * Sets the user's authentication metadata
+     * Requires Login
+     * </pre>
+     *
+     * <code>rpc SetUserAuthMetadata(.proto.SetUserAuthMetadataReq) returns (.proto.SetUserAuthMetadataResp) { ... }</code>
+     */
+    public abstract void setUserAuthMetadata(
+        com.google.protobuf.RpcController controller,
+        com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request,
+        com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> done);
 
     /**
      * <pre>
@@ -2989,6 +3056,19 @@ public final class StrongDocProto {
         com.google.protobuf.RpcController controller,
         com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request,
         com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp> done);
+
+    /**
+     * <pre>
+     * Obtain the metadata needed to attempt to authenticate with a specified user
+     * Requires Login
+     * </pre>
+     *
+     * <code>rpc PrepareAuth(.proto.PrepareAuthReq) returns (.proto.PrepareAuthResp) { ... }</code>
+     */
+    public abstract void prepareAuth(
+        com.google.protobuf.RpcController controller,
+        com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request,
+        com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> done);
 
     /**
      * <pre>
@@ -3347,226 +3427,236 @@ public final class StrongDocProto {
               done));
           return;
         case 9:
+          this.setUserAuthMetadata(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq)request,
+            com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp>specializeCallback(
+              done));
+          return;
+        case 10:
           this.listUsers(controller, (com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp>specializeCallback(
               done));
           return;
-        case 10:
+        case 11:
           this.removeUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp>specializeCallback(
               done));
           return;
-        case 11:
+        case 12:
           this.preparePromoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp>specializeCallback(
               done));
           return;
-        case 12:
+        case 13:
           this.promoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp>specializeCallback(
               done));
           return;
-        case 13:
+        case 14:
           this.demoteUser(controller, (com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp>specializeCallback(
               done));
           return;
-        case 14:
+        case 15:
           this.listDocuments(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp>specializeCallback(
               done));
           return;
-        case 15:
+        case 16:
           this.removeDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp>specializeCallback(
               done));
           return;
-        case 16:
+        case 17:
           this.uploadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp>specializeCallback(
               done));
           return;
-        case 17:
+        case 18:
           this.e2EEUploadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp>specializeCallback(
               done));
           return;
-        case 18:
+        case 19:
           this.e2EEPrepareDownloadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp>specializeCallback(
               done));
           return;
-        case 19:
+        case 20:
           this.e2EEDownloadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp>specializeCallback(
               done));
           return;
-        case 20:
+        case 21:
           this.uploadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp>specializeCallback(
               done));
           return;
-        case 21:
+        case 22:
           this.downloadDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp>specializeCallback(
               done));
           return;
-        case 22:
+        case 23:
           this.downloadDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp>specializeCallback(
               done));
           return;
-        case 23:
+        case 24:
           this.encryptDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp>specializeCallback(
               done));
           return;
-        case 24:
+        case 25:
           this.encryptDocument(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp>specializeCallback(
               done));
           return;
-        case 25:
+        case 26:
           this.decryptDocumentStream(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp>specializeCallback(
               done));
           return;
-        case 26:
+        case 27:
           this.decryptDocument(controller, (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp>specializeCallback(
               done));
           return;
-        case 27:
+        case 28:
           this.prepareShareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp>specializeCallback(
               done));
           return;
-        case 28:
+        case 29:
           this.shareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp>specializeCallback(
               done));
           return;
-        case 29:
+        case 30:
           this.unshareDocument(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp>specializeCallback(
               done));
           return;
-        case 30:
+        case 31:
           this.listDocActionHistory(controller, (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp>specializeCallback(
               done));
           return;
-        case 31:
+        case 32:
           this.login(controller, (com.strongsalt.strongdoc.sdk.proto.Account.LoginReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.LoginResp>specializeCallback(
               done));
           return;
-        case 32:
+        case 33:
           this.prepareLogin(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp>specializeCallback(
               done));
           return;
-        case 33:
+        case 34:
+          this.prepareAuth(controller, (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq)request,
+            com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp>specializeCallback(
+              done));
+          return;
+        case 35:
           this.srpInit(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp>specializeCallback(
               done));
           return;
-        case 34:
+        case 36:
           this.srpProof(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp>specializeCallback(
               done));
           return;
-        case 35:
+        case 37:
           this.logout(controller, (com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp>specializeCallback(
               done));
           return;
-        case 36:
+        case 38:
           this.search(controller, (com.strongsalt.strongdoc.sdk.proto.Search.SearchReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Search.SearchResp>specializeCallback(
               done));
           return;
-        case 37:
+        case 39:
           this.addSharableOrg(controller, (com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp>specializeCallback(
               done));
           return;
-        case 38:
+        case 40:
           this.removeSharableOrg(controller, (com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp>specializeCallback(
               done));
           return;
-        case 39:
+        case 41:
           this.setMultiLevelSharing(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp>specializeCallback(
               done));
           return;
-        case 40:
+        case 42:
           this.setAccountInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp>specializeCallback(
               done));
           return;
-        case 41:
+        case 43:
           this.getBillingDetails(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp>specializeCallback(
               done));
           return;
-        case 42:
+        case 44:
           this.getBillingFrequencyList(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp>specializeCallback(
               done));
           return;
-        case 43:
+        case 45:
           this.setNextBillingFrequency(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp>specializeCallback(
               done));
           return;
-        case 44:
+        case 46:
           this.getLargeTraffic(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp>specializeCallback(
               done));
           return;
-        case 45:
+        case 47:
           this.getAccountInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp>specializeCallback(
               done));
           return;
-        case 46:
+        case 48:
           this.getUserInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp>specializeCallback(
               done));
           return;
-        case 47:
+        case 49:
           this.changeUserPassword(controller, (com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp>specializeCallback(
               done));
           return;
-        case 48:
+        case 50:
           this.setUserInfo(controller, (com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp>specializeCallback(
               done));
           return;
-        case 49:
+        case 51:
           this.listCreditCards(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp>specializeCallback(
               done));
           return;
-        case 50:
+        case 52:
           this.addPaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp>specializeCallback(
               done));
           return;
-        case 51:
+        case 53:
           this.setDefaultPaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp>specializeCallback(
               done));
           return;
-        case 52:
+        case 54:
           this.removePaymentMethod(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp>specializeCallback(
               done));
           return;
-        case 53:
+        case 55:
           this.listPayments(controller, (com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsReq)request,
             com.google.protobuf.RpcUtil.<com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp>specializeCallback(
               done));
@@ -3604,94 +3694,98 @@ public final class StrongDocProto {
         case 8:
           return com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataReq.getDefaultInstance();
         case 9:
-          return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq.getDefaultInstance();
         case 10:
-          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq.getDefaultInstance();
         case 11:
-          return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq.getDefaultInstance();
         case 12:
-          return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq.getDefaultInstance();
         case 13:
-          return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq.getDefaultInstance();
         case 14:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq.getDefaultInstance();
         case 15:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq.getDefaultInstance();
         case 16:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq.getDefaultInstance();
         case 17:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq.getDefaultInstance();
         case 18:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq.getDefaultInstance();
         case 19:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq.getDefaultInstance();
         case 20:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq.getDefaultInstance();
         case 21:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq.getDefaultInstance();
         case 22:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq.getDefaultInstance();
         case 23:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq.getDefaultInstance();
         case 24:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq.getDefaultInstance();
         case 25:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq.getDefaultInstance();
         case 26:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq.getDefaultInstance();
         case 27:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq.getDefaultInstance();
         case 28:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq.getDefaultInstance();
         case 29:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq.getDefaultInstance();
         case 30:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq.getDefaultInstance();
         case 31:
-          return com.strongsalt.strongdoc.sdk.proto.Account.LoginReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq.getDefaultInstance();
         case 32:
-          return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.LoginReq.getDefaultInstance();
         case 33:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq.getDefaultInstance();
         case 34:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq.getDefaultInstance();
         case 35:
-          return com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq.getDefaultInstance();
         case 36:
-          return com.strongsalt.strongdoc.sdk.proto.Search.SearchReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq.getDefaultInstance();
         case 37:
-          return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq.getDefaultInstance();
         case 38:
-          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Search.SearchReq.getDefaultInstance();
         case 39:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq.getDefaultInstance();
         case 40:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq.getDefaultInstance();
         case 41:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq.getDefaultInstance();
         case 42:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq.getDefaultInstance();
         case 43:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq.getDefaultInstance();
         case 44:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq.getDefaultInstance();
         case 45:
-          return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq.getDefaultInstance();
         case 46:
-          return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq.getDefaultInstance();
         case 47:
-          return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq.getDefaultInstance();
         case 48:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq.getDefaultInstance();
         case 49:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq.getDefaultInstance();
         case 50:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq.getDefaultInstance();
         case 51:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq.getDefaultInstance();
         case 52:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq.getDefaultInstance();
         case 53:
+          return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq.getDefaultInstance();
+        case 54:
+          return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq.getDefaultInstance();
+        case 55:
           return com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsReq.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -3726,94 +3820,98 @@ public final class StrongDocProto {
         case 8:
           return com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp.getDefaultInstance();
         case 9:
-          return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance();
         case 10:
-          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp.getDefaultInstance();
         case 11:
-          return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp.getDefaultInstance();
         case 12:
-          return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp.getDefaultInstance();
         case 13:
-          return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp.getDefaultInstance();
         case 14:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp.getDefaultInstance();
         case 15:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp.getDefaultInstance();
         case 16:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp.getDefaultInstance();
         case 17:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp.getDefaultInstance();
         case 18:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance();
         case 19:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp.getDefaultInstance();
         case 20:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp.getDefaultInstance();
         case 21:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp.getDefaultInstance();
         case 22:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp.getDefaultInstance();
         case 23:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp.getDefaultInstance();
         case 24:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp.getDefaultInstance();
         case 25:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp.getDefaultInstance();
         case 26:
-          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp.getDefaultInstance();
         case 27:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp.getDefaultInstance();
         case 28:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance();
         case 29:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance();
         case 30:
-          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance();
         case 31:
-          return com.strongsalt.strongdoc.sdk.proto.Account.LoginResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp.getDefaultInstance();
         case 32:
-          return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.LoginResp.getDefaultInstance();
         case 33:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance();
         case 34:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance();
         case 35:
-          return com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance();
         case 36:
-          return com.strongsalt.strongdoc.sdk.proto.Search.SearchResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp.getDefaultInstance();
         case 37:
-          return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp.getDefaultInstance();
         case 38:
-          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Search.SearchResp.getDefaultInstance();
         case 39:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp.getDefaultInstance();
         case 40:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp.getDefaultInstance();
         case 41:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp.getDefaultInstance();
         case 42:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp.getDefaultInstance();
         case 43:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp.getDefaultInstance();
         case 44:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp.getDefaultInstance();
         case 45:
-          return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp.getDefaultInstance();
         case 46:
-          return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp.getDefaultInstance();
         case 47:
-          return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp.getDefaultInstance();
         case 48:
-          return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp.getDefaultInstance();
         case 49:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp.getDefaultInstance();
         case 50:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp.getDefaultInstance();
         case 51:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp.getDefaultInstance();
         case 52:
-          return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp.getDefaultInstance();
+          return com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp.getDefaultInstance();
         case 53:
+          return com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp.getDefaultInstance();
+        case 54:
+          return com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp.getDefaultInstance();
+        case 55:
           return com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -3971,12 +4069,27 @@ public final class StrongDocProto {
             com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp.getDefaultInstance()));
       }
 
+      public  void setUserAuthMetadata(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request,
+          com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(9),
+          controller,
+          request,
+          com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.class,
+            com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance()));
+      }
+
       public  void listUsers(
           com.google.protobuf.RpcController controller,
           com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(9),
+          getDescriptor().getMethods().get(10),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp.getDefaultInstance(),
@@ -3991,7 +4104,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(10),
+          getDescriptor().getMethods().get(11),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp.getDefaultInstance(),
@@ -4006,7 +4119,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(11),
+          getDescriptor().getMethods().get(12),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp.getDefaultInstance(),
@@ -4021,7 +4134,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(12),
+          getDescriptor().getMethods().get(13),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp.getDefaultInstance(),
@@ -4036,7 +4149,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(13),
+          getDescriptor().getMethods().get(14),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp.getDefaultInstance(),
@@ -4051,7 +4164,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(14),
+          getDescriptor().getMethods().get(15),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp.getDefaultInstance(),
@@ -4066,7 +4179,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(15),
+          getDescriptor().getMethods().get(16),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp.getDefaultInstance(),
@@ -4081,7 +4194,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(16),
+          getDescriptor().getMethods().get(17),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp.getDefaultInstance(),
@@ -4096,7 +4209,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(17),
+          getDescriptor().getMethods().get(18),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance(),
@@ -4111,7 +4224,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(18),
+          getDescriptor().getMethods().get(19),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp.getDefaultInstance(),
@@ -4126,7 +4239,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(19),
+          getDescriptor().getMethods().get(20),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp.getDefaultInstance(),
@@ -4141,7 +4254,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(20),
+          getDescriptor().getMethods().get(21),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp.getDefaultInstance(),
@@ -4156,7 +4269,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(21),
+          getDescriptor().getMethods().get(22),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp.getDefaultInstance(),
@@ -4171,7 +4284,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(22),
+          getDescriptor().getMethods().get(23),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp.getDefaultInstance(),
@@ -4186,7 +4299,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(23),
+          getDescriptor().getMethods().get(24),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp.getDefaultInstance(),
@@ -4201,7 +4314,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(24),
+          getDescriptor().getMethods().get(25),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp.getDefaultInstance(),
@@ -4216,7 +4329,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(25),
+          getDescriptor().getMethods().get(26),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp.getDefaultInstance(),
@@ -4231,7 +4344,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(26),
+          getDescriptor().getMethods().get(27),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp.getDefaultInstance(),
@@ -4246,7 +4359,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(27),
+          getDescriptor().getMethods().get(28),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance(),
@@ -4261,7 +4374,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(28),
+          getDescriptor().getMethods().get(29),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance(),
@@ -4276,7 +4389,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(29),
+          getDescriptor().getMethods().get(30),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance(),
@@ -4291,7 +4404,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(30),
+          getDescriptor().getMethods().get(31),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp.getDefaultInstance(),
@@ -4306,7 +4419,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.LoginReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.LoginResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(31),
+          getDescriptor().getMethods().get(32),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.LoginResp.getDefaultInstance(),
@@ -4321,7 +4434,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(32),
+          getDescriptor().getMethods().get(33),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance(),
@@ -4331,12 +4444,27 @@ public final class StrongDocProto {
             com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance()));
       }
 
+      public  void prepareAuth(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request,
+          com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(34),
+          controller,
+          request,
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.class,
+            com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance()));
+      }
+
       public  void srpInit(
           com.google.protobuf.RpcController controller,
           com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(33),
+          getDescriptor().getMethods().get(35),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance(),
@@ -4351,7 +4479,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(34),
+          getDescriptor().getMethods().get(36),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp.getDefaultInstance(),
@@ -4366,7 +4494,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(35),
+          getDescriptor().getMethods().get(37),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp.getDefaultInstance(),
@@ -4381,7 +4509,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Search.SearchReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Search.SearchResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(36),
+          getDescriptor().getMethods().get(38),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Search.SearchResp.getDefaultInstance(),
@@ -4396,7 +4524,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(37),
+          getDescriptor().getMethods().get(39),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp.getDefaultInstance(),
@@ -4411,7 +4539,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(38),
+          getDescriptor().getMethods().get(40),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp.getDefaultInstance(),
@@ -4426,7 +4554,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(39),
+          getDescriptor().getMethods().get(41),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp.getDefaultInstance(),
@@ -4441,7 +4569,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(40),
+          getDescriptor().getMethods().get(42),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp.getDefaultInstance(),
@@ -4456,7 +4584,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(41),
+          getDescriptor().getMethods().get(43),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp.getDefaultInstance(),
@@ -4471,7 +4599,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(42),
+          getDescriptor().getMethods().get(44),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp.getDefaultInstance(),
@@ -4486,7 +4614,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(43),
+          getDescriptor().getMethods().get(45),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp.getDefaultInstance(),
@@ -4501,7 +4629,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(44),
+          getDescriptor().getMethods().get(46),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp.getDefaultInstance(),
@@ -4516,7 +4644,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(45),
+          getDescriptor().getMethods().get(47),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp.getDefaultInstance(),
@@ -4531,7 +4659,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(46),
+          getDescriptor().getMethods().get(48),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp.getDefaultInstance(),
@@ -4546,7 +4674,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(47),
+          getDescriptor().getMethods().get(49),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp.getDefaultInstance(),
@@ -4561,7 +4689,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(48),
+          getDescriptor().getMethods().get(50),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp.getDefaultInstance(),
@@ -4576,7 +4704,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(49),
+          getDescriptor().getMethods().get(51),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp.getDefaultInstance(),
@@ -4591,7 +4719,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(50),
+          getDescriptor().getMethods().get(52),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp.getDefaultInstance(),
@@ -4606,7 +4734,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(51),
+          getDescriptor().getMethods().get(53),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp.getDefaultInstance(),
@@ -4621,7 +4749,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(52),
+          getDescriptor().getMethods().get(54),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp.getDefaultInstance(),
@@ -4636,7 +4764,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsReq request,
           com.google.protobuf.RpcCallback<com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(53),
+          getDescriptor().getMethods().get(55),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp.getDefaultInstance(),
@@ -4696,6 +4824,11 @@ public final class StrongDocProto {
       public com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataResp setUserKdfMetadata(
           com.google.protobuf.RpcController controller,
           com.strongsalt.strongdoc.sdk.proto.Encryption.SetUserKdfMetadataReq request)
+          throws com.google.protobuf.ServiceException;
+
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp setUserAuthMetadata(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request)
           throws com.google.protobuf.ServiceException;
 
       public com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp listUsers(
@@ -4816,6 +4949,11 @@ public final class StrongDocProto {
       public com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp prepareLogin(
           com.google.protobuf.RpcController controller,
           com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request)
+          throws com.google.protobuf.ServiceException;
+
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp prepareAuth(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request)
           throws com.google.protobuf.ServiceException;
 
       public com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp srpInit(
@@ -5039,12 +5177,24 @@ public final class StrongDocProto {
       }
 
 
+      public com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp setUserAuthMetadata(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataReq request)
+          throws com.google.protobuf.ServiceException {
+        return (com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(9),
+          controller,
+          request,
+          com.strongsalt.strongdoc.sdk.proto.Account.SetUserAuthMetadataResp.getDefaultInstance());
+      }
+
+
       public com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp listUsers(
           com.google.protobuf.RpcController controller,
           com.strongsalt.strongdoc.sdk.proto.Account.ListUsersReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(9),
+          getDescriptor().getMethods().get(10),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.ListUsersResp.getDefaultInstance());
@@ -5056,7 +5206,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(10),
+          getDescriptor().getMethods().get(11),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveUserResp.getDefaultInstance());
@@ -5068,7 +5218,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(11),
+          getDescriptor().getMethods().get(12),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.PreparePromoteUserResp.getDefaultInstance());
@@ -5080,7 +5230,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(12),
+          getDescriptor().getMethods().get(13),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.PromoteUserResp.getDefaultInstance());
@@ -5092,7 +5242,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(13),
+          getDescriptor().getMethods().get(14),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.DemoteUserResp.getDefaultInstance());
@@ -5104,7 +5254,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(14),
+          getDescriptor().getMethods().get(15),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocumentsResp.getDefaultInstance());
@@ -5116,7 +5266,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(15),
+          getDescriptor().getMethods().get(16),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.RemoveDocumentResp.getDefaultInstance());
@@ -5128,7 +5278,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(16),
+          getDescriptor().getMethods().get(17),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocStreamResp.getDefaultInstance());
@@ -5140,7 +5290,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(17),
+          getDescriptor().getMethods().get(18),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEUploadDocStreamResp.getDefaultInstance());
@@ -5152,7 +5302,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(18),
+          getDescriptor().getMethods().get(19),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEPrepareDownloadDocResp.getDefaultInstance());
@@ -5164,7 +5314,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(19),
+          getDescriptor().getMethods().get(20),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.E2EEDownloadDocStreamResp.getDefaultInstance());
@@ -5176,7 +5326,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(20),
+          getDescriptor().getMethods().get(21),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.UploadDocResp.getDefaultInstance());
@@ -5188,7 +5338,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(21),
+          getDescriptor().getMethods().get(22),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocStreamResp.getDefaultInstance());
@@ -5200,7 +5350,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(22),
+          getDescriptor().getMethods().get(23),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.DownloadDocResp.getDefaultInstance());
@@ -5212,7 +5362,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(23),
+          getDescriptor().getMethods().get(24),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocStreamResp.getDefaultInstance());
@@ -5224,7 +5374,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(24),
+          getDescriptor().getMethods().get(25),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.EncryptDocResp.getDefaultInstance());
@@ -5236,7 +5386,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(25),
+          getDescriptor().getMethods().get(26),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocStreamResp.getDefaultInstance());
@@ -5248,7 +5398,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(26),
+          getDescriptor().getMethods().get(27),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.DocumentsNoStore.DecryptDocResp.getDefaultInstance());
@@ -5260,7 +5410,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(27),
+          getDescriptor().getMethods().get(28),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.PrepareShareDocumentResp.getDefaultInstance());
@@ -5272,7 +5422,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(28),
+          getDescriptor().getMethods().get(29),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.ShareDocumentResp.getDefaultInstance());
@@ -5284,7 +5434,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(29),
+          getDescriptor().getMethods().get(30),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.UnshareDocumentResp.getDefaultInstance());
@@ -5296,7 +5446,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(30),
+          getDescriptor().getMethods().get(31),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Documents.ListDocActionHistoryResp.getDefaultInstance());
@@ -5308,7 +5458,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.LoginReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.LoginResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(31),
+          getDescriptor().getMethods().get(32),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.LoginResp.getDefaultInstance());
@@ -5320,10 +5470,22 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(32),
+          getDescriptor().getMethods().get(33),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.PrepareLoginResp.getDefaultInstance());
+      }
+
+
+      public com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp prepareAuth(
+          com.google.protobuf.RpcController controller,
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthReq request)
+          throws com.google.protobuf.ServiceException {
+        return (com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(34),
+          controller,
+          request,
+          com.strongsalt.strongdoc.sdk.proto.Account.PrepareAuthResp.getDefaultInstance());
       }
 
 
@@ -5332,7 +5494,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SrpInitReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(33),
+          getDescriptor().getMethods().get(35),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SrpInitResp.getDefaultInstance());
@@ -5344,7 +5506,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SrpProofReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(34),
+          getDescriptor().getMethods().get(36),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SrpProofResp.getDefaultInstance());
@@ -5356,7 +5518,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.LogoutReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(35),
+          getDescriptor().getMethods().get(37),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.LogoutResp.getDefaultInstance());
@@ -5368,7 +5530,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Search.SearchReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Search.SearchResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(36),
+          getDescriptor().getMethods().get(38),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Search.SearchResp.getDefaultInstance());
@@ -5380,7 +5542,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(37),
+          getDescriptor().getMethods().get(39),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.AddSharableOrgResp.getDefaultInstance());
@@ -5392,7 +5554,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(38),
+          getDescriptor().getMethods().get(40),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.RemoveSharableOrgResp.getDefaultInstance());
@@ -5404,7 +5566,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(39),
+          getDescriptor().getMethods().get(41),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SetMultiLevelSharingResp.getDefaultInstance());
@@ -5416,7 +5578,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(40),
+          getDescriptor().getMethods().get(42),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SetAccountInfoResp.getDefaultInstance());
@@ -5428,7 +5590,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(41),
+          getDescriptor().getMethods().get(43),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingDetailsResp.getDefaultInstance());
@@ -5440,7 +5602,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(42),
+          getDescriptor().getMethods().get(44),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.GetBillingFrequencyListResp.getDefaultInstance());
@@ -5452,7 +5614,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(43),
+          getDescriptor().getMethods().get(45),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.SetNextBillingFrequencyResp.getDefaultInstance());
@@ -5464,7 +5626,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(44),
+          getDescriptor().getMethods().get(46),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.GetLargeTrafficResp.getDefaultInstance());
@@ -5476,7 +5638,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(45),
+          getDescriptor().getMethods().get(47),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.GetAccountInfoResp.getDefaultInstance());
@@ -5488,7 +5650,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(46),
+          getDescriptor().getMethods().get(48),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.GetUserInfoResp.getDefaultInstance());
@@ -5500,7 +5662,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(47),
+          getDescriptor().getMethods().get(49),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.ChangeUserPasswordResp.getDefaultInstance());
@@ -5512,7 +5674,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(48),
+          getDescriptor().getMethods().get(50),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Account.SetUserInfoResp.getDefaultInstance());
@@ -5524,7 +5686,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(49),
+          getDescriptor().getMethods().get(51),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.ListCreditCardsResp.getDefaultInstance());
@@ -5536,7 +5698,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(50),
+          getDescriptor().getMethods().get(52),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.AddPaymentMethodResp.getDefaultInstance());
@@ -5548,7 +5710,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(51),
+          getDescriptor().getMethods().get(53),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.SetDefaultPaymentMethodResp.getDefaultInstance());
@@ -5560,7 +5722,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(52),
+          getDescriptor().getMethods().get(54),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.RemovePaymentMethodResp.getDefaultInstance());
@@ -5572,7 +5734,7 @@ public final class StrongDocProto {
           com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsReq request)
           throws com.google.protobuf.ServiceException {
         return (com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(53),
+          getDescriptor().getMethods().get(55),
           controller,
           request,
           com.strongsalt.strongdoc.sdk.proto.Billing.ListPaymentsResp.getDefaultInstance());
@@ -5608,7 +5770,7 @@ public final class StrongDocProto {
       "cumentNoStore.proto\032\014search.proto\032\016accou" +
       "nts.proto\032\rbilling.proto\032\020encryption.pro" +
       "to\"\025\n\023GetConfigurationReq\"-\n\024GetConfigur" +
-      "ationResp\022\025\n\rconfiguration\030\001 \001(\t2\3303\n\020Str" +
+      "ationResp\022\025\n\rconfiguration\030\001 \001(\t2\3205\n\020Str" +
       "ongDocService\022\204\001\n\024RegisterOrganization\022\036" +
       ".proto.RegisterOrganizationReq\032\037.proto.R" +
       "egisterOrganizationResp\"+\202\323\344\223\002%\" /v1/acc" +
@@ -5640,150 +5802,156 @@ public final class StrongDocProto {
       "tadata\022\034.proto.SetUserKdfMetadataReq\032\035.p" +
       "roto.SetUserKdfMetadataResp\"?\202\323\344\223\002$\"\037/v1" +
       "/document/setUserKdfMetadata:\001*\222A\022b\020\n\016\n\n" +
-      "ApiKeyAuth\022\000\022j\n\tListUsers\022\023.proto.ListUs" +
-      "ersReq\032\024.proto.ListUsersResp\"2\202\323\344\223\002\027\022\025/v" +
-      "1/account/listUsers\222A\022b\020\n\016\n\nApiKeyAuth\022\000" +
-      "\022q\n\nRemoveUser\022\024.proto.RemoveUserReq\032\025.p" +
-      "roto.RemoveUserResp\"6\202\323\344\223\002\033\"\026/v1/account" +
-      "/removeUser:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\221\001\n\022" +
-      "PreparePromoteUser\022\034.proto.PreparePromot" +
-      "eUserReq\032\035.proto.PreparePromoteUserResp\"" +
-      ">\202\323\344\223\002#\"\036/v1/account/preparePromoteUser:" +
-      "\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022u\n\013PromoteUser\022\025" +
-      ".proto.PromoteUserReq\032\026.proto.PromoteUse" +
-      "rResp\"7\202\323\344\223\002\034\"\027/v1/account/promoteUser:\001" +
-      "*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022q\n\nDemoteUser\022\024.p" +
-      "roto.DemoteUserReq\032\025.proto.DemoteUserRes" +
-      "p\"6\202\323\344\223\002\033\"\026/v1/account/demoteUser:\001*\222A\022b" +
-      "\020\n\016\n\nApiKeyAuth\022\000\022q\n\rListDocuments\022\027.pro" +
-      "to.ListDocumentsReq\032\030.proto.ListDocument" +
-      "sResp\"-\202\323\344\223\002\022\022\020/v1/doc/listDocs\222A\022b\020\n\016\n\n" +
-      "ApiKeyAuth\022\000\022z\n\016RemoveDocument\022\030.proto.R" +
-      "emoveDocumentReq\032\031.proto.RemoveDocumentR" +
-      "esp\"3\202\323\344\223\002\030*\026/v1/doc/remove/{docID}\222A\022b\020" +
-      "\n\016\n\nApiKeyAuth\022\000\022Q\n\024UploadDocumentStream" +
-      "\022\031.proto.UploadDocStreamReq\032\032.proto.Uplo" +
-      "adDocStreamResp\"\000(\001\022_\n\030E2EEUploadDocumen" +
-      "tStream\022\035.proto.E2EEUploadDocStreamReq\032\036" +
-      ".proto.E2EEUploadDocStreamResp\"\000(\0010\001\022d\n\033" +
-      "E2EEPrepareDownloadDocument\022 .proto.E2EE" +
-      "PrepareDownloadDocReq\032!.proto.E2EEPrepar" +
-      "eDownloadDocResp\"\000\022c\n\032E2EEDownloadDocume" +
-      "ntStream\022\037.proto.E2EEDownloadDocStreamRe" +
-      "q\032 .proto.E2EEDownloadDocStreamResp\"\0000\001\022" +
-      "k\n\016UploadDocument\022\023.proto.UploadDocReq\032\024" +
-      ".proto.UploadDocResp\".\202\323\344\223\002\023\"\016/v1/doc/up" +
-      "load:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022W\n\026Download" +
-      "DocumentStream\022\033.proto.DownloadDocStream" +
-      "Req\032\034.proto.DownloadDocStreamResp\"\0000\001\022x\n" +
-      "\020DownloadDocument\022\025.proto.DownloadDocReq" +
-      "\032\026.proto.DownloadDocResp\"5\202\323\344\223\002\032\022\030/v1/do" +
-      "c/download/{docID}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022" +
-      "V\n\025EncryptDocumentStream\022\032.proto.Encrypt" +
-      "DocStreamReq\032\033.proto.EncryptDocStreamRes" +
-      "p\"\000(\0010\001\022o\n\017EncryptDocument\022\024.proto.Encry" +
-      "ptDocReq\032\025.proto.EncryptDocResp\"/\202\323\344\223\002\024\"" +
-      "\017/v1/doc/encrypt:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000" +
-      "\022V\n\025DecryptDocumentStream\022\032.proto.Decryp" +
-      "tDocStreamReq\032\033.proto.DecryptDocStreamRe" +
-      "sp\"\000(\0010\001\022t\n\017DecryptDocument\022\024.proto.Decr" +
-      "yptDocReq\032\025.proto.DecryptDocResp\"4\202\323\344\223\002\031" +
-      "\022\027/v1/doc/decrypt/{docID}\222A\022b\020\n\016\n\nApiKey" +
-      "Auth\022\000\022\225\001\n\024PrepareShareDocument\022\036.proto." +
-      "PrepareShareDocumentReq\032\037.proto.PrepareS" +
-      "hareDocumentResp\"<\202\323\344\223\002!\"\034/v1/doc/prepar" +
-      "eShareDocument:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022y" +
-      "\n\rShareDocument\022\027.proto.ShareDocumentReq" +
-      "\032\030.proto.ShareDocumentResp\"5\202\323\344\223\002\032\"\025/v1/" +
-      "doc/shareDocument:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022" +
-      "\000\022|\n\017UnshareDocument\022\031.proto.UnshareDocu" +
-      "mentReq\032\032.proto.UnshareDocumentResp\"2\202\323\344" +
-      "\223\002\027\"\022/v1/doc/unshareDoc:\001*\222A\022b\020\n\016\n\nApiKe" +
-      "yAuth\022\000\022\222\001\n\024ListDocActionHistory\022\036.proto" +
-      ".ListDocActionHistoryReq\032\037.proto.ListDoc" +
-      "ActionHistoryResp\"9\202\323\344\223\002\036\022\034/v1/doc/listD" +
-      "ocActionHistory\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022E\n\005" +
-      "Login\022\017.proto.LoginReq\032\020.proto.LoginResp" +
-      "\"\031\202\323\344\223\002\023\"\016/v1/auth/login:\001*\022a\n\014PrepareLo" +
-      "gin\022\026.proto.PrepareLoginReq\032\027.proto.Prep" +
-      "areLoginResp\" \202\323\344\223\002\032\"\025/v1/auth/prepareLo" +
-      "gin:\001*\022M\n\007SrpInit\022\021.proto.SrpInitReq\032\022.p" +
-      "roto.SrpInitResp\"\033\202\323\344\223\002\025\"\020/v1/auth/srpIn" +
-      "it:\001*\022Q\n\010SrpProof\022\022.proto.SrpProofReq\032\023." +
-      "proto.SrpProofResp\"\034\202\323\344\223\002\026\"\021/v1/auth/srp" +
-      "Proof:\001*\022V\n\006Logout\022\020.proto.LogoutReq\032\021.p" +
-      "roto.LogoutResp\"\'\202\323\344\223\002\014\"\n/v1/logout\222A\022b\020" +
-      "\n\016\n\nApiKeyAuth\022\000\022b\n\006Search\022\020.proto.Searc" +
-      "hReq\032\021.proto.SearchResp\"3\202\323\344\223\002\030\022\026/v1/doc" +
-      "/search/{query}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\201\001\n" +
-      "\016AddSharableOrg\022\030.proto.AddSharableOrgRe" +
-      "q\032\031.proto.AddSharableOrgResp\":\202\323\344\223\002\0372\032/v" +
-      "1/account/addSharableOrg:\001*\222A\022b\020\n\016\n\nApiK" +
-      "eyAuth\022\000\022\215\001\n\021RemoveSharableOrg\022\033.proto.R" +
-      "emoveSharableOrgReq\032\034.proto.RemoveSharab" +
-      "leOrgResp\"=\202\323\344\223\002\"2\035/v1/account/removeSha" +
-      "rableOrg:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\231\001\n\024Set" +
-      "MultiLevelSharing\022\036.proto.SetMultiLevelS" +
-      "haringReq\032\037.proto.SetMultiLevelSharingRe" +
-      "sp\"@\202\323\344\223\002%\032 /v1/account/setMultiLevelSha" +
-      "ring:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\201\001\n\016SetAcco" +
-      "untInfo\022\030.proto.SetAccountInfoReq\032\031.prot" +
-      "o.SetAccountInfoResp\":\202\323\344\223\002\037\032\032/v1/accoun" +
-      "t/setAccountInfo:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000" +
-      "\022\200\001\n\021GetBillingDetails\022\033.proto.GetBillin" +
-      "gDetailsReq\032\034.proto.GetBillingDetailsRes" +
-      "p\"0\202\323\344\223\002\025\022\023/v1/account/billing\222A\022b\020\n\016\n\nA" +
-      "piKeyAuth\022\000\022\234\001\n\027GetBillingFrequencyList\022" +
-      "!.proto.GetBillingFrequencyListReq\032\".pro" +
-      "to.GetBillingFrequencyListResp\":\202\323\344\223\002\037\022\035" +
-      "/v1/account/billing/frequency\222A\022b\020\n\016\n\nAp" +
-      "iKeyAuth\022\000\022\242\001\n\027SetNextBillingFrequency\022!" +
-      ".proto.SetNextBillingFrequencyReq\032\".prot" +
-      "o.SetNextBillingFrequencyResp\"@\202\323\344\223\002%\032 /" +
-      "v1/account/billing/setFrequency:\001*\222A\022b\020\n" +
-      "\016\n\nApiKeyAuth\022\000\022\177\n\017GetLargeTraffic\022\031.pro" +
-      "to.GetLargeTrafficReq\032\032.proto.GetLargeTr" +
-      "afficResp\"5\202\323\344\223\002\032\022\030/v1/account/largeTraf" +
-      "fic\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022o\n\016GetAccountIn" +
-      "fo\022\030.proto.GetAccountInfoReq\032\031.proto.Get" +
-      "AccountInfoResp\"(\202\323\344\223\002\r\022\013/v1/account\222A\022b" +
-      "\020\n\016\n\nApiKeyAuth\022\000\022k\n\013GetUserInfo\022\025.proto" +
-      ".GetUserInfoReq\032\026.proto.GetUserInfoResp\"" +
-      "-\202\323\344\223\002\022\022\020/v1/account/user\222A\022b\020\n\016\n\nApiKey" +
-      "Auth\022\000\022\221\001\n\022ChangeUserPassword\022\034.proto.Ch" +
-      "angeUserPasswordReq\032\035.proto.ChangeUserPa" +
-      "sswordResp\">\202\323\344\223\002#\032\036/v1/account/changeUs" +
-      "erPassword:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022u\n\013Se" +
-      "tUserInfo\022\025.proto.SetUserInfoReq\032\026.proto" +
-      ".SetUserInfoResp\"7\202\323\344\223\002\034\032\027/v1/account/se" +
-      "tUserInfo:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022x\n\017Lis" +
-      "tCreditCards\022\031.proto.ListCreditCardsReq\032" +
-      "\032.proto.ListCreditCardsResp\".\202\323\344\223\002\023\022\021/v1" +
-      "/billing/cards\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\206\001\n\020" +
-      "AddPaymentMethod\022\032.proto.AddPaymentMetho" +
-      "dReq\032\033.proto.AddPaymentMethodResp\"9\202\323\344\223\002" +
-      "\036\"\031/v1/billing/paymentMethod:\001*\222A\022b\020\n\016\n\n" +
-      "ApiKeyAuth\022\000\022\243\001\n\027SetDefaultPaymentMethod" +
-      "\022!.proto.SetDefaultPaymentMethodReq\032\".pr" +
-      "oto.SetDefaultPaymentMethodResp\"A\202\323\344\223\002&\032" +
-      "!/v1/billing/paymentMethod/default:\001*\222A\022" +
-      "b\020\n\016\n\nApiKeyAuth\022\000\022\232\001\n\023RemovePaymentMeth" +
-      "od\022\035.proto.RemovePaymentMethodReq\032\036.prot" +
-      "o.RemovePaymentMethodResp\"D\202\323\344\223\002)*\'/v1/b" +
-      "illing/paymentMethod/remove/{pmID}\222A\022b\020\n" +
-      "\016\n\nApiKeyAuth\022\000\022r\n\014ListPayments\022\026.proto." +
-      "ListPaymentsReq\032\027.proto.ListPaymentsResp" +
-      "\"1\202\323\344\223\002\026\022\024/v1/billing/payments\222A\022b\020\n\016\n\nA" +
-      "piKeyAuth\022\000B\360\002\n\"com.strongsalt.strongdoc" +
-      ".sdk.protoB\016StrongDocProto\210\001\001\222A\265\002\0227\n\rStr" +
-      "ongDoc API\"!\n\nStrongSalt\032\023info@strongsal" +
-      "t.com2\0031.02\020application/json:\020applicatio" +
-      "n/jsonZ\212\001\n\207\001\n\nApiKeyAuth\022y\010\002\022dThe word \'" +
-      "Bearer\' and a space is required before t" +
-      "he token.\nFor example,\nBearer authentica" +
-      "tion_token\032\rAuthorization \002rI\n\027More abou" +
-      "t gRPC-Gateway\022.https://github.com/grpc-" +
-      "ecosystem/grpc-gatewayb\006proto3"
+      "ApiKeyAuth\022\000\022\226\001\n\023SetUserAuthMetadata\022\035.p" +
+      "roto.SetUserAuthMetadataReq\032\036.proto.SetU" +
+      "serAuthMetadataResp\"@\202\323\344\223\002%\" /v1/documen" +
+      "t/setUserAuthMetadata:\001*\222A\022b\020\n\016\n\nApiKeyA" +
+      "uth\022\000\022j\n\tListUsers\022\023.proto.ListUsersReq\032" +
+      "\024.proto.ListUsersResp\"2\202\323\344\223\002\027\022\025/v1/accou" +
+      "nt/listUsers\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022q\n\nRem" +
+      "oveUser\022\024.proto.RemoveUserReq\032\025.proto.Re" +
+      "moveUserResp\"6\202\323\344\223\002\033\"\026/v1/account/remove" +
+      "User:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\221\001\n\022Prepare" +
+      "PromoteUser\022\034.proto.PreparePromoteUserRe" +
+      "q\032\035.proto.PreparePromoteUserResp\">\202\323\344\223\002#" +
+      "\"\036/v1/account/preparePromoteUser:\001*\222A\022b\020" +
+      "\n\016\n\nApiKeyAuth\022\000\022u\n\013PromoteUser\022\025.proto." +
+      "PromoteUserReq\032\026.proto.PromoteUserResp\"7" +
+      "\202\323\344\223\002\034\"\027/v1/account/promoteUser:\001*\222A\022b\020\n" +
+      "\016\n\nApiKeyAuth\022\000\022q\n\nDemoteUser\022\024.proto.De" +
+      "moteUserReq\032\025.proto.DemoteUserResp\"6\202\323\344\223" +
+      "\002\033\"\026/v1/account/demoteUser:\001*\222A\022b\020\n\016\n\nAp" +
+      "iKeyAuth\022\000\022q\n\rListDocuments\022\027.proto.List" +
+      "DocumentsReq\032\030.proto.ListDocumentsResp\"-" +
+      "\202\323\344\223\002\022\022\020/v1/doc/listDocs\222A\022b\020\n\016\n\nApiKeyA" +
+      "uth\022\000\022z\n\016RemoveDocument\022\030.proto.RemoveDo" +
+      "cumentReq\032\031.proto.RemoveDocumentResp\"3\202\323" +
+      "\344\223\002\030*\026/v1/doc/remove/{docID}\222A\022b\020\n\016\n\nApi" +
+      "KeyAuth\022\000\022Q\n\024UploadDocumentStream\022\031.prot" +
+      "o.UploadDocStreamReq\032\032.proto.UploadDocSt" +
+      "reamResp\"\000(\001\022_\n\030E2EEUploadDocumentStream" +
+      "\022\035.proto.E2EEUploadDocStreamReq\032\036.proto." +
+      "E2EEUploadDocStreamResp\"\000(\0010\001\022d\n\033E2EEPre" +
+      "pareDownloadDocument\022 .proto.E2EEPrepare" +
+      "DownloadDocReq\032!.proto.E2EEPrepareDownlo" +
+      "adDocResp\"\000\022c\n\032E2EEDownloadDocumentStrea" +
+      "m\022\037.proto.E2EEDownloadDocStreamReq\032 .pro" +
+      "to.E2EEDownloadDocStreamResp\"\0000\001\022k\n\016Uplo" +
+      "adDocument\022\023.proto.UploadDocReq\032\024.proto." +
+      "UploadDocResp\".\202\323\344\223\002\023\"\016/v1/doc/upload:\001*" +
+      "\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022W\n\026DownloadDocumen" +
+      "tStream\022\033.proto.DownloadDocStreamReq\032\034.p" +
+      "roto.DownloadDocStreamResp\"\0000\001\022x\n\020Downlo" +
+      "adDocument\022\025.proto.DownloadDocReq\032\026.prot" +
+      "o.DownloadDocResp\"5\202\323\344\223\002\032\022\030/v1/doc/downl" +
+      "oad/{docID}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022V\n\025Encr" +
+      "yptDocumentStream\022\032.proto.EncryptDocStre" +
+      "amReq\032\033.proto.EncryptDocStreamResp\"\000(\0010\001" +
+      "\022o\n\017EncryptDocument\022\024.proto.EncryptDocRe" +
+      "q\032\025.proto.EncryptDocResp\"/\202\323\344\223\002\024\"\017/v1/do" +
+      "c/encrypt:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022V\n\025Dec" +
+      "ryptDocumentStream\022\032.proto.DecryptDocStr" +
+      "eamReq\032\033.proto.DecryptDocStreamResp\"\000(\0010" +
+      "\001\022t\n\017DecryptDocument\022\024.proto.DecryptDocR" +
+      "eq\032\025.proto.DecryptDocResp\"4\202\323\344\223\002\031\022\027/v1/d" +
+      "oc/decrypt/{docID}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022" +
+      "\225\001\n\024PrepareShareDocument\022\036.proto.Prepare" +
+      "ShareDocumentReq\032\037.proto.PrepareShareDoc" +
+      "umentResp\"<\202\323\344\223\002!\"\034/v1/doc/prepareShareD" +
+      "ocument:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022y\n\rShare" +
+      "Document\022\027.proto.ShareDocumentReq\032\030.prot" +
+      "o.ShareDocumentResp\"5\202\323\344\223\002\032\"\025/v1/doc/sha" +
+      "reDocument:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022|\n\017Un" +
+      "shareDocument\022\031.proto.UnshareDocumentReq" +
+      "\032\032.proto.UnshareDocumentResp\"2\202\323\344\223\002\027\"\022/v" +
+      "1/doc/unshareDoc:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000" +
+      "\022\222\001\n\024ListDocActionHistory\022\036.proto.ListDo" +
+      "cActionHistoryReq\032\037.proto.ListDocActionH" +
+      "istoryResp\"9\202\323\344\223\002\036\022\034/v1/doc/listDocActio" +
+      "nHistory\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022E\n\005Login\022\017" +
+      ".proto.LoginReq\032\020.proto.LoginResp\"\031\202\323\344\223\002" +
+      "\023\"\016/v1/auth/login:\001*\022a\n\014PrepareLogin\022\026.p" +
+      "roto.PrepareLoginReq\032\027.proto.PrepareLogi" +
+      "nResp\" \202\323\344\223\002\032\"\025/v1/auth/prepareLogin:\001*\022" +
+      "]\n\013PrepareAuth\022\025.proto.PrepareAuthReq\032\026." +
+      "proto.PrepareAuthResp\"\037\202\323\344\223\002\031\"\024/v1/auth/" +
+      "prepareAuth:\001*\022M\n\007SrpInit\022\021.proto.SrpIni" +
+      "tReq\032\022.proto.SrpInitResp\"\033\202\323\344\223\002\025\"\020/v1/au" +
+      "th/srpInit:\001*\022Q\n\010SrpProof\022\022.proto.SrpPro" +
+      "ofReq\032\023.proto.SrpProofResp\"\034\202\323\344\223\002\026\"\021/v1/" +
+      "auth/srpProof:\001*\022V\n\006Logout\022\020.proto.Logou" +
+      "tReq\032\021.proto.LogoutResp\"\'\202\323\344\223\002\014\"\n/v1/log" +
+      "out\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022b\n\006Search\022\020.pro" +
+      "to.SearchReq\032\021.proto.SearchResp\"3\202\323\344\223\002\030\022" +
+      "\026/v1/doc/search/{query}\222A\022b\020\n\016\n\nApiKeyAu" +
+      "th\022\000\022\201\001\n\016AddSharableOrg\022\030.proto.AddShara" +
+      "bleOrgReq\032\031.proto.AddSharableOrgResp\":\202\323" +
+      "\344\223\002\0372\032/v1/account/addSharableOrg:\001*\222A\022b\020" +
+      "\n\016\n\nApiKeyAuth\022\000\022\215\001\n\021RemoveSharableOrg\022\033" +
+      ".proto.RemoveSharableOrgReq\032\034.proto.Remo" +
+      "veSharableOrgResp\"=\202\323\344\223\002\"2\035/v1/account/r" +
+      "emoveSharableOrg:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000" +
+      "\022\231\001\n\024SetMultiLevelSharing\022\036.proto.SetMul" +
+      "tiLevelSharingReq\032\037.proto.SetMultiLevelS" +
+      "haringResp\"@\202\323\344\223\002%\032 /v1/account/setMulti" +
+      "LevelSharing:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\201\001\n" +
+      "\016SetAccountInfo\022\030.proto.SetAccountInfoRe" +
+      "q\032\031.proto.SetAccountInfoResp\":\202\323\344\223\002\037\032\032/v" +
+      "1/account/setAccountInfo:\001*\222A\022b\020\n\016\n\nApiK" +
+      "eyAuth\022\000\022\200\001\n\021GetBillingDetails\022\033.proto.G" +
+      "etBillingDetailsReq\032\034.proto.GetBillingDe" +
+      "tailsResp\"0\202\323\344\223\002\025\022\023/v1/account/billing\222A" +
+      "\022b\020\n\016\n\nApiKeyAuth\022\000\022\234\001\n\027GetBillingFreque" +
+      "ncyList\022!.proto.GetBillingFrequencyListR" +
+      "eq\032\".proto.GetBillingFrequencyListResp\":" +
+      "\202\323\344\223\002\037\022\035/v1/account/billing/frequency\222A\022" +
+      "b\020\n\016\n\nApiKeyAuth\022\000\022\242\001\n\027SetNextBillingFre" +
+      "quency\022!.proto.SetNextBillingFrequencyRe" +
+      "q\032\".proto.SetNextBillingFrequencyResp\"@\202" +
+      "\323\344\223\002%\032 /v1/account/billing/setFrequency:" +
+      "\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\177\n\017GetLargeTraff" +
+      "ic\022\031.proto.GetLargeTrafficReq\032\032.proto.Ge" +
+      "tLargeTrafficResp\"5\202\323\344\223\002\032\022\030/v1/account/l" +
+      "argeTraffic\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022o\n\016GetA" +
+      "ccountInfo\022\030.proto.GetAccountInfoReq\032\031.p" +
+      "roto.GetAccountInfoResp\"(\202\323\344\223\002\r\022\013/v1/acc" +
+      "ount\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022k\n\013GetUserInfo" +
+      "\022\025.proto.GetUserInfoReq\032\026.proto.GetUserI" +
+      "nfoResp\"-\202\323\344\223\002\022\022\020/v1/account/user\222A\022b\020\n\016" +
+      "\n\nApiKeyAuth\022\000\022\221\001\n\022ChangeUserPassword\022\034." +
+      "proto.ChangeUserPasswordReq\032\035.proto.Chan" +
+      "geUserPasswordResp\">\202\323\344\223\002#\032\036/v1/account/" +
+      "changeUserPassword:\001*\222A\022b\020\n\016\n\nApiKeyAuth" +
+      "\022\000\022u\n\013SetUserInfo\022\025.proto.SetUserInfoReq" +
+      "\032\026.proto.SetUserInfoResp\"7\202\323\344\223\002\034\032\027/v1/ac" +
+      "count/setUserInfo:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022" +
+      "\000\022x\n\017ListCreditCards\022\031.proto.ListCreditC" +
+      "ardsReq\032\032.proto.ListCreditCardsResp\".\202\323\344" +
+      "\223\002\023\022\021/v1/billing/cards\222A\022b\020\n\016\n\nApiKeyAut" +
+      "h\022\000\022\206\001\n\020AddPaymentMethod\022\032.proto.AddPaym" +
+      "entMethodReq\032\033.proto.AddPaymentMethodRes" +
+      "p\"9\202\323\344\223\002\036\"\031/v1/billing/paymentMethod:\001*\222" +
+      "A\022b\020\n\016\n\nApiKeyAuth\022\000\022\243\001\n\027SetDefaultPayme" +
+      "ntMethod\022!.proto.SetDefaultPaymentMethod" +
+      "Req\032\".proto.SetDefaultPaymentMethodResp\"" +
+      "A\202\323\344\223\002&\032!/v1/billing/paymentMethod/defau" +
+      "lt:\001*\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022\232\001\n\023RemovePay" +
+      "mentMethod\022\035.proto.RemovePaymentMethodRe" +
+      "q\032\036.proto.RemovePaymentMethodResp\"D\202\323\344\223\002" +
+      ")*\'/v1/billing/paymentMethod/remove/{pmI" +
+      "D}\222A\022b\020\n\016\n\nApiKeyAuth\022\000\022r\n\014ListPayments\022" +
+      "\026.proto.ListPaymentsReq\032\027.proto.ListPaym" +
+      "entsResp\"1\202\323\344\223\002\026\022\024/v1/billing/payments\222A" +
+      "\022b\020\n\016\n\nApiKeyAuth\022\000B\360\002\n\"com.strongsalt.s" +
+      "trongdoc.sdk.protoB\016StrongDocProto\210\001\001\222A\265" +
+      "\002\0227\n\rStrongDoc API\"!\n\nStrongSalt\032\023info@s" +
+      "trongsalt.com2\0031.02\020application/json:\020ap" +
+      "plication/jsonZ\212\001\n\207\001\n\nApiKeyAuth\022y\010\002\022dTh" +
+      "e word \'Bearer\' and a space is required " +
+      "before the token.\nFor example,\nBearer au" +
+      "thentication_token\032\rAuthorization \002rI\n\027M" +
+      "ore about gRPC-Gateway\022.https://github.c" +
+      "om/grpc-ecosystem/grpc-gatewayb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -17,7 +17,6 @@ import com.strongsalt.strongdoc.sdk.api.responses.*;
 import com.strongsalt.strongdoc.sdk.client.StrongDocServiceClient;
 import com.strongsalt.strongdoc.sdk.exceptions.StrongDocServiceException;
 import com.strongsalt.strongdoc.sdk.proto.Account;
-import com.strongsalt.strongdoc.sdk.proto.Encryption;
 import io.grpc.StatusRuntimeException;
 
 import java.util.ArrayList;
@@ -73,21 +72,19 @@ public class StrongDocAccount {
             regOrg.addSharableOrgs(sharableOrg);
         }
 
-//        regOrg.setPassword(adminPassword); // TODO: remove
-
         // generate loginData
-        Account.RegisterLoginData.Builder loginData = Account.RegisterLoginData.newBuilder();
-        loginData.setLoginType(Account.LoginType.SRP);
-        loginData.setLoginVersion(1);
+        Account.RegisterAuthData.Builder authData = Account.RegisterAuthData.newBuilder();
+        authData.setAuthType(Account.AuthType.AUTH_SRP);
+        authData.setAuthVersion(1);
         try {
             SRPSession srpSession = SRP.ONE.getSession();
             Verifier verifier = srpSession.verifier("whatever".getBytes(), adminPassword.getBytes());
             String[] encodedVerifier = verifier.encode();
-            loginData.setSrpVerifier(encodedVerifier[1]);
+            authData.setSrpVerifier(encodedVerifier[1]);
         } catch (StrongSaltSRPException e) {
             throw new StrongDocServiceException("Fail to init SRP", e);
         }
-        regOrg.setAdminLoginData(loginData.build());
+        regOrg.setAdminAuthData(authData.build());
 
         // generate client keys
         try {
@@ -146,7 +143,6 @@ public class StrongDocAccount {
         registerUserReqBuilder.setInvitationCode(invitationCode);
         registerUserReqBuilder.setOrgID(orgID);
         registerUserReqBuilder.setUserName(username);
-//        registerUserReqBuilder.setPassword(password); // TODO remove later
 
         // generate client keys
         try {
@@ -166,18 +162,18 @@ public class StrongDocAccount {
         }
 
         // generate loginData
-        Account.RegisterLoginData.Builder loginData = Account.RegisterLoginData.newBuilder();
-        loginData.setLoginType(Account.LoginType.SRP);
-        loginData.setLoginVersion(1);
+        Account.RegisterAuthData.Builder authData = Account.RegisterAuthData.newBuilder();
+        authData.setAuthType(Account.AuthType.AUTH_SRP);
+        authData.setAuthVersion(1);
         try {
             SRPSession srpSession = SRP.ONE.getSession();
             Verifier verifier = srpSession.verifier("whatever".getBytes(), password.getBytes());
             String[] encodedVerifier = verifier.encode();
-            loginData.setSrpVerifier(encodedVerifier[1]);
+            authData.setSrpVerifier(encodedVerifier[1]);
         } catch (StrongSaltSRPException e) {
             throw new StrongDocServiceException("Fail to init SRP", e);
         }
-        registerUserReqBuilder.setLoginData(loginData.build());
+        registerUserReqBuilder.setAuthData(authData.build());
 
 
         final Account.RegisterUserResp res = client.getBlockingStub().registerUser(registerUserReqBuilder.build());
@@ -222,43 +218,44 @@ public class StrongDocAccount {
     public Boolean promoteUser(final StrongDocServiceClient client,
                                final String userIDOrEmail)
             throws StatusRuntimeException {
+        return true;
 
-        final Account.PreparePromoteUserReq preparePromoteUserReq = Account.PreparePromoteUserReq.newBuilder()
-                .setUserID(userIDOrEmail)
-                .build();
-        final Account.PreparePromoteUserResp preparePromoteRes = client.getBlockingStub().preparePromoteUser(preparePromoteUserReq);
-
-        Encryption.EncryptedKey encryptedOrgKey = preparePromoteRes.getEncOrgKey();
-        byte[] encOrgPriKeyBytes = Base64.getUrlDecoder().decode(encryptedOrgKey.getEncKey());
-        byte[] encUserPriKeyBytes = Base64.getUrlDecoder().decode(preparePromoteRes.getEncUserPriKey());
-        byte[] newUserPubKeyBytes = Base64.getUrlDecoder().decode(preparePromoteRes.getNewUserPubKey());
-
-
-        Encryption.EncryptedKey.Builder encryptedKeyBuilder = Encryption.EncryptedKey.newBuilder();
-        try {
-            byte[] decryptedUserKeyBytes = client.userDecrypt(encUserPriKeyBytes);
-
-            StrongSaltKey adminKey = StrongSaltKey.Deserialize(decryptedUserKeyBytes);
-            byte[] orgPriKeyBytes = adminKey.decrypt(encOrgPriKeyBytes);
-
-            StrongSaltKey userKey = StrongSaltKey.Deserialize(newUserPubKeyBytes);
-            byte[] reEncryptedOrgKey = userKey.encrypt(orgPriKeyBytes);
-            encryptedKeyBuilder.setEncKey(Base64.getUrlEncoder().encodeToString(reEncryptedOrgKey))
-                    .setEncryptorID(encryptedOrgKey.getEncryptorID())
-                    .setOwnerID(encryptedOrgKey.getOwnerID())
-                    .setKeyID(encryptedOrgKey.getKeyID());
-
-
-        } catch (StrongSaltKeyException e) {
-            e.printStackTrace();
-        }
-
-
-        final Account.PromoteUserReq promoteUserReq = Account.PromoteUserReq.newBuilder()
-                .setEncryptedKey(encryptedKeyBuilder.build())
-                .build();
-        final Account.PromoteUserResp res = client.getBlockingStub().promoteUser(promoteUserReq);
-        return res.getSuccess();
+//        final Account.PreparePromoteUserReq preparePromoteUserReq = Account.PreparePromoteUserReq.newBuilder()
+//                .setUserID(userIDOrEmail)
+//                .build();
+//        final Account.PreparePromoteUserResp preparePromoteRes = client.getBlockingStub().preparePromoteUser(preparePromoteUserReq);
+//
+//        Encryption.EncryptedKey encryptedOrgKey = preparePromoteRes.getEncOrgKey();
+//        byte[] encOrgPriKeyBytes = Base64.getUrlDecoder().decode(encryptedOrgKey.getEncKey());
+//        byte[] encUserPriKeyBytes = Base64.getUrlDecoder().decode(preparePromoteRes.getEncUserPriKey());
+//        byte[] newUserPubKeyBytes = Base64.getUrlDecoder().decode(preparePromoteRes.getNewUserPubKey());
+//
+//
+//        Encryption.EncryptedKey.Builder encryptedKeyBuilder = Encryption.EncryptedKey.newBuilder();
+//        try {
+//            byte[] decryptedUserKeyBytes = client.userDecrypt(encUserPriKeyBytes);
+//
+//            StrongSaltKey adminKey = StrongSaltKey.Deserialize(decryptedUserKeyBytes);
+//            byte[] orgPriKeyBytes = adminKey.decrypt(encOrgPriKeyBytes);
+//
+//            StrongSaltKey userKey = StrongSaltKey.Deserialize(newUserPubKeyBytes);
+//            byte[] reEncryptedOrgKey = userKey.encrypt(orgPriKeyBytes);
+//            encryptedKeyBuilder.setEncKey(Base64.getUrlEncoder().encodeToString(reEncryptedOrgKey))
+//                    .setEncryptorID(encryptedOrgKey.getEncryptorID())
+//                    .setOwnerID(encryptedOrgKey.getOwnerID())
+//                    .setKeyID(encryptedOrgKey.getKeyID());
+//
+//
+//        } catch (StrongSaltKeyException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        final Account.PromoteUserReq promoteUserReq = Account.PromoteUserReq.newBuilder()
+//                .setEncryptedKey(encryptedKeyBuilder.build())
+//                .build();
+//        final Account.PromoteUserResp res = client.getBlockingStub().promoteUser(promoteUserReq);
+//        return res.getSuccess();
     }
 
     // ---------------------------------- DemoteUserReq ----------------------------------
@@ -293,13 +290,13 @@ public class StrongDocAccount {
      * @param userIDorEmail The login user ID or Email
      * @param userPassword  The login user password
      * @param orgID         The login organization ID
-     * @return The JWT token used to authenticate user/org when using StrongDoc APIs.
+     * @return void
      * @throws StrongDocServiceException on StrongDocServiceException errors
      */
-    public boolean login(final StrongDocServiceClient client, final String orgID,
-                         final String userIDorEmail, final String userPassword)
+    public void login(final StrongDocServiceClient client, final String orgID,
+                      final String userIDorEmail, final String userPassword)
             throws StrongDocServiceException {
-        return client.login(orgID, userIDorEmail, userPassword);
+        client.login(orgID, userIDorEmail, userPassword);
     }
 
     // ---------------------------------- LogoutReq ----------------------------------
@@ -594,25 +591,17 @@ public class StrongDocAccount {
     /**
      * Changes the user password
      *
-     * @param client The StrongDoc client used to call this API.
+     * @param client          The StrongDoc client used to call this API.
      * @param currentPassword The user's current password.
-     * @param newPassword The user's new password.
-     * @return Whether or not the change was a success.
-     * @throws StatusRuntimeException on gRPC errors
+     * @param newPassword     The user's new password.
+     * @return void
+     * @throws StatusRuntimeException on gRPC errors, StrongDocServiceException on client service errors
      * @see StatusRuntimeException io.grpc
      */
-    public boolean changeUserPassword(final StrongDocServiceClient client,
-                                                final String currentPassword,
-                                                final String newPassword)
-            throws StatusRuntimeException {
-
-        final Account.ChangeUserPasswordReq req = Account.ChangeUserPasswordReq.newBuilder()
-                .setOldPassword(currentPassword)
-                .setNewPassword(newPassword)
-                .build();
-
-        final Account.ChangeUserPasswordResp res = client.getBlockingStub().changeUserPassword(req);
-
-        return res.getSuccess();
+    public void changeUserPassword(final StrongDocServiceClient client,
+                                   final String currentPassword,
+                                   final String newPassword)
+            throws StatusRuntimeException, StrongDocServiceException {
+        client.changePassword(currentPassword, newPassword);
     }
 }
