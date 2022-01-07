@@ -46,7 +46,7 @@
 		<grpc.version>1.26.0</grpc.version>
 		<protoc.version>3.11.2</protoc.version>
 		<protobuf.version>3.11.0</protobuf.version>
-		<protobuf.java.version>3.11.4</protobuf.java.version>
+		<protobuf.java.version>3.16.1</protobuf.java.version>
 		<protobuf.java.util.version>3.11.4</protobuf.java.util.version>
 		<junit-jupiter.version>5.5.2</junit-jupiter.version>
 		<!-- required for jdk9 -->
